@@ -1,0 +1,115 @@
+/* You can add global styles to this file, and also import other style files */
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+table {
+  width: 100%;
+  margin-top: 40px;
+}
+
+form {
+  flex-direction: row;
+  margin-bottom: 40px;
+}
+
+mat-form-field.mat-form-field {
+  margin-top: 20px;
+  margin-right: 5%;
+  font-size: 17px;
+}
+
+.container {
+  display: flex;
+}
+
+.buttonVoltar{
+  margin-top: 200px;
+  float: left;
+  width: 150px;
+}
+
+.buttonConsultar {
+  margin-top: 40px;
+  float: right;
+  width: 150px;
+}
+
+.buttonInserir {
+  margin-top: 40px;
+  float: right;
+  width: 150px;
+}
+
+.buttonSalvar {
+  margin-top: 40px;
+  float: right;
+  width: 150px;
+}
+
+.buttonCancelar {
+  margin-top: 40px;
+  float: right;
+  width: 150px;
+}
+
+.table-striped > tbody > tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: #f5f5f5;
+}
+
+.blue {
+  color: rgb(10, 37, 194);
+}
+
+.v-middle{
+  vertical-align: middle;
+}
+
+
+.dialogModal .mat-dialog-container{
+  height: 250px;
+  width: 500px;
+  border-radius: 10px;
+  background: white;
+}
+
+img {
+  max-width: 40%;
+  max-height: 20%;
+  align-content: center;
+}
+
+:root {
+  --success-color: #198754;
+  --alert-color: #dc7935;
+  --error-color: #dc3545;
+}
+.mat-simple-snackbar-action {
+  color: blue;
+}
+
+.success-snackbar {
+  color: var(--success-color);
+  --mdc-snackbar-container-color: var(--success-color);
+}
+
+.alert-snackbar {
+  color: black;
+  duration: 500;
+  position: absolute !important;
+  top: 150px;
+  --mdc-snackbar-container-color: var(--alert-color);
+}
+
+.error-snackbar {
+  color: black;
+  position: absolute !important;
+  top: 150px;
+  --mdc-snackbar-container-color: var(--error-color);
+}
+

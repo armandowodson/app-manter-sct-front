@@ -1,0 +1,29 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+
+<mat-drawer-container [class.drawer-opened]="drawer.opened">
+  <mat-drawer #drawer mode="side" opened="true" class="menu estilo" mode="side">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">
+          home
+        </i>
+        Início
+      </a>
+      <a mat-list-item routerLink="/principal">
+        <i class="material-icons">
+          store
+        </i>
+        Login
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="main contents">
+    <router-outlet></router-outlet>
+  </div>
+
+  <mat-toolbar class="main footer">
+    Versão da Aplicação 1.0 - 2025
+  </mat-toolbar>
+</mat-drawer-container>

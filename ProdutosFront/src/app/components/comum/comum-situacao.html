@@ -1,0 +1,13 @@
+<mat-form-field appearance="outline" style="width: 200px;">
+    <mat-label>Situação</mat-label>
+    <select matNativeControl (change)="selecionarSituacao($event)">
+        <option *ngFor="let option of situacoes" [value]="option.value"
+            [selected]="situacaoSelecionada === option.value">{{ option.viewValue }}</option>
+    </select>
+    <button mat-button *ngIf="situacaoSelecionada > 0" matSuffix aria-label="Clear"
+    (click)="limparCombo()">
+        <i class="material-icons black v-middle">
+            close
+        </i>
+    </button>
+</mat-form-field>

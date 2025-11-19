@@ -1,0 +1,36 @@
+<mat-card>
+    <div style="height: 50px; margin-left: 20px;">
+      <mat-card-title><b>Registrar Usuário</b></mat-card-title>
+    </div>
+    <div>
+        <form>
+          <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-label >Usuário</mat-label>
+            <input matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="registro.usuario" name="usuario">
+            <button mat-button *ngIf="registro.usuario" matSuffix aria-label="Clear" (click)="registro.usuario=''">
+              <i class="material-icons black v-middle">
+                close
+              </i>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-label >Senha</mat-label>
+            <input matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="registro.senha" name="usuario">
+            <button mat-button *ngIf="registro.senha" matSuffix aria-label="Clear" (click)="registro.senha=''">
+              <i class="material-icons black v-middle">
+                close
+              </i>
+            </button>
+          </mat-form-field>
+        </form>
+    </div>
+</mat-card>
+<br>
+<div class="btn-toolbar" style="float: right;">
+  <div class="btn-group">
+    <button color="primary" class="buttonInserir" mat-raised-button (click) = "registrarLogin()">
+      Registrar
+    </button>
+  </div>
+</div>

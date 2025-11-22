@@ -10,11 +10,29 @@
         </i>
         Início
       </a>
-      <a mat-list-item routerLink="/principal">
+      <a mat-list-item routerLink="/logar" *ngIf="environment.loginGlobal=='0'">
         <i class="material-icons">
-          store
+          login
         </i>
-        Login
+        Acessar SCT
+      </a>
+      <a mat-list-item routerLink="/registrar">
+        <i class="material-icons">
+          add_circle
+        </i>
+        Registrar Usuário
+      </a>
+      <a mat-list-item routerLink="/products" *ngIf="environment.loginGlobal=='1'">
+        <i class="material-icons">
+          computer
+        </i>
+        Produtos
+      </a>
+      <a mat-list-item routerLink="/sair" *ngIf="environment.loginGlobal=='1'">
+        <i class="material-icons">
+          arrow_back
+        </i>
+        Sair
       </a>
     </mat-nav-list>
   </mat-drawer>

@@ -1,12 +1,12 @@
 <mat-card>
-  <div style="height: 50px; margin-left: 20px;">
-    <mat-card-title><b>Login</b></mat-card-title>
+  <div style="height: 50px; margin-left: 570px; margin-right: 30px;">
+    <mat-card-title><b>LOGIN</b></mat-card-title>
   </div>
   <div>
     <form>
-      <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-form-field appearance="outline" style="width: 250px; margin-left: 500px; margin-right: 30px;">
         <mat-label >Usuário</mat-label>
-        <input matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="login.usuario" name="usuario">
+        <input maxlength="10" matInput placeholder="Usuário" style="margin-right: 20px;" [(ngModel)]="login.usuario" name="usuario">
         <button mat-button *ngIf="login.usuario" matSuffix aria-label="Clear" (click)="login.usuario=''">
           <i class="material-icons black v-middle">
             close
@@ -14,9 +14,9 @@
         </button>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-form-field appearance="outline" style="width: 250px; margin-left: 500px; margin-right: 30px;">
         <mat-label >Senha</mat-label>
-        <input matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="login.senha" name="usuario">
+        <input maxlength="8" matInput #input type="password" placeholder="Senha" style="margin-right: 20px;" [(ngModel)]="login.senha" name="senha">
         <button mat-button *ngIf="login.senha" matSuffix aria-label="Clear" (click)="login.senha=''">
           <i class="material-icons black v-middle">
             close
@@ -27,10 +27,10 @@
   </div>
 </mat-card>
 <br>
-<div class="btn-toolbar" style="float: right;">
+<div class="btn-toolbar" style="margin-left: 520px; margin-right: 30px;">
   <div class="btn-group">
-    <button color="primary" class="buttonInserir" mat-raised-button (click) = "logar()">
-      Entrar
+    <button color="primary" class="buttonConsultar" style="margin-left: 30px; margin-right: 30px;" mat-raised-button (click) = "logar()">
+      Conectar
     </button>
   </div>
 </div>

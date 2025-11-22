@@ -4,9 +4,19 @@
     </div>
     <div>
         <form>
-          <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-form-field appearance="outline" style="width: 400px; margin-left: 20px; margin-right: 30px;">
+            <mat-label >Nome Completo</mat-label>
+            <input maxlength="100" matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="registro.nome" name="nome">
+            <button mat-button *ngIf="registro.nome" matSuffix aria-label="Clear" (click)="registro.nome=''">
+              <i class="material-icons black v-middle">
+                close
+              </i>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
             <mat-label >Usuário</mat-label>
-            <input matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="registro.usuario" name="usuario">
+            <input maxlength="10" matInput placeholder="Usuário" style="margin-right: 20px;" [(ngModel)]="registro.usuario" name="usuario">
             <button mat-button *ngIf="registro.usuario" matSuffix aria-label="Clear" (click)="registro.usuario=''">
               <i class="material-icons black v-middle">
                 close
@@ -14,10 +24,19 @@
             </button>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
             <mat-label >Senha</mat-label>
-            <input matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="registro.senha" name="usuario">
+            <input maxlength="8" matInput #input type="password" placeholder="Senha" style="margin-right: 20px;" [(ngModel)]="registro.senha" name="senha">
             <button mat-button *ngIf="registro.senha" matSuffix aria-label="Clear" (click)="registro.senha=''">
+              <i class="material-icons black v-middle">
+                close
+              </i>
+            </button>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+            <mat-label >Confirmar Senha</mat-label>
+            <input maxlength="8" matInput #input type="password" placeholder="Senha Confirmação" style="margin-right: 20px;" [(ngModel)]="senhaConfirmacao" name="senhaConfirmacao">
+            <button mat-button *ngIf="senhaConfirmacao" matSuffix aria-label="Clear" (click)="senhaConfirmacao=''">
               <i class="material-icons black v-middle">
                 close
               </i>

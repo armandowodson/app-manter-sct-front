@@ -3,8 +3,8 @@ import { MatPaginator } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { CurrencyPipe } from "@angular/common";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import {RegistroService} from "../../../service/registro.service";
 import {Registro} from "./registro.model";
+import {LoginService} from "../../../service/login.service";
 
 @Injectable({
   providedIn: "root",
@@ -18,17 +18,19 @@ export class RegistroComponent implements OnInit {
 
   NODE_TLS_REJECT_UNAUTHORIZED = 0;
   public loading = false;
+  public senhaConfirmacao = "";
 
   registro: Registro = {
     usuario: "",
-    senha: ""
+    senha: "",
+    nome: ""
   };
 
   errors: string;
   logou = 1;
 
   constructor(
-    private registroService: RegistroService,
+    private loginService: LoginService,
     private router: Router,
     private currencyPipe: CurrencyPipe,
     public matDialog: MatDialog
@@ -41,7 +43,17 @@ export class RegistroComponent implements OnInit {
   }
 
   registrarLogin() {
-    this.router.navigate(['products']);
+      if (this.registro.senha != this.senhaConfirmacao) {
+          this.loginService.showMessageError('Senhas não conferem!!!');
+      } else {
+          this.loginService.registrarLogin(this.registro).subscribe(() => {
+              this.loginService.showMessageSuccess('Usuário registrado com Sucesso!!!');
+              this.router.navigate(['/logar']);
+          },
+            error => {
+              this.errors = error
+              this.loginService.showMessageError(this.errors);
+          });
+      }
   }
-
 }

@@ -1,0 +1,46 @@
+<mat-card>
+    <div style="height: 50px; margin-left: 20px;">
+      <mat-card-title><b>Inlcusão de Produto</b></mat-card-title>
+    </div>
+    <form>
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-label >Nome</mat-label>
+            <input matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="product.nome" name="nome">
+            <button color="primary" mat-button *ngIf="product.nome" matSuffix aria-label="Clear" (click)="product.nome=''">
+                <i class="material-icons black v-middle">
+                    close
+                </i>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 200px; margin-right: 30px;">
+            <mat-label>Preço (R$)</mat-label>
+            <input matInput placeholder="Preço (R$)" (blur)="transformarMoeda($event)" [(ngModel)]="valorFormatado" name="preco">
+            <button color="primary" mat-button *ngIf="valorFormatado" matSuffix aria-label="Clear" (click)="valorFormatado=''">
+                <i class="material-icons black v-middle">
+                    close
+                </i>
+            </button>
+        </mat-form-field>
+
+        <app-comum-situacao></app-comum-situacao>
+
+        <mat-form-field appearance="outline" style="width: 780px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Descrição</mat-label>
+          <input matInput placeholder="Nome" style="margin-right: 20px;" [(ngModel)]="product.descricao" name="descricao">
+          <button color="primary" mat-button *ngIf="product.descricao" matSuffix aria-label="Clear" (click)="product.descricao=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+    </form>
+</mat-card>
+<div>
+    <button color="primary" class="buttonCancelar" style="margin-left: 30px;" mat-raised-button (click) = "cancelar()">
+        Cancelar
+    </button>
+    <button color="primary" class="buttonSalvar" mat-raised-button (click) = "inserirProduto()">
+        Salvar
+    </button>
+</div>
+

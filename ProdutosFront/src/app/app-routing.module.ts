@@ -4,10 +4,9 @@ import { HomeComponent} from './views/home/home.component';
 import { ProductCrudComponent } from './views/product-crud/product-crud.component';
 import { ProductCreateComponent } from './components/product/product-create/product-create.component';
 import { ProductEditComponent } from './components/product/product-edit/product-edit.component';
-import {NavComponent} from "./components/template/nav/nav.component";
 import {LoginComponent} from "./components/template/login/login.component";
 import {RegistroComponent} from "./components/template/registro/registro.component";
-import {PrincipalComponent} from "./components/template/principal/principal.component";
+import {LogoutComponent} from "./components/template/logout/logout.component";
 
 const routes: Routes = [
   {
@@ -35,8 +34,8 @@ const routes: Routes = [
     component: RegistroComponent
   },
   {
-    path: "principal",
-    component: PrincipalComponent
+    path: "sair",
+    component: LogoutComponent
   }
 ];
 

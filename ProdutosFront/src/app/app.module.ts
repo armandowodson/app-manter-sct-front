@@ -45,9 +45,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent as ModalComponent } from './components/modal-component/modal.component';
 
 import {LoginComponent} from "./components/template/login/login.component";
-import {IonButton, IonContent} from "@ionic/angular/standalone";
 import {RegistroComponent} from "./components/template/registro/registro.component";
-import {PrincipalComponent} from "./components/template/principal/principal.component";
+import {LogoutComponent} from "./components/template/logout/logout.component";
 
 registerLocaleData(localePt);
 
@@ -70,7 +69,7 @@ registerLocaleData(localePt);
     ModalComponent,
     LoginComponent,
     RegistroComponent,
-    PrincipalComponent
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -92,9 +91,7 @@ registerLocaleData(localePt);
     MatIconModule,
     NgxPaginationModule,
     NgbModule,
-    MatDialogModule,
-    IonContent,
-    IonButton
+    MatDialogModule
   ],
 
   providers: [

@@ -7,7 +7,7 @@
 
   .menu.estilo {
     background-color:rgb(93, 142, 247);
-    width: 150px;
+    width: 200px;
   }
 
   .toolbar.estilo {
@@ -35,3 +35,4 @@
   .mat-toolbar {
     justify-content: center;
   }
+

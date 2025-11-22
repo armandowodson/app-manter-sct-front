@@ -5,6 +5,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { CurrencyPipe } from "@angular/common";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -41,7 +42,18 @@ export class LoginComponent implements OnInit {
   }
 
   logar() {
-    this.router.navigate(['/']);
+    this.loginService.efetuarLogin(this.login).subscribe(login => {
+        if (login == null || login.usuario == '') {
+          this.loginService.showMessageAlert('Usuário e/ou Senha inválidos!');
+        }else{
+          environment.loginGlobal = '1';
+          this.router.navigate(['/']);
+        }
+      },
+      error => {
+        this.errors = error
+        this.loginService.showMessageError(this.errors);
+    });
   }
 
 }

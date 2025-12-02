@@ -18,8 +18,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  acessarProdutos(){
-    this.router.navigate(['/products']);
+  acessarPontosTaxi(){
+    this.router.navigate(['/ponto-taxi']);
   }
 
   protected readonly environment = environment;

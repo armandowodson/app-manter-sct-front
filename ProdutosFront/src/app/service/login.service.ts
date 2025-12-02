@@ -2,7 +2,6 @@ import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders, HttpBacke
 import {inject, Injectable} from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Observable, throwError  } from 'rxjs';
-import { Product } from '../../app/components/product/product.model';
 import { catchError } from 'rxjs/operators';
 import {Login} from "../components/template/login/login.model";
 import {Registro} from "../components/template/registro/registro.model";

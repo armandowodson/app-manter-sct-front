@@ -12,11 +12,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule} from '@angular/material/list';
 import { HomeComponent } from './views/home/home.component';
-import { ProductCrudComponent } from './views/product-crud/product-crud.component';
 import { RedDirective } from './directives/red.directive';
 import { ForDirective } from './directives/for.directive';
-import { ProductCreateComponent } from './components/product/product-create/product-create.component';
-import { ProductEditComponent } from './components/product/product-edit/product-edit.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -25,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ProductReadComponent } from './components/product/product-read/product-read.component';
+import { PontoTaxiCrudComponent } from './views/ponto-taxi-crud/ponto-taxi-crud.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -34,8 +31,6 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 
 import {MatIconModule} from '@angular/material/icon';
-import { ComumSituacao } from './components/comum/comum-situacao';
-import { ComumSinal } from './components/comum/comum-sinal';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { CurrencyPipe} from '@angular/common';
@@ -47,6 +42,11 @@ import { ModalComponent as ModalComponent } from './components/modal-component/m
 import {LoginComponent} from "./components/template/login/login.component";
 import {RegistroComponent} from "./components/template/registro/registro.component";
 import {LogoutComponent} from "./components/template/logout/logout.component";
+import {PrincipalComponent} from "./components/template/principal/principal.component";
+import {PontoTaxiReadComponent} from "./components/pontos-taxi/ponto-taxi-read/ponto-taxi-read.component";
+import {PontoTaxiCreateComponent} from "./components/pontos-taxi/ponto-taxi-create/ponto-taxi-create.component";
+import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/ponto-taxi-edit.component";
+import {VeiculoReadComponent} from "./components/veiculo/veiculo-read/veiculo-read.component";
 
 registerLocaleData(localePt);
 
@@ -58,18 +58,18 @@ registerLocaleData(localePt);
     FooterComponent,
     NavComponent,
     HomeComponent,
-    ProductCrudComponent,
+    PontoTaxiCrudComponent,
     RedDirective,
     ForDirective,
-    ProductCreateComponent,
-    ProductReadComponent,
-    ProductEditComponent,
-    ComumSituacao,
-    ComumSinal,
+    PontoTaxiReadComponent,
+    PontoTaxiCreateComponent,
+    PontoTaxiEditComponent,
     ModalComponent,
     LoginComponent,
     RegistroComponent,
-    LogoutComponent
+    LogoutComponent,
+    PrincipalComponent,
+    VeiculoReadComponent
   ],
   imports: [
     BrowserModule,

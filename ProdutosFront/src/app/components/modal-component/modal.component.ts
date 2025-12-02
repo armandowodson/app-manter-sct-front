@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ProductService } from '../../service/product.service';
+import { PontoTaxiService } from '../../service/ponto-taxi.service';
 
 @Component({
   selector: 'app-modal',
@@ -13,37 +13,37 @@ import { ProductService } from '../../service/product.service';
 export class ModalComponent implements OnInit {
 
   errors: string;
-  produtoSelecionado: string;
+  pontoTaxiSelecionado: string;
 
   constructor(public dialogRef: MatDialogRef<ModalComponent>,
-              private productService: ProductService,
-              private router: Router) { 
+              private pontoTaxiService: PontoTaxiService,
+              private router: Router) {
       this.errors = '';
-      this.produtoSelecionado = '';
+      this.pontoTaxiSelecionado = '';
   }
 
   ngOnInit() {
-      this.produtoSelecionado = this.dialogRef.id;
+      this.pontoTaxiSelecionado = this.dialogRef.id;
   }
 
   // When the user clicks the action button a.k.a. the logout button in the\
   // modal, show an alert and followed by the closing of the modal
   confirma() {
-    var posicaoInicio = 0;
-    var posicaoFim = 0;
-    var idProduto = '';
+      var posicaoInicio = 0;
+      var posicaoFim = 0;
+      var idPontoTaxi = '';
 
-    posicaoInicio = this.dialogRef.id.indexOf(':');
-    posicaoFim = this.dialogRef.id.indexOf('-');
-    idProduto = this.dialogRef.id.substr(posicaoInicio+1, (posicaoFim-1) - (posicaoInicio+1)).trim();
+      posicaoInicio = this.dialogRef.id.indexOf(':');
+      posicaoFim = this.dialogRef.id.indexOf('-');
+      idPontoTaxi = this.dialogRef.id.substr(posicaoInicio+1, (posicaoFim-1) - (posicaoInicio+1)).trim();
 
-    this.productService.excluirProduto(parseInt(idProduto)).subscribe(() => {
-      this.productService.showMessageSuccess('Produto Excluído com Sucesso!!!');
+      this.pontoTaxiService.excluirPontoTaxi(parseInt(idPontoTaxi)).subscribe(() => {
+      this.pontoTaxiService.showMessageSuccess('Ponto de Táxi Excluído com Sucesso!!!');
       this.reloadComponent();
     },
     error => {
         this.errors = error
-        this.productService.showMessageError(this.errors); 
+        this.pontoTaxiService.showMessageError(this.errors);
     });
     this.cancela();
   }
@@ -55,7 +55,7 @@ export class ModalComponent implements OnInit {
   }
 
   reloadComponent() {
-      let currentUrl = '/products';
+      let currentUrl = '/ponto-taxi';
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate([currentUrl]);

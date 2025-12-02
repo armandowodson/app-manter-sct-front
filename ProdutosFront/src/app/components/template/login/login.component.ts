@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           this.loginService.showMessageAlert('Usuário e/ou Senha inválidos!');
         }else{
           environment.loginGlobal = '1';
-          this.router.navigate(['/']);
+          this.router.navigate(['/principal']);
         }
       },
       error => {

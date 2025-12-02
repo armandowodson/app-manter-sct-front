@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent} from './views/home/home.component';
-import { ProductCrudComponent } from './views/product-crud/product-crud.component';
-import { ProductCreateComponent } from './components/product/product-create/product-create.component';
-import { ProductEditComponent } from './components/product/product-edit/product-edit.component';
+import { PontoTaxiCrudComponent } from './views/ponto-taxi-crud/ponto-taxi-crud.component';
 import {LoginComponent} from "./components/template/login/login.component";
 import {RegistroComponent} from "./components/template/registro/registro.component";
 import {LogoutComponent} from "./components/template/logout/logout.component";
+import {PontoTaxiCreateComponent} from "./components/pontos-taxi/ponto-taxi-create/ponto-taxi-create.component";
+import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/ponto-taxi-edit.component";
+import {PrincipalComponent} from "./components/template/principal/principal.component";
 
 const routes: Routes = [
   {
@@ -14,16 +15,16 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: "products",
-    component: ProductCrudComponent
+    path: "ponto-taxi",
+    component: PontoTaxiCrudComponent
   },
   {
-    path: "products/create",
-    component: ProductCreateComponent
+    path: "ponto-taxi/create",
+    component: PontoTaxiCreateComponent
   },
   {
-    path: "products/edit",
-    component: ProductEditComponent
+    path: "ponto-taxi/edit",
+    component: PontoTaxiEditComponent
   },
   {
     path: "logar",
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: "registrar",
     component: RegistroComponent
+  },
+  {
+    path: "principal",
+    component: PrincipalComponent
   },
   {
     path: "sair",

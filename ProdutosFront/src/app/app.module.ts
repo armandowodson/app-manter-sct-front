@@ -37,7 +37,8 @@ import { CurrencyPipe} from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatDialogModule } from '@angular/material/dialog';
-import { ModalComponent as ModalComponent } from './components/modal-component/modal.component';
+import { PontoTaxiModalComponent } from './components/ponto-taxi-modal-component/ponto-taxi-modal.component';
+import { PermissionarioModalComponent } from './components/permissionario-modal-component/permissionario-modal.component';
 
 import {LoginComponent} from "./components/template/login/login.component";
 import {RegistroComponent} from "./components/template/registro/registro.component";
@@ -46,7 +47,12 @@ import {PrincipalComponent} from "./components/template/principal/principal.comp
 import {PontoTaxiReadComponent} from "./components/pontos-taxi/ponto-taxi-read/ponto-taxi-read.component";
 import {PontoTaxiCreateComponent} from "./components/pontos-taxi/ponto-taxi-create/ponto-taxi-create.component";
 import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/ponto-taxi-edit.component";
+import {PermissionarioReadComponent} from "./components/permissionario/permissionario-read/permissionario-read.component";
+import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
+import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
+import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
 import {VeiculoReadComponent} from "./components/veiculo/veiculo-read/veiculo-read.component";
+import {MatSelectModule} from "@angular/material/select";
 
 registerLocaleData(localePt);
 
@@ -61,14 +67,19 @@ registerLocaleData(localePt);
     PontoTaxiCrudComponent,
     RedDirective,
     ForDirective,
-    PontoTaxiReadComponent,
-    PontoTaxiCreateComponent,
-    PontoTaxiEditComponent,
-    ModalComponent,
+    PontoTaxiModalComponent,
+    PermissionarioModalComponent,
     LoginComponent,
     RegistroComponent,
     LogoutComponent,
     PrincipalComponent,
+    PontoTaxiReadComponent,
+    PontoTaxiCreateComponent,
+    PontoTaxiEditComponent,
+    PermissionarioReadComponent,
+    PermissionarioCrudComponent,
+    PermissionarioCreateComponent,
+    PermissionarioEditComponent,
     VeiculoReadComponent
   ],
   imports: [
@@ -91,7 +102,8 @@ registerLocaleData(localePt);
     MatIconModule,
     NgxPaginationModule,
     NgbModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
 
   providers: [

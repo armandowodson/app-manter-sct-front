@@ -24,8 +24,8 @@ export class PrincipalComponent implements OnInit {
     this.router.navigate(['/ponto-taxi']);
   }
 
-  acessarVeiculo() {
-    this.router.navigate(['/veiculo']);
+  acessarPermissionario() {
+    this.router.navigate(['/permissionario']);
   }
 
 }

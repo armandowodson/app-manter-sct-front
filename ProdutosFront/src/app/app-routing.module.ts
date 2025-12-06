@@ -8,6 +8,13 @@ import {LogoutComponent} from "./components/template/logout/logout.component";
 import {PontoTaxiCreateComponent} from "./components/pontos-taxi/ponto-taxi-create/ponto-taxi-create.component";
 import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/ponto-taxi-edit.component";
 import {PrincipalComponent} from "./components/template/principal/principal.component";
+import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
+import {
+  PermissionarioCreateComponent
+} from "./components/permissionario/permissionario-create/permissionario-create.component";
+import {
+  PermissionarioEditComponent
+} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
 
 const routes: Routes = [
   {
@@ -25,6 +32,18 @@ const routes: Routes = [
   {
     path: "ponto-taxi/edit",
     component: PontoTaxiEditComponent
+  },
+  {
+    path: "permissionario",
+    component: PermissionarioCrudComponent
+  },
+  {
+    path: "permissionario/create",
+    component: PermissionarioCreateComponent
+  },
+  {
+    path: "permissionario/edit",
+    component: PermissionarioEditComponent
   },
   {
     path: "logar",

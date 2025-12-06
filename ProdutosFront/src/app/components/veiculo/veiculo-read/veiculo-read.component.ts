@@ -5,7 +5,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { CurrencyPipe } from "@angular/common";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { ModalComponent } from "../../modal-component/modal.component";
+import { PontoTaxiModalComponent } from "../../ponto-taxi-modal-component/ponto-taxi-modal.component";
 
 @Injectable({
   providedIn: "root",
@@ -120,7 +120,7 @@ export class VeiculoReadComponent implements OnInit {
     dialogConfig.id =
       "Deseja excluir o Ponto de Táxi: " + idPontoTaxi + " - " + descricaoPonto + " ?";
     dialogConfig.panelClass = "dialogModal";
-    const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
+    const modalDialog = this.matDialog.open(PontoTaxiModalComponent, dialogConfig);
   }
 
   excluirPontoTaxi(idPontoTaxi: number) {

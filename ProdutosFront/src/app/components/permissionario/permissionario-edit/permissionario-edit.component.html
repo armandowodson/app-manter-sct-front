@@ -1,0 +1,163 @@
+<mat-card>
+  <div style="height: 50px; margin-left: 20px;">
+    <mat-card-title><b>Alteração do Permissionário</b></mat-card-title>
+  </div>
+  <form>
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nº Permissionário</mat-label>
+      <input matInput placeholder="Nº Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroPermissao" name="numeroPermissao">
+      <button mat-button *ngIf="permissionario.numeroPermissao" matSuffix aria-label="Clear" (click)="permissionario.numeroPermissao=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nome Permissionário</mat-label>
+      <input matInput placeholder="Descrição Ponto" style="margin-right: 20px;" [(ngModel)]="permissionario.nomePermissionario" name="nomePermissionario">
+      <button mat-button *ngIf="permissionario.nomePermissionario" matSuffix aria-label="Clear" (click)="permissionario.nomePermissionario=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >CPF Permissionário</mat-label>
+      <input matInput placeholder="CPF Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.cpfPermissionario" name="cpfPermissionario">
+      <button mat-button *ngIf="permissionario.cpfPermissionario" matSuffix aria-label="Clear" (click)="permissionario.cpfPermissionario=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >CNPJ Empresa</mat-label>
+      <input matInput placeholder="CNPJ Empresa" style="margin-right: 20px;" [(ngModel)]="permissionario.cnpjEmpresa" name="numeroVagas">
+      <button mat-button *ngIf="permissionario.cnpjEmpresa" matSuffix aria-label="Clear" (click)="permissionario.cnpjEmpresa=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >RG Permissionário</mat-label>
+      <input matInput placeholder="RG Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.rgPermissionario" name="rgPermissionario">
+      <button mat-button *ngIf="permissionario.rgPermissionario" matSuffix aria-label="Clear" (click)="permissionario.rgPermissionario=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Natureza da Pessoa</mat-label>
+      <mat-select [(value)]="naturezaSelecionada">
+        <mat-option *ngFor="let natureza of naturezaPessoaOptions" [value]="natureza.id">
+          {{ natureza.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >CNH Permissionário</mat-label>
+      <input matInput placeholder="CNH Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.cnhPermissionario" name="cnhPermissionario">
+      <button mat-button *ngIf="permissionario.cnhPermissionario" matSuffix aria-label="Clear" (click)="permissionario.cnhPermissionario=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>UF</mat-label>
+      <mat-select [(value)]="ufSelecionada">
+        <mat-option *ngFor="let uf of ufOptions" [value]="uf.sigla">
+          {{ uf.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Bairro Permissionário</mat-label>
+      <input matInput placeholder="Bairro Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.bairroPermissionario" name="bairroPermissionario">
+      <button mat-button *ngIf="permissionario.bairroPermissionario" matSuffix aria-label="Clear" (click)="permissionario.bairroPermissionario=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Endereço Permissionário</mat-label>
+      <input matInput placeholder="Endereço Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.enderecoPermissionario" name="enderecoPermissionario">
+      <button mat-button *ngIf="permissionario.enderecoPermissionario" matSuffix aria-label="Clear" (click)="permissionario.enderecoPermissionario=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Celular/Telefone</mat-label>
+      <input matInput placeholder="Celular/Telefone" style="margin-right: 20px;" [(ngModel)]="permissionario.celularPermissionario" name="celularPermissionario">
+      <button mat-button *ngIf="permissionario.celularPermissionario" matSuffix aria-label="Clear" (click)="permissionario.celularPermissionario=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-label >Certidão Negativa Criminal</mat-label>
+        <div class="file-upload-container">
+          <input type="file" #fileInputCriminal (change)="getCertidaoNegativaCriminalSelecionada($event)" style="display: none;">
+          <button mat-raised-button color="primary" (click)="fileInputCriminal.click()">
+            <mat-icon>cloud_upload</mat-icon> Choose File
+          </button>
+          <span *ngIf="certidaoNegativaCriminalSelecionada">{{ certidaoNegativaCriminalSelecionada.name }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-label >Certidão Negativa Municipal</mat-label>
+        <div class="file-upload-container">
+          <input type="file" #fileInputMunicipal (change)="getCertidaoNegativaMunicipalSelecionada($event)" style="display: none;">
+          <button mat-raised-button color="primary" (click)="fileInputMunicipal.click()">
+            <mat-icon>cloud_upload</mat-icon> Choose File
+          </button>
+          <span *ngIf="certidaoNegativaMunicipalSelecionada">{{ certidaoNegativaMunicipalSelecionada.name }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-label >Foto 3x4 Permissionário</mat-label>
+        <div class="file-upload-container">
+          <input type="file" #fileInputFoto (change)="getFotoSelecionada($event)" style="display: none;">
+          <button mat-raised-button color="primary" (click)="fileInputFoto.click()">
+            <mat-icon>cloud_upload</mat-icon> Choose File
+          </button>
+          <span *ngIf="fotoSelecionada">{{ fotoSelecionada.name }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </form>
+</mat-card>
+<div>
+  <button style="background-color: darkgray; margin-left: 20px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
+    Voltar
+  </button>
+  <button color="primary" class="buttonSalvar" mat-raised-button (click) = "editarPermissionario()">
+    Salvar
+  </button>
+</div>
+

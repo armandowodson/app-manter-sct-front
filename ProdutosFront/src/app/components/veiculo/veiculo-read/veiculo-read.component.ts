@@ -1,17 +1,18 @@
 import { Component, Injectable, OnInit, ViewChild } from "@angular/core";
-import {PontoTaxi} from "../veiculo.model";
-import { PontoTaxiService } from "../../../service/ponto-taxi.service";
+import { VeiculoModelo } from "../veiculo-modelo.model";
+import { VeiculoFiltro } from "../veiculo-filtro.model";
+import { VeiculoService } from "../../../service/veiculo.service";
 import { MatPaginator } from "@angular/material/paginator";
 import { Router } from "@angular/router";
-import { CurrencyPipe } from "@angular/common";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { PontoTaxiModalComponent } from "../../ponto-taxi-modal-component/ponto-taxi-modal.component";
+import { VeiculoModalComponent } from "../../veiculo-modal-component/veiculo-modal.component";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 @Component({
-  selector: "app-ponto-taxi-read",
+  selector: "app-veiculo-read",
   templateUrl: "./veiculo-read.component.html"
 })
 export class VeiculoReadComponent implements OnInit {
@@ -20,49 +21,47 @@ export class VeiculoReadComponent implements OnInit {
   NODE_TLS_REJECT_UNAUTHORIZED = 0;
   public loading = false;
 
-  pontoTaxi: PontoTaxi = {
-    idPontoTaxi: 0,
-    numeroPonto: "",
-    descricaoPonto: "",
-    fatorRotatividade: "",
-    referenciaPonto: "",
-    numeroVagas: "",
-    dataCriacao: ""
+  veiculoFiltro: VeiculoFiltro = {
+    idVeiculo: 0,
+    numeroPermissao: "",
+    placa: "",
+    renavam: "",
+    numeroTaximetro: "",
+    anoFabricacao: ""
   };
 
-  pontosTaxi: PontoTaxi[] = [];
-  displayedColumns = ["idPontoTaxi", "numeroPonto", "descricaoPonto", "fatorRotatividade", "referenciaPonto", "dataCriacao", "acoes"];
+  veiculos: VeiculoModelo[] = [];
   errors: string;
   page: number = 1;
-  contador: number = 5;
+  contador: number = 15;
   tamanho: number;
-  descricaoPonto: string;
+  placa: string;
 
   constructor(
-    private pontoTaxiService: PontoTaxiService,
+    private veiculoService: VeiculoService,
     private router: Router,
-    private currencyPipe: CurrencyPipe,
     public matDialog: MatDialog
   ) {
     this.errors = "";
     this.tamanho = 0;
-    this.descricaoPonto = "";
+    this.placa = "";
   }
 
   ngOnInit(): void {
-    this.pontoTaxiService.consultarTodosPontosTaxi().subscribe(
-      (pontos) => {
-        if (pontos.length == 0) {
-          this.pontoTaxiService.showMessageAlert(
+    this.veiculoService.consultarTodosVeiculos().subscribe(
+      (veiculos) => {
+        if (veiculos.length == 0) {
+          this.veiculoService.showMessageAlert(
             "A consulta não retornou resultado!"
           );
         }
-        this.pontosTaxi = pontos;
-        this.tamanho = this.pontosTaxi.length;
+
+        this.veiculos = veiculos;
+        this.tamanho = this.veiculos.length;
       },
       (error) => {
         this.errors = error;
-        this.pontoTaxiService.showMessageError(this.errors);
+        this.veiculoService.showMessageError(this.errors);
       }
     );
   }
@@ -71,37 +70,37 @@ export class VeiculoReadComponent implements OnInit {
     this.router.navigate(["/principal"]);
   }
 
-  navegarInserirPontoTaxi(): void {
-    this.router.navigate(["ponto-taxi/create"]);
+  navegarInserirVeiculo(): void {
+    this.router.navigate(["veiculo/create"]);
   }
 
-  navegarEditarPontoTaxi(pontoTaxiSelecionado: PontoTaxi): void {
-    this.router.navigate(['ponto-taxi/edit'], { state: {data: pontoTaxiSelecionado} });
+  navegarEditarVeiculo(veiculoSelecionado: VeiculoFiltro): void {
+    this.router.navigate(['veiculo/edit'], { state: {data: veiculoSelecionado} });
   }
 
   handlePageChange(event: number) {
     this.page = event;
   }
 
-  consultarPontosTaxiComFiltros() {
+  consultarVeiculoComFiltros() {
     this.loading = true;
 
-    this.pontoTaxiService
-      .consultarPontosTaxiComFiltros(this.pontoTaxi)
+    this.veiculoService
+      .consultarVeiculosComFiltros(this.veiculoFiltro)
       .subscribe(
-        (pontos) => {
-          if (pontos.length == 0) {
-            this.pontoTaxiService.showMessageAlert(
+        (veiculos) => {
+          if (veiculos.length == 0) {
+            this.veiculoService.showMessageAlert(
               "A consulta não retornou resultado!"
             );
           }
-          this.pontosTaxi = pontos;
-          this.tamanho = this.pontosTaxi.length;
+          this.veiculos = veiculos;
+          this.tamanho = this.veiculos.length;
           this.loading = false;
         },
         (error) => {
           this.errors = error;
-          this.pontoTaxiService.showMessageError(this.errors);
+          this.veiculoService.showMessageError(this.errors);
           this.loading = false;
         }
       );
@@ -113,41 +112,41 @@ export class VeiculoReadComponent implements OnInit {
     });
   }
 
-  openModal(idPontoTaxi: number, descricaoPonto: string) {
+  openModal(idVeiculo: number, nomeVeiculo: string) {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id =
-      "Deseja excluir o Ponto de Táxi: " + idPontoTaxi + " - " + descricaoPonto + " ?";
+      "Deseja excluir o Veículo: " + idVeiculo + " - " + nomeVeiculo + " ?";
     dialogConfig.panelClass = "dialogModal";
-    const modalDialog = this.matDialog.open(PontoTaxiModalComponent, dialogConfig);
+    const modalDialog = this.matDialog.open(VeiculoModalComponent, dialogConfig);
   }
 
-  excluirPontoTaxi(idPontoTaxi: number) {
-    for (var i = 0; i < this.pontosTaxi.length; i++) {
-      if (this.pontosTaxi[i].idPontoTaxi == idPontoTaxi) {
-        this.descricaoPonto = this.pontosTaxi[i].descricaoPonto;
-        i = this.pontosTaxi.length;
+  excluirVeiculo(idVeiculo: number) {
+    for (var i = 0; i < this.veiculos.length; i++) {
+      if (this.veiculos[i].idVeiculo == idVeiculo) {
+        this.placa = this.veiculos[i].placa;
+        i = this.veiculos.length;
       }
     }
     this.confirmarExclusao(
-      "Deseja excluir o Ponto de Táxi: " + idPontoTaxi + ": " + this.descricaoPonto + " ?"
+      "Deseja excluir o Veículo: " + idVeiculo + ": " + this.placa + " ?"
     ).then((podeDeletar) => {
       if (podeDeletar) {
-        this.pontoTaxiService.excluirPontoTaxi(idPontoTaxi).subscribe(() => {
-            this.pontoTaxiService.showMessageSuccess("Ponto de Táxi Excluído com Sucesso!!!");
-            this.router.navigate(['/ponto-taxi']);
+        this.veiculoService.excluirVeiculo(idVeiculo, environment.usuarioLogado).subscribe(() => {
+            this.veiculoService.showMessageSuccess("Veículo Excluído com Sucesso!!!");
+            this.router.navigate(['/veiculo']);
           },
           (error) => {
             this.errors = error;
-            this.pontoTaxiService.showMessageError(this.errors);
+            this.veiculoService.showMessageError(this.errors);
           }
         );
       }
     });
   }
 
-  getPagedData(data: PontoTaxi[]) {
+  getPagedData(data: VeiculoFiltro[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }

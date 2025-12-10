@@ -44,22 +44,7 @@ export class PermissionarioService {
     config.verticalPosition = 'top';
     return config;
   }
-/*
-{
-    "idPermissionario": null,
-    "numeroPermissao": "33",
-    "nomePermissionario": "Fulano 1",
-    "cpfPermissionario": "89045321345",
-    "cnpjEmpresa": "78.372.559/0001-30",
-    "rgPermissionario": "34276832",
-    "naturezaPessoa": "1",
-    "cnhPermissionario": "1324242",
-    "ufPermissionario": "MA",
-    "bairroPermissionario": "Nova Cohab",
-    "enderecoPermissionario": "Rua A Quadra 10 Casa 5",
-    "celularPermissionario": "98991221111"
-}
- */
+
   inserirPermissionario(permissionario: PermissionarioModelo, certidaoNegativaCriminalFile: File | null,
                         certidaoNegativaMunicipalFile: File | null, fotoFile: File | null): Observable<PermissionarioModelo>{
     const formDataPermissionario = new FormData();
@@ -73,7 +58,8 @@ export class PermissionarioService {
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
-      ', "celularPermissionario": "' + permissionario.celularPermissionario + '"}'
+      ', "celularPermissionario": "' + permissionario.celularPermissionario + '"' +
+      ', "usuario": "' + permissionario.usuario + '"}'
     // @ts-ignore
     formDataPermissionario.append('permissionario', jsonString);
     // @ts-ignore
@@ -99,7 +85,8 @@ export class PermissionarioService {
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
-      ', "celularPermissionario": "' + permissionario.celularPermissionario + '"}'
+      ', "celularPermissionario": "' + permissionario.celularPermissionario + '"' +
+      ', "usuario": "' + permissionario.usuario + '"}'
     // @ts-ignore
     formDataPermissionario.append('permissionario', jsonString);
     if(certidaoNegativaCriminalFile != null)
@@ -114,9 +101,9 @@ export class PermissionarioService {
     return this.http.post<PermissionarioModelo>(this.baseUrl+'/alterar', formDataPermissionario).pipe(catchError(this.errorHandlerInserir));
   }
 
-  excluirPermissionario(idPermissionario: number): Observable<String>{
+  excluirPermissionario(idPermissionario: number, usuario: string): Observable<String>{
     this.erroMetodo = "Não foi possível excluir o Permissionário!";
-    return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissionario).pipe(catchError(this.errorHandlerExcluir));
+    return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissionario+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
   }
 
   consultarTodosPontosTaxi(): Observable<PermissionarioModelo[]> {

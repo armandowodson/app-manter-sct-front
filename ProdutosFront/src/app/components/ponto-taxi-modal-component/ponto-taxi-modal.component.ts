@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PontoTaxiService } from '../../service/ponto-taxi.service';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-modal',
@@ -37,7 +38,7 @@ export class PontoTaxiModalComponent implements OnInit {
       posicaoFim = this.dialogRef.id.indexOf('-');
       idPontoTaxi = this.dialogRef.id.substr(posicaoInicio+1, (posicaoFim-1) - (posicaoInicio+1)).trim();
 
-      this.pontoTaxiService.excluirPontoTaxi(parseInt(idPontoTaxi)).subscribe(() => {
+      this.pontoTaxiService.excluirPontoTaxi(parseInt(idPontoTaxi), environment.usuarioLogado).subscribe(() => {
       this.pontoTaxiService.showMessageSuccess('Ponto de Táxi Excluído com Sucesso!!!');
       this.reloadComponent();
     },

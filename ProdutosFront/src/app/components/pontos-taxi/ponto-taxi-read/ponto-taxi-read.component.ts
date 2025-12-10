@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { CurrencyPipe } from "@angular/common";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { PontoTaxiModalComponent } from "../../ponto-taxi-modal-component/ponto-taxi-modal.component";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -27,14 +28,15 @@ export class PontoTaxiReadComponent implements OnInit {
     fatorRotatividade: "",
     referenciaPonto: "",
     numeroVagas: "",
-    dataCriacao: ""
+    dataCriacao: "",
+    usuario: ""
   };
 
   pontosTaxi: PontoTaxi[] = [];
   displayedColumns = ["idPontoTaxi", "numeroPonto", "descricaoPonto", "fatorRotatividade", "referenciaPonto", "dataCriacao", "acoes"];
   errors: string;
   page: number = 1;
-  contador: number = 5;
+  contador: number = 15;
   tamanho: number;
   descricaoPonto: string;
 
@@ -134,7 +136,7 @@ export class PontoTaxiReadComponent implements OnInit {
       "Deseja excluir o Ponto de Táxi: " + idPontoTaxi + ": " + this.descricaoPonto + " ?"
     ).then((podeDeletar) => {
       if (podeDeletar) {
-        this.pontoTaxiService.excluirPontoTaxi(idPontoTaxi).subscribe(() => {
+        this.pontoTaxiService.excluirPontoTaxi(idPontoTaxi, environment.usuarioLogado).subscribe(() => {
             this.pontoTaxiService.showMessageSuccess("Ponto de Táxi Excluído com Sucesso!!!");
             this.router.navigate(['/ponto-taxi']);
           },

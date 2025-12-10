@@ -15,6 +15,10 @@ import {
 import {
   PermissionarioEditComponent
 } from "./components/permissionario/permissionario-edit/permissionario-edit.component";
+import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
+import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
+import {VeiculoEditComponent} from "./components/veiculo/veiculo-edit/veiculo-edit.component";
+import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.component";
 
 const routes: Routes = [
   {
@@ -44,6 +48,22 @@ const routes: Routes = [
   {
     path: "permissionario/edit",
     component: PermissionarioEditComponent
+  },
+  {
+    path: "veiculo",
+    component: VeiculoCrudComponent
+  },
+  {
+    path: "veiculo/create",
+    component: VeiculoCreateComponent
+  },
+  {
+    path: "veiculo/edit",
+    component: VeiculoEditComponent
+  },
+  {
+    path: "auditoria",
+    component: AuditoriaCrudComponent
   },
   {
     path: "logar",

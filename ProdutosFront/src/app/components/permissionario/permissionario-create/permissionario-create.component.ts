@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {PermissionarioModelo} from "../permissionario-modelo.model";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,8 @@ export class PermissionarioCreateComponent implements OnInit {
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
-    certidaoNegativaCriminal: new Uint8Array(8),
-    dataCriacao: ""
+    dataCriacao: "",
+    usuario: ""
   };
 
   naturezaSelecionada = "";
@@ -101,6 +102,7 @@ export class PermissionarioCreateComponent implements OnInit {
   inserirPermissionario(): void{
     this.permissionario.naturezaPessoa = this.naturezaSelecionada;
     this.permissionario.ufPermissionario = this.ufSelecionada;
+    this.permissionario.usuario = environment.usuarioLogado;
     this.permissionarioService.inserirPermissionario(this.permissionario, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe(() => {
       this.permissionarioService.showMessageSuccess('Permissionário Criado com Sucesso!!!');

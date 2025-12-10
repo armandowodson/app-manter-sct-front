@@ -51,9 +51,9 @@ export class PontoTaxiService {
     return this.http.post<PontoTaxi>(this.baseUrl+'/alterar', pontoTaxi).pipe(catchError(this.errorHandlerAlterar));
   }
 
-  excluirPontoTaxi(idPontoTaxi: number): Observable<String>{
+  excluirPontoTaxi(idPontoTaxi: number, usuario: string): Observable<String>{
     this.erroMetodo = "Não foi possível excluir o Ponto de Táxi!";
-    return this.http.delete<String>(this.baseUrl+'/excluir/'+idPontoTaxi).pipe(catchError(this.errorHandlerExcluir));
+    return this.http.delete<String>(this.baseUrl+'/excluir/'+idPontoTaxi+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
   }
 
   consultarTodosPontosTaxi(): Observable<PontoTaxi[]> {

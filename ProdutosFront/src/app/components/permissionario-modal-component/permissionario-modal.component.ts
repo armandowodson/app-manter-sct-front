@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PontoTaxiService } from '../../service/ponto-taxi.service';
 import {PermissionarioService} from "../../service/permissionario.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-modal',
@@ -38,7 +39,7 @@ export class PermissionarioModalComponent implements OnInit {
       posicaoFim = this.dialogRef.id.indexOf('-');
     idPermissionario = this.dialogRef.id.substr(posicaoInicio+1, (posicaoFim-1) - (posicaoInicio+1)).trim();
 
-      this.permissionarioService.excluirPermissionario(parseInt(idPermissionario)).subscribe(() => {
+      this.permissionarioService.excluirPermissionario(parseInt(idPermissionario), environment.usuarioLogado).subscribe(() => {
       this.permissionarioService.showMessageSuccess('Permissionário Excluído com Sucesso!!!');
       this.reloadComponent();
     },

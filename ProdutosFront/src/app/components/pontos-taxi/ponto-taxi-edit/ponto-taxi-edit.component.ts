@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import {PontoTaxi} from "../ponto-taxi.model";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-ponto-taxi-edit',
@@ -23,7 +24,8 @@ export class PontoTaxiEditComponent implements OnInit {
     fatorRotatividade: "",
     referenciaPonto: "",
     numeroVagas: "",
-    dataCriacao: ""
+    dataCriacao: "",
+    usuario: ""
   };
 
   errors: string;
@@ -68,6 +70,7 @@ export class PontoTaxiEditComponent implements OnInit {
   }
 
   editarPontoTaxi(): void{
+    this.pontoTaxi.usuario = environment.usuarioLogado;
     this.pontoTaxiService.editarPontoTaxi(this.pontoTaxi).subscribe(() => {
       this.pontoTaxiService.showMessageSuccess('Ponto de Táxi Atualizado com Sucesso!!!');
       this.router.navigate(['/ponto-taxi']);

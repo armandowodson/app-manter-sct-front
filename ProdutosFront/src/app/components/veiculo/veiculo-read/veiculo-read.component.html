@@ -1,14 +1,14 @@
 <mat-card>
     <div style="height: 50px; margin-left: 20px;">
-      <mat-card-title><b>Consulta de Pontos de Táxi</b></mat-card-title>
+      <mat-card-title><b>Consulta de Veículos</b></mat-card-title>
     </div>
     <div>
         <form>
 
             <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-                <mat-label >Ponto Nº</mat-label>
-                <input matInput placeholder="Ponto Nº" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.numeroPonto" name="numeroPonto">
-                <button mat-button *ngIf="pontoTaxi.numeroPonto" matSuffix aria-label="Clear" (click)="pontoTaxi.numeroPonto=''">
+                <mat-label >Nº da Permissão</mat-label>
+                <input matInput placeholder="Nº da Permissão" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroPermissao" name="numeroPermissao">
+                <button mat-button *ngIf="veiculoFiltro.numeroPermissao" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroPermissao=''">
                     <i class="material-icons black v-middle">
                         close
                     </i>
@@ -16,9 +16,9 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Descrição Ponto</mat-label>
-              <input matInput placeholder="Descrição Ponto" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.descricaoPonto" name="descricaoPonto">
-              <button mat-button *ngIf="pontoTaxi.descricaoPonto" matSuffix aria-label="Clear" (click)="pontoTaxi.descricaoPonto=''">
+              <mat-label >Placa</mat-label>
+              <input matInput placeholder="Placa" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.placa" name="placa">
+              <button mat-button *ngIf="veiculoFiltro.placa" matSuffix aria-label="Clear" (click)="veiculoFiltro.placa=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -26,9 +26,9 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Fator Rotatividade</mat-label>
-              <input matInput placeholder="Fator Rotatividade" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.fatorRotatividade" name="descricaoPonto">
-              <button mat-button *ngIf="pontoTaxi.fatorRotatividade" matSuffix aria-label="Clear" (click)="pontoTaxi.fatorRotatividade=''">
+              <mat-label >Renavam</mat-label>
+              <input matInput placeholder="Renavam" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.renavam" name="renavam">
+              <button mat-button *ngIf="veiculoFiltro.renavam" matSuffix aria-label="Clear" (click)="veiculoFiltro.renavam=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -36,9 +36,9 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Nº Vagas</mat-label>
-              <input matInput placeholder="Nº Vagas" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.numeroVagas" name="numeroVagas">
-              <button mat-button *ngIf="pontoTaxi.numeroVagas" matSuffix aria-label="Clear" (click)="pontoTaxi.numeroVagas=''">
+              <mat-label >Nº Taxímetro</mat-label>
+              <input matInput placeholder="Nº Taxímetro" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroTaximetro" name="numeroTaximetro">
+              <button mat-button *ngIf="veiculoFiltro.numeroTaximetro" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroTaximetro=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -46,9 +46,9 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Ponto Referência</mat-label>
-              <input matInput placeholder="Ponto Referência" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.referenciaPonto" name="referenciaPonto">
-              <button mat-button *ngIf="pontoTaxi.referenciaPonto" matSuffix aria-label="Clear" (click)="pontoTaxi.referenciaPonto=''">
+              <mat-label >Ano Fabricação</mat-label>
+              <input matInput placeholder="Ano Fabricação" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.anoFabricacao" name="anoFabricacao">
+              <button mat-button *ngIf="veiculoFiltro.anoFabricacao" matSuffix aria-label="Clear" (click)="veiculoFiltro.anoFabricacao=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -61,13 +61,13 @@
 <br>
 <div class="btn-toolbar" style="float: right;">
     <div class="btn-group">
-      <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarPontosTaxiComFiltros()">
+      <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarVeiculoComFiltros()">
         Consultar
       </button>
     </div>
     <div class="btn-group">
-        <button style="width: 200px; background-color: #04AA6D;"  class="buttonInserir" mat-raised-button (click) = "navegarInserirPontoTaxi()">
-            Novo Ponto Táxi
+        <button style="width: 200px; background-color: #04AA6D;"  class="buttonInserir" mat-raised-button (click) = "navegarInserirVeiculo()">
+            Novo Veículo
         </button>
     </div>
     <div class="btn-group">
@@ -83,27 +83,31 @@
     <table class="table table-striped table-hover" style="outline-color: black;">
          <thead style="background-color: gray;">
             <tr style="color: white;">
-              <th style="text-align: left;">Ponto Nº</th>
-              <th style="text-align: left;">Descrição</th>
-              <th style="text-align: center;">Fator Rotatividade</th>
-              <th style="text-align: center;">Ponto Referência</th>
-              <th style="text-align: center;">Nº Vagas</th>
+              <th style="text-align: left;">Nº Permissão</th>
+              <th style="text-align: left;">Placa</th>
+              <th style="text-align: center;">Renavam</th>
+              <th style="text-align: center;">Marca</th>
+              <th style="text-align: center;">Modelo</th>
+              <th style="text-align: center;">Nº Taxímetro</th>
+              <th style="text-align: center;">Ano Fabricação</th>
               <th style="text-align: center;">Ações</th>
             </tr>
          </thead>
          <tbody>
-            <tr *ngFor="let row of pontosTaxi | paginate: { itemsPerPage: contador, currentPage: page }">
-              <td style="text-align: left;">{{row.numeroPonto}}</td>
-              <td style="text-align: left;">{{row.descricaoPonto}}</td>
-              <td style="text-align: center;">{{row.fatorRotatividade}}</td>
-              <td style="text-align: center;">{{row.referenciaPonto}}</td>
-              <td style="text-align: center;">{{row.numeroVagas}}</td>
+            <tr *ngFor="let row of veiculos | paginate: { itemsPerPage: contador, currentPage: page }">
+              <td style="text-align: left;">{{row.numeroPermissao}}</td>
+              <td style="text-align: left;">{{row.placa}}</td>
+              <td style="text-align: center;">{{row.renavam}}</td>
+              <td style="text-align: center;">{{row.marca}}</td>
+              <td style="text-align: center;">{{row.modelo}}</td>
+              <td style="text-align: center;">{{row.numeroTaximetro}}</td>
+              <td style="text-align: center;">{{row.anoFabricacao}}</td>
 
               <td style="text-align: center;">
-                <button mat-icon-button color="primary" (click) = "navegarEditarPontoTaxi(row)" aria-label="Editar Ponto Táxi">
+                <button mat-icon-button color="primary" (click) = "navegarEditarVeiculo(row)" aria-label="Editar Veículo">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click) = "openModal(row.idPontoTaxi, row.descricaoPonto)" aria-label="Remover Ponto Táxi">
+                <button mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

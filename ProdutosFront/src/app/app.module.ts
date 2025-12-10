@@ -39,6 +39,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PontoTaxiModalComponent } from './components/ponto-taxi-modal-component/ponto-taxi-modal.component';
 import { PermissionarioModalComponent } from './components/permissionario-modal-component/permissionario-modal.component';
+import { VeiculoModalComponent } from './components/veiculo-modal-component/veiculo-modal.component';
 
 import {LoginComponent} from "./components/template/login/login.component";
 import {RegistroComponent} from "./components/template/registro/registro.component";
@@ -52,10 +53,31 @@ import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissio
 import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
 import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
 import {VeiculoReadComponent} from "./components/veiculo/veiculo-read/veiculo-read.component";
+import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
+import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
+import {VeiculoEditComponent} from "./components/veiculo/veiculo-edit/veiculo-edit.component";
+import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.component";
+import {AuditoriaReadComponent} from "./components/auditoria/auditoria-read/auditoria-read.component";
 import {MatSelectModule} from "@angular/material/select";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 registerLocaleData(localePt);
 
+export const DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
+// @ts-ignore
 // @ts-ignore
 @NgModule({
   declarations: [
@@ -69,6 +91,7 @@ registerLocaleData(localePt);
     ForDirective,
     PontoTaxiModalComponent,
     PermissionarioModalComponent,
+    VeiculoModalComponent,
     LoginComponent,
     RegistroComponent,
     LogoutComponent,
@@ -80,7 +103,12 @@ registerLocaleData(localePt);
     PermissionarioCrudComponent,
     PermissionarioCreateComponent,
     PermissionarioEditComponent,
-    VeiculoReadComponent
+    VeiculoReadComponent,
+    VeiculoCrudComponent,
+    VeiculoCreateComponent,
+    VeiculoEditComponent,
+    AuditoriaCrudComponent,
+    AuditoriaReadComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +131,9 @@ registerLocaleData(localePt);
     NgxPaginationModule,
     NgbModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 
   providers: [
@@ -111,11 +141,22 @@ registerLocaleData(localePt);
       provide: LOCALE_ID,
       useValue: 'pt-BR'
     },
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'en-GB'
+    },
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+
     HttpClientModule,
     AppComponent,
-    CurrencyPipe
+    CurrencyPipe,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
 

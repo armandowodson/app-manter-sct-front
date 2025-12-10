@@ -11,6 +11,6 @@ export interface PermissionarioModelo {
   bairroPermissionario: string
   enderecoPermissionario: string
   celularPermissionario: string
-  certidaoNegativaCriminal: Uint8Array
   dataCriacao: string
+  usuario: string
 }

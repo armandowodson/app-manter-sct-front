@@ -6,4 +6,5 @@ export interface PontoTaxi {
     referenciaPonto: string
     numeroVagas: string
     dataCriacao: string
+    usuario: string
 }

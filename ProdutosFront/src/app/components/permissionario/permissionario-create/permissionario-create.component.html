@@ -35,7 +35,7 @@
 
         <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
           <mat-label >CNPJ Empresa</mat-label>
-          <input matInput placeholder="CNPJ Empresa" style="margin-right: 20px;" [(ngModel)]="permissionario.cnpjEmpresa" name="numeroVagas">
+          <input matInput placeholder="CNPJ Empresa" style="margin-right: 20px;" [(ngModel)]="permissionario.cnpjEmpresa" name="cnpjEmpresa">
           <button mat-button *ngIf="permissionario.cnpjEmpresa" matSuffix aria-label="Clear" (click)="permissionario.cnpjEmpresa=''">
             <i class="material-icons black v-middle">
               close

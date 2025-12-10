@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import {PermissionarioModelo} from "../permissionario-modelo.model";
 import {PermissionarioService} from "../../../service/permissionario.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-permissinario-edit',
@@ -31,8 +32,8 @@ export class PermissionarioEditComponent implements OnInit {
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
-    certidaoNegativaCriminal: new Uint8Array(8),
-    dataCriacao: ""
+    dataCriacao: "",
+    usuario: ""
   };
 
   naturezaSelecionada = "";
@@ -144,6 +145,7 @@ export class PermissionarioEditComponent implements OnInit {
   editarPermissionario(): void{
     this.permissionario.naturezaPessoa = this.naturezaSelecionada;
     this.permissionario.ufPermissionario = this.ufSelecionada;
+    this.permissionario.usuario = environment.usuarioLogado;
     this.permissionarioService.editarPermissionario(this.permissionario, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe(() => {
         this.permissionarioService.showMessageSuccess('Permissionário Atualizado com Sucesso!!!');

@@ -6,6 +6,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { PermissionarioModalComponent } from "../../permissionario-modal-component/permissionario-modal.component";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -31,10 +32,9 @@ export class PermissionarioReadComponent implements OnInit {
   };
 
   permissionarios: PermissionarioModelo[] = [];
-  displayedColumns = ["idPermissionario", "numeroPermissao", "nomePermissionario", "cpfPermissionario", "cnpjEmpresa", "cnhPermissionario", "dataCriacao", "acoes"];
   errors: string;
   page: number = 1;
-  contador: number = 5;
+  contador: number = 15;
   tamanho: number;
   nomePermissionario: string;
 
@@ -133,7 +133,7 @@ export class PermissionarioReadComponent implements OnInit {
       "Deseja excluir o Permissionário: " + idPermissionario + ": " + this.nomePermissionario + " ?"
     ).then((podeDeletar) => {
       if (podeDeletar) {
-        this.permissionarioService.excluirPermissionario(idPermissionario).subscribe(() => {
+        this.permissionarioService.excluirPermissionario(idPermissionario, environment.usuarioLogado).subscribe(() => {
             this.permissionarioService.showMessageSuccess("Permissionário Excluído com Sucesso!!!");
             this.router.navigate(['/permissionario']);
           },

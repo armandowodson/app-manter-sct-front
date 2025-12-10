@@ -28,4 +28,12 @@ export class PrincipalComponent implements OnInit {
     this.router.navigate(['/permissionario']);
   }
 
+  acessarVeiculoTaxi() {
+    this.router.navigate(['/veiculo']);
+  }
+
+  acessarAuditoria() {
+    this.router.navigate(['/auditoria']);
+  }
+
 }

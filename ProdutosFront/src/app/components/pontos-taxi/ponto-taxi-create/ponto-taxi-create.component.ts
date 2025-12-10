@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import {PontoTaxi} from "../ponto-taxi.model";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,8 @@ export class PontoTaxiCreateComponent implements OnInit {
     fatorRotatividade: "",
     referenciaPonto: "",
     numeroVagas: "",
-    dataCriacao: ""
+    dataCriacao: "",
+    usuario: ""
   };
 
   errors: string;
@@ -40,7 +42,7 @@ export class PontoTaxiCreateComponent implements OnInit {
 }
 
   inserirPontoTaxi(): void{
-
+    this.pontoTaxi.usuario = environment.usuarioLogado;
     this.pontoTaxiService.inserirPontoTaxi(this.pontoTaxi).subscribe(() => {
       this.pontoTaxiService.showMessageSuccess('Ponto de Táxi Criado com Sucesso!!!');
       this.router.navigate(['/ponto-taxi']);

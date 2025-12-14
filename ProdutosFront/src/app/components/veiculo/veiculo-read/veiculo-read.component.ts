@@ -36,6 +36,7 @@ export class VeiculoReadComponent implements OnInit {
   contador: number = 15;
   tamanho: number;
   placa: string;
+  nomeLogado: string;
 
   constructor(
     private veiculoService: VeiculoService,
@@ -45,9 +46,11 @@ export class VeiculoReadComponent implements OnInit {
     this.errors = "";
     this.tamanho = 0;
     this.placa = "";
+    this.nomeLogado = "";
   }
 
   ngOnInit(): void {
+    this.nomeLogado = environment.nomeLogado;
     this.veiculoService.consultarTodosVeiculos().subscribe(
       (veiculos) => {
         if (veiculos.length == 0) {

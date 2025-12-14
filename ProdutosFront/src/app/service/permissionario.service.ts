@@ -53,12 +53,17 @@ export class PermissionarioService {
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
       ', "cnpjEmpresa": "' + permissionario.cnpjEmpresa + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
+      ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
       ', "naturezaPessoa": "' + permissionario.naturezaPessoa + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
       ', "celularPermissionario": "' + permissionario.celularPermissionario + '"' +
+      ', "numeroQuitacaoMilitar": "' + permissionario.numeroQuitacaoMilitar + '"' +
+      ', "numeroQuitacaoEleitoral": "' + permissionario.numeroQuitacaoEleitoral + '"' +
+      ', "numeroInscricaoInss": "' + permissionario.numeroInscricaoInss + '"' +
+      ', "numeroCertificadoCondutor": "' + permissionario.numeroCertificadoCondutor + '"' +
       ', "usuario": "' + permissionario.usuario + '"}'
     // @ts-ignore
     formDataPermissionario.append('permissionario', jsonString);
@@ -80,12 +85,18 @@ export class PermissionarioService {
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
       ', "cnpjEmpresa": "' + permissionario.cnpjEmpresa + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
+      ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
       ', "naturezaPessoa": "' + permissionario.naturezaPessoa + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
+      ', "categoriaCnhPermissionario": "' + permissionario.categoriaCnhPermissionario + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
       ', "celularPermissionario": "' + permissionario.celularPermissionario + '"' +
+      ', "numeroQuitacaoMilitar": "' + permissionario.numeroQuitacaoMilitar + '"' +
+      ', "numeroQuitacaoEleitoral": "' + permissionario.numeroQuitacaoEleitoral + '"' +
+      ', "numeroInscricaoInss": "' + permissionario.numeroInscricaoInss + '"' +
+      ', "numeroCertificadoCondutor": "' + permissionario.numeroCertificadoCondutor + '"' +
       ', "usuario": "' + permissionario.usuario + '"}'
     // @ts-ignore
     formDataPermissionario.append('permissionario', jsonString);
@@ -106,8 +117,16 @@ export class PermissionarioService {
     return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissionario+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
   }
 
-  consultarTodosPontosTaxi(): Observable<PermissionarioModelo[]> {
+  consultarTodosPermissionarios(): Observable<PermissionarioModelo[]> {
     return this.http.get<PermissionarioModelo[]>(this.baseUrl+'/buscar-todos').pipe(catchError(this.errorHandler));  // catch error
+  }
+
+  consultarPermissionariosDisponiveis(): Observable<PermissionarioModelo[]> {
+    return this.http.get<PermissionarioModelo[]>(this.baseUrl+'/buscar-disponiveis').pipe(catchError(this.errorHandler));  // catch error
+  }
+
+  consultarPermissionariosDisponiveisAlteracao(idPermissionario: number): Observable<PermissionarioModelo[]> {
+    return this.http.get<PermissionarioModelo[]>(this.baseUrl+'/buscar-disponiveis/'+idPermissionario).pipe(catchError(this.errorHandler));  // catch error
   }
 
   consultarPontosTaxiComFiltros(permissionario: PermissionarioFiltro): Observable<PermissionarioModelo[]> {

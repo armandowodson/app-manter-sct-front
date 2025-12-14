@@ -37,6 +37,7 @@ export class PermissionarioReadComponent implements OnInit {
   contador: number = 15;
   tamanho: number;
   nomePermissionario: string;
+  nomeLogado: string;
 
   constructor(
     private permissionarioService: PermissionarioService,
@@ -46,10 +47,11 @@ export class PermissionarioReadComponent implements OnInit {
     this.errors = "";
     this.tamanho = 0;
     this.nomePermissionario = "";
+    this.nomeLogado = environment.nomeLogado;
   }
 
   ngOnInit(): void {
-    this.permissionarioService.consultarTodosPontosTaxi().subscribe(
+    this.permissionarioService.consultarTodosPermissionarios().subscribe(
       (permissionarios) => {
         if (permissionarios.length == 0) {
           this.permissionarioService.showMessageAlert(

@@ -4,6 +4,7 @@ import { CurrencyPipe } from '@angular/common';
 import {VeiculoService} from "../../../service/veiculo.service";
 import {VeiculoModelo} from "../veiculo-modelo.model";
 import {environment} from "../../../../environments/environment";
+import {PermissionarioService} from "../../../service/permissionario.service";
 
 @Injectable({
   providedIn: 'root'
@@ -69,18 +70,40 @@ export class VeiculoCreateComponent implements OnInit {
     { id: 5, nome: 'PNEUS CARECAS' }
   ];
 
+  permissionarioSelecionado = "";
+  permissionariosOptions: any[] = [];
+
   crlvSelecionado: File | null = null;
   comprovanteVistoriaSelecionado: File | null = null;
   errors: string;
+  nomeLogado: string;
 
   constructor(private veiculoService: VeiculoService,
+              private permissionarioService: PermissionarioService,
               private router: Router,
               private currencyPipe : CurrencyPipe) {
     this.errors = '';
+    this.nomeLogado = '';
   }
 
   ngOnInit(): void {
-
+    this.nomeLogado = environment.nomeLogado;
+    this.permissionarioService.consultarPermissionariosDisponiveis().subscribe(
+      (permissionarios) => {
+        if (permissionarios.length == 0) {
+          this.veiculoService.showMessageAlert(
+            "A consulta não retornou resultado!"
+          );
+        }
+        permissionarios?.forEach(element => {
+          this.permissionariosOptions.push({ id: element.idPermissionario, nome: element.nomePermissionario });
+        });
+      },
+      (error) => {
+        this.errors = error;
+        this.veiculoService.showMessageError(this.errors);
+      }
+    );
   }
 
   getCrlvSelecionado (event: any): void {
@@ -95,7 +118,9 @@ export class VeiculoCreateComponent implements OnInit {
     this.veiculo.cor = this.corSelecionada;
     this.veiculo.combustivel = this.combustivelSelecionado;
     this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
+    this.veiculo.idPermissionario = this.permissionarioSelecionado;
     this.veiculo.usuario = environment.usuarioLogado;
+
     this.veiculoService.inserirVeiculo(this.veiculo, this.crlvSelecionado,
       this.comprovanteVistoriaSelecionado).subscribe(() => {
       this.veiculoService.showMessageSuccess('Veículo Criado com Sucesso!!!');

@@ -41,6 +41,7 @@ export class AuditoriaReadComponent implements OnInit {
   contador: number = 15;
   tamanho: number;
   nomeAuditoria: string;
+  nomeLogado: string;
 
   constructor(
     private auditoriaService: AuditoriaService,
@@ -49,10 +50,26 @@ export class AuditoriaReadComponent implements OnInit {
     this.errors = "";
     this.tamanho = 0;
     this.nomeAuditoria = "";
+    this.nomeLogado = "";
   }
 
   ngOnInit(): void {
-
+    this.nomeLogado = environment.nomeLogado;
+    this.auditoriaService.consultarTodasAuditorias().subscribe(
+      (audits) => {
+        if (audits.length == 0) {
+          this.auditoriaService.showMessageAlert(
+            "A consulta não retornou resultado!"
+          );
+        }
+        this.auditorias = audits;
+        this.tamanho = this.auditorias.length;
+      },
+      (error) => {
+        this.errors = error;
+        this.auditoriaService.showMessageError(this.errors);
+      }
+    );
   }
 
   voltarPaginaPrincipal(): void {
@@ -63,7 +80,7 @@ export class AuditoriaReadComponent implements OnInit {
     this.page = event;
   }
 
-  consultarPontosTaxiComFiltros() {
+  consultarAuditoriaComFiltros() {
     this.loading = true;
 
     this.auditoriaFiltro.operacao = this.operacaoSelecionada;
@@ -87,7 +104,6 @@ export class AuditoriaReadComponent implements OnInit {
         }
       );
   }
-
 
   getPagedData(data: AuditoriaFiltro[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;

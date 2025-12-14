@@ -25,12 +25,18 @@ export class PermissionarioCreateComponent implements OnInit {
     cpfPermissionario: "",
     cnpjEmpresa: "",
     rgPermissionario: "",
+    orgaoEmissor: "",
     naturezaPessoa: "",
-    cnhPermissionario: "",
     ufPermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
+    cnhPermissionario: "",
+    categoriaCnhPermissionario: "",
+    numeroQuitacaoMilitar: "",
+    numeroQuitacaoEleitoral: "",
+    numeroInscricaoInss: "",
+    numeroCertificadoCondutor: "",
     dataCriacao: "",
     usuario: ""
   };
@@ -71,20 +77,30 @@ export class PermissionarioCreateComponent implements OnInit {
     {sigla:'TO',nome:'TO'}
   ];
 
+  categoriaCnhSelecionada = "";
+  categoriaOptions = [
+    { id: 1, nome: 'B' },
+    { id: 2, nome: 'C' },
+    { id: 3, nome: 'D' },
+    { id: 4, nome: 'E' }
+  ];
+
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
   errors: string;
+  nomeLogado: string;
 
   constructor(private permissionarioService: PermissionarioService,
               private router: Router,
               private currencyPipe : CurrencyPipe) {
     this.errors = '';
+    this.nomeLogado = '';
   }
 
   ngOnInit(): void {
-
+    this.nomeLogado = environment.nomeLogado;
   }
 
   getCertidaoNegativaCriminalSelecionada (event: any): void {

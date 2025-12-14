@@ -1,11 +1,14 @@
 <mat-card>
+    <div style="margin-left: 1150px;">
+      <mat-card-title><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+    </div>
     <div style="height: 50px; margin-left: 20px;">
       <mat-card-title><b>Consulta de Veículos</b></mat-card-title>
     </div>
     <div>
         <form>
 
-            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
                 <mat-label >Nº da Permissão</mat-label>
                 <input matInput placeholder="Nº da Permissão" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroPermissao" name="numeroPermissao">
                 <button mat-button *ngIf="veiculoFiltro.numeroPermissao" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroPermissao=''">
@@ -15,7 +18,7 @@
                 </button>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Placa</mat-label>
               <input matInput placeholder="Placa" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.placa" name="placa">
               <button mat-button *ngIf="veiculoFiltro.placa" matSuffix aria-label="Clear" (click)="veiculoFiltro.placa=''">
@@ -25,7 +28,7 @@
               </button>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Renavam</mat-label>
               <input matInput placeholder="Renavam" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.renavam" name="renavam">
               <button mat-button *ngIf="veiculoFiltro.renavam" matSuffix aria-label="Clear" (click)="veiculoFiltro.renavam=''">
@@ -35,7 +38,7 @@
               </button>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Nº Taxímetro</mat-label>
               <input matInput placeholder="Nº Taxímetro" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroTaximetro" name="numeroTaximetro">
               <button mat-button *ngIf="veiculoFiltro.numeroTaximetro" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroTaximetro=''">
@@ -45,7 +48,7 @@
               </button>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Ano Fabricação</mat-label>
               <input matInput placeholder="Ano Fabricação" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.anoFabricacao" name="anoFabricacao">
               <button mat-button *ngIf="veiculoFiltro.anoFabricacao" matSuffix aria-label="Clear" (click)="veiculoFiltro.anoFabricacao=''">

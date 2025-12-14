@@ -1,11 +1,14 @@
 <mat-card>
+    <div style="margin-left: 1150px;">
+      <mat-card-title><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+    </div>
     <div style="height: 50px; margin-left: 20px;">
       <mat-card-title><b>Consulta de Pontos de Táxi</b></mat-card-title>
     </div>
     <div>
         <form>
 
-            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
                 <mat-label >Ponto Nº</mat-label>
                 <input matInput placeholder="Ponto Nº" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.numeroPonto" name="numeroPonto">
                 <button mat-button *ngIf="pontoTaxi.numeroPonto" matSuffix aria-label="Clear" (click)="pontoTaxi.numeroPonto=''">
@@ -25,7 +28,7 @@
               </button>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Fator Rotatividade</mat-label>
               <input matInput placeholder="Fator Rotatividade" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.fatorRotatividade" name="descricaoPonto">
               <button mat-button *ngIf="pontoTaxi.fatorRotatividade" matSuffix aria-label="Clear" (click)="pontoTaxi.fatorRotatividade=''">
@@ -35,7 +38,7 @@
               </button>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Nº Vagas</mat-label>
               <input matInput placeholder="Nº Vagas" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.numeroVagas" name="numeroVagas">
               <button mat-button *ngIf="pontoTaxi.numeroVagas" matSuffix aria-label="Clear" (click)="pontoTaxi.numeroVagas=''">

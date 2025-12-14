@@ -26,12 +26,18 @@ export class PermissionarioEditComponent implements OnInit {
     cpfPermissionario: "",
     cnpjEmpresa: "",
     rgPermissionario: "",
+    orgaoEmissor: "",
     naturezaPessoa: "",
-    cnhPermissionario: "",
     ufPermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
+    cnhPermissionario: "",
+    categoriaCnhPermissionario: "",
+    numeroQuitacaoMilitar: "",
+    numeroQuitacaoEleitoral: "",
+    numeroInscricaoInss: "",
+    numeroCertificadoCondutor: "",
     dataCriacao: "",
     usuario: ""
   };
@@ -72,18 +78,28 @@ export class PermissionarioEditComponent implements OnInit {
     {sigla:'TO',nome:'TO'}
   ];
 
+  categoriaCnhSelecionada = "";
+  categoriaOptions = [
+    { id: 'B', nome: 'B' },
+    { id: 'C', nome: 'C' },
+    { id: 'D', nome: 'D' },
+    { id: 'E', nome: 'E' }
+  ];
+
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
   errors: string;
   id: string;
+  nomeLogado: string;
 
   constructor(private permissionarioService: PermissionarioService,
               private router: Router,
               private currencyPipe : CurrencyPipe) {
     this.errors = '';
     this.id = '';
+    this.nomeLogado = '';
   }
 
   ngOnInit(): void {
@@ -94,42 +110,24 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionario.cpfPermissionario = history.state.data.cpfPermissionario;
       this.permissionario.cnpjEmpresa = history.state.data.cnpjEmpresa;
       this.permissionario.rgPermissionario = history.state.data.rgPermissionario;
+      this.permissionario.orgaoEmissor = history.state.data.orgaoEmissor;
       this.naturezaSelecionada = history.state.data.naturezaPessoa;
       this.permissionario.naturezaPessoa = history.state.data.naturezaPessoa;
       this.permissionario.cnhPermissionario = history.state.data.cnhPermissionario;
+      this.categoriaCnhSelecionada = history.state.data.categoriaCnhPermissionario;
+      this.permissionario.categoriaCnhPermissionario = history.state.data.categoriaCnhPermissionario;
       this.ufSelecionada = history.state.data.ufPermissionario;
       this.permissionario.ufPermissionario = history.state.data.ufPermissionario;
       this.permissionario.bairroPermissionario = history.state.data.bairroPermissionario;
       this.permissionario.enderecoPermissionario = history.state.data.enderecoPermissionario;
       this.permissionario.celularPermissionario = history.state.data.celularPermissionario;
+      this.permissionario.numeroQuitacaoMilitar = history.state.data.numeroQuitacaoMilitar;
+      this.permissionario.numeroQuitacaoEleitoral = history.state.data.numeroQuitacaoEleitoral;
+      this.permissionario.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
+      this.permissionario.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
+      this.nomeLogado = environment.nomeLogado;
     }
   }
-
-  consultarPermissionarioId(id: number){
-    this.permissionario.idPermissionario = id;
-    this.permissionarioService.consultarPermissionarioId(this.permissionario).subscribe(permi => {
-        if (permi == null){
-            this.permissionarioService.showMessageAlert('A consulta não retornou resultado!');
-        }
-        this.permissionario.idPermissionario = permi.idPermissionario;
-        this.permissionario.numeroPermissao = permi.numeroPermissao;
-        this.permissionario.nomePermissionario = permi.nomePermissionario;
-        this.permissionario.cpfPermissionario = permi.cpfPermissionario;
-        this.permissionario.cnpjEmpresa = permi.cnpjEmpresa;
-        this.permissionario.rgPermissionario = permi.rgPermissionario;
-        this.permissionario.naturezaPessoa = permi.naturezaPessoa;
-        this.permissionario.cnhPermissionario = permi.cnhPermissionario;
-        this.permissionario.ufPermissionario = permi.ufPermissionario;
-        this.permissionario.bairroPermissionario = permi.bairroPermissionario;
-        this.permissionario.enderecoPermissionario = permi.enderecoPermissionario;
-        this.permissionario.celularPermissionario = permi.celularPermissionario;
-      },
-      error => {
-        this.errors = error
-        this.permissionarioService.showMessageError(this.errors);
-    });
-  }
-
   getCertidaoNegativaCriminalSelecionada (event: any): void {
     this.certidaoNegativaCriminalSelecionada = event.target.files[0] || null;
   }
@@ -145,6 +143,7 @@ export class PermissionarioEditComponent implements OnInit {
   editarPermissionario(): void{
     this.permissionario.naturezaPessoa = this.naturezaSelecionada;
     this.permissionario.ufPermissionario = this.ufSelecionada;
+    this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
     this.permissionario.usuario = environment.usuarioLogado;
     this.permissionarioService.editarPermissionario(this.permissionario, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe(() => {

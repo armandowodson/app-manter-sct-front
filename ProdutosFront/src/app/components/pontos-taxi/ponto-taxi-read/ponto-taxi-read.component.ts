@@ -39,6 +39,7 @@ export class PontoTaxiReadComponent implements OnInit {
   contador: number = 15;
   tamanho: number;
   descricaoPonto: string;
+  nomeLogado: string;
 
   constructor(
     private pontoTaxiService: PontoTaxiService,
@@ -49,9 +50,11 @@ export class PontoTaxiReadComponent implements OnInit {
     this.errors = "";
     this.tamanho = 0;
     this.descricaoPonto = "";
+    this.nomeLogado = "";
   }
 
   ngOnInit(): void {
+    this.nomeLogado = environment.nomeLogado;
     this.pontoTaxiService.consultarTodosPontosTaxi().subscribe(
       (pontos) => {
         if (pontos.length == 0) {

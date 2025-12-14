@@ -30,16 +30,18 @@ export class PontoTaxiCreateComponent implements OnInit {
   };
 
   errors: string;
+  nomeLogado: string;
 
   constructor(private pontoTaxiService: PontoTaxiService,
               private router: Router,
               private currencyPipe : CurrencyPipe) {
     this.errors = '';
+    this.nomeLogado = "";
   }
 
   ngOnInit(): void {
-
-}
+    this.nomeLogado = environment.nomeLogado;
+  }
 
   inserirPontoTaxi(): void{
     this.pontoTaxi.usuario = environment.usuarioLogado;

@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {AuditoriaFiltro} from "../components/auditoria/auditoria-filtro.model";
 import {AuditoriaModelo} from "../components/auditoria/auditoria-modelo.model";
+import {PontoTaxi} from "../components/pontos-taxi/ponto-taxi.model";
 
 @Injectable({
   providedIn: 'root'
@@ -45,27 +46,19 @@ export class AuditoriaService {
     return config;
   }
 
+  consultarTodasAuditorias(): Observable<AuditoriaModelo[]> {
+    return this.http.get<AuditoriaModelo[]>(this.baseUrl+'/buscar-todas').pipe(catchError(this.errorHandler));  // catch error
+  }
+
   consultarAuditoriaComFiltros(auditoria: AuditoriaFiltro): Observable<AuditoriaModelo[]> {
     let params = new HttpParams();
     if (auditoria.nomeModulo)       {  params = params.set('nomeModulo', auditoria.nomeModulo); }
     if (auditoria.usuarioOperacao)       {  params = params.set('usuarioOperacao', auditoria.usuarioOperacao); }
     if (auditoria.operacao)       {  params = params.set('operacao', auditoria.operacao); }
     if (auditoria.dataInicioOperacao)       {  params = params.set('dataInicioOperacao', auditoria.dataInicioOperacao); }
-    if (auditoria.dataFimOperacao)       {  params = params.set('numeroTaximetro', auditoria.dataFimOperacao); }
+    if (auditoria.dataFimOperacao)       {  params = params.set('dataFimOperacao', auditoria.dataFimOperacao); }
 
     return this.http.get<AuditoriaModelo[]>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
-  }
-
-  errorHandlerAlterar() {
-    return throwError("Ocorreu um erro ao Alterar o Veículo!");
-  }
-
-  errorHandlerInserir() {
-    return throwError("Ocorreu um erro ao Inserir o Veículo!");
-  }
-
-  errorHandlerExcluir() {
-    return throwError("Ocorreu um erro ao Excluir o Veículo!");
   }
 
   errorHandler() {

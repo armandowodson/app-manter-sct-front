@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
 
   login: Login = {
     usuario: "",
-    senha: ""
+    senha: "",
+    nome: ""
   };
 
   errors: string;
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
         }else{
           environment.loginGlobal = '1';
           environment.usuarioLogado = this.login.usuario;
+          environment.nomeLogado = login.nome;
           this.router.navigate(['/principal']);
         }
       },

@@ -1,5 +1,6 @@
 import { Component, Injectable, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -10,14 +11,16 @@ import { Router } from "@angular/router";
 })
 export class PrincipalComponent implements OnInit {
 
+  nomeLogado: string
+
   constructor(
     private router: Router
   ) {
-
+    this.nomeLogado = '';
   }
 
   ngOnInit(): void {
-
+      this.nomeLogado = environment.nomeLogado;
   }
 
   acessarPontoTaxi() {

@@ -30,15 +30,18 @@ export class PontoTaxiEditComponent implements OnInit {
 
   errors: string;
   id: string;
+  nomeLogado: string;
 
   constructor(private pontoTaxiService: PontoTaxiService,
               private router: Router,
               private currencyPipe : CurrencyPipe) {
     this.errors = '';
     this.id = '';
+    this.nomeLogado = "";
   }
 
   ngOnInit(): void {
+    this.nomeLogado = environment.nomeLogado;
     if (history.state.data) {
       this.pontoTaxi.idPontoTaxi = history.state.data.idPontoTaxi;
       this.pontoTaxi.numeroPonto = history.state.data.numeroPonto;

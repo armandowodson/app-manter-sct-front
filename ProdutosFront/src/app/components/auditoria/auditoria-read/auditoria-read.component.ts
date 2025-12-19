@@ -105,6 +105,30 @@ export class AuditoriaReadComponent implements OnInit {
       );
   }
 
+  imprimirAuditoria() {
+    this.loading = true;
+
+    this.auditoriaFiltro.operacao = this.operacaoSelecionada;
+    this.auditoriaService
+      .imprimirAuditoria(this.auditoriaFiltro)
+      .subscribe(
+        (auditorias) => {
+          if (auditorias.length == 0) {
+            this.auditoriaService.showMessageAlert(
+              "Não há dados para imprimir!"
+            );
+          }
+          this.auditoriaService.showMessageSuccess("Relatório gerado com sucesso! Local gerado C:\\Relatorio");
+          this.loading = false;
+        },
+        (error) => {
+          this.errors = error;
+          this.auditoriaService.showMessageError(this.errors);
+          this.loading = false;
+        }
+      );
+  }
+
   getPagedData(data: AuditoriaFiltro[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);

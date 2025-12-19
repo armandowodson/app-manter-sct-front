@@ -5,6 +5,7 @@ import {VeiculoService} from "../../../service/veiculo.service";
 import {VeiculoModelo} from "../veiculo-modelo.model";
 import {environment} from "../../../../environments/environment";
 import {PermissionarioService} from "../../../service/permissionario.service";
+import {PermissionarioModelo} from "../../permissionario/permissionario-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,7 @@ export class VeiculoCreateComponent implements OnInit {
     numeroCrlv: "",
     anoCrlv: "",
     certificadoAfericao: "",
+    tipoVeiculo: "",
     observacao: "",
     dataCriacao: "",
     usuario: ""
@@ -69,6 +71,36 @@ export class VeiculoCreateComponent implements OnInit {
     { id: 4, nome: 'AMASSADO' },
     { id: 5, nome: 'PNEUS CARECAS' }
   ];
+
+  tipoVeiculoSelecionado = "";
+  tipoVeiculoOptions = [
+    { id: '1', nome: 'CONVENCIONAL' },
+    { id: '2', nome: 'EXECUTIVO' },
+    { id: '3', nome: 'ESPECIAL' }
+  ];
+
+  permissionario: PermissionarioModelo = {
+    idPermissionario: 0,
+    numeroPermissao: "",
+    nomePermissionario: "",
+    cpfPermissionario: "",
+    cnpjEmpresa: "",
+    rgPermissionario: "",
+    orgaoEmissor: "",
+    naturezaPessoa: "",
+    ufPermissionario: "",
+    bairroPermissionario: "",
+    enderecoPermissionario: "",
+    celularPermissionario: "",
+    cnhPermissionario: "",
+    categoriaCnhPermissionario: "",
+    numeroQuitacaoMilitar: "",
+    numeroQuitacaoEleitoral: "",
+    numeroInscricaoInss: "",
+    numeroCertificadoCondutor: "",
+    dataCriacao: "",
+    usuario: ""
+  };
 
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
@@ -114,10 +146,28 @@ export class VeiculoCreateComponent implements OnInit {
     this.comprovanteVistoriaSelecionado = event.target.files[0] || null;
   }
 
+  carregarPermissao(permissionario: any){
+    this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe(
+      (response) => {
+        if (response == null) {
+          this.veiculoService.showMessageAlert(
+            "A consulta não retornou resultado!"
+          );
+        }
+        this.veiculo.numeroPermissao = response.numeroPermissao;
+      },
+      (error) => {
+        this.errors = error;
+        this.veiculoService.showMessageError(this.errors);
+      }
+    );
+  }
+
   inserirVeiculo(): void{
     this.veiculo.cor = this.corSelecionada;
     this.veiculo.combustivel = this.combustivelSelecionado;
     this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
+    this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
     this.veiculo.idPermissionario = this.permissionarioSelecionado;
     this.veiculo.usuario = environment.usuarioLogado;
 

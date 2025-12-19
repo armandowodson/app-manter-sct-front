@@ -56,6 +56,7 @@ export class PermissionarioService {
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
       ', "naturezaPessoa": "' + permissionario.naturezaPessoa + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
+      ', "categoriaCnhPermissionario": "' + permissionario.categoriaCnhPermissionario + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
@@ -140,8 +141,8 @@ export class PermissionarioService {
     return this.http.get<PermissionarioModelo[]>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  consultarPermissionarioId(permissionario: PermissionarioFiltro): Observable<PermissionarioModelo> {
-    return this.http.get<PermissionarioModelo>(this.baseUrl+'/buscar/?idPermissionario='+permissionario.idPermissionario).pipe(catchError(this.errorHandler)); // catch error
+  consultarPermissionarioId(identificador: number): Observable<PermissionarioModelo> {
+    return this.http.get<PermissionarioModelo>(this.baseUrl+'/buscar/'+identificador).pipe(catchError(this.errorHandler)); // catch error
   }
 
   errorHandlerAlterar() {

@@ -66,6 +66,7 @@ export class VeiculoService {
       ', "numeroCrlv": "' + veiculo.numeroCrlv + '"' +
       ', "anoCrlv": "' + veiculo.anoCrlv + '"' +
       ', "certificadoAfericao": "' + veiculo.certificadoAfericao + '"' +
+      ', "tipoVeiculo": "' + veiculo.tipoVeiculo + '"' +
       ', "observacao": "' + veiculo.observacao + '"' +
       ', "usuario": "' + veiculo.usuario + '"}'
     // @ts-ignore
@@ -99,6 +100,7 @@ export class VeiculoService {
       ', "numeroCrlv": "' + veiculo.numeroCrlv + '"' +
       ', "anoCrlv": "' + veiculo.anoCrlv + '"' +
       ', "certificadoAfericao": "' + veiculo.certificadoAfericao + '"' +
+      ', "tipoVeiculo": "' + veiculo.tipoVeiculo + '"' +
       ', "observacao": "' + veiculo.observacao + '"' +
       ', "usuario": "' + veiculo.usuario + '"}'
     // @ts-ignore

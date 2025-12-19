@@ -24,9 +24,17 @@ export class PontoTaxiEditComponent implements OnInit {
     fatorRotatividade: "",
     referenciaPonto: "",
     numeroVagas: "",
+    modalidade: "",
     dataCriacao: "",
     usuario: ""
   };
+
+  modalidadeSelecionada = "";
+  modalidadeOptions = [
+    { id: '1', nome: 'FIXO' },
+    { id: '2', nome: 'ROTATIVO' },
+    { id: '3', nome: 'FIX-ROTATIVO' }
+  ];
 
   errors: string;
   id: string;
@@ -49,30 +57,11 @@ export class PontoTaxiEditComponent implements OnInit {
       this.pontoTaxi.fatorRotatividade = history.state.data.fatorRotatividade;
       this.pontoTaxi.referenciaPonto = history.state.data.referenciaPonto;
       this.pontoTaxi.numeroVagas = history.state.data.numeroVagas;
+      this.pontoTaxi.modalidade = history.state.data.modalidade;
     }
   }
-
-  consultarPontoTaxiId(id: number){
-    this.pontoTaxi.idPontoTaxi = id;
-    this.pontoTaxiService.consultarPontoTaxiId(this.pontoTaxi).subscribe(ponto => {
-        if (ponto == null){
-            this.pontoTaxiService.showMessageAlert('A consulta não retornou resultado!');
-        }
-        this.pontoTaxi.idPontoTaxi = ponto.idPontoTaxi;
-        this.pontoTaxi.numeroPonto = ponto.numeroPonto;
-        this.pontoTaxi.descricaoPonto = ponto.descricaoPonto;
-        this.pontoTaxi.fatorRotatividade = ponto.fatorRotatividade;
-        this.pontoTaxi.referenciaPonto = ponto.referenciaPonto;
-        this.pontoTaxi.numeroVagas = ponto.numeroVagas;
-
-    },
-      error => {
-        this.errors = error
-        this.pontoTaxiService.showMessageError(this.errors);
-    });
-  }
-
-  editarPontoTaxi(): void{
+  editarPontoTaxi(): void {
+    this.pontoTaxi.modalidade = this.modalidadeSelecionada;
     this.pontoTaxi.usuario = environment.usuarioLogado;
     this.pontoTaxiService.editarPontoTaxi(this.pontoTaxi).subscribe(() => {
       this.pontoTaxiService.showMessageSuccess('Ponto de Táxi Atualizado com Sucesso!!!');

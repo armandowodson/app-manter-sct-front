@@ -1,6 +1,6 @@
 <mat-card xmlns="http://www.w3.org/1999/html">
-    <div style="margin-left: 1150px;">
-      <mat-card-title><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+    <div style="width: 550px; margin-left: 950px; font-size: small">
+      <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
     </div>
     <div style="height: 50px; margin-left: 20px;">
       <mat-card-title><b>Inlcusão do Permissionário</b></mat-card-title>
@@ -8,7 +8,7 @@
     <form>
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº Permissão</mat-label>
-          <input matInput placeholder="Nº Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroPermissao" name="numeroPermissao">
+          <input type="number" matInput placeholder="Nº Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroPermissao" name="numeroPermissao">
           <button mat-button *ngIf="permissionario.numeroPermissao" matSuffix aria-label="Clear" (click)="permissionario.numeroPermissao=''">
             <i class="material-icons black v-middle">
               close
@@ -28,7 +28,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >CPF Permissionário</mat-label>
-          <input matInput placeholder="CPF Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.cpfPermissionario" name="cpfPermissionario">
+          <input type="number" matInput placeholder="CPF Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.cpfPermissionario" name="cpfPermissionario">
           <button mat-button *ngIf="permissionario.cpfPermissionario" matSuffix aria-label="Clear" (click)="permissionario.cpfPermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -48,7 +48,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >RG Permissionário</mat-label>
-          <input matInput placeholder="RG Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.rgPermissionario" name="rgPermissionario">
+          <input type="number" matInput placeholder="RG Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.rgPermissionario" name="rgPermissionario">
           <button mat-button *ngIf="permissionario.rgPermissionario" matSuffix aria-label="Clear" (click)="permissionario.rgPermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -73,6 +73,11 @@
               {{ natureza.nome }}
             </mat-option>
           </mat-select>
+          <button mat-button *ngIf="naturezaSelecionada" matSuffix aria-label="Clear" (click)="naturezaSelecionada=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
@@ -116,7 +121,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >CNH Permissionário</mat-label>
-          <input matInput placeholder="CNH Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.cnhPermissionario" name="cnhPermissionario">
+          <input type="number" matInput placeholder="CNH Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.cnhPermissionario" name="cnhPermissionario">
           <button mat-button *ngIf="permissionario.cnhPermissionario" matSuffix aria-label="Clear" (click)="permissionario.cnhPermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -131,11 +136,16 @@
               {{ categoria.nome }}
             </mat-option>
           </mat-select>
+          <button mat-button *ngIf="categoriaCnhSelecionada" matSuffix aria-label="Clear" (click)="categoriaCnhSelecionada=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº Inscrição INSS</mat-label>
-          <input matInput placeholder="Nº Inscrição INSS" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroInscricaoInss" name="numeroInscricaoInss">
+          <input type="number" matInput placeholder="Nº Inscrição INSS" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroInscricaoInss" name="numeroInscricaoInss">
           <button mat-button *ngIf="permissionario.numeroInscricaoInss" matSuffix aria-label="Clear" (click)="permissionario.numeroInscricaoInss=''">
             <i class="material-icons black v-middle">
               close
@@ -145,7 +155,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº Quitação Militar</mat-label>
-          <input matInput placeholder="Nº Quitação Militar" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroQuitacaoMilitar" name="numeroQuitacaoMilitar">
+          <input type="number" matInput placeholder="Nº Quitação Militar" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroQuitacaoMilitar" name="numeroQuitacaoMilitar">
           <button mat-button *ngIf="permissionario.numeroQuitacaoMilitar" matSuffix aria-label="Clear" (click)="permissionario.numeroQuitacaoMilitar=''">
             <i class="material-icons black v-middle">
               close
@@ -155,7 +165,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº Quitação Eleitoral</mat-label>
-          <input matInput placeholder="Nº Quitação Eleitoral" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroQuitacaoEleitoral" name="numeroQuitacaoEleitoral">
+          <input type="number" matInput placeholder="Nº Quitação Eleitoral" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroQuitacaoEleitoral" name="numeroQuitacaoEleitoral">
           <button mat-button *ngIf="permissionario.numeroQuitacaoEleitoral" matSuffix aria-label="Clear" (click)="permissionario.numeroQuitacaoEleitoral=''">
             <i class="material-icons black v-middle">
               close
@@ -165,7 +175,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº Certificado Condutor</mat-label>
-          <input matInput placeholder="Nº Certificado Condutor" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroCertificadoCondutor" name="numeroCertificadoCondutor">
+          <input type="number" matInput placeholder="Nº Certificado Condutor" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroCertificadoCondutor" name="numeroCertificadoCondutor">
           <button mat-button *ngIf="permissionario.numeroCertificadoCondutor" matSuffix aria-label="Clear" (click)="permissionario.numeroCertificadoCondutor=''">
             <i class="material-icons black v-middle">
               close

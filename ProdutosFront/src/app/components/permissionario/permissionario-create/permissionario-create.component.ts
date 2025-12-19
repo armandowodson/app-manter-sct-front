@@ -118,6 +118,7 @@ export class PermissionarioCreateComponent implements OnInit {
   inserirPermissionario(): void{
     this.permissionario.naturezaPessoa = this.naturezaSelecionada;
     this.permissionario.ufPermissionario = this.ufSelecionada;
+    this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
     this.permissionario.usuario = environment.usuarioLogado;
     this.permissionarioService.inserirPermissionario(this.permissionario, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe(() => {

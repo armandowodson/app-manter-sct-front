@@ -25,9 +25,17 @@ export class PontoTaxiCreateComponent implements OnInit {
     fatorRotatividade: "",
     referenciaPonto: "",
     numeroVagas: "",
+    modalidade: "",
     dataCriacao: "",
     usuario: ""
   };
+
+  modalidadeSelecionada = "";
+  modalidadeOptions = [
+    { id: '1', nome: 'FIXO' },
+    { id: '2', nome: 'ROTATIVO' },
+    { id: '3', nome: 'FIX-ROTATIVO' }
+  ];
 
   errors: string;
   nomeLogado: string;
@@ -44,6 +52,7 @@ export class PontoTaxiCreateComponent implements OnInit {
   }
 
   inserirPontoTaxi(): void{
+    this.pontoTaxi.modalidade = this.modalidadeSelecionada;
     this.pontoTaxi.usuario = environment.usuarioLogado;
     this.pontoTaxiService.inserirPontoTaxi(this.pontoTaxi).subscribe(() => {
       this.pontoTaxiService.showMessageSuccess('Ponto de Táxi Criado com Sucesso!!!');

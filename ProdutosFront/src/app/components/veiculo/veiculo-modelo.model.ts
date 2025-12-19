@@ -19,6 +19,7 @@ export interface VeiculoModelo {
   numeroCrlv: string
   anoCrlv: string
   certificadoAfericao: string
+  tipoVeiculo: string
   observacao: string
   dataCriacao: string
   usuario: string

@@ -28,12 +28,19 @@ export class PontoTaxiReadComponent implements OnInit {
     fatorRotatividade: "",
     referenciaPonto: "",
     numeroVagas: "",
+    modalidade: "",
     dataCriacao: "",
     usuario: ""
   };
 
+  modalidadeSelecionada = "";
+  modalidadeOptions = [
+    { id: '1', nome: 'FIXO' },
+    { id: '2', nome: 'ROTATIVO' },
+    { id: '3', nome: 'FIX-ROTATIVO' }
+  ];
+
   pontosTaxi: PontoTaxi[] = [];
-  displayedColumns = ["idPontoTaxi", "numeroPonto", "descricaoPonto", "fatorRotatividade", "referenciaPonto", "dataCriacao", "acoes"];
   errors: string;
   page: number = 1;
   contador: number = 15;
@@ -90,6 +97,7 @@ export class PontoTaxiReadComponent implements OnInit {
 
   consultarPontosTaxiComFiltros() {
     this.loading = true;
+    this.pontoTaxi.modalidade = this.modalidadeSelecionada;
 
     this.pontoTaxiService
       .consultarPontosTaxiComFiltros(this.pontoTaxi)

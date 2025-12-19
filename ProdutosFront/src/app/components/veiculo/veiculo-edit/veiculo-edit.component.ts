@@ -41,6 +41,7 @@ export class VeiculoEditComponent implements OnInit {
     numeroCrlv: "",
     anoCrlv: "",
     certificadoAfericao: "",
+    tipoVeiculo: "",
     observacao: "",
     dataCriacao: "",
     usuario: ""
@@ -71,6 +72,13 @@ export class VeiculoEditComponent implements OnInit {
     { id: '5', nome: 'PNEUS CARECAS' }
   ];
 
+  tipoVeiculoSelecionado = "";
+  tipoVeiculoOptions = [
+    { id: '1', nome: 'CONVENCIONAL' },
+    { id: '2', nome: 'EXECUTIVO' },
+    { id: '3', nome: 'ESPECIAL' }
+  ];
+
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
 
@@ -91,7 +99,6 @@ export class VeiculoEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
-
     if (history.state.data) {
       this.permissionarioService.consultarPermissionariosDisponiveisAlteracao(history.state.data.idPermissionario).subscribe(
         (permissionarios) => {
@@ -128,6 +135,7 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.dataVistoria = history.state.data.dataVistoria;
       this.veiculo.dataRetorno = history.state.data.dataRetorno;
       this.situacaoVeiculoSelecionada = history.state.data.situacaoVeiculo;
+      this.tipoVeiculoSelecionado = history.state.data.tipoVeiculo;
       this.veiculo.numeroCrlv = history.state.data.numeroCrlv;
       this.veiculo.anoCrlv = history.state.data.anoCrlv;
       this.veiculo.certificadoAfericao = history.state.data.certificadoAfericao;
@@ -158,6 +166,7 @@ export class VeiculoEditComponent implements OnInit {
         this.veiculo.dataVistoria = veic.dataVistoria;
         this.veiculo.dataRetorno = veic.dataRetorno;
         this.situacaoVeiculoSelecionada = veic.situacaoVeiculo;
+        this.tipoVeiculoSelecionado = veic.tipoVeiculo;
         this.veiculo.numeroCrlv = veic.numeroCrlv;
         this.veiculo.anoCrlv = veic.anoCrlv;
         this.veiculo.certificadoAfericao = veic.certificadoAfericao;
@@ -177,10 +186,28 @@ export class VeiculoEditComponent implements OnInit {
     this.comprovanteVistoriaSelecionado = event.target.files[0] || null;
   }
 
+  carregarPermissao(permissionario: any){
+    this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe(
+      (response) => {
+        if (response == null) {
+          this.veiculoService.showMessageAlert(
+            "A consulta não retornou resultado!"
+          );
+        }
+        this.veiculo.numeroPermissao = response.numeroPermissao;
+      },
+      (error) => {
+        this.errors = error;
+        this.veiculoService.showMessageError(this.errors);
+      }
+    );
+  }
+
   editarVeiculo(): void{
     this.veiculo.cor = this.corSelecionada;
     this.veiculo.combustivel = this.combustivelSelecionado;
     this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
+    this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
     this.veiculo.idPermissionario = this.permissionarioSelecionado;
     this.veiculo.usuario = environment.usuarioLogado;
     this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado, this.comprovanteVistoriaSelecionado).subscribe(() => {

@@ -67,6 +67,7 @@ export class PontoTaxiService {
     if (pontoTaxi.fatorRotatividade)       {  params = params.set('fatorRotatividade', pontoTaxi.fatorRotatividade); }
     if (pontoTaxi.numeroVagas)       {  params = params.set('numeroVagas', pontoTaxi.numeroVagas); }
     if (pontoTaxi.referenciaPonto)       {  params = params.set('referenciaPonto', pontoTaxi.referenciaPonto); }
+    if (pontoTaxi.modalidade)       {  params = params.set('modalidade', pontoTaxi.modalidade); }
 
     return this.http.get<PontoTaxi[]>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }

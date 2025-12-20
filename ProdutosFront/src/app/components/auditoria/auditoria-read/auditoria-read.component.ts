@@ -2,9 +2,10 @@ import { Component, Injectable, OnInit, ViewChild } from "@angular/core";
 import { AuditoriaModelo } from "../auditoria-modelo.model";
 import { AuditoriaFiltro } from "../auditoria-filtro.model";
 import { AuditoriaService } from "../../../service/auditoria.service";
-import { MatPaginator } from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import {environment} from "../../../../environments/environment";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -15,8 +16,6 @@ import {environment} from "../../../../environments/environment";
 })
 export class AuditoriaReadComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  NODE_TLS_REJECT_UNAUTHORIZED = 0;
   public loading = false;
 
   auditoriaFiltro: AuditoriaFiltro = {
@@ -35,74 +34,104 @@ export class AuditoriaReadComponent implements OnInit {
     { id: 'EXCLUSÃO', nome: 'EXCLUSÃO' }
   ];
 
-  auditorias: AuditoriaModelo[] = [];
+  auditorias: any[] = [];
+
+  //auditorias: AuditoriaModelo[] = [];
   errors: string;
-  page: number = 1;
-  contador: number = 15;
-  tamanho: number;
   nomeAuditoria: string;
   nomeLogado: string;
+  totalAuditorias: number;
+  pageIndex: number;
+  pageSize: number;
+  buscouTodos: number;
 
   constructor(
     private auditoriaService: AuditoriaService,
     private router: Router
   ) {
     this.errors = "";
-    this.tamanho = 0;
     this.nomeAuditoria = "";
     this.nomeLogado = "";
+    this.totalAuditorias = 0;
+    this.pageIndex = 0;
+    this.pageSize = 10;
+    this.buscouTodos = 0;
   }
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
-    this.auditoriaService.consultarTodasAuditorias().subscribe(
-      (audits) => {
-        if (audits.length == 0) {
-          this.auditoriaService.showMessageAlert(
-            "A consulta não retornou resultado!"
-          );
-        }
-        this.auditorias = audits;
-        this.tamanho = this.auditorias.length;
+    this.buscarTodasAuditorias();
+  }
+
+  buscarTodasAuditorias(){
+    this.buscouTodos = 1;
+    const request: Observable<AuditoriaModelo> = this.auditoriaService.consultarTodasAuditorias(this.pageIndex, this.pageSize);
+    request.subscribe({
+      next: (res) => {
+        this.auditorias = (res.content || []).map((item: any) => ({
+          idAuditoria: item.idAuditoria,
+          nomeModulo: item.nomeModulo,
+          usuarioOperacao: item.usuarioOperacao,
+          operacao: item.operacao,
+          dataOperacao: item.dataOperacao
+        }));
+        this.totalAuditorias = res.totalElements;
+        this.pageIndex = res.number;
+        this.loading = false;
       },
-      (error) => {
-        this.errors = error;
+      error: (err) => {
+        this.errors = err.message;
+        this.loading = false;
         this.auditoriaService.showMessageError(this.errors);
       }
-    );
+    });
+  }
+
+  onPageChange(event: PageEvent): void {
+      this.pageIndex = event.pageIndex;
+      this.pageSize = event.pageSize;
+      if((this.auditoriaFiltro.operacao != null && this.auditoriaFiltro.operacao != undefined && this.auditoriaFiltro.operacao != '') ||
+         (this.auditoriaFiltro.nomeModulo != null && this.auditoriaFiltro.nomeModulo != undefined && this.auditoriaFiltro.nomeModulo != '') ||
+         (this.auditoriaFiltro.usuarioOperacao != null && this.auditoriaFiltro.usuarioOperacao != undefined && this.auditoriaFiltro.usuarioOperacao != '') ||
+         (this.auditoriaFiltro.dataInicioOperacao != null && this.auditoriaFiltro.dataInicioOperacao != undefined && this.auditoriaFiltro.dataInicioOperacao != '' &&
+           this.auditoriaFiltro.dataFimOperacao != null && this.auditoriaFiltro.dataFimOperacao != undefined && this.auditoriaFiltro.dataFimOperacao != '')){
+            if(this.buscouTodos)
+              this.pageIndex = 0;
+            this.consultarAuditoriaComFiltros();
+            this.buscouTodos = 0;
+        }else{
+            this.buscarTodasAuditorias();
+      }
   }
 
   voltarPaginaPrincipal(): void {
     this.router.navigate(["/principal"]);
   }
 
-  handlePageChange(event: number) {
-    this.page = event;
-  }
-
   consultarAuditoriaComFiltros() {
     this.loading = true;
 
     this.auditoriaFiltro.operacao = this.operacaoSelecionada;
-    this.auditoriaService
-      .consultarAuditoriaComFiltros(this.auditoriaFiltro)
-      .subscribe(
-        (auditorias) => {
-          if (auditorias.length == 0) {
-            this.auditoriaService.showMessageAlert(
-              "A consulta não retornou resultado!"
-            );
-          }
-          this.auditorias = auditorias;
-          this.tamanho = this.auditorias.length;
-          this.loading = false;
-        },
-        (error) => {
-          this.errors = error;
-          this.auditoriaService.showMessageError(this.errors);
-          this.loading = false;
-        }
-      );
+    const request: Observable<AuditoriaModelo> = this.auditoriaService.consultarAuditoriaComFiltros(this.auditoriaFiltro, this.pageIndex, this.pageSize);
+    request.subscribe({
+      next: (res) => {
+        this.auditorias = (res.content || []).map((item: any) => ({
+          idAuditoria: item.idAuditoria,
+          nomeModulo: item.nomeModulo,
+          usuarioOperacao: item.usuarioOperacao,
+          operacao: item.operacao,
+          dataOperacao: item.dataOperacao
+        }));
+        this.totalAuditorias = res.totalElements;
+        this.pageIndex = res.number;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.errors = err.message;
+        this.loading = false;
+        this.auditoriaService.showMessageError(this.errors);
+      }
+    });
   }
 
   imprimirAuditoria() {
@@ -110,7 +139,7 @@ export class AuditoriaReadComponent implements OnInit {
 
     this.auditoriaFiltro.operacao = this.operacaoSelecionada;
     this.auditoriaService
-      .imprimirAuditoria(this.auditoriaFiltro)
+      .imprimirAuditoria(this.auditoriaFiltro, this.pageIndex, this.pageSize)
       .subscribe(
         (auditorias) => {
           if (auditorias.length == 0) {
@@ -127,10 +156,5 @@ export class AuditoriaReadComponent implements OnInit {
           this.loading = false;
         }
       );
-  }
-
-  getPagedData(data: AuditoriaFiltro[]) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
   }
 }

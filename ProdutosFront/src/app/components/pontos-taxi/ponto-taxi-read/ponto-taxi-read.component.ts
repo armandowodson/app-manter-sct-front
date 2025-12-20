@@ -131,7 +131,7 @@ export class PontoTaxiReadComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id =
-      "Deseja excluir o Ponto de Táxi: " + idPontoTaxi + " - " + descricaoPonto + " ?";
+      "Deseja excluir o Ponto de Estacionamento de Táxi: " + idPontoTaxi + " - " + descricaoPonto + " ?";
     dialogConfig.panelClass = "dialogModal";
     const modalDialog = this.matDialog.open(PontoTaxiModalComponent, dialogConfig);
   }
@@ -144,7 +144,7 @@ export class PontoTaxiReadComponent implements OnInit {
       }
     }
     this.confirmarExclusao(
-      "Deseja excluir o Ponto de Táxi: " + idPontoTaxi + ": " + this.descricaoPonto + " ?"
+      "Deseja excluir o Ponto de Estacionamento de Táxi: " + idPontoTaxi + ": " + this.descricaoPonto + " ?"
     ).then((podeDeletar) => {
       if (podeDeletar) {
         this.pontoTaxiService.excluirPontoTaxi(idPontoTaxi, environment.usuarioLogado).subscribe(() => {

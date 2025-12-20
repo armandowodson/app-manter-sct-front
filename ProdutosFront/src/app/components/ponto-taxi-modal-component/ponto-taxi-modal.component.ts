@@ -39,7 +39,7 @@ export class PontoTaxiModalComponent implements OnInit {
       idPontoTaxi = this.dialogRef.id.substr(posicaoInicio+1, (posicaoFim-1) - (posicaoInicio+1)).trim();
 
       this.pontoTaxiService.excluirPontoTaxi(parseInt(idPontoTaxi), environment.usuarioLogado).subscribe(() => {
-      this.pontoTaxiService.showMessageSuccess('Ponto de Táxi Excluído com Sucesso!!!');
+      this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Táxi Excluído com Sucesso!!!');
       this.reloadComponent();
     },
     error => {

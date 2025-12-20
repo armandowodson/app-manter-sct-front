@@ -57,6 +57,7 @@ export class PontoTaxiEditComponent implements OnInit {
       this.pontoTaxi.fatorRotatividade = history.state.data.fatorRotatividade;
       this.pontoTaxi.referenciaPonto = history.state.data.referenciaPonto;
       this.pontoTaxi.numeroVagas = history.state.data.numeroVagas;
+      this.modalidadeSelecionada = history.state.data.modalidade;
       this.pontoTaxi.modalidade = history.state.data.modalidade;
     }
   }

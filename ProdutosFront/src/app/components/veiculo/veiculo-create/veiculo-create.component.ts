@@ -124,7 +124,7 @@ export class VeiculoCreateComponent implements OnInit {
       (permissionarios) => {
         if (permissionarios.length == 0) {
           this.veiculoService.showMessageAlert(
-            "A consulta não retornou resultado!"
+            "Não há Permissionário disponível para seleção!"
           );
         }
         permissionarios?.forEach(element => {
@@ -147,39 +147,49 @@ export class VeiculoCreateComponent implements OnInit {
   }
 
   carregarPermissao(permissionario: any){
-    this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe(
-      (response) => {
-        if (response == null) {
-          this.veiculoService.showMessageAlert(
-            "A consulta não retornou resultado!"
-          );
+      this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe({
+        next: (response) => {
+          if (response == null) {
+            this.veiculoService.showMessageAlert(
+              "Não foram encontradas Permissões disponíveis para o cadastro do Veículo!"
+            );
+          }
+          this.veiculo.numeroPermissao = response.numeroPermissao;
+        },
+        error: (error) => {
+          this.veiculoService.showMessageError(error.message);
         }
-        this.veiculo.numeroPermissao = response.numeroPermissao;
-      },
-      (error) => {
-        this.errors = error;
-        this.veiculoService.showMessageError(this.errors);
-      }
-    );
+      });
   }
 
   inserirVeiculo(): void{
-    this.veiculo.cor = this.corSelecionada;
-    this.veiculo.combustivel = this.combustivelSelecionado;
-    this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
-    this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
-    this.veiculo.idPermissionario = this.permissionarioSelecionado;
-    this.veiculo.usuario = environment.usuarioLogado;
+      this.veiculo.cor = this.corSelecionada;
+      this.veiculo.combustivel = this.combustivelSelecionado;
+      this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
+      this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
+      this.veiculo.idPermissionario = this.permissionarioSelecionado;
+      this.veiculo.usuario = environment.usuarioLogado;
 
-    this.veiculoService.inserirVeiculo(this.veiculo, this.crlvSelecionado,
-      this.comprovanteVistoriaSelecionado).subscribe(() => {
-      this.veiculoService.showMessageSuccess('Veículo Criado com Sucesso!!!');
-      this.router.navigate(['/veiculo']);
-    },
-    error => {
-        this.errors = error
-        this.veiculoService.showMessageError('Ocorreu um erro ao Criar o Veículo!!!');
-    });
+      if(this.crlvSelecionado?.name == null || this.crlvSelecionado.name == ''){
+        this.veiculoService.showMessageAlert('O anexo do CRLV é obrigatório!');
+        return;
+      }
+
+      if(this.comprovanteVistoriaSelecionado?.name == null || this.comprovanteVistoriaSelecionado.name == ''){
+        this.veiculoService.showMessageAlert('O anexo do Comprovante de Vistoria é obrigatório!');
+        return;
+      }
+
+      this.veiculoService.inserirVeiculo(this.veiculo, this.crlvSelecionado,
+        this.comprovanteVistoriaSelecionado).subscribe({
+        next: (response) => {
+          this.veiculoService.showMessageSuccess('Veículo Criado com Sucesso!!!');
+          this.router.navigate(['/veiculo']);
+        },
+        error: (error) => {
+          this.veiculoService.showMessageError(error.message);
+        }
+      });
   }
 
   voltar(): void{

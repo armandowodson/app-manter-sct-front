@@ -97,7 +97,7 @@
             </tr>
          </thead>
          <tbody>
-            <tr *ngFor="let row of veiculos | paginate: { itemsPerPage: contador, currentPage: page }">
+            <tr *ngFor="let row of veiculos | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
               <td style="text-align: left;">{{row.numeroPermissao}}</td>
               <td style="text-align: left;">{{row.placa}}</td>
               <td style="text-align: center;">{{row.renavam}}</td>
@@ -117,9 +117,15 @@
             </tr>
          </tbody>
     </table>
-    <div class="text-right" style="float: right;">
-        <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-    </div>
+  <mat-paginator
+    #paginator
+    (page)="onPageChange($event)"
+    [length]= "totalPontos"
+    [pageSize]= "pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]= "[10, 15, 20]"
+    [showFirstLastButtons]>
+  </mat-paginator>
 
 </div>
 

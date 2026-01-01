@@ -1,12 +1,10 @@
-import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders, HttpBackend, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpBackend, HttpParams } from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {AuditoriaFiltro} from "../components/auditoria/auditoria-filtro.model";
-import {AuditoriaModelo} from "../components/auditoria/auditoria-modelo.model";
-import {PontoTaxi} from "../components/pontos-taxi/ponto-taxi.model";
-import {Page} from "ngx-pagination";
+import {PageModelo} from "../components/comum/page-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -47,14 +45,14 @@ export class AuditoriaService {
     return config;
   }
 
-  consultarTodasAuditorias(pageIndex: number, pageSize: number): Observable<AuditoriaModelo> {
+  consultarTodasAuditorias(pageIndex: number, pageSize: number): Observable<PageModelo> {
       let params = new HttpParams();
       params = params.set('pageIndex', pageIndex);
       params = params.set('pageSize', pageSize);
-      return this.http.get<AuditoriaModelo>(this.baseUrl+'/buscar-todas', {params}).pipe(catchError(this.errorHandler));  // catch error
+      return this.http.get<PageModelo>(this.baseUrl+'/buscar-todas', {params}).pipe(catchError(this.errorHandler));  // catch error
   }
 
-  consultarAuditoriaComFiltros(auditoria: AuditoriaFiltro, pageIndex: number, pageSize: number): Observable<AuditoriaModelo> {
+  consultarAuditoriaComFiltros(auditoria: AuditoriaFiltro, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
     if (auditoria.nomeModulo)       {  params = params.set('nomeModulo', auditoria.nomeModulo); }
     if (auditoria.usuarioOperacao)       {  params = params.set('usuarioOperacao', auditoria.usuarioOperacao); }
@@ -64,10 +62,10 @@ export class AuditoriaService {
     params = params.set('pageIndex', pageIndex);
     params = params.set('pageSize', pageSize);
 
-    return this.http.get<AuditoriaModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  imprimirAuditoria(auditoria: AuditoriaFiltro, pageIndex: number, pageSize: number): Observable<AuditoriaModelo[]> {
+  imprimirAuditoria(auditoria: AuditoriaFiltro, pageIndex: number, pageSize: number): Observable<PageModelo[]> {
     let params = new HttpParams();
     if (auditoria.nomeModulo)       {  params = params.set('nomeModulo', auditoria.nomeModulo); }
     if (auditoria.usuarioOperacao)       {  params = params.set('usuarioOperacao', auditoria.usuarioOperacao); }
@@ -77,7 +75,7 @@ export class AuditoriaService {
     params = params.set('pageIndex', pageIndex);
     params = params.set('pageSize', pageSize);
 
-    return this.http.get<AuditoriaModelo[]>(this.baseUrl+'/imprimir', {params}).pipe(catchError(this.errorHandler)); // catch error
+    return this.http.get<PageModelo[]>(this.baseUrl+'/imprimir', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
   errorHandler() {

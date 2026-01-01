@@ -9,16 +9,18 @@ import {PontoTaxiCreateComponent} from "./components/pontos-taxi/ponto-taxi-crea
 import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/ponto-taxi-edit.component";
 import {PrincipalComponent} from "./components/template/principal/principal.component";
 import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
-import {
-  PermissionarioCreateComponent
-} from "./components/permissionario/permissionario-create/permissionario-create.component";
-import {
-  PermissionarioEditComponent
-} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
+import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
+import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
+import {DefensorCrudComponent} from "./views/defensor-crud/defensor-crud.component";
+import {DefensorCreateComponent} from "./components/defensor/defensor-create/defensor-create.component";
+import {DefensorEditComponent} from "./components/defensor/defensor-edit/defensor-edit.component";
 import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
 import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
 import {VeiculoEditComponent} from "./components/veiculo/veiculo-edit/veiculo-edit.component";
 import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.component";
+import {PermissaoCrudComponent} from "./views/permissao-crud/permissao-crud.component";
+import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
+import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
 
 const routes: Routes = [
   {
@@ -50,6 +52,18 @@ const routes: Routes = [
     component: PermissionarioEditComponent
   },
   {
+    path: "defensor",
+    component: DefensorCrudComponent
+  },
+  {
+    path: "defensor/create",
+    component: DefensorCreateComponent
+  },
+  {
+    path: "defensor/edit",
+    component: DefensorEditComponent
+  },
+  {
     path: "veiculo",
     component: VeiculoCrudComponent
   },
@@ -60,6 +74,18 @@ const routes: Routes = [
   {
     path: "veiculo/edit",
     component: VeiculoEditComponent
+  },
+  {
+    path: "permissao",
+    component: PermissaoCrudComponent
+  },
+  {
+    path: "permissao/create",
+    component: PermissaoCreateComponent
+  },
+  {
+    path: "permissao/edit",
+    component: PermissaoEditComponent
   },
   {
     path: "auditoria",

@@ -35,6 +35,14 @@ export class PrincipalComponent implements OnInit {
     this.router.navigate(['/veiculo']);
   }
 
+  acessarDefensor() {
+    this.router.navigate(['/defensor']);
+  }
+
+  acessarPermissao() {
+    this.router.navigate(['/permissao']);
+  }
+
   acessarAuditoria() {
     this.router.navigate(['/auditoria']);
   }

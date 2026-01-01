@@ -39,7 +39,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PontoTaxiModalComponent } from './components/ponto-taxi-modal-component/ponto-taxi-modal.component';
 import { PermissionarioModalComponent } from './components/permissionario-modal-component/permissionario-modal.component';
+import { DefensorModalComponent } from './components/defensor-modal-component/defensor-modal.component';
 import { VeiculoModalComponent } from './components/veiculo-modal-component/veiculo-modal.component';
+import { PermissaoModalComponent } from './components/permissao-modal-component/permissao-modal.component';
 
 import {LoginComponent} from "./components/template/login/login.component";
 import {RegistroComponent} from "./components/template/registro/registro.component";
@@ -52,10 +54,18 @@ import {PermissionarioReadComponent} from "./components/permissionario/permissio
 import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
 import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
 import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
+import {DefensorReadComponent} from "./components/defensor/defensor-read/defensor-read.component";
+import {DefensorCrudComponent} from "./views/defensor-crud/defensor-crud.component";
+import {DefensorCreateComponent} from "./components/defensor/defensor-create/defensor-create.component";
+import {DefensorEditComponent} from "./components/defensor/defensor-edit/defensor-edit.component";
 import {VeiculoReadComponent} from "./components/veiculo/veiculo-read/veiculo-read.component";
 import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
 import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
 import {VeiculoEditComponent} from "./components/veiculo/veiculo-edit/veiculo-edit.component";
+import {PermissaoReadComponent} from "./components/permissao/permissao-read/permissao-read.component";
+import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
+import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
+import {PermissaoCrudComponent} from './views/permissao-crud/permissao-crud.component';
 import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.component";
 import {AuditoriaReadComponent} from "./components/auditoria/auditoria-read/auditoria-read.component";
 import {MatSelectModule} from "@angular/material/select";
@@ -92,6 +102,8 @@ export const DATE_FORMATS = {
     PontoTaxiModalComponent,
     PermissionarioModalComponent,
     VeiculoModalComponent,
+    DefensorModalComponent,
+    PermissaoModalComponent,
     LoginComponent,
     RegistroComponent,
     LogoutComponent,
@@ -103,10 +115,18 @@ export const DATE_FORMATS = {
     PermissionarioCrudComponent,
     PermissionarioCreateComponent,
     PermissionarioEditComponent,
+    DefensorReadComponent,
+    DefensorCrudComponent,
+    DefensorCreateComponent,
+    DefensorEditComponent,
     VeiculoReadComponent,
     VeiculoCrudComponent,
     VeiculoCreateComponent,
     VeiculoEditComponent,
+    PermissaoReadComponent,
+    PermissaoEditComponent,
+    PermissaoCreateComponent,
+    PermissaoCrudComponent,
     AuditoriaCrudComponent,
     AuditoriaReadComponent
   ],

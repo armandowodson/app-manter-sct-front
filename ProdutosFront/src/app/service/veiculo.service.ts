@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {VeiculoModelo} from "../components/veiculo/veiculo-modelo.model";
 import {VeiculoFiltro} from "../components/veiculo/veiculo-filtro.model";
+import {PageModelo} from "../components/comum/page-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +76,7 @@ export class VeiculoService {
     formDataVeiculo.append('crlv', crlv, crlv.name);
     // @ts-ignore
     formDataVeiculo.append('comprovanteVistoria', comprovanteVistoria, comprovanteVistoria.name);
-    return this.http.post<VeiculoModelo>(this.baseUrl+'/inserir', formDataVeiculo).pipe(catchError(this.errorHandlerInserir));
+    return this.http.post<VeiculoModelo>(this.baseUrl+'/inserir', formDataVeiculo).pipe(catchError(this.errorHandler));
   }
 
   editarVeiculo(veiculo: VeiculoModelo, crlv: File | null, comprovanteVistoria: File | null): Observable<VeiculoModelo>{
@@ -111,46 +112,39 @@ export class VeiculoService {
     if(comprovanteVistoria != null)
       // @ts-ignore
       formDataVeiculo.append('comprovanteVistoria', comprovanteVistoria, comprovanteVistoria.name);
-    return this.http.post<VeiculoModelo>(this.baseUrl+'/alterar', formDataVeiculo).pipe(catchError(this.errorHandlerInserir));
+    return this.http.post<VeiculoModelo>(this.baseUrl+'/alterar', formDataVeiculo).pipe(catchError(this.errorHandler));
   }
 
   excluirVeiculo(idVeiculo: number, usuario: string): Observable<String>{
     this.erroMetodo = "Não foi possível excluir o Veículo!";
-    return this.http.delete<String>(this.baseUrl+'/excluir/'+idVeiculo+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
+    return this.http.delete<String>(this.baseUrl+'/excluir/'+idVeiculo+'/usuario/'+usuario).pipe(catchError(this.errorHandler));
   }
 
-  consultarTodosVeiculos(): Observable<VeiculoModelo[]> {
-    return this.http.get<VeiculoModelo[]>(this.baseUrl+'/buscar-todos').pipe(catchError(this.errorHandler));  // catch error
+  consultarTodosVeiculos(pageIndex: number, pageSize: number): Observable<PageModelo> {
+    let params = new HttpParams();
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-todos', {params}).pipe(catchError(this.errorHandler));  // catch error
   }
 
-  consultarVeiculosComFiltros(veiculo: VeiculoFiltro): Observable<VeiculoModelo[]> {
+  consultarVeiculosComFiltros(veiculo: VeiculoFiltro, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
     if (veiculo.numeroPermissao)       {  params = params.set('numeroPermissao', veiculo.numeroPermissao); }
     if (veiculo.placa)       {  params = params.set('placa', veiculo.placa); }
     if (veiculo.renavam)       {  params = params.set('renavam', veiculo.renavam); }
     if (veiculo.numeroTaximetro)       {  params = params.set('numeroTaximetro', veiculo.numeroTaximetro); }
     if (veiculo.anoFabricacao)       {  params = params.set('anoFabricacao', veiculo.anoFabricacao); }
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
 
-    return this.http.get<VeiculoModelo[]>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
   consultarVeiculoId(veiculo: VeiculoFiltro): Observable<VeiculoModelo> {
     return this.http.get<VeiculoModelo>(this.baseUrl+'/buscar/?idVeiculo='+veiculo.idVeiculo).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  errorHandlerAlterar() {
-    return throwError("Ocorreu um erro ao Alterar o Veículo!");
-  }
-
-  errorHandlerInserir() {
-    return throwError("Ocorreu um erro ao Inserir o Veículo!");
-  }
-
-  errorHandlerExcluir() {
-    return throwError("Ocorreu um erro ao Excluir o Veículo!");
-  }
-
-  errorHandler() {
-    return throwError("Ocorreu um erro! Operação não concluída!");
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(() => new Error(error.error.message));
   }
 }

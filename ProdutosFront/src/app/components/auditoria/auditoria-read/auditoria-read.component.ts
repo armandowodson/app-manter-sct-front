@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit, ViewChild } from "@angular/core";
-import { AuditoriaModelo } from "../auditoria-modelo.model";
+import {PageModelo} from "../../comum/page-modelo.model";
 import { AuditoriaFiltro } from "../auditoria-filtro.model";
 import { AuditoriaService } from "../../../service/auditoria.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
@@ -36,7 +36,6 @@ export class AuditoriaReadComponent implements OnInit {
 
   auditorias: any[] = [];
 
-  //auditorias: AuditoriaModelo[] = [];
   errors: string;
   nomeAuditoria: string;
   nomeLogado: string;
@@ -65,7 +64,7 @@ export class AuditoriaReadComponent implements OnInit {
 
   buscarTodasAuditorias(){
     this.buscouTodos = 1;
-    const request: Observable<AuditoriaModelo> = this.auditoriaService.consultarTodasAuditorias(this.pageIndex, this.pageSize);
+    const request: Observable<PageModelo> = this.auditoriaService.consultarTodasAuditorias(this.pageIndex, this.pageSize);
     request.subscribe({
       next: (res) => {
         this.auditorias = (res.content || []).map((item: any) => ({
@@ -112,7 +111,7 @@ export class AuditoriaReadComponent implements OnInit {
     this.loading = true;
 
     this.auditoriaFiltro.operacao = this.operacaoSelecionada;
-    const request: Observable<AuditoriaModelo> = this.auditoriaService.consultarAuditoriaComFiltros(this.auditoriaFiltro, this.pageIndex, this.pageSize);
+    const request: Observable<PageModelo> = this.auditoriaService.consultarAuditoriaComFiltros(this.auditoriaFiltro, this.pageIndex, this.pageSize);
     request.subscribe({
       next: (res) => {
         this.auditorias = (res.content || []).map((item: any) => ({
@@ -122,6 +121,11 @@ export class AuditoriaReadComponent implements OnInit {
           operacao: item.operacao,
           dataOperacao: item.dataOperacao
         }));
+        if (res.totalElements == 0) {
+          this.auditoriaService.showMessageAlert(
+            "A consulta não retornou resultado!"
+          );
+        }
         this.totalAuditorias = res.totalElements;
         this.pageIndex = res.number;
         this.loading = false;

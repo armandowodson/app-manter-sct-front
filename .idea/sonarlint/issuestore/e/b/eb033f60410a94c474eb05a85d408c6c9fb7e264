@@ -1,0 +1,8 @@
+
+Ltypescript:S3504!")Unexpected var, use let or const instead.(ÀÓÊÕ8ÛÜŞ³3
+Qtypescript:S3504"")Unexpected var, use let or const instead.(øÑñ±şÿÿÿÿ8ÛÜŞ³3
+Qtypescript:S3504#")Unexpected var, use let or const instead.(¨Âè¬üÿÿÿÿ8ÜÜŞ³3
+jtypescript:S1874'"B'substr' is deprecated. A legacy feature for browser compatibility(Ğ·ÆÑûÿÿÿÿ8ÜÜŞ³3
+typescript:S1874)"ä'subscribe' is deprecated. Instead of passing separate callback arguments, use an observer argument. Signatures taking separate callback arguments will be removed in v8. Details: https://rxjs.dev/deprecations/subscribe-arguments(šáŠ“øÿÿÿÿ8ÜÜŞ³3
+­typescript:S1874<"„'routeReuseStrategy' is deprecated. Configure using `providers` instead:\u0010`{provide: RouteReuseStrategy, useClass: MyStrategy}`.(óëË±ıÿÿÿÿ8ÜÜŞ³3
+typescript:S1874="n'onSameUrlNavigation' is deprecated. Configure this through `provideRouter` or `RouterModule.forRoot` instead.(ƒ¹“a8ÜÜŞ³3

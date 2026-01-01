@@ -104,7 +104,7 @@ export class VeiculoEditComponent implements OnInit {
         (permissionarios) => {
           if (permissionarios.length == 0) {
             this.veiculoService.showMessageAlert(
-              "A consulta não retornou resultado!"
+              "Não há Permissionário disponível para seleção!"
             );
           }
           permissionarios?.forEach(element => {
@@ -142,42 +142,6 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.observacao = history.state.data.observacao;
     }
   }
-
-  consultarVeiculoId(id: number){
-    this.veiculo.idVeiculo = id;
-    this.veiculoService.consultarVeiculoId(this.veiculo).subscribe(veic => {
-        if (veic == null){
-            this.veiculoService.showMessageAlert('A consulta não retornou resultado!');
-        }
-        this.veiculo.idVeiculo = veic.idVeiculo;
-        this.veiculo.idPermissionario = veic.idPermissionario;
-        this.veiculo.numeroPermissao = veic.numeroPermissao;
-        this.veiculo.placa = veic.placa;
-        this.veiculo.renavam = veic.renavam;
-        this.veiculo.chassi = veic.chassi;
-        this.veiculo.anoFabricacao = veic.anoFabricacao;
-        this.veiculo.marca = veic.marca;
-        this.veiculo.modelo = veic.modelo;
-        this.veiculo.anoModelo = veic.anoModelo;
-        this.corSelecionada = veic.cor;
-        this.combustivelSelecionado = veic.combustivel;
-        this.veiculo.numeroTaximetro = veic.numeroTaximetro;
-        this.veiculo.anoRenovacao = veic.anoRenovacao;
-        this.veiculo.dataVistoria = veic.dataVistoria;
-        this.veiculo.dataRetorno = veic.dataRetorno;
-        this.situacaoVeiculoSelecionada = veic.situacaoVeiculo;
-        this.tipoVeiculoSelecionado = veic.tipoVeiculo;
-        this.veiculo.numeroCrlv = veic.numeroCrlv;
-        this.veiculo.anoCrlv = veic.anoCrlv;
-        this.veiculo.certificadoAfericao = veic.certificadoAfericao;
-        this.veiculo.observacao = veic.observacao;
-      },
-      error => {
-        this.errors = error
-        this.veiculoService.showMessageError(this.errors);
-    });
-  }
-
   getCrlvSelecionado (event: any): void {
     this.crlvSelecionado = event.target.files[0] || null;
   }
@@ -187,36 +151,37 @@ export class VeiculoEditComponent implements OnInit {
   }
 
   carregarPermissao(permissionario: any){
-    this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe(
-      (response) => {
-        if (response == null) {
-          this.veiculoService.showMessageAlert(
-            "A consulta não retornou resultado!"
-          );
+      this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe({
+        next: (response) => {
+          if (response == null) {
+            this.veiculoService.showMessageAlert(
+              "Não foram encontradas Permissões disponíveis para o cadastro do Veículo!"
+            );
+          }
+          this.veiculo.numeroPermissao = response.numeroPermissao;
+        },
+        error: (error) => {
+          this.veiculoService.showMessageError(error.message);
         }
-        this.veiculo.numeroPermissao = response.numeroPermissao;
-      },
-      (error) => {
-        this.errors = error;
-        this.veiculoService.showMessageError(this.errors);
-      }
-    );
+      });
   }
 
   editarVeiculo(): void{
-    this.veiculo.cor = this.corSelecionada;
-    this.veiculo.combustivel = this.combustivelSelecionado;
-    this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
-    this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
-    this.veiculo.idPermissionario = this.permissionarioSelecionado;
-    this.veiculo.usuario = environment.usuarioLogado;
-    this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado, this.comprovanteVistoriaSelecionado).subscribe(() => {
-        this.veiculoService.showMessageSuccess('Veículo Atualizado com Sucesso!!!');
-        this.router.navigate(['/veiculo']);
-      },
-      error => {
-        this.errors = error
-        this.veiculoService.showMessageError('Ocorreu um erro ao Atualizar o Veículo!!!');
+      this.veiculo.cor = this.corSelecionada;
+      this.veiculo.combustivel = this.combustivelSelecionado;
+      this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
+      this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
+      this.veiculo.idPermissionario = this.permissionarioSelecionado;
+      this.veiculo.usuario = environment.usuarioLogado;
+
+      this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado, this.comprovanteVistoriaSelecionado).subscribe({
+        next: (response) => {
+          this.veiculoService.showMessageSuccess('Veículo Atualizado com Sucesso!!!');
+          this.router.navigate(['/veiculo']);
+        },
+        error: (error) => {
+          this.veiculoService.showMessageError(error.message);
+        }
       });
   }
 

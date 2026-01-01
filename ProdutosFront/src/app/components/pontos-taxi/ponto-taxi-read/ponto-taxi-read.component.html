@@ -10,8 +10,8 @@
 
             <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
                 <mat-label >Ponto Nº</mat-label>
-                <input type="number" matInput placeholder="Ponto Nº" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.numeroPonto" name="numeroPonto">
-                <button mat-button *ngIf="pontoTaxi.numeroPonto" matSuffix aria-label="Clear" (click)="pontoTaxi.numeroPonto=''">
+                <input type="number" matInput placeholder="Ponto Nº" style="margin-right: 20px;" [(ngModel)]="pontoTaxiFiltro.numeroPonto" name="numeroPonto">
+                <button mat-button *ngIf="pontoTaxiFiltro.numeroPonto" matSuffix aria-label="Clear" (click)="pontoTaxiFiltro.numeroPonto=''">
                     <i class="material-icons black v-middle">
                         close
                     </i>
@@ -20,8 +20,8 @@
 
             <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Descrição Ponto</mat-label>
-              <input matInput placeholder="Descrição Ponto" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.descricaoPonto" name="descricaoPonto">
-              <button mat-button *ngIf="pontoTaxi.descricaoPonto" matSuffix aria-label="Clear" (click)="pontoTaxi.descricaoPonto=''">
+              <input matInput placeholder="Descrição Ponto" style="margin-right: 20px;" [(ngModel)]="pontoTaxiFiltro.descricaoPonto" name="descricaoPonto">
+              <button mat-button *ngIf="pontoTaxiFiltro.descricaoPonto" matSuffix aria-label="Clear" (click)="pontoTaxiFiltro.descricaoPonto=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -30,8 +30,8 @@
 
             <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Fator Rotatividade</mat-label>
-              <input matInput placeholder="Fator Rotatividade" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.fatorRotatividade" name="descricaoPonto">
-              <button mat-button *ngIf="pontoTaxi.fatorRotatividade" matSuffix aria-label="Clear" (click)="pontoTaxi.fatorRotatividade=''">
+              <input matInput placeholder="Fator Rotatividade" style="margin-right: 20px;" [(ngModel)]="pontoTaxiFiltro.fatorRotatividade" name="descricaoPonto">
+              <button mat-button *ngIf="pontoTaxiFiltro.fatorRotatividade" matSuffix aria-label="Clear" (click)="pontoTaxiFiltro.fatorRotatividade=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -40,8 +40,8 @@
 
             <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Nº Vagas</mat-label>
-              <input type="number" matInput placeholder="Nº Vagas" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.numeroVagas" name="numeroVagas">
-              <button mat-button *ngIf="pontoTaxi.numeroVagas" matSuffix aria-label="Clear" (click)="pontoTaxi.numeroVagas=''">
+              <input type="number" matInput placeholder="Nº Vagas" style="margin-right: 20px;" [(ngModel)]="pontoTaxiFiltro.numeroVagas" name="numeroVagas">
+              <button mat-button *ngIf="pontoTaxiFiltro.numeroVagas" matSuffix aria-label="Clear" (click)="pontoTaxiFiltro.numeroVagas=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -50,8 +50,8 @@
 
             <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Ponto Referência</mat-label>
-              <input matInput placeholder="Ponto Referência" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.referenciaPonto" name="referenciaPonto">
-              <button mat-button *ngIf="pontoTaxi.referenciaPonto" matSuffix aria-label="Clear" (click)="pontoTaxi.referenciaPonto=''">
+              <input matInput placeholder="Ponto Referência" style="margin-right: 20px;" [(ngModel)]="pontoTaxiFiltro.referenciaPonto" name="referenciaPonto">
+              <button mat-button *ngIf="pontoTaxiFiltro.referenciaPonto" matSuffix aria-label="Clear" (click)="pontoTaxiFiltro.referenciaPonto=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -109,7 +109,7 @@
             </tr>
          </thead>
          <tbody>
-            <tr *ngFor="let row of pontosTaxi | paginate: { itemsPerPage: contador, currentPage: page }">
+            <tr *ngFor="let row of pontosTaxi | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
               <td style="text-align: left;">{{row.numeroPonto}}</td>
               <td style="text-align: left;">{{row.descricaoPonto}}</td>
               <td style="text-align: center;">{{row.fatorRotatividade}}</td>
@@ -127,9 +127,14 @@
             </tr>
          </tbody>
     </table>
-    <div class="text-right" style="float: right;">
-        <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-    </div>
-
+    <mat-paginator
+      #paginator
+      (page)="onPageChange($event)"
+      [length]= "totalPontos"
+      [pageSize]= "pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]= "[10, 15, 20]"
+      [showFirstLastButtons]>
+    </mat-paginator>
 </div>
 

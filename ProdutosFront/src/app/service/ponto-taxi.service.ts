@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {PontoTaxi} from "../components/pontos-taxi/ponto-taxi.model";
+import {PageModelo} from "../components/comum/page-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -56,11 +57,14 @@ export class PontoTaxiService {
     return this.http.delete<String>(this.baseUrl+'/excluir/'+idPontoTaxi+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
   }
 
-  consultarTodosPontosTaxi(): Observable<PontoTaxi[]> {
-    return this.http.get<PontoTaxi[]>(this.baseUrl+'/buscar-todos').pipe(catchError(this.errorHandler));  // catch error
+  consultarTodosPontosTaxi(pageIndex: number, pageSize: number): Observable<PageModelo> {
+    let params = new HttpParams();
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-todos', {params}).pipe(catchError(this.errorHandler));  // catch error
   }
 
-  consultarPontosTaxiComFiltros(pontoTaxi: PontoTaxi): Observable<PontoTaxi[]> {
+  consultarPontosTaxiComFiltros(pontoTaxi: PontoTaxi, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
     if (pontoTaxi.numeroPonto)       {  params = params.set('numeroPonto', pontoTaxi.numeroPonto); }
     if (pontoTaxi.descricaoPonto)       {  params = params.set('descricaoPonto', pontoTaxi.descricaoPonto); }
@@ -68,8 +72,10 @@ export class PontoTaxiService {
     if (pontoTaxi.numeroVagas)       {  params = params.set('numeroVagas', pontoTaxi.numeroVagas); }
     if (pontoTaxi.referenciaPonto)       {  params = params.set('referenciaPonto', pontoTaxi.referenciaPonto); }
     if (pontoTaxi.modalidade)       {  params = params.set('modalidade', pontoTaxi.modalidade); }
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
 
-    return this.http.get<PontoTaxi[]>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
   consultarPontoTaxiId(pontoTaxi: PontoTaxi): Observable<PontoTaxi> {

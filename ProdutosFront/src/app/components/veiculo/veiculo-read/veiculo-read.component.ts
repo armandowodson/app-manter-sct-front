@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit, ViewChild } from "@angular/core";
 import { VeiculoModelo } from "../veiculo-modelo.model";
 import { VeiculoFiltro } from "../veiculo-filtro.model";
 import { VeiculoService } from "../../../service/veiculo.service";
-import { MatPaginator } from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { VeiculoModalComponent } from "../../veiculo-modal-component/veiculo-modal.component";
@@ -18,7 +18,6 @@ import {environment} from "../../../../environments/environment";
 export class VeiculoReadComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  NODE_TLS_REJECT_UNAUTHORIZED = 0;
   public loading = false;
 
   veiculoFiltro: VeiculoFiltro = {
@@ -30,13 +29,14 @@ export class VeiculoReadComponent implements OnInit {
     anoFabricacao: ""
   };
 
-  veiculos: VeiculoModelo[] = [];
+  veiculos: any[] = [];
   errors: string;
-  page: number = 1;
-  contador: number = 15;
-  tamanho: number;
   placa: string;
   nomeLogado: string;
+  totalPontos: number;
+  pageIndex: number;
+  pageSize: number;
+  buscouTodos: number;
 
   constructor(
     private veiculoService: VeiculoService,
@@ -44,29 +44,68 @@ export class VeiculoReadComponent implements OnInit {
     public matDialog: MatDialog
   ) {
     this.errors = "";
-    this.tamanho = 0;
     this.placa = "";
     this.nomeLogado = "";
+    this.totalPontos = 0;
+    this.pageIndex = 0;
+    this.pageSize = 10;
+    this.buscouTodos = 0;
   }
 
   ngOnInit(): void {
-    this.nomeLogado = environment.nomeLogado;
-    this.veiculoService.consultarTodosVeiculos().subscribe(
-      (veiculos) => {
-        if (veiculos.length == 0) {
-          this.veiculoService.showMessageAlert(
-            "A consulta não retornou resultado!"
-          );
-        }
+      this.loading = true;
+      this.nomeLogado = environment.nomeLogado;
 
-        this.veiculos = veiculos;
-        this.tamanho = this.veiculos.length;
-      },
-      (error) => {
-        this.errors = error;
-        this.veiculoService.showMessageError(this.errors);
-      }
-    );
+      this.buscarTodosVeiculos();
+  }
+
+  buscarTodosVeiculos(){
+      this.loading = true;
+      this.buscouTodos = 1;
+
+      this.veiculoService.consultarTodosVeiculos(this.pageIndex, this.pageSize).subscribe({
+        next: (res) => {
+          if (res == null || res.totalElements == 0) {
+            this.veiculoService.showMessageAlert(
+              "A consulta não retornou resultado!"
+            );
+          }
+
+          this.veiculos = (res.content || []).map((item: any) => ({
+            idVeiculo: item.idVeiculo,
+            idPermissionario: item.idPermissionario,
+            numeroPermissao: item.numeroPermissao,
+            placa: item.placa,
+            renavam: item.renavam,
+            chassi: item.chassi,
+            anoFabricacao: item.anoFabricacao,
+            marca: item.marca,
+            modelo: item.modelo,
+            anoModelo: item.anoModelo,
+            cor: item.cor,
+            combustivel: item.combustivel,
+            numeroTaximetro: item.numeroTaximetro,
+            anoRenovacao: item.anoRenovacao,
+            dataVistoria: item.dataVistoria,
+            dataRetorno: item.dataRetorno,
+            situacaoVeiculo: item.situacaoVeiculo,
+            numeroCrlv: item.numeroCrlv,
+            anoCrlv: item.anoCrlv,
+            certificadoAfericao: item.certificadoAfericao,
+            tipoVeiculo: item.tipoVeiculo,
+            observacao: item.observacao,
+            dataCriacao: item.dataCriacao,
+            usuario: item.usuario
+          }));
+          this.totalPontos = res.totalElements;
+          this.pageIndex = res.number;
+          this.loading = false;
+        },
+        error: (error) => {
+          this.loading = false;
+          this.veiculoService.showMessageError(error.message);
+        }
+      });
   }
 
   voltarPaginaPrincipal(): void {
@@ -81,76 +120,76 @@ export class VeiculoReadComponent implements OnInit {
     this.router.navigate(['veiculo/edit'], { state: {data: veiculoSelecionado} });
   }
 
-  handlePageChange(event: number) {
-    this.page = event;
-  }
-
   consultarVeiculoComFiltros() {
-    this.loading = true;
+      this.loading = true;
 
-    this.veiculoService
-      .consultarVeiculosComFiltros(this.veiculoFiltro)
-      .subscribe(
-        (veiculos) => {
-          if (veiculos.length == 0) {
-            this.veiculoService.showMessageAlert(
-              "A consulta não retornou resultado!"
-            );
+      this.veiculoService.consultarVeiculosComFiltros(this.veiculoFiltro, this.pageIndex, this.pageSize).subscribe({
+          next: (res) => {
+            if (res == null || res.totalElements == 0) {
+              this.veiculoService.showMessageAlert(
+                "A consulta não retornou resultado!"
+              );
+            }
+
+            this.veiculos = (res.content || []).map((item: any) => ({
+              idVeiculo: item.idVeiculo,
+              idPermissionario: item.idPermissionario,
+              numeroPermissao: item.numeroPermissao,
+              placa: item.placa,
+              renavam: item.renavam,
+              chassi: item.chassi,
+              anoFabricacao: item.anoFabricacao,
+              marca: item.marca,
+              modelo: item.modelo,
+              anoModelo: item.anoModelo,
+              cor: item.cor,
+              combustivel: item.combustivel,
+              numeroTaximetro: item.numeroTaximetro,
+              anoRenovacao: item.anoRenovacao,
+              dataVistoria: item.dataVistoria,
+              dataRetorno: item.dataRetorno,
+              situacaoVeiculo: item.situacaoVeiculo,
+              numeroCrlv: item.numeroCrlv,
+              anoCrlv: item.anoCrlv,
+              certificadoAfericao: item.certificadoAfericao,
+              tipoVeiculo: item.tipoVeiculo,
+              observacao: item.observacao,
+              dataCriacao: item.dataCriacao,
+              usuario: item.usuario
+            }));
+            this.totalPontos = res.totalElements;
+            this.pageIndex = res.number;
+            this.loading = false;
+          },
+          error: (error) => {
+            this.veiculoService.showMessageError(error.message);
           }
-          this.veiculos = veiculos;
-          this.tamanho = this.veiculos.length;
-          this.loading = false;
-        },
-        (error) => {
-          this.errors = error;
-          this.veiculoService.showMessageError(this.errors);
-          this.loading = false;
-        }
-      );
+      });
   }
 
-  confirmarExclusao(message?: string) {
-    return new Promise((resolve) => {
-      return resolve(window.confirm(message || "Confirma ?"));
-    });
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    if((this.veiculoFiltro.numeroPermissao != null && this.veiculoFiltro.numeroPermissao != undefined && this.veiculoFiltro.numeroPermissao != '') ||
+      (this.veiculoFiltro.placa != null && this.veiculoFiltro.placa != undefined && this.veiculoFiltro.placa != '') ||
+      (this.veiculoFiltro.renavam != null && this.veiculoFiltro.renavam != undefined && this.veiculoFiltro.renavam != '') ||
+      (this.veiculoFiltro.numeroTaximetro != null && this.veiculoFiltro.numeroTaximetro != undefined && this.veiculoFiltro.numeroTaximetro != '') ||
+      (this.veiculoFiltro.anoFabricacao != null && this.veiculoFiltro.anoFabricacao != undefined && this.veiculoFiltro.anoFabricacao != '')){
+      if(this.buscouTodos)
+        this.pageIndex = 0;
+      this.consultarVeiculoComFiltros();
+      this.buscouTodos = 0;
+    }else{
+      this.buscarTodosVeiculos();
+    }
   }
 
   openModal(idVeiculo: number, nomeVeiculo: string) {
     const dialogConfig = new MatDialogConfig();
-    // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id =
       "Deseja excluir o Veículo: " + idVeiculo + " - " + nomeVeiculo + " ?";
     dialogConfig.panelClass = "dialogModal";
-    const modalDialog = this.matDialog.open(VeiculoModalComponent, dialogConfig);
-  }
-
-  excluirVeiculo(idVeiculo: number) {
-    for (var i = 0; i < this.veiculos.length; i++) {
-      if (this.veiculos[i].idVeiculo == idVeiculo) {
-        this.placa = this.veiculos[i].placa;
-        i = this.veiculos.length;
-      }
-    }
-    this.confirmarExclusao(
-      "Deseja excluir o Veículo: " + idVeiculo + ": " + this.placa + " ?"
-    ).then((podeDeletar) => {
-      if (podeDeletar) {
-        this.veiculoService.excluirVeiculo(idVeiculo, environment.usuarioLogado).subscribe(() => {
-            this.veiculoService.showMessageSuccess("Veículo Excluído com Sucesso!!!");
-            this.router.navigate(['/veiculo']);
-          },
-          (error) => {
-            this.errors = error;
-            this.veiculoService.showMessageError(this.errors);
-          }
-        );
-      }
-    });
-  }
-
-  getPagedData(data: VeiculoFiltro[]) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
+    this.matDialog.open(VeiculoModalComponent, dialogConfig);
   }
 }

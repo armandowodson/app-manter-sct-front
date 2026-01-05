@@ -33,7 +33,7 @@ export class VeiculoReadComponent implements OnInit {
   errors: string;
   placa: string;
   nomeLogado: string;
-  totalPontos: number;
+  totalVeiculos: number;
   pageIndex: number;
   pageSize: number;
   buscouTodos: number;
@@ -46,7 +46,7 @@ export class VeiculoReadComponent implements OnInit {
     this.errors = "";
     this.placa = "";
     this.nomeLogado = "";
-    this.totalPontos = 0;
+    this.totalVeiculos = 0;
     this.pageIndex = 0;
     this.pageSize = 10;
     this.buscouTodos = 0;
@@ -97,7 +97,7 @@ export class VeiculoReadComponent implements OnInit {
             dataCriacao: item.dataCriacao,
             usuario: item.usuario
           }));
-          this.totalPontos = res.totalElements;
+          this.totalVeiculos = res.totalElements;
           this.pageIndex = res.number;
           this.loading = false;
         },
@@ -157,11 +157,12 @@ export class VeiculoReadComponent implements OnInit {
               dataCriacao: item.dataCriacao,
               usuario: item.usuario
             }));
-            this.totalPontos = res.totalElements;
+            this.totalVeiculos = res.totalElements;
             this.pageIndex = res.number;
             this.loading = false;
           },
           error: (error) => {
+            this.loading = false;
             this.veiculoService.showMessageError(error.message);
           }
       });

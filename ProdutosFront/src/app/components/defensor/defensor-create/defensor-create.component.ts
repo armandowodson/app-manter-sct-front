@@ -120,14 +120,16 @@ export class DefensorCreateComponent implements OnInit {
     this.defensor.ufDefensor = this.ufSelecionada;
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
     this.defensor.usuario = environment.usuarioLogado;
+
     this.defensorService.inserirDefensor(this.defensor, this.certidaoNegativaCriminalSelecionada,
-      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe(() => {
-      this.defensorService.showMessageSuccess('Defensor Criado com Sucesso!!!');
-      this.router.navigate(['/defensor']);
-    },
-    error => {
-        this.errors = error
-        this.defensorService.showMessageError('Ocorreu um erro ao Criar o Defensor!!!');
+      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
+      next: (response) => {
+        this.defensorService.showMessageSuccess('Defensor Criado com Sucesso!!!');
+        this.router.navigate(['/veiculo']);
+      },
+      error: (error) => {
+        this.defensorService.showMessageError(error.message);
+      }
     });
   }
 

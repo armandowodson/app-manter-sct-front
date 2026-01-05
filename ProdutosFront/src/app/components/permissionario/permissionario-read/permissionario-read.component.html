@@ -64,7 +64,7 @@
 <br>
 <div class="btn-toolbar" style="float: right;">
     <div class="btn-group">
-      <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarPontosTaxiComFiltros()">
+      <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarPermissionariosComFiltros()">
         Consultar
       </button>
     </div>
@@ -95,7 +95,7 @@
             </tr>
          </thead>
          <tbody>
-            <tr *ngFor="let row of permissionarios | paginate: { itemsPerPage: contador, currentPage: page }">
+            <tr *ngFor="let row of permissionarios | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
               <td style="text-align: left;">{{row.numeroPermissao}}</td>
               <td style="text-align: left;">{{row.nomePermissionario}}</td>
               <td style="text-align: center;">{{row.cpfPermissionario}}</td>
@@ -113,9 +113,15 @@
             </tr>
          </tbody>
     </table>
-    <div class="text-right" style="float: right;">
-        <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-    </div>
+  <mat-paginator
+    #paginator
+    (page)="onPageChange($event)"
+    [length]= "totalPermissionarios"
+    [pageSize]= "pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]= "[10, 15, 20]"
+    [showFirstLastButtons]>
+  </mat-paginator>
 
 </div>
 

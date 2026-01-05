@@ -1,8 +1,7 @@
 import { Component, Injectable, OnInit, ViewChild } from "@angular/core";
-import { DefensorModelo } from "../defensor-modelo.model";
 import { DefensorFiltro } from "../defensor-filtro.model";
 import { DefensorService } from "../../../service/defensor.service";
-import { MatPaginator } from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DefensorModalComponent } from "../../defensor-modal-component/defensor-modal.component";
@@ -30,13 +29,14 @@ export class DefensorReadComponent implements OnInit {
     dataCriacao: ""
   };
 
-  defensors: DefensorModelo[] = [];
+  defensores: any[] = [];
   errors: string;
-  page: number = 1;
-  contador: number = 15;
-  tamanho: number;
   nomeDefensor: string;
   nomeLogado: string;
+  totalDefensores: number;
+  pageIndex: number;
+  pageSize: number;
+  buscouTodos: number;
 
   constructor(
     private defensorService: DefensorService,
@@ -44,27 +44,65 @@ export class DefensorReadComponent implements OnInit {
     public matDialog: MatDialog
   ) {
     this.errors = "";
-    this.tamanho = 0;
     this.nomeDefensor = "";
     this.nomeLogado = environment.nomeLogado;
+    this.totalDefensores = 0;
+    this.pageIndex = 0;
+    this.pageSize = 10;
+    this.buscouTodos = 0;
   }
 
   ngOnInit(): void {
-    this.defensorService.consultarTodosDefensors().subscribe(
-      (defensors) => {
-        if (defensors.length == 0) {
+    this.loading = true;
+    this.nomeLogado = environment.nomeLogado;
+
+    this.buscarTodosDefensores()
+  }
+
+  buscarTodosDefensores(){
+    this.loading = true;
+    this.buscouTodos = 1;
+
+    this.defensorService.consultarTodosDefensores(this.pageIndex, this.pageSize).subscribe({
+      next: (res) => {
+        if (res == null || res.totalElements == 0) {
           this.defensorService.showMessageAlert(
             "A consulta não retornou resultado!"
           );
         }
-        this.defensors = defensors;
-        this.tamanho = this.defensors.length;
+
+        this.defensores = (res.content || []).map((item: any) => ({
+          idDefensor: item.idDefensor,
+          numeroPermissao: item.numeroPermissao,
+          nomeDefensor: item.nomeDefensor,
+          cpfDefensor: item.cpfDefensor,
+          cnpjEmpresa: item.cnpjEmpresa,
+          rgDefensor: item.rgDefensor,
+          orgaoEmissor: item.orgaoEmissor,
+          naturezaPessoa: item.naturezaPessoa,
+          ufDefensor: item.ufDefensor,
+          bairroDefensor: item.bairroDefensor,
+          enderecoDefensor: item.enderecoDefensor,
+          celularDefensor: item.celularDefensor,
+          cnhDefensor: item.cnhDefensor,
+          categoriaCnhDefensor: item.categoriaCnhDefensor,
+          numeroQuitacaoMilitar: item.numeroQuitacaoMilitar,
+          numeroQuitacaoEleitoral: item.numeroQuitacaoEleitoral,
+          numeroInscricaoInss: item.numeroInscricaoInss,
+          numeroCertificadoCondutor: item.numeroCertificadoCondutor,
+          dataCriacao: item.dataCriacao,
+          usuario: item.usuario
+        }));
+        this.totalDefensores = res.totalElements;
+        this.pageIndex = res.number;
+        this.loading = false;
       },
-      (error) => {
-        this.errors = error;
-        this.defensorService.showMessageError(this.errors);
+      error: (error) => {
+        this.loading = false;
+        this.defensorService.showMessageError(error.message);
       }
-    );
+    });
+
   }
 
   voltarPaginaPrincipal(): void {
@@ -78,39 +116,65 @@ export class DefensorReadComponent implements OnInit {
   navegarEditarDefensor(defensorSelecionado: DefensorFiltro): void {
     this.router.navigate(['defensor/edit'], { state: {data: defensorSelecionado} });
   }
-
-  handlePageChange(event: number) {
-    this.page = event;
-  }
-
-  consultarPontosTaxiComFiltros() {
+  consultarDefensoresComFiltros() {
     this.loading = true;
 
-    this.defensorService
-      .consultarPontosTaxiComFiltros(this.defensorFiltro)
-      .subscribe(
-        (pontos) => {
-          if (pontos.length == 0) {
-            this.defensorService.showMessageAlert(
-              "A consulta não retornou resultado!"
-            );
-          }
-          this.defensors = pontos;
-          this.tamanho = this.defensors.length;
-          this.loading = false;
-        },
-        (error) => {
-          this.errors = error;
-          this.defensorService.showMessageError(this.errors);
-          this.loading = false;
+    this.defensorService.consultarDefensoresComFiltros(this.defensorFiltro, this.pageIndex, this.pageSize).subscribe({
+      next: (res) => {
+        if (res == null || res.totalElements == 0) {
+          this.defensorService.showMessageAlert(
+            "A consulta não retornou resultado!"
+          );
         }
-      );
+
+        this.defensores = (res.content || []).map((item: any) => ({
+          idDefensor: item.idDefensor,
+          numeroPermissao: item.numeroPermissao,
+          nomeDefensor: item.nomeDefensor,
+          cpfDefensor: item.cpfDefensor,
+          cnpjEmpresa: item.cnpjEmpresa,
+          rgDefensor: item.rgDefensor,
+          orgaoEmissor: item.orgaoEmissor,
+          naturezaPessoa: item.naturezaPessoa,
+          ufDefensor: item.ufDefensor,
+          bairroDefensor: item.bairroDefensor,
+          enderecoDefensor: item.enderecoDefensor,
+          celularDefensor: item.celularDefensor,
+          cnhDefensor: item.cnhDefensor,
+          categoriaCnhDefensor: item.categoriaCnhDefensor,
+          numeroQuitacaoMilitar: item.numeroQuitacaoMilitar,
+          numeroQuitacaoEleitoral: item.numeroQuitacaoEleitoral,
+          numeroInscricaoInss: item.numeroInscricaoInss,
+          numeroCertificadoCondutor: item.numeroCertificadoCondutor,
+          dataCriacao: item.dataCriacao,
+          usuario: item.usuario
+        }));
+        this.totalDefensores = res.totalElements;
+        this.pageIndex = res.number;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.loading = false;
+        this.defensorService.showMessageError(error.message);
+      }
+    });
   }
 
-  confirmarExclusao(message?: string) {
-    return new Promise((resolve) => {
-      return resolve(window.confirm(message || "Confirma ?"));
-    });
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    if((this.defensorFiltro.numeroPermissao != null && this.defensorFiltro.numeroPermissao != undefined && this.defensorFiltro.numeroPermissao != '') ||
+      (this.defensorFiltro.nomeDefensor != null && this.defensorFiltro.nomeDefensor != undefined && this.defensorFiltro.nomeDefensor != '') ||
+      (this.defensorFiltro.cpfDefensor != null && this.defensorFiltro.cpfDefensor != undefined && this.defensorFiltro.cpfDefensor != '') ||
+      (this.defensorFiltro.cnpjEmpresa != null && this.defensorFiltro.cnpjEmpresa != undefined && this.defensorFiltro.cnpjEmpresa != '') ||
+      (this.defensorFiltro.cnhDefensor != null && this.defensorFiltro.cnhDefensor != undefined && this.defensorFiltro.cnhDefensor != '')){
+      if(this.buscouTodos)
+        this.pageIndex = 0;
+      this.consultarDefensoresComFiltros();
+      this.buscouTodos = 0;
+    }else{
+      this.buscarTodosDefensores();
+    }
   }
 
   openModal(idDefensor: number, nomeDefensor: string) {
@@ -120,30 +184,6 @@ export class DefensorReadComponent implements OnInit {
     dialogConfig.id =
       "Deseja excluir o Defensor: " + idDefensor + " - " + nomeDefensor + " ?";
     dialogConfig.panelClass = "dialogModal";
-    const modalDialog = this.matDialog.open(DefensorModalComponent, dialogConfig);
-  }
-
-  excluirDefensor(idDefensor: number) {
-    for (var i = 0; i < this.defensors.length; i++) {
-      if (this.defensors[i].idDefensor == idDefensor) {
-        this.nomeDefensor = this.defensors[i].nomeDefensor;
-        i = this.defensors.length;
-      }
-    }
-    this.confirmarExclusao(
-      "Deseja excluir o Defensor: " + idDefensor + ": " + this.nomeDefensor + " ?"
-    ).then((podeDeletar) => {
-      if (podeDeletar) {
-        this.defensorService.excluirDefensor(idDefensor, environment.usuarioLogado).subscribe(() => {
-            this.defensorService.showMessageSuccess("Defensor Excluído com Sucesso!!!");
-            this.router.navigate(['/defensor']);
-          },
-          (error) => {
-            this.errors = error;
-            this.defensorService.showMessageError(this.errors);
-          }
-        );
-      }
-    });
+    this.matDialog.open(DefensorModalComponent, dialogConfig);
   }
 }

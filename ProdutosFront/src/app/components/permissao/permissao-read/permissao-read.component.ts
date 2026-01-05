@@ -181,9 +181,9 @@ export class PermissaoReadComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id =
-      "Deseja excluir a Permissão: " + idPermissao + " - Nº " + numeroPermissao + " ?";
+      "Deseja excluir a Permissão Nº " + numeroPermissao + " ?";
     dialogConfig.panelClass = "dialogModal";
-    const modalDialog = this.matDialog.open(PermissaoModalComponent, dialogConfig);
+    this.matDialog.open(PermissaoModalComponent, dialogConfig);
   }
 
   carregarCategoriaPermissao(categoria: string) {

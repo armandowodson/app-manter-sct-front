@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {PermissionarioModelo} from "../components/permissionario/permissionario-modelo.model";
 import {PermissionarioFiltro} from "../components/permissionario/permissionario-filtro.model";
+import {PageModelo} from "../components/comum/page-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -118,8 +119,11 @@ export class PermissionarioService {
     return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissionario+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
   }
 
-  consultarTodosPermissionarios(): Observable<PermissionarioModelo[]> {
-    return this.http.get<PermissionarioModelo[]>(this.baseUrl+'/buscar-todos').pipe(catchError(this.errorHandler));  // catch error
+  consultarTodosPermissionarios(pageIndex: number, pageSize: number): Observable<PageModelo> {
+    let params = new HttpParams();
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-todos', {params}).pipe(catchError(this.errorHandler));  // catch error
   }
 
   consultarPermissionariosDisponiveis(): Observable<PermissionarioModelo[]> {
@@ -130,15 +134,17 @@ export class PermissionarioService {
     return this.http.get<PermissionarioModelo[]>(this.baseUrl+'/buscar-disponiveis/'+idPermissionario).pipe(catchError(this.errorHandler));  // catch error
   }
 
-  consultarPontosTaxiComFiltros(permissionario: PermissionarioFiltro): Observable<PermissionarioModelo[]> {
+  consultarPontosTaxiComFiltros(permissionario: PermissionarioFiltro, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
     if (permissionario.numeroPermissao)       {  params = params.set('numeroPermissao', permissionario.numeroPermissao); }
     if (permissionario.nomePermissionario)       {  params = params.set('nomePermissionario', permissionario.nomePermissionario); }
     if (permissionario.cpfPermissionario)       {  params = params.set('cpfPermissionario', permissionario.cpfPermissionario); }
     if (permissionario.cnpjEmpresa)       {  params = params.set('cnpjEmpresa', permissionario.cnpjEmpresa); }
     if (permissionario.cnhPermissionario)       {  params = params.set('cnhPermissionario', permissionario.cnhPermissionario); }
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
 
-    return this.http.get<PermissionarioModelo[]>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
   consultarPermissionarioId(identificador: number): Observable<PermissionarioModelo> {

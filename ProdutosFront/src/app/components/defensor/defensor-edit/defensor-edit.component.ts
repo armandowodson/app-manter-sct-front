@@ -145,15 +145,17 @@ export class DefensorEditComponent implements OnInit {
     this.defensor.ufDefensor = this.ufSelecionada;
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
     this.defensor.usuario = environment.usuarioLogado;
+
     this.defensorService.editarDefensor(this.defensor, this.certidaoNegativaCriminalSelecionada,
-      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe(() => {
+      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
+      next: (response) => {
         this.defensorService.showMessageSuccess('Defensor Atualizado com Sucesso!!!');
         this.router.navigate(['/defensor']);
       },
-      error => {
-        this.errors = error
-        this.defensorService.showMessageError('Ocorreu um erro ao Atualizar o Defensor!!!');
-      });
+      error: (error) => {
+        this.defensorService.showMessageError(error.message);
+      }
+    });
   }
 
   voltar(): void{

@@ -17,9 +17,6 @@ import {PermissionarioModelo} from "../../permissionario/permissionario-modelo.m
 })
 
 export class VeiculoCreateComponent implements OnInit {
-
-  NODE_TLS_REJECT_UNAUTHORIZED=0
-
   veiculo: VeiculoModelo = {
     idVeiculo: 0,
     idPermissionario: "",
@@ -112,8 +109,7 @@ export class VeiculoCreateComponent implements OnInit {
 
   constructor(private veiculoService: VeiculoService,
               private permissionarioService: PermissionarioService,
-              private router: Router,
-              private currencyPipe : CurrencyPipe) {
+              private router: Router) {
     this.errors = '';
     this.nomeLogado = '';
   }

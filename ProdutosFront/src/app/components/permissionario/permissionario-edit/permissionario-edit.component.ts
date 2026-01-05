@@ -5,6 +5,7 @@ import { CurrencyPipe } from '@angular/common';
 import {PermissionarioModelo} from "../permissionario-modelo.model";
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {environment} from "../../../../environments/environment";
+import {PermissaoService} from "../../../service/permissao.service";
 
 @Component({
   selector: 'app-permissinario-edit',
@@ -90,13 +91,16 @@ export class PermissionarioEditComponent implements OnInit {
   certidaoNegativaMunicipalSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
+  permissaoSelecionada = "";
+  permissoesOptions: any[] = [];
+
   errors: string;
   id: string;
   nomeLogado: string;
 
   constructor(private permissionarioService: PermissionarioService,
               private router: Router,
-              private currencyPipe : CurrencyPipe) {
+              private permissaoService: PermissaoService) {
     this.errors = '';
     this.id = '';
     this.nomeLogado = '';
@@ -104,7 +108,25 @@ export class PermissionarioEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (history.state.data) {
+      this.permissaoService.consultarPermissoesDisponiveisAlteracao(history.state.data.numeroPermissao).subscribe(
+        (permissoes) => {
+          if (permissoes == null || permissoes.length == 0) {
+            this.permissaoService.showMessageAlert(
+              "Não há Permissão disponível para seleção!"
+            );
+          }
+          permissoes?.forEach(element => {
+            this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
+          });
+        },
+        (error) => {
+          this.errors = error;
+          this.permissaoService.showMessageError(this.errors);
+        }
+      );
+
       this.permissionario.idPermissionario = history.state.data.idPermissionario;
+      this.permissaoSelecionada = history.state.data.numeroPermissao;
       this.permissionario.numeroPermissao = history.state.data.numeroPermissao;
       this.permissionario.nomePermissionario = history.state.data.nomePermissionario;
       this.permissionario.cpfPermissionario = history.state.data.cpfPermissionario;
@@ -144,16 +166,19 @@ export class PermissionarioEditComponent implements OnInit {
     this.permissionario.naturezaPessoa = this.naturezaSelecionada;
     this.permissionario.ufPermissionario = this.ufSelecionada;
     this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
+    this.permissionario.numeroPermissao = this.permissaoSelecionada;
     this.permissionario.usuario = environment.usuarioLogado;
+
     this.permissionarioService.editarPermissionario(this.permissionario, this.certidaoNegativaCriminalSelecionada,
-      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe(() => {
+      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
+      next: (response) => {
         this.permissionarioService.showMessageSuccess('Permissionário Atualizado com Sucesso!!!');
         this.router.navigate(['/permissionario']);
       },
-      error => {
-        this.errors = error
-        this.permissionarioService.showMessageError('Ocorreu um erro ao Atualizar o Permissionário!!!');
-      });
+      error: (error) => {
+        this.permissionarioService.showMessageError(error.message);
+      }
+    });
   }
 
   voltar(): void{

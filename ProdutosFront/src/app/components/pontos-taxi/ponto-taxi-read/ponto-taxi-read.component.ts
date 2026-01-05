@@ -97,10 +97,9 @@ export class PontoTaxiReadComponent implements OnInit {
           this.pageIndex = res.number;
           this.loading = false;
         },
-        error: (err) => {
-          this.errors = err.message;
+        error: (error) => {
           this.loading = false;
-          this.pontoTaxiService.showMessageError(this.errors);
+          this.pontoTaxiService.showMessageError(error.message);
         }
       });
   }
@@ -153,7 +152,7 @@ export class PontoTaxiReadComponent implements OnInit {
             dataCriacao: item.dataCriacao,
             usuario: item.usuario
           }));
-          if (res.totalElements == 0) {
+          if (res == null || res.totalElements == 0) {
             this.pontoTaxiService.showMessageAlert(
               "A consulta não retornou resultado!"
             );
@@ -162,10 +161,9 @@ export class PontoTaxiReadComponent implements OnInit {
           this.pageIndex = res.number;
           this.loading = false;
         },
-        error: (err) => {
-          this.errors = err.message;
+        error: (error) => {
           this.loading = false;
-          this.pontoTaxiService.showMessageError(this.errors);
+          this.pontoTaxiService.showMessageError(error.message);
         }
       });
   }

@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {PermissaoModelo} from "../components/permissao/permissao.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
+import {PermissionarioModelo} from "../components/permissionario/permissionario-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,14 @@ export class PermissaoService {
   excluirPermissao(idPermissao: number, usuario: string): Observable<String>{
     this.erroMetodo = "Não foi possível excluir a Permissão!";
     return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissao+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
+  }
+
+  consultarPermissoesDisponiveis(): Observable<PermissaoModelo[]> {
+    return this.http.get<PermissaoModelo[]>(this.baseUrl+'/buscar-disponiveis').pipe(catchError(this.errorHandler));  // catch error
+  }
+
+  consultarPermissoesDisponiveisAlteracao(numeroPermissao: string): Observable<PermissaoModelo[]> {
+    return this.http.get<PermissaoModelo[]>(this.baseUrl+'/buscar-disponiveis/'+numeroPermissao).pipe(catchError(this.errorHandler));  // catch error
   }
 
   consultarTodasPermissoes(pageIndex: number, pageSize: number): Observable<PageModelo> {

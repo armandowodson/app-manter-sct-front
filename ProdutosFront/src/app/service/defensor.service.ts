@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {DefensorModelo} from "../components/defensor/defensor-modelo.model";
 import {DefensorFiltro} from "../components/defensor/defensor-filtro.model";
+import {PageModelo} from "../components/comum/page-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -74,7 +75,7 @@ export class DefensorService {
     formDataDefensor.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
     // @ts-ignore
     formDataDefensor.append('foto', fotoFile, fotoFile.name);
-    return this.http.post<DefensorModelo>(this.baseUrl+'/inserir', formDataDefensor).pipe(catchError(this.errorHandlerInserir));
+    return this.http.post<DefensorModelo>(this.baseUrl+'/inserir', formDataDefensor).pipe(catchError(this.errorHandler));
   }
 
   editarDefensor(defensor: DefensorModelo, certidaoNegativaCriminalFile: File | null,
@@ -110,16 +111,19 @@ export class DefensorService {
     if(fotoFile != null)
       // @ts-ignore
       formDataDefensor.append('fotoFile', certidaoNegativaCriminalFile, fotoFile.name);
-    return this.http.post<DefensorModelo>(this.baseUrl+'/alterar', formDataDefensor).pipe(catchError(this.errorHandlerInserir));
+    return this.http.post<DefensorModelo>(this.baseUrl+'/alterar', formDataDefensor).pipe(catchError(this.errorHandler));
   }
 
   excluirDefensor(idDefensor: number, usuario: string): Observable<String>{
     this.erroMetodo = "Não foi possível excluir o Defensor!";
-    return this.http.delete<String>(this.baseUrl+'/excluir/'+idDefensor+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
+    return this.http.delete<String>(this.baseUrl+'/excluir/'+idDefensor+'/usuario/'+usuario).pipe(catchError(this.errorHandler));
   }
 
-  consultarTodosDefensors(): Observable<DefensorModelo[]> {
-    return this.http.get<DefensorModelo[]>(this.baseUrl+'/buscar-todos').pipe(catchError(this.errorHandler));  // catch error
+  consultarTodosDefensores(pageIndex: number, pageSize: number): Observable<PageModelo> {
+    let params = new HttpParams();
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-todos', {params}).pipe(catchError(this.errorHandler));  // catch error
   }
 
   consultarDefensorsDisponiveis(): Observable<DefensorModelo[]> {
@@ -130,34 +134,20 @@ export class DefensorService {
     return this.http.get<DefensorModelo[]>(this.baseUrl+'/buscar-disponiveis/'+idDefensor).pipe(catchError(this.errorHandler));  // catch error
   }
 
-  consultarPontosTaxiComFiltros(defensor: DefensorFiltro): Observable<DefensorModelo[]> {
+  consultarDefensoresComFiltros(defensor: DefensorFiltro, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
     if (defensor.numeroPermissao)       {  params = params.set('numeroPermissao', defensor.numeroPermissao); }
     if (defensor.nomeDefensor)       {  params = params.set('nomeDefensor', defensor.nomeDefensor); }
     if (defensor.cpfDefensor)       {  params = params.set('cpfDefensor', defensor.cpfDefensor); }
     if (defensor.cnpjEmpresa)       {  params = params.set('cnpjEmpresa', defensor.cnpjEmpresa); }
     if (defensor.cnhDefensor)       {  params = params.set('cnhDefensor', defensor.cnhDefensor); }
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
 
-    return this.http.get<DefensorModelo[]>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
+  }
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(() => new Error(error.error.message));
   }
 
-  consultarDefensorId(identificador: number): Observable<DefensorModelo> {
-    return this.http.get<DefensorModelo>(this.baseUrl+'/buscar/'+identificador).pipe(catchError(this.errorHandler)); // catch error
-  }
-
-  errorHandlerAlterar() {
-    return throwError("Ocorreu um erro ao Alterar o Defensor!");
-  }
-
-  errorHandlerInserir() {
-    return throwError("Ocorreu um erro ao Inserir o Defensor!");
-  }
-
-  errorHandlerExcluir() {
-    return throwError("Ocorreu um erro ao Excluir o Defensor!");
-  }
-
-  errorHandler() {
-    return throwError("Ocorreu um erro! Operação não concluída!");
-  }
 }

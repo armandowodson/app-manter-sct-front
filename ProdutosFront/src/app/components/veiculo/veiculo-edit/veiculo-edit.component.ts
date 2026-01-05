@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
 import {VeiculoModelo} from "../veiculo-modelo.model";
 import {VeiculoService} from "../../../service/veiculo.service";
 import {environment} from "../../../../environments/environment";
@@ -90,8 +89,7 @@ export class VeiculoEditComponent implements OnInit {
 
   constructor(private veiculoService: VeiculoService,
               private permissionarioService: PermissionarioService,
-              private router: Router,
-              private currencyPipe : CurrencyPipe) {
+              private router: Router) {
     this.errors = '';
     this.id = 0;
     this.nomeLogado = "";
@@ -102,7 +100,7 @@ export class VeiculoEditComponent implements OnInit {
     if (history.state.data) {
       this.permissionarioService.consultarPermissionariosDisponiveisAlteracao(history.state.data.idPermissionario).subscribe(
         (permissionarios) => {
-          if (permissionarios.length == 0) {
+          if (permissionarios == null || permissionarios.length == 0) {
             this.veiculoService.showMessageAlert(
               "Não há Permissionário disponível para seleção!"
             );

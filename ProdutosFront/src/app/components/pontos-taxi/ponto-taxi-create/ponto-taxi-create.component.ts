@@ -54,13 +54,15 @@ export class PontoTaxiCreateComponent implements OnInit {
   inserirPontoTaxi(): void{
     this.pontoTaxi.modalidade = this.modalidadeSelecionada;
     this.pontoTaxi.usuario = environment.usuarioLogado;
-    this.pontoTaxiService.inserirPontoTaxi(this.pontoTaxi).subscribe(() => {
-      this.pontoTaxiService.showMessageSuccess('Ponto de Táxi Criado com Sucesso!!!');
-      this.router.navigate(['/ponto-taxi']);
-    },
-    error => {
-        this.errors = error
-        this.pontoTaxiService.showMessageError('Ocorreu um erro ao Criar o Ponto de Táxi!!!');
+
+    this.pontoTaxiService.inserirPontoTaxi(this.pontoTaxi).subscribe({
+      next: (response) => {
+        this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Táxi Criado com Sucesso!!!');
+        this.router.navigate(['/ponto-taxi']);
+      },
+      error: (error) => {
+        this.pontoTaxiService.showMessageError(error.message);
+      }
     });
   }
 

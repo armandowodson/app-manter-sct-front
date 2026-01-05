@@ -139,11 +139,6 @@ export class VeiculoService {
 
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
-
-  consultarVeiculoId(veiculo: VeiculoFiltro): Observable<VeiculoModelo> {
-    return this.http.get<VeiculoModelo>(this.baseUrl+'/buscar/?idVeiculo='+veiculo.idVeiculo).pipe(catchError(this.errorHandler)); // catch error
-  }
-
   errorHandler(error: HttpErrorResponse) {
     return throwError(() => new Error(error.error.message));
   }

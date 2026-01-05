@@ -1,9 +1,9 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {PermissionarioModelo} from "../permissionario-modelo.model";
 import {environment} from "../../../../environments/environment";
+import {PermissaoService} from "../../../service/permissao.service";
 
 @Injectable({
   providedIn: 'root'
@@ -89,18 +89,38 @@ export class PermissionarioCreateComponent implements OnInit {
   certidaoNegativaMunicipalSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
+  permissaoSelecionada = "";
+  permissoesOptions: any[] = [];
+
   errors: string;
   nomeLogado: string;
 
   constructor(private permissionarioService: PermissionarioService,
               private router: Router,
-              private currencyPipe : CurrencyPipe) {
+              private permissaoService: PermissaoService) {
     this.errors = '';
     this.nomeLogado = '';
   }
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
+
+    this.permissaoService.consultarPermissoesDisponiveis().subscribe(
+      (permissoes) => {
+        if (permissoes == null || permissoes.length == 0) {
+          this.permissaoService.showMessageAlert(
+            "Não há Permissão disponível para seleção!"
+          );
+        }
+        permissoes?.forEach(element => {
+          this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
+        });
+      },
+      (error) => {
+        this.errors = error;
+        this.permissaoService.showMessageError(this.errors);
+      }
+    );
   }
 
   getCertidaoNegativaCriminalSelecionada (event: any): void {
@@ -119,15 +139,18 @@ export class PermissionarioCreateComponent implements OnInit {
     this.permissionario.naturezaPessoa = this.naturezaSelecionada;
     this.permissionario.ufPermissionario = this.ufSelecionada;
     this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
+    this.permissionario.numeroPermissao = this.permissaoSelecionada;
     this.permissionario.usuario = environment.usuarioLogado;
+
     this.permissionarioService.inserirPermissionario(this.permissionario, this.certidaoNegativaCriminalSelecionada,
-      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe(() => {
-      this.permissionarioService.showMessageSuccess('Permissionário Criado com Sucesso!!!');
-      this.router.navigate(['/permissionario']);
-    },
-    error => {
-        this.errors = error
-        this.permissionarioService.showMessageError('Ocorreu um erro ao Criar o Permissionário!!!');
+      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
+      next: (response) => {
+        this.permissionarioService.showMessageSuccess('Permissionário Criado com Sucesso!!!');
+        this.router.navigate(['/permissionario']);
+      },
+      error: (error) => {
+        this.permissionarioService.showMessageError(error.message);
+      }
     });
   }
 

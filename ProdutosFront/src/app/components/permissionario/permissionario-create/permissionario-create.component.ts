@@ -15,9 +15,6 @@ import {PermissaoService} from "../../../service/permissao.service";
 })
 
 export class PermissionarioCreateComponent implements OnInit {
-
-  NODE_TLS_REJECT_UNAUTHORIZED=0
-
   permissionario: PermissionarioModelo = {
     idPermissionario: 0,
     numeroPermissao: "",
@@ -28,6 +25,7 @@ export class PermissionarioCreateComponent implements OnInit {
     orgaoEmissor: "",
     naturezaPessoa: "",
     ufPermissionario: "",
+    cidadePermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
@@ -38,7 +36,10 @@ export class PermissionarioCreateComponent implements OnInit {
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: "",
+    aplicativoAlternativo: "",
+    observacao: ""
   };
 
   naturezaSelecionada = "";
@@ -85,6 +86,13 @@ export class PermissionarioCreateComponent implements OnInit {
     { id: 4, nome: 'E' }
   ];
 
+  aplicativoAlternativoSelecionado = "";
+  aplicativoAlternativoOptions = [
+    { id: 1, nome: 'SIM' },
+    { id: 2, nome: 'NÃO' }
+  ];
+
+  certificadoCondutorSelecionado: File | null = null;
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
@@ -123,6 +131,10 @@ export class PermissionarioCreateComponent implements OnInit {
     );
   }
 
+  getCertificadoCondutorSelecionado (event: any): void {
+    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  }
+
   getCertidaoNegativaCriminalSelecionada (event: any): void {
     this.certidaoNegativaCriminalSelecionada = event.target.files[0] || null;
   }
@@ -140,9 +152,11 @@ export class PermissionarioCreateComponent implements OnInit {
     this.permissionario.ufPermissionario = this.ufSelecionada;
     this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
     this.permissionario.numeroPermissao = this.permissaoSelecionada;
+    this.permissionario.aplicativoAlternativo = this.aplicativoAlternativoSelecionado;
+
     this.permissionario.usuario = environment.usuarioLogado;
 
-    this.permissionarioService.inserirPermissionario(this.permissionario, this.certidaoNegativaCriminalSelecionada,
+    this.permissionarioService.inserirPermissionario(this.permissionario, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
         this.permissionarioService.showMessageSuccess('Permissionário Criado com Sucesso!!!');

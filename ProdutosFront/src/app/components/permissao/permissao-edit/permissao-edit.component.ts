@@ -33,7 +33,9 @@ export class PermissaoEditComponent implements OnInit {
     dataValidadePenalidade: "",
     dataValidadePermissaoOriginal: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    autorizacaoTrafego: "",
+    modalidade: ""
   };
 
   categoriaPermissaoSelecionada = "";
@@ -46,7 +48,7 @@ export class PermissaoEditComponent implements OnInit {
 
   statusPermissaoSelecionada = "";
   statusPermissaoOptions = [
-    { id: 'ATIVA', nome: 'ATIVA' },
+    { id: 'EM USO', nome: 'EM USO' },
     { id: 'SUSPENSA', nome: 'SUSPENSA' },
     { id: 'RENUNCIADA', nome: 'RENUNCIADA' },
     { id: 'RESERVADA', nome: 'RESERVADA' },
@@ -61,6 +63,13 @@ export class PermissaoEditComponent implements OnInit {
     { id: 'MULTA', nome: 'MULTA' },
     { id: 'SUSPENSÃO', nome: 'SUSPENSÃO' },
     { id: 'CASSAÇÃO DO REGISTRO DE CONDUTOR', nome: 'CASSAÇÃO DO REGISTRO DE CONDUTOR' }
+  ];
+
+  modalidadeSelecionada = "";
+  modalidadeOptions = [
+    { id: '1', nome: 'FIXO' },
+    { id: '2', nome: 'ROTATIVO' },
+    { id: '3', nome: 'FIXO-ROTATIVO' }
   ];
 
   errors: string;
@@ -93,12 +102,17 @@ export class PermissaoEditComponent implements OnInit {
       this.penalidadeSelecionada = history.state.data.penalidade;
       this.permissao.penalidade = history.state.data.penalidade;
       this.permissao.dataValidadePenalidade = history.state.data.dataValidadePenalidade;
+      this.permissao.autorizacaoTrafego = history.state.data.autorizacaoTrafego;
+      this.modalidadeSelecionada = history.state.data.modalidade;
+      this.permissao.modalidade = history.state.data.modalidade;
     }
   }
   editarPermissao(): void {
     this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
     this.permissao.statusPermissao = this.statusPermissaoSelecionada;
     this.permissao.penalidade = this.penalidadeSelecionada;
+    this.permissao.modalidade = this.modalidadeSelecionada;
+
     this.permissao.usuario = environment.usuarioLogado;
     this.permissaoService.editarPermissao(this.permissao).subscribe(() => {
       this.permissaoService.showMessageSuccess('Permissão Atualizada com Sucesso!!!');

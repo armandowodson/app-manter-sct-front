@@ -35,18 +35,21 @@ export class PermissaoReadComponent implements OnInit {
     dataValidadePenalidade: "",
     dataValidadePermissaoOriginal: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    autorizacaoTrafego: "",
+    modalidade: ""
   };
 
   statusPermissaoSelecionada = "";
   statusPermissaoOptions = [
-    { id: '1', nome: 'SUSPENSA' },
-    { id: '2', nome: 'RENUNCIADA' },
-    { id: '3', nome: 'RESERVADA' },
-    { id: '4', nome: 'SUBSTITUÍDA' },
-    { id: '5', nome: 'REVOGADA' },
-    { id: '6', nome: 'EXPIRADA' },
-    { id: '7', nome: 'ABANDONADA' }
+    { id: '1', nome: 'EM USO' },
+    { id: '2', nome: 'SUSPENSA' },
+    { id: '3', nome: 'RENUNCIADA' },
+    { id: '4', nome: 'RESERVADA' },
+    { id: '5', nome: 'SUBSTITUÍDA' },
+    { id: '6', nome: 'REVOGADA' },
+    { id: '7', nome: 'EXPIRADA' },
+    { id: '8', nome: 'ABANDONADA' }
   ];
 
   permissoes: any[] = [];
@@ -94,6 +97,8 @@ export class PermissaoReadComponent implements OnInit {
             dataValidadePermissaoOriginal: this.formatarDataValidadePermissao(item.dataValidadePermissaoOriginal),
             penalidade: this.carregarPenalidadePermissao(item.penalidade),
             dataValidadePenalidade: item.dataValidadePenalidade,
+            autorizacaoTrafego: item.autorizacaoTrafego,
+            modalidade: item.modalidade,
             usuario: item.usuario
           }));
           this.totalPontos = res.totalElements;
@@ -158,6 +163,8 @@ export class PermissaoReadComponent implements OnInit {
             dataValidadePermissaoOriginal: this.formatarDataValidadePermissao(item.dataValidadePermissaoOriginal),
             penalidade: this.carregarPenalidadePermissao(item.penalidade),
             dataValidadePenalidade: item.dataValidadePenalidade,
+            autorizacaoTrafego: item.autorizacaoTrafego,
+            modalidade: item.modalidade,
             usuario: item.usuario
           }));
           if (res.totalElements == 0) {

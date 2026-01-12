@@ -81,6 +81,7 @@ export class DefensorReadComponent implements OnInit {
           orgaoEmissor: item.orgaoEmissor,
           naturezaPessoa: item.naturezaPessoa,
           ufDefensor: item.ufDefensor,
+          cidadeDefensor: item.cidadeDefensor,
           bairroDefensor: item.bairroDefensor,
           enderecoDefensor: item.enderecoDefensor,
           celularDefensor: item.celularDefensor,
@@ -91,7 +92,8 @@ export class DefensorReadComponent implements OnInit {
           numeroInscricaoInss: item.numeroInscricaoInss,
           numeroCertificadoCondutor: item.numeroCertificadoCondutor,
           dataCriacao: item.dataCriacao,
-          usuario: item.usuario
+          usuario: item.usuario,
+          status: item.status
         }));
         this.totalDefensores = res.totalElements;
         this.pageIndex = res.number;
@@ -137,6 +139,7 @@ export class DefensorReadComponent implements OnInit {
           orgaoEmissor: item.orgaoEmissor,
           naturezaPessoa: item.naturezaPessoa,
           ufDefensor: item.ufDefensor,
+          cidadeDefensor: item.cidadeDefensor,
           bairroDefensor: item.bairroDefensor,
           enderecoDefensor: item.enderecoDefensor,
           celularDefensor: item.celularDefensor,
@@ -147,7 +150,8 @@ export class DefensorReadComponent implements OnInit {
           numeroInscricaoInss: item.numeroInscricaoInss,
           numeroCertificadoCondutor: item.numeroCertificadoCondutor,
           dataCriacao: item.dataCriacao,
-          usuario: item.usuario
+          usuario: item.usuario,
+          status: item.status
         }));
         this.totalDefensores = res.totalElements;
         this.pageIndex = res.number;

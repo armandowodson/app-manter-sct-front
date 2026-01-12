@@ -3,7 +3,7 @@ import {inject, Injectable} from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {PontoTaxi} from "../components/pontos-taxi/ponto-taxi.model";
+import {PontoTaxiModelo} from "../components/pontos-taxi/ponto-taxi.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
 
 @Injectable({
@@ -44,12 +44,12 @@ export class PontoTaxiService {
     config.verticalPosition = 'top';
     return config;
   }
-  inserirPontoTaxi(pontoTaxi: PontoTaxi): Observable<PontoTaxi>{
-    return this.http.post<PontoTaxi>(this.baseUrl+'/inserir', pontoTaxi).pipe(catchError(this.errorHandlerInserir));
+  inserirPontoTaxi(pontoTaxi: PontoTaxiModelo): Observable<PontoTaxiModelo>{
+    return this.http.post<PontoTaxiModelo>(this.baseUrl+'/inserir', pontoTaxi).pipe(catchError(this.errorHandlerInserir));
   }
 
-  editarPontoTaxi(pontoTaxi: PontoTaxi): Observable<PontoTaxi>{
-    return this.http.post<PontoTaxi>(this.baseUrl+'/alterar', pontoTaxi).pipe(catchError(this.errorHandlerAlterar));
+  editarPontoTaxi(pontoTaxi: PontoTaxiModelo): Observable<PontoTaxiModelo>{
+    return this.http.post<PontoTaxiModelo>(this.baseUrl+'/alterar', pontoTaxi).pipe(catchError(this.errorHandlerAlterar));
   }
 
   excluirPontoTaxi(idPontoTaxi: number, usuario: string): Observable<String>{
@@ -64,7 +64,11 @@ export class PontoTaxiService {
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-todos', {params}).pipe(catchError(this.errorHandler));  // catch error
   }
 
-  consultarPontosTaxiComFiltros(pontoTaxi: PontoTaxi, pageIndex: number, pageSize: number): Observable<PageModelo> {
+  consultarPontosTaxiDisponiveis(): Observable<PontoTaxiModelo[]> {
+    return this.http.get<PontoTaxiModelo[]>(this.baseUrl+'/buscar-disponiveis').pipe(catchError(this.errorHandler));  // catch error
+  }
+
+  consultarPontosTaxiComFiltros(pontoTaxi: PontoTaxiModelo, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
     if (pontoTaxi.numeroPonto)       {  params = params.set('numeroPonto', pontoTaxi.numeroPonto); }
     if (pontoTaxi.descricaoPonto)       {  params = params.set('descricaoPonto', pontoTaxi.descricaoPonto); }
@@ -77,11 +81,6 @@ export class PontoTaxiService {
 
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
-
-  consultarPontoTaxiId(pontoTaxi: PontoTaxi): Observable<PontoTaxi> {
-    return this.http.get<PontoTaxi>(this.baseUrl+'/buscar/?idPontoTaxi='+pontoTaxi.idPontoTaxi).pipe(catchError(this.errorHandler)); // catch error
-  }
-
   errorHandlerAlterar() {
     return throwError("Ocorreu um erro ao Alterar o Ponto de Táxi!");
   }

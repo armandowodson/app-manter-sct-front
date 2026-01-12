@@ -30,6 +30,7 @@ export class PermissionarioEditComponent implements OnInit {
     orgaoEmissor: "",
     naturezaPessoa: "",
     ufPermissionario: "",
+    cidadePermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
@@ -40,7 +41,10 @@ export class PermissionarioEditComponent implements OnInit {
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: "",
+    aplicativoAlternativo: "",
+    observacao: ""
   };
 
   naturezaSelecionada = "";
@@ -87,6 +91,13 @@ export class PermissionarioEditComponent implements OnInit {
     { id: 'E', nome: 'E' }
   ];
 
+  aplicativoAlternativoSelecionado = "";
+  aplicativoAlternativoOptions = [
+    { id: 'SIM', nome: 'SIM' },
+    { id: 'NÃO', nome: 'NÃO' }
+  ];
+
+  certificadoCondutorSelecionado: File | null = null;
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
@@ -140,6 +151,7 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionario.categoriaCnhPermissionario = history.state.data.categoriaCnhPermissionario;
       this.ufSelecionada = history.state.data.ufPermissionario;
       this.permissionario.ufPermissionario = history.state.data.ufPermissionario;
+      this.permissionario.cidadePermissionario = history.state.data.cidadePermissionario;
       this.permissionario.bairroPermissionario = history.state.data.bairroPermissionario;
       this.permissionario.enderecoPermissionario = history.state.data.enderecoPermissionario;
       this.permissionario.celularPermissionario = history.state.data.celularPermissionario;
@@ -147,9 +159,16 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionario.numeroQuitacaoEleitoral = history.state.data.numeroQuitacaoEleitoral;
       this.permissionario.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
       this.permissionario.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
+      this.permissionario.aplicativoAlternativo = history.state.data.aplicativoAlternativo;
+      this.permissionario.observacao = history.state.data.observacao;
       this.nomeLogado = environment.nomeLogado;
     }
   }
+
+  getCertificadoCondutorSelecionado (event: any): void {
+    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  }
+
   getCertidaoNegativaCriminalSelecionada (event: any): void {
     this.certidaoNegativaCriminalSelecionada = event.target.files[0] || null;
   }
@@ -167,9 +186,11 @@ export class PermissionarioEditComponent implements OnInit {
     this.permissionario.ufPermissionario = this.ufSelecionada;
     this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
     this.permissionario.numeroPermissao = this.permissaoSelecionada;
+    this.permissionario.aplicativoAlternativo = this.aplicativoAlternativoSelecionado;
+
     this.permissionario.usuario = environment.usuarioLogado;
 
-    this.permissionarioService.editarPermissionario(this.permissionario, this.certidaoNegativaCriminalSelecionada,
+    this.permissionarioService.editarPermissionario(this.permissionario, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
         this.permissionarioService.showMessageSuccess('Permissionário Atualizado com Sucesso!!!');

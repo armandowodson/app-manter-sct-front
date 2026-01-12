@@ -5,6 +5,7 @@ import {VeiculoModelo} from "../veiculo-modelo.model";
 import {VeiculoService} from "../../../service/veiculo.service";
 import {environment} from "../../../../environments/environment";
 import {PermissionarioService} from "../../../service/permissionario.service";
+import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 
 @Component({
   selector: 'app-permissinario-edit',
@@ -23,6 +24,7 @@ export class VeiculoEditComponent implements OnInit {
     idVeiculo: 0,
     idPermissionario: "",
     numeroPermissao: "",
+    idPontoTaxi: "",
     placa: "",
     renavam: "",
     chassi: "",
@@ -43,7 +45,8 @@ export class VeiculoEditComponent implements OnInit {
     tipoVeiculo: "",
     observacao: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: ""
   };
 
   corSelecionada = "";
@@ -81,6 +84,9 @@ export class VeiculoEditComponent implements OnInit {
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
 
+  pontoTaxiSelecionado = "";
+  pontosTaxiOptions: any[] = [];
+
   crlvSelecionado: File | null = null;
   comprovanteVistoriaSelecionado: File | null = null;
   errors: string;
@@ -89,6 +95,7 @@ export class VeiculoEditComponent implements OnInit {
 
   constructor(private veiculoService: VeiculoService,
               private permissionarioService: PermissionarioService,
+              private pontoTaxiService: PontoTaxiService,
               private router: Router) {
     this.errors = '';
     this.id = 0;
@@ -115,10 +122,29 @@ export class VeiculoEditComponent implements OnInit {
         }
       );
 
+      this.pontoTaxiService.consultarPontosTaxiDisponiveis().subscribe(
+        (pontosTaxi) => {
+          if (pontosTaxi == null || pontosTaxi.length == 0) {
+            this.veiculoService.showMessageAlert(
+              "Não há Pontos de Estacionamentos de Táxi disponíveis para seleção!"
+            );
+          }
+          pontosTaxi?.forEach(element => {
+            this.pontosTaxiOptions.push({ id: element.idPontoTaxi, nome: element.descricaoPonto });
+          });
+        },
+        (error) => {
+          this.errors = error;
+          this.veiculoService.showMessageError(this.errors);
+        }
+      );
+
       this.veiculo.idVeiculo = history.state.data.idVeiculo;
       this.permissionarioSelecionado = history.state.data.idPermissionario;
       this.veiculo.idPermissionario = history.state.data.idPermissionario;
       this.veiculo.numeroPermissao = history.state.data.numeroPermissao;
+      this.pontoTaxiSelecionado = history.state.data.idPontoTaxi;
+      this.veiculo.idPontoTaxi = history.state.data.idPontoTaxi;
       this.veiculo.placa = history.state.data.placa;
       this.veiculo.renavam = history.state.data.renavam;
       this.veiculo.chassi = history.state.data.chassi;
@@ -170,6 +196,7 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
       this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
       this.veiculo.idPermissionario = this.permissionarioSelecionado;
+      this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
       this.veiculo.usuario = environment.usuarioLogado;
 
       this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado, this.comprovanteVistoriaSelecionado).subscribe({

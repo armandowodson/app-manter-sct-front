@@ -50,6 +50,7 @@ export class VeiculoService {
     const formDataVeiculo = new FormData();
     const jsonString = '{"idVeiculo": null, "idPermissionario": "' + veiculo.idPermissionario + '"' +
       ', "numeroPermissao": "' + veiculo.numeroPermissao + '"' +
+      ', "idPontoTaxi": "' + veiculo.idPontoTaxi + '"' +
       ', "placa": "' + veiculo.placa + '"' +
       ', "renavam": "' + veiculo.renavam + '"' +
       ', "chassi": "' + veiculo.chassi + '"' +
@@ -84,6 +85,7 @@ export class VeiculoService {
     const jsonString = '{"idVeiculo": "' + veiculo.idVeiculo + '"' +
       ', "idPermissionario": "' + veiculo.idPermissionario + '"' +
       ', "numeroPermissao": "' + veiculo.numeroPermissao + '"' +
+      ', "idPontoTaxi": "' + veiculo.idPontoTaxi + '"' +
       ', "placa": "' + veiculo.placa + '"' +
       ', "renavam": "' + veiculo.renavam + '"' +
       ', "chassi": "' + veiculo.chassi + '"' +

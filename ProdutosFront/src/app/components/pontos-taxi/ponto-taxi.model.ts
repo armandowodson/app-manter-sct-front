@@ -1,4 +1,4 @@
-export interface PontoTaxi {
+export interface PontoTaxiModelo {
     idPontoTaxi: number
     numeroPonto: string
     descricaoPonto: string
@@ -8,4 +8,5 @@ export interface PontoTaxi {
     modalidade: string
     dataCriacao: string
     usuario: string
+    status: string
 }

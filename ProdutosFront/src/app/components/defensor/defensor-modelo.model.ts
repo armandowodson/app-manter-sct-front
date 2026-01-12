@@ -8,6 +8,7 @@ export interface DefensorModelo {
   orgaoEmissor: string
   naturezaPessoa: string
   ufDefensor: string
+  cidadeDefensor: string
   bairroDefensor: string
   enderecoDefensor: string
   celularDefensor: string
@@ -19,4 +20,5 @@ export interface DefensorModelo {
   numeroCertificadoCondutor: string
   dataCriacao: string
   usuario: string
+  status: string
 }

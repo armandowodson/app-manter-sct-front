@@ -8,6 +8,7 @@ export interface PermissionarioModelo {
   orgaoEmissor: string
   naturezaPessoa: string
   ufPermissionario: string
+  cidadePermissionario: string
   bairroPermissionario: string
   enderecoPermissionario: string
   celularPermissionario: string
@@ -19,4 +20,7 @@ export interface PermissionarioModelo {
   numeroCertificadoCondutor: string
   dataCriacao: string
   usuario: string
+  status: string
+  aplicativoAlternativo: string
+  observacao: string
 }

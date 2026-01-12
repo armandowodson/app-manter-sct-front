@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit, ViewChild } from "@angular/core";
-import {PontoTaxi} from "../ponto-taxi.model";
+import {PontoTaxiModelo} from "../ponto-taxi.model";
 import { PontoTaxiService } from "../../../service/ponto-taxi.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import { Router } from "@angular/router";
@@ -22,7 +22,7 @@ export class PontoTaxiReadComponent implements OnInit {
   NODE_TLS_REJECT_UNAUTHORIZED = 0;
   public loading = false;
 
-  pontoTaxiFiltro: PontoTaxi = {
+  pontoTaxiFiltro: PontoTaxiModelo = {
     idPontoTaxi: 0,
     numeroPonto: "",
     descricaoPonto: "",
@@ -31,15 +31,9 @@ export class PontoTaxiReadComponent implements OnInit {
     numeroVagas: "",
     modalidade: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: ""
   };
-
-  modalidadeSelecionada = "";
-  modalidadeOptions = [
-    { id: '1', nome: 'FIXO' },
-    { id: '2', nome: 'ROTATIVO' },
-    { id: '3', nome: 'FIX-ROTATIVO' }
-  ];
 
   pontosTaxi: any[] = [];
 
@@ -89,9 +83,9 @@ export class PontoTaxiReadComponent implements OnInit {
             fatorRotatividade: item.fatorRotatividade,
             referenciaPonto: item.referenciaPonto,
             numeroVagas: item.numeroVagas,
-            modalidade: item.modalidade,
             dataCriacao: item.dataCriacao,
-            usuario: item.usuario
+            usuario: item.usuario,
+            status: item.status
           }));
           this.totalPontos = res.totalElements;
           this.pageIndex = res.number;
@@ -111,8 +105,7 @@ export class PontoTaxiReadComponent implements OnInit {
         (this.pontoTaxiFiltro.descricaoPonto != null && this.pontoTaxiFiltro.descricaoPonto != undefined && this.pontoTaxiFiltro.descricaoPonto != '') ||
         (this.pontoTaxiFiltro.fatorRotatividade != null && this.pontoTaxiFiltro.fatorRotatividade != undefined && this.pontoTaxiFiltro.fatorRotatividade != '') ||
         (this.pontoTaxiFiltro.numeroVagas != null && this.pontoTaxiFiltro.numeroVagas != undefined && this.pontoTaxiFiltro.numeroVagas != '') ||
-        (this.pontoTaxiFiltro.referenciaPonto != null && this.pontoTaxiFiltro.referenciaPonto != undefined && this.pontoTaxiFiltro.referenciaPonto != '') ||
-        (this.modalidadeSelecionada != null && this.modalidadeSelecionada != undefined && this.modalidadeSelecionada != '')){
+        (this.pontoTaxiFiltro.referenciaPonto != null && this.pontoTaxiFiltro.referenciaPonto != undefined && this.pontoTaxiFiltro.referenciaPonto != '')){
         if(this.buscouTodos)
           this.pageIndex = 0;
         this.consultarPontosTaxiComFiltros();
@@ -130,13 +123,12 @@ export class PontoTaxiReadComponent implements OnInit {
     this.router.navigate(["ponto-taxi/create"]);
   }
 
-  navegarEditarPontoTaxi(pontoTaxiSelecionado: PontoTaxi): void {
+  navegarEditarPontoTaxi(pontoTaxiSelecionado: PontoTaxiModelo): void {
     this.router.navigate(['ponto-taxi/edit'], { state: {data: pontoTaxiSelecionado} });
   }
 
   consultarPontosTaxiComFiltros() {
       this.loading = true;
-      this.pontoTaxiFiltro.modalidade = this.modalidadeSelecionada;
 
       const request: Observable<PageModelo> = this.pontoTaxiService.consultarPontosTaxiComFiltros(this.pontoTaxiFiltro, this.pageIndex, this.pageSize);
       request.subscribe({
@@ -148,9 +140,9 @@ export class PontoTaxiReadComponent implements OnInit {
             fatorRotatividade: item.fatorRotatividade,
             referenciaPonto: item.referenciaPonto,
             numeroVagas: item.numeroVagas,
-            modalidade: item.modalidade,
             dataCriacao: item.dataCriacao,
-            usuario: item.usuario
+            usuario: item.usuario,
+            status: item.status
           }));
           if (res == null || res.totalElements == 0) {
             this.pontoTaxiService.showMessageAlert(

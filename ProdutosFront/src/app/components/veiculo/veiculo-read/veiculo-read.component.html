@@ -93,6 +93,7 @@
               <th style="text-align: center;">Modelo</th>
               <th style="text-align: center;">Nº Taxímetro</th>
               <th style="text-align: center;">Ano Fabricação</th>
+              <th style="text-align: center;">Status</th>
               <th style="text-align: center;">Ações</th>
             </tr>
          </thead>
@@ -105,12 +106,13 @@
               <td style="text-align: center;">{{row.modelo}}</td>
               <td style="text-align: center;">{{row.numeroTaximetro}}</td>
               <td style="text-align: center;">{{row.anoFabricacao}}</td>
+              <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button mat-icon-button color="primary" (click) = "navegarEditarVeiculo(row)" aria-label="Editar Veículo">
+                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarVeiculo(row)" aria-label="Editar Veículo">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
+                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

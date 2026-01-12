@@ -91,6 +91,7 @@
               <th style="text-align: center;">CPF Permissionário</th>
               <th style="text-align: center;">CNPJ Empresa</th>
               <th style="text-align: center;">CNH Permissionário</th>
+              <th style="text-align: center;">Status</th>
               <th style="text-align: center;">Ações</th>
             </tr>
          </thead>
@@ -101,12 +102,13 @@
               <td style="text-align: center;">{{row.cpfPermissionario}}</td>
               <td style="text-align: center;">{{row.cnpjEmpresa}}</td>
               <td style="text-align: center;">{{row.cnhPermissionario}}</td>
+              <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button mat-icon-button color="primary" (click) = "navegarEditarPermissionario(row)" aria-label="Editar Permissionário">
+                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarPermissionario(row)" aria-label="Editar Permissionário">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click) = "openModal(row.idPermissionario, row.nomePermissionario)" aria-label="Remover Permissionário">
+                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPermissionario, row.nomePermissionario)" aria-label="Remover Permissionário">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

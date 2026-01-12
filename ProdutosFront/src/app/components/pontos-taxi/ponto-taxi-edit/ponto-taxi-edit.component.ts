@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import {PontoTaxi} from "../ponto-taxi.model";
+import {PontoTaxiModelo} from "../ponto-taxi.model";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 import {environment} from "../../../../environments/environment";
 
@@ -17,16 +17,17 @@ import {environment} from "../../../../environments/environment";
 
 export class PontoTaxiEditComponent implements OnInit {
 
-  pontoTaxi: PontoTaxi = {
+  pontoTaxi: PontoTaxiModelo = {
     idPontoTaxi: 0,
     numeroPonto: "",
     descricaoPonto: "",
-    fatorRotatividade: "",
+    fatorRotatividade: "1",
     referenciaPonto: "",
     numeroVagas: "",
     modalidade: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: ""
   };
 
   modalidadeSelecionada = "";
@@ -54,7 +55,7 @@ export class PontoTaxiEditComponent implements OnInit {
       this.pontoTaxi.idPontoTaxi = history.state.data.idPontoTaxi;
       this.pontoTaxi.numeroPonto = history.state.data.numeroPonto;
       this.pontoTaxi.descricaoPonto = history.state.data.descricaoPonto;
-      this.pontoTaxi.fatorRotatividade = history.state.data.fatorRotatividade;
+      this.pontoTaxi.fatorRotatividade = "1";
       this.pontoTaxi.referenciaPonto = history.state.data.referenciaPonto;
       this.pontoTaxi.numeroVagas = history.state.data.numeroVagas;
       this.modalidadeSelecionada = history.state.data.modalidade;

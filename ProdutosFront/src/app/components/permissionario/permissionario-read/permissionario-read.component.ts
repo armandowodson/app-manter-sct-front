@@ -1,5 +1,4 @@
 import { Component, Injectable, OnInit, ViewChild } from "@angular/core";
-import { PermissionarioModelo } from "../permissionario-modelo.model";
 import { PermissionarioFiltro } from "../permissionario-filtro.model";
 import { PermissionarioService } from "../../../service/permissionario.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
@@ -92,7 +91,10 @@ export class PermissionarioReadComponent implements OnInit {
           numeroInscricaoInss: item.numeroInscricaoInss,
           numeroCertificadoCondutor: item.numeroCertificadoCondutor,
           dataCriacao: item.dataCriacao,
-          usuario: item.usuario
+          usuario: item.usuario,
+          status: item.status,
+          aplicativoAlternativo: item.aplicativoAlternativo,
+          observacao: item.observacao
         }));
         this.totalPermissionarios = res.totalElements;
         this.pageIndex = res.number;
@@ -156,6 +158,7 @@ export class PermissionarioReadComponent implements OnInit {
           orgaoEmissor: item.orgaoEmissor,
           naturezaPessoa: item.naturezaPessoa,
           ufPermissionario: item.ufPermissionario,
+          cidadePermissionario: item.cidadePermissionario,
           bairroPermissionario: item.bairroPermissionario,
           enderecoPermissionario: item.enderecoPermissionario,
           celularPermissionario: item.celularPermissionario,
@@ -166,7 +169,10 @@ export class PermissionarioReadComponent implements OnInit {
           numeroInscricaoInss: item.numeroInscricaoInss,
           numeroCertificadoCondutor: item.numeroCertificadoCondutor,
           dataCriacao: item.dataCriacao,
-          usuario: item.usuario
+          usuario: item.usuario,
+          status: item.status,
+          aplicativoAlternativo: item.aplicativoAlternativo,
+          observacao: item.observacao
         }));
         this.totalPermissionarios = res.totalElements;
         this.pageIndex = res.number;

@@ -46,7 +46,7 @@ export class DefensorService {
     return config;
   }
 
-  inserirDefensor(defensor: DefensorModelo, certidaoNegativaCriminalFile: File | null,
+  inserirDefensor(defensor: DefensorModelo, certificadoCondutorFile: File | null, certidaoNegativaCriminalFile: File | null,
                         certidaoNegativaMunicipalFile: File | null, fotoFile: File | null): Observable<DefensorModelo>{
     const formDataDefensor = new FormData();
     const jsonString = '{"idDefensor": null, "numeroPermissao": "' + defensor.numeroPermissao + '"' +
@@ -59,6 +59,7 @@ export class DefensorService {
       ', "cnhDefensor": "' + defensor.cnhDefensor + '"' +
       ', "categoriaCnhDefensor": "' + defensor.categoriaCnhDefensor + '"' +
       ', "ufDefensor": "' + defensor.ufDefensor + '"' +
+      ', "cidadeDefensor": "' + defensor.cidadeDefensor + '"' +
       ', "bairroDefensor": "' + defensor.bairroDefensor + '"' +
       ', "enderecoDefensor": "' + defensor.enderecoDefensor + '"' +
       ', "celularDefensor": "' + defensor.celularDefensor + '"' +
@@ -70,6 +71,8 @@ export class DefensorService {
     // @ts-ignore
     formDataDefensor.append('defensor', jsonString);
     // @ts-ignore
+    formDataDefensor.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
+    // @ts-ignore
     formDataDefensor.append('certidaoNegativaCriminal', certidaoNegativaCriminalFile, certidaoNegativaCriminalFile.name);
     // @ts-ignore
     formDataDefensor.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
@@ -78,7 +81,7 @@ export class DefensorService {
     return this.http.post<DefensorModelo>(this.baseUrl+'/inserir', formDataDefensor).pipe(catchError(this.errorHandler));
   }
 
-  editarDefensor(defensor: DefensorModelo, certidaoNegativaCriminalFile: File | null,
+  editarDefensor(defensor: DefensorModelo, certificadoCondutorFile: File | null, certidaoNegativaCriminalFile: File | null,
                        certidaoNegativaMunicipalFile: File | null, fotoFile: File | null): Observable<DefensorModelo>{
     const formDataDefensor = new FormData();
     const jsonString = '{"idDefensor": "' + defensor.idDefensor + '"' +
@@ -92,6 +95,7 @@ export class DefensorService {
       ', "cnhDefensor": "' + defensor.cnhDefensor + '"' +
       ', "categoriaCnhDefensor": "' + defensor.categoriaCnhDefensor + '"' +
       ', "ufDefensor": "' + defensor.ufDefensor + '"' +
+      ', "cidadeDefensor": "' + defensor.cidadeDefensor + '"' +
       ', "bairroDefensor": "' + defensor.bairroDefensor + '"' +
       ', "enderecoDefensor": "' + defensor.enderecoDefensor + '"' +
       ', "celularDefensor": "' + defensor.celularDefensor + '"' +
@@ -102,6 +106,9 @@ export class DefensorService {
       ', "usuario": "' + defensor.usuario + '"}'
     // @ts-ignore
     formDataDefensor.append('defensor', jsonString);
+    if(certidaoNegativaCriminalFile != null)
+      // @ts-ignore
+      formDataDefensor.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
     if(certidaoNegativaCriminalFile != null)
       // @ts-ignore
       formDataDefensor.append('certidaoNegativaCriminal', certidaoNegativaCriminalFile, certidaoNegativaCriminalFile.name);

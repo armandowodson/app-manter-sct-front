@@ -75,6 +75,7 @@ export class VeiculoReadComponent implements OnInit {
             idVeiculo: item.idVeiculo,
             idPermissionario: item.idPermissionario,
             numeroPermissao: item.numeroPermissao,
+            idPontoTaxi: item.idPontoTaxi,
             placa: item.placa,
             renavam: item.renavam,
             chassi: item.chassi,
@@ -95,7 +96,8 @@ export class VeiculoReadComponent implements OnInit {
             tipoVeiculo: item.tipoVeiculo,
             observacao: item.observacao,
             dataCriacao: item.dataCriacao,
-            usuario: item.usuario
+            usuario: item.usuario,
+            status: item.status
           }));
           this.totalVeiculos = res.totalElements;
           this.pageIndex = res.number;
@@ -135,6 +137,7 @@ export class VeiculoReadComponent implements OnInit {
               idVeiculo: item.idVeiculo,
               idPermissionario: item.idPermissionario,
               numeroPermissao: item.numeroPermissao,
+              idPontoTaxi: item.idPontoTaxi,
               placa: item.placa,
               renavam: item.renavam,
               chassi: item.chassi,
@@ -155,7 +158,8 @@ export class VeiculoReadComponent implements OnInit {
               tipoVeiculo: item.tipoVeiculo,
               observacao: item.observacao,
               dataCriacao: item.dataCriacao,
-              usuario: item.usuario
+              usuario: item.usuario,
+              status: item.status
             }));
             this.totalVeiculos = res.totalElements;
             this.pageIndex = res.number;

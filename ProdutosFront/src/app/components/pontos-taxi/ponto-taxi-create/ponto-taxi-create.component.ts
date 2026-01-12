@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import {PontoTaxi} from "../ponto-taxi.model";
+import {PontoTaxiModelo} from "../ponto-taxi.model";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 import {environment} from "../../../../environments/environment";
 
@@ -18,16 +18,17 @@ export class PontoTaxiCreateComponent implements OnInit {
 
   NODE_TLS_REJECT_UNAUTHORIZED=0
 
-  pontoTaxi: PontoTaxi = {
+  pontoTaxi: PontoTaxiModelo = {
     idPontoTaxi: 0,
     numeroPonto: "",
     descricaoPonto: "",
-    fatorRotatividade: "",
+    fatorRotatividade: "1",
     referenciaPonto: "",
     numeroVagas: "",
     modalidade: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: ""
   };
 
   modalidadeSelecionada = "";

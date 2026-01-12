@@ -29,6 +29,7 @@ export class DefensorEditComponent implements OnInit {
     orgaoEmissor: "",
     naturezaPessoa: "",
     ufDefensor: "",
+    cidadeDefensor: "",
     bairroDefensor: "",
     enderecoDefensor: "",
     celularDefensor: "",
@@ -39,7 +40,8 @@ export class DefensorEditComponent implements OnInit {
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: ""
   };
 
   naturezaSelecionada = "";
@@ -86,6 +88,7 @@ export class DefensorEditComponent implements OnInit {
     { id: 'E', nome: 'E' }
   ];
 
+  certificadoCondutorSelecionado: File | null = null;
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
@@ -118,6 +121,7 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.categoriaCnhDefensor = history.state.data.categoriaCnhDefensor;
       this.ufSelecionada = history.state.data.ufDefensor;
       this.defensor.ufDefensor = history.state.data.ufDefensor;
+      this.defensor.cidadeDefensor = history.state.data.cidadeDefensor;
       this.defensor.bairroDefensor = history.state.data.bairroDefensor;
       this.defensor.enderecoDefensor = history.state.data.enderecoDefensor;
       this.defensor.celularDefensor = history.state.data.celularDefensor;
@@ -128,6 +132,11 @@ export class DefensorEditComponent implements OnInit {
       this.nomeLogado = environment.nomeLogado;
     }
   }
+
+  getCertificadoCondutorSelecionado (event: any): void {
+    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  }
+
   getCertidaoNegativaCriminalSelecionada (event: any): void {
     this.certidaoNegativaCriminalSelecionada = event.target.files[0] || null;
   }
@@ -146,7 +155,7 @@ export class DefensorEditComponent implements OnInit {
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
     this.defensor.usuario = environment.usuarioLogado;
 
-    this.defensorService.editarDefensor(this.defensor, this.certidaoNegativaCriminalSelecionada,
+    this.defensorService.editarDefensor(this.defensor, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
         this.defensorService.showMessageSuccess('Defensor Atualizado com Sucesso!!!');

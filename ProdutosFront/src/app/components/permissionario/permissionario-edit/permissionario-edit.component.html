@@ -104,6 +104,16 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Cidade</mat-label>
+      <input matInput placeholder="Cidade" style="margin-right: 20px;" [(ngModel)]="permissionario.cidadePermissionario" name="cidadePermissionario">
+      <button mat-button *ngIf="permissionario.cidadePermissionario" matSuffix aria-label="Clear" (click)="permissionario.cidadePermissionario=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
       <mat-label >Bairro Permissionário</mat-label>
       <input matInput placeholder="Bairro Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.bairroPermissionario" name="bairroPermissionario">
       <button mat-button *ngIf="permissionario.bairroPermissionario" matSuffix aria-label="Clear" (click)="permissionario.bairroPermissionario=''">
@@ -178,9 +188,13 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Nº Certificado Condutor</mat-label>
-      <input type="number" matInput placeholder="Nº Certificado Condutor" style="margin-right: 20px;" [(ngModel)]="permissionario.numeroCertificadoCondutor" name="numeroCertificadoCondutor">
-      <button mat-button *ngIf="permissionario.numeroCertificadoCondutor" matSuffix aria-label="Clear" (click)="permissionario.numeroCertificadoCondutor=''">
+      <mat-label>Aplicativo Alternativo</mat-label>
+      <mat-select [(value)]="aplicativoAlternativoSelecionado">
+        <mat-option *ngFor="let aplicativo of aplicativoAlternativoOptions" [value]="aplicativo.id">
+          {{ aplicativo.nome }}
+        </mat-option>
+      </mat-select>
+      <button mat-button *ngIf="aplicativoAlternativoSelecionado" matSuffix aria-label="Clear" (click)="aplicativoAlternativoSelecionado=''">
         <i class="material-icons black v-middle">
           close
         </i>
@@ -189,11 +203,24 @@
 
     <mat-card>
       <mat-card-content>
+        <mat-label >Certificado Condutor</mat-label>
+        <div class="file-upload-container">
+          <input type="file" #fileInputCertificado (change)="getCertificadoCondutorSelecionado($event)" style="display: none;">
+          <button mat-raised-button color="primary" (click)="fileInputCertificado.click()">
+            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+          </button>
+          <span *ngIf="certificadoCondutorSelecionado">{{ certificadoCondutorSelecionado.name }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
         <mat-label >Certidão Negativa Criminal</mat-label>
         <div class="file-upload-container">
           <input type="file" #fileInputCriminal (change)="getCertidaoNegativaCriminalSelecionada($event)" style="display: none;">
           <button mat-raised-button color="primary" (click)="fileInputCriminal.click()">
-            <mat-icon>cloud_upload</mat-icon> Choose File
+            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
           </button>
           <span *ngIf="certidaoNegativaCriminalSelecionada">{{ certidaoNegativaCriminalSelecionada.name }}</span>
         </div>
@@ -206,7 +233,7 @@
         <div class="file-upload-container">
           <input type="file" #fileInputMunicipal (change)="getCertidaoNegativaMunicipalSelecionada($event)" style="display: none;">
           <button mat-raised-button color="primary" (click)="fileInputMunicipal.click()">
-            <mat-icon>cloud_upload</mat-icon> Choose File
+            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
           </button>
           <span *ngIf="certidaoNegativaMunicipalSelecionada">{{ certidaoNegativaMunicipalSelecionada.name }}</span>
         </div>
@@ -219,12 +246,20 @@
         <div class="file-upload-container">
           <input type="file" #fileInputFoto (change)="getFotoSelecionada($event)" style="display: none;">
           <button mat-raised-button color="primary" (click)="fileInputFoto.click()">
-            <mat-icon>cloud_upload</mat-icon> Choose File
+            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
           </button>
           <span *ngIf="fotoSelecionada">{{ fotoSelecionada.name }}</span>
         </div>
       </mat-card-content>
     </mat-card>
+
+    <mat-card>
+      <mat-form-field appearance="outline" style="width: 900px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Observação</mat-label>
+        <textarea [(ngModel)]="permissionario.observacao" matInput placeholder="Observação" name="observacao"></textarea>
+      </mat-form-field>
+    </mat-card>
+
     <div>
       <button style="background-color: darkgray; margin-left: 20px; margin-right: 30px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
         Voltar

@@ -1,6 +1,7 @@
 export interface VeiculoModelo {
   idVeiculo: number
   idPermissionario: string
+  idPontoTaxi: string
   numeroPermissao: string
   placa: string
   renavam: string
@@ -23,4 +24,5 @@ export interface VeiculoModelo {
   observacao: string
   dataCriacao: string
   usuario: string
+  status: string
 }

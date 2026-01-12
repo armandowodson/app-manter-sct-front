@@ -33,7 +33,9 @@ export class PermissaoCreateComponent implements OnInit {
     dataValidadePenalidade: "",
     dataValidadePermissaoOriginal: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    autorizacaoTrafego: "",
+    modalidade: ""
   };
 
   categoriaPermissaoSelecionada = "";
@@ -46,7 +48,7 @@ export class PermissaoCreateComponent implements OnInit {
 
   statusPermissaoSelecionada = "";
   statusPermissaoOptions = [
-    { id: '1', nome: 'ATIVA' },
+    { id: '1', nome: 'EM USO' },
     { id: '2', nome: 'SUSPENSA' },
     { id: '3', nome: 'RENUNCIADA' },
     { id: '4', nome: 'RESERVADA' },
@@ -61,6 +63,13 @@ export class PermissaoCreateComponent implements OnInit {
     { id: '1', nome: 'MULTA' },
     { id: '2', nome: 'SUSPENSÃO' },
     { id: '3', nome: 'CASSAÇÃO DO REGISTRO DE CONDUTOR' }
+  ];
+
+  modalidadeSelecionada = "";
+  modalidadeOptions = [
+    { id: '1', nome: 'FIXO' },
+    { id: '2', nome: 'ROTATIVO' },
+    { id: '3', nome: 'FIXO-ROTATIVO' }
   ];
 
   errors: string;
@@ -84,6 +93,8 @@ export class PermissaoCreateComponent implements OnInit {
     this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
     this.permissao.statusPermissao = this.statusPermissaoSelecionada;
     this.permissao.penalidade = this.penalidadeSelecionada;
+    this.permissao.modalidade = this.modalidadeSelecionada;
+
     this.permissao.usuario = environment.usuarioLogado;
     this.permissaoService.inserirPermissao(this.permissao).subscribe(() => {
       this.permissaoService.showMessageSuccess('Permissão Criada com Sucesso!!!');

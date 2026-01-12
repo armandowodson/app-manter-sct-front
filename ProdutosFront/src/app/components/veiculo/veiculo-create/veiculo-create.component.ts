@@ -6,6 +6,7 @@ import {VeiculoModelo} from "../veiculo-modelo.model";
 import {environment} from "../../../../environments/environment";
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {PermissionarioModelo} from "../../permissionario/permissionario-modelo.model";
+import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class VeiculoCreateComponent implements OnInit {
     idVeiculo: 0,
     idPermissionario: "",
     numeroPermissao: "",
+    idPontoTaxi: "",
     placa: "",
     renavam: "",
     chassi: "",
@@ -41,7 +43,8 @@ export class VeiculoCreateComponent implements OnInit {
     tipoVeiculo: "",
     observacao: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: ""
   };
 
   corSelecionada = "";
@@ -86,6 +89,7 @@ export class VeiculoCreateComponent implements OnInit {
     orgaoEmissor: "",
     naturezaPessoa: "",
     ufPermissionario: "",
+    cidadePermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
@@ -96,11 +100,17 @@ export class VeiculoCreateComponent implements OnInit {
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: "",
+    aplicativoAlternativo: "",
+    observacao: ""
   };
 
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
+
+  pontoTaxiSelecionado = "";
+  pontosTaxiOptions: any[] = [];
 
   crlvSelecionado: File | null = null;
   comprovanteVistoriaSelecionado: File | null = null;
@@ -109,6 +119,7 @@ export class VeiculoCreateComponent implements OnInit {
 
   constructor(private veiculoService: VeiculoService,
               private permissionarioService: PermissionarioService,
+              private pontoTaxiService: PontoTaxiService,
               private router: Router) {
     this.errors = '';
     this.nomeLogado = '';
@@ -118,13 +129,30 @@ export class VeiculoCreateComponent implements OnInit {
     this.nomeLogado = environment.nomeLogado;
     this.permissionarioService.consultarPermissionariosDisponiveis().subscribe(
       (permissionarios) => {
-        if (permissionarios.length == 0) {
+        if (permissionarios == null || permissionarios.length == 0) {
           this.veiculoService.showMessageAlert(
-            "Não há Permissionário disponível para seleção!"
+            "Não há Permissionários disponíveis para seleção!"
           );
         }
         permissionarios?.forEach(element => {
           this.permissionariosOptions.push({ id: element.idPermissionario, nome: element.nomePermissionario });
+        });
+      },
+      (error) => {
+        this.errors = error;
+        this.veiculoService.showMessageError(this.errors);
+      }
+    );
+
+    this.pontoTaxiService.consultarPontosTaxiDisponiveis().subscribe(
+      (pontosTaxi) => {
+        if (pontosTaxi == null || pontosTaxi.length == 0) {
+          this.veiculoService.showMessageAlert(
+            "Não há Pontos de Estacionamentos de Táxi disponíveis para seleção!"
+          );
+        }
+        pontosTaxi?.forEach(element => {
+          this.pontosTaxiOptions.push({ id: element.idPontoTaxi, nome: element.descricaoPonto });
         });
       },
       (error) => {
@@ -164,6 +192,7 @@ export class VeiculoCreateComponent implements OnInit {
       this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
       this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
       this.veiculo.idPermissionario = this.permissionarioSelecionado;
+      this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
       this.veiculo.usuario = environment.usuarioLogado;
 
       if(this.crlvSelecionado?.name == null || this.crlvSelecionado.name == ''){

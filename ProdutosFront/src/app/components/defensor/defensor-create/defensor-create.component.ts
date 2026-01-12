@@ -28,6 +28,7 @@ export class DefensorCreateComponent implements OnInit {
     orgaoEmissor: "",
     naturezaPessoa: "",
     ufDefensor: "",
+    cidadeDefensor: "",
     bairroDefensor: "",
     enderecoDefensor: "",
     celularDefensor: "",
@@ -38,7 +39,8 @@ export class DefensorCreateComponent implements OnInit {
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
     dataCriacao: "",
-    usuario: ""
+    usuario: "",
+    status: ""
   };
 
   naturezaSelecionada = "";
@@ -85,6 +87,7 @@ export class DefensorCreateComponent implements OnInit {
     { id: 4, nome: 'E' }
   ];
 
+  certificadoCondutorSelecionado: File | null = null;
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
@@ -101,6 +104,10 @@ export class DefensorCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
+  }
+
+  getCertificadoCondutorSelecionado (event: any): void {
+    this.certificadoCondutorSelecionado = event.target.files[0] || null;
   }
 
   getCertidaoNegativaCriminalSelecionada (event: any): void {
@@ -121,7 +128,7 @@ export class DefensorCreateComponent implements OnInit {
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
     this.defensor.usuario = environment.usuarioLogado;
 
-    this.defensorService.inserirDefensor(this.defensor, this.certidaoNegativaCriminalSelecionada,
+    this.defensorService.inserirDefensor(this.defensor, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
         this.defensorService.showMessageSuccess('Defensor Criado com Sucesso!!!');

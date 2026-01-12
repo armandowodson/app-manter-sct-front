@@ -13,4 +13,6 @@ export interface PermissaoModelo {
   dataValidadePenalidade: string
   usuario: string
   dataCriacao: string
+  autorizacaoTrafego: string
+  modalidade: string
 }

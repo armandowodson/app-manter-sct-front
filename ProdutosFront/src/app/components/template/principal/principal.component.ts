@@ -43,6 +43,10 @@ export class PrincipalComponent implements OnInit {
     this.router.navigate(['/permissao']);
   }
 
+  acessarFiscalizacao() {
+    this.router.navigate(['/fiscalizacao']);
+  }
+
   acessarAuditoria() {
     this.router.navigate(['/auditoria']);
   }

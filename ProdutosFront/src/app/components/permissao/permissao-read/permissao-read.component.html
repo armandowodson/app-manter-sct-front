@@ -19,7 +19,7 @@
 
             <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
               <mat-label >Nº Alvará</mat-label>
-              <input type="number" matInput placeholder="Nº Alvará" style="margin-right: 20px;" [(ngModel)]="permissaoFiltro.numeroPermissao" name="numeroAlvara">
+              <input type="number" matInput placeholder="Nº Alvará" style="margin-right: 20px;" [(ngModel)]="permissaoFiltro.numeroAlvara" name="numeroAlvara">
               <button mat-button *ngIf="permissaoFiltro.numeroAlvara" matSuffix aria-label="Clear" (click)="permissaoFiltro.numeroAlvara=''">
                 <i class="material-icons black v-middle">
                   close
@@ -95,7 +95,7 @@
               <th style="text-align: left;">Nº Permissão</th>
               <th style="text-align: left;">Nº Alvará</th>
               <th style="text-align: center;">Ano Alvará</th>
-              <th style="text-align: center;">Status Permissão</th>
+              <th style="text-align: center;">Situação Permissão</th>
               <th style="text-align: center;">Data Validade Permissão</th>
               <th style="text-align: center;">Ações</th>
             </tr>

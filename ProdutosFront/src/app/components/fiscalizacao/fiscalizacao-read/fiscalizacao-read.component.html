@@ -1,0 +1,138 @@
+<mat-card>
+    <div style="width: 550px; margin-left: 950px; font-size: small">
+      <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+    </div>
+    <div style="height: 50px; margin-left: 20px;">
+      <mat-card-title><b>Consulta de Fiscalizações</b></mat-card-title>
+    </div>
+    <div>
+        <form>
+
+            <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+                <mat-label >Placa Veículo</mat-label>
+                <input matInput placeholder="Placa Veículo" style="margin-right: 20px;" [(ngModel)]="fiscalizacaoFiltro.placa" name="placa">
+                <button mat-button *ngIf="fiscalizacaoFiltro.placa" matSuffix aria-label="Clear" (click)="fiscalizacaoFiltro.placa=''">
+                    <i class="material-icons black v-middle">
+                        close
+                    </i>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 500px; margin-left: 20px; margin-right: 30px;">
+              <mat-label >Nome Permissionário</mat-label>
+              <input matInput placeholder="Nome Permissionário" style="margin-right: 20px;" [(ngModel)]="fiscalizacaoFiltro.nomePermissionario" name="nomePermissionario">
+              <button mat-button *ngIf="fiscalizacaoFiltro.nomePermissionario" matSuffix aria-label="Clear" (click)="fiscalizacaoFiltro.nomePermissionario=''">
+                <i class="material-icons black v-middle">
+                  close
+                </i>
+              </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+              <mat-label >Data Fiscalização</mat-label>
+              <input matInput [matDatepicker]="dataFiscalizacao" placeholder="Data Fiscalização" [(ngModel)]="fiscalizacaoFiltro.dataFiscalizacao" name="dataFiscalizacao">
+              <mat-datepicker-toggle matIconSuffix [for]="dataFiscalizacao"></mat-datepicker-toggle>
+              <mat-datepicker #dataFiscalizacao></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+              <mat-label>Motivo Infração</mat-label>
+              <mat-select [(value)]="motivoInfracaoSelecionado">
+                <mat-option *ngFor="let motivo of motivoInfracaoOptions" [value]="motivo.id">
+                  {{ motivo.nome }}
+                </mat-option>
+              </mat-select>
+              <button mat-button *ngIf="motivoInfracaoSelecionado" matSuffix aria-label="Clear" (click)="motivoInfracaoSelecionado=''">
+                <i class="material-icons black v-middle">
+                  close
+                </i>
+              </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+              <mat-label>Penalidade da Infração</mat-label>
+              <mat-select [(value)]="penalidadeInfracaoSelecionada">
+                <mat-option *ngFor="let penalidade of penalidadeInfracaoOptions" [value]="penalidade.id">
+                  {{ penalidade.nome }}
+                </mat-option>
+              </mat-select>
+              <button mat-button *ngIf="penalidadeInfracaoSelecionada" matSuffix aria-label="Clear" (click)="penalidadeInfracaoSelecionada=''">
+                <i class="material-icons black v-middle">
+                  close
+                </i>
+              </button>
+            </mat-form-field>
+        </form>
+    </div>
+</mat-card>
+<br>
+<div class="btn-toolbar" style="float: right;">
+    <div class="btn-group">
+      <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarFiscalizacoesComFiltros()">
+        Consultar
+      </button>
+    </div>
+    <div class="btn-group">
+        <button style="width: 200px; background-color: #04AA6D;"  class="buttonInserir" mat-raised-button (click) = "navegarInserirFiscalizacao()">
+            Nova Fiscalização
+        </button>
+    </div>
+    <div class="btn-group">
+      <button style="width: 200px; background-color: darkgray;"  class="buttonVoltar" mat-raised-button (click) = "voltarPaginaPrincipal()">
+        Voltar
+      </button>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="mat-elevation-z4">
+    <table class="table table-striped table-hover" style="outline-color: black;">
+         <thead style="background-color: gray;">
+            <tr style="color: white;">
+              <th style="text-align: left;">Placa</th>
+              <th style="text-align: left;">Data Fiscalização</th>
+              <th style="text-align: left;">Prazo Regularização</th>
+              <th style="text-align: center;">Tipo Infração</th>
+              <th style="text-align: center;">Grupo Multas</th>
+              <th style="text-align: center;">Natureza Infração</th>
+              <th style="text-align: center;">Penalidade Infração</th>
+              <th style="text-align: center;">Nº Permissão</th>
+              <th style="text-align: center;">Status</th>
+              <th style="text-align: center;">Ações</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let row of fiscalizacoes | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
+              <td style="text-align: left;">{{row.placa}}</td>
+              <td style="text-align: left;">{{row.dataFiscalizacaoOriginal}}</td>
+              <td style="text-align: left;">{{row.prazoRegularizacaoOriginal}}</td>
+              <td style="text-align: center;">{{row.tipoInfracao}}</td>
+              <td style="text-align: center;">{{row.grupoMultas}}</td>
+              <td style="text-align: center;">{{row.naturezaInfracao}}</td>
+              <td style="text-align: center;">{{row.penalidade}}</td>
+              <td style="text-align: center;">{{row.numeroPermissao}}</td>
+              <td style="text-align: center;">{{row.status}}</td>
+
+              <td style="text-align: center;">
+                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarFiscalizacao(row)" aria-label="Editar Fiscalização">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idFiscalizacao, row.placa, row.nomePermissionario)" aria-label="Remover Fiscalização">
+                    <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+         </tbody>
+    </table>
+    <mat-paginator
+      #paginator
+      (page)="onPageChange($event)"
+      [length]= "totalFiscalizacoes"
+      [pageSize]= "pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]= "[10, 15, 20]"
+      [showFirstLastButtons]>
+    </mat-paginator>
+</div>
+

@@ -117,6 +117,12 @@ export class VeiculoService {
     return this.http.post<VeiculoModelo>(this.baseUrl+'/alterar', formDataVeiculo).pipe(catchError(this.errorHandler));
   }
 
+  buscarVeiculoPlaca(placa: string): Observable<PageModelo>{
+    let params = new HttpParams();
+    params = params.set('placa', placa);
+    return this.http.get<PageModelo>(this.baseUrl+'/buscar-veiculo', {params}).pipe(catchError(this.errorHandler));  // catch error
+  }
+
   excluirVeiculo(idVeiculo: number, usuario: string): Observable<String>{
     this.erroMetodo = "Não foi possível excluir o Veículo!";
     return this.http.delete<String>(this.baseUrl+'/excluir/'+idVeiculo+'/usuario/'+usuario).pipe(catchError(this.errorHandler));

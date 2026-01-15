@@ -80,7 +80,7 @@ export class PermissionarioService {
     formDataPermissionario.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
     // @ts-ignore
     formDataPermissionario.append('foto', fotoFile, fotoFile.name);
-    return this.http.post<PermissionarioModelo>(this.baseUrl+'/inserir', formDataPermissionario).pipe(catchError(this.errorHandlerInserir));
+    return this.http.post<PermissionarioModelo>(this.baseUrl+'/inserir', formDataPermissionario).pipe(catchError(this.errorHandler));
   }
 
   editarPermissionario(permissionario: PermissionarioModelo, certificadoCondutorFile: File | null, certidaoNegativaCriminalFile: File | null,
@@ -122,12 +122,12 @@ export class PermissionarioService {
     if(fotoFile != null)
       // @ts-ignore
       formDataPermissionario.append('foto', fotoFile, fotoFile.name);
-    return this.http.post<PermissionarioModelo>(this.baseUrl+'/alterar', formDataPermissionario).pipe(catchError(this.errorHandlerInserir));
+    return this.http.post<PermissionarioModelo>(this.baseUrl+'/alterar', formDataPermissionario).pipe(catchError(this.errorHandler));
   }
 
   excluirPermissionario(idPermissionario: number, usuario: string): Observable<String>{
     this.erroMetodo = "Não foi possível excluir o Permissionário!";
-    return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissionario+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
+    return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissionario+'/usuario/'+usuario).pipe(catchError(this.errorHandler));
   }
 
   consultarTodosPermissionarios(pageIndex: number, pageSize: number): Observable<PageModelo> {
@@ -162,19 +162,7 @@ export class PermissionarioService {
     return this.http.get<PermissionarioModelo>(this.baseUrl+'/buscar/'+identificador).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  errorHandlerAlterar() {
-    return throwError("Ocorreu um erro ao Alterar o Permissionário!");
-  }
-
-  errorHandlerInserir() {
-    return throwError("Ocorreu um erro ao Inserir o Permissionário!");
-  }
-
-  errorHandlerExcluir() {
-    return throwError("Ocorreu um erro ao Excluir o Permissionário!");
-  }
-
-  errorHandler() {
-    return throwError("Ocorreu um erro! Operação não concluída!");
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(() => new Error(error.error.message));
   }
 }

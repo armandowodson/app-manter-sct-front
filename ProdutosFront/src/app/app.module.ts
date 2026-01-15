@@ -66,6 +66,11 @@ import {PermissaoReadComponent} from "./components/permissao/permissao-read/perm
 import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
 import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
 import {PermissaoCrudComponent} from './views/permissao-crud/permissao-crud.component';
+import {FiscalizacaoModalComponent} from "./components/fiscalizacao-modal-component/fiscalizacao-modal.component";
+import {FiscalizacaoCrudComponent} from "./views/fiscalizacao-crud/fiscalizacao-crud.component";
+import {FiscalizacaoReadComponent} from "./components/fiscalizacao/fiscalizacao-read/fiscalizacao-read.component";
+import {FiscalizacaoCreateComponent} from "./components/fiscalizacao/fiscalizacao-create/fiscalizacao-create.component";
+import {FiscalizacaoEditComponent} from "./components/fiscalizacao/fiscalizacao-edit/fiscalizacao-edit.component";
 import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.component";
 import {AuditoriaReadComponent} from "./components/auditoria/auditoria-read/auditoria-read.component";
 import {MatSelectModule} from "@angular/material/select";
@@ -104,6 +109,7 @@ export const DATE_FORMATS = {
     VeiculoModalComponent,
     DefensorModalComponent,
     PermissaoModalComponent,
+    FiscalizacaoModalComponent,
     LoginComponent,
     RegistroComponent,
     LogoutComponent,
@@ -127,6 +133,10 @@ export const DATE_FORMATS = {
     PermissaoEditComponent,
     PermissaoCreateComponent,
     PermissaoCrudComponent,
+    FiscalizacaoCrudComponent,
+    FiscalizacaoReadComponent,
+    FiscalizacaoEditComponent,
+    FiscalizacaoCreateComponent,
     AuditoriaCrudComponent,
     AuditoriaReadComponent
   ],

@@ -21,6 +21,9 @@ import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.comp
 import {PermissaoCrudComponent} from "./views/permissao-crud/permissao-crud.component";
 import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
 import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
+import {FiscalizacaoCrudComponent} from "./views/fiscalizacao-crud/fiscalizacao-crud.component";
+import {FiscalizacaoCreateComponent} from "./components/fiscalizacao/fiscalizacao-create/fiscalizacao-create.component";
+import {FiscalizacaoEditComponent} from "./components/fiscalizacao/fiscalizacao-edit/fiscalizacao-edit.component";
 
 const routes: Routes = [
   {
@@ -86,6 +89,18 @@ const routes: Routes = [
   {
     path: "permissao/edit",
     component: PermissaoEditComponent
+  },
+  {
+    path: "fiscalizacao",
+    component: FiscalizacaoCrudComponent
+  },
+  {
+    path: "fiscalizacao/create",
+    component: FiscalizacaoCreateComponent
+  },
+  {
+    path: "fiscalizacao/edit",
+    component: FiscalizacaoEditComponent
   },
   {
     path: "auditoria",

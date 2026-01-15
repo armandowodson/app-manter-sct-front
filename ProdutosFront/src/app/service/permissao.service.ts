@@ -5,7 +5,6 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {PermissaoModelo} from "../components/permissao/permissao.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
-import {PermissionarioModelo} from "../components/permissionario/permissionario-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -46,16 +45,16 @@ export class PermissaoService {
     return config;
   }
   inserirPermissao(permissao: PermissaoModelo): Observable<PermissaoModelo>{
-    return this.http.post<PermissaoModelo>(this.baseUrl+'/inserir', permissao).pipe(catchError(this.errorHandlerInserir));
+    return this.http.post<PermissaoModelo>(this.baseUrl+'/inserir', permissao).pipe(catchError(this.errorHandler));
   }
 
   editarPermissao(permissao: PermissaoModelo): Observable<PermissaoModelo>{
-    return this.http.post<PermissaoModelo>(this.baseUrl+'/alterar', permissao).pipe(catchError(this.errorHandlerAlterar));
+    return this.http.post<PermissaoModelo>(this.baseUrl+'/alterar', permissao).pipe(catchError(this.errorHandler));
   }
 
   excluirPermissao(idPermissao: number, usuario: string): Observable<String>{
     this.erroMetodo = "Não foi possível excluir a Permissão!";
-    return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissao+'/usuario/'+usuario).pipe(catchError(this.errorHandlerExcluir));
+    return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissao+'/usuario/'+usuario).pipe(catchError(this.errorHandler));
   }
 
   consultarPermissoesDisponiveis(): Observable<PermissaoModelo[]> {
@@ -87,23 +86,7 @@ export class PermissaoService {
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  consultarPermissaoId(permissao: PermissaoModelo): Observable<PermissaoModelo> {
-    return this.http.get<PermissaoModelo>(this.baseUrl+'/buscar/?idPermissao='+permissao.idPermissao).pipe(catchError(this.errorHandler)); // catch error
-  }
-
-  errorHandlerAlterar() {
-    return throwError("Ocorreu um erro ao Alterar a Permissão!");
-  }
-
-  errorHandlerInserir() {
-    return throwError("Ocorreu um erro ao Inserir a Permissão!");
-  }
-
-  errorHandlerExcluir() {
-    return throwError("Ocorreu um erro ao Excluir a Permissão!");
-  }
-
-  errorHandler() {
-    return throwError("Ocorreu um erro! Operação não concluída!");
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(() => new Error(error.error.message));
   }
 }

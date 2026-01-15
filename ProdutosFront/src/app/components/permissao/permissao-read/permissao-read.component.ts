@@ -217,7 +217,7 @@ export class PermissaoReadComponent implements OnInit {
     var strStatus = "";
     switch (status) {
       case "1":
-        strStatus = "ATIVA";
+        strStatus = "EM USO";
         break;
       case "2":
         strStatus = "SUSPENSA";

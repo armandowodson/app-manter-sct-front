@@ -51,9 +51,9 @@ export class VeiculoEditComponent implements OnInit {
 
   corSelecionada = "";
   corOptions = [
-    { id: 1, nome: 'BRANCO' },
-    { id: 2, nome: 'PRATA' },
-    { id: 3, nome: 'CINZA' }
+    { id: 'BRANCO', nome: 'BRANCO' },
+    { id: 'PRATA', nome: 'PRATA' },
+    { id: 'CINZA', nome: 'CINZA' }
   ];
 
   combustivelSelecionado = "";
@@ -105,25 +105,24 @@ export class VeiculoEditComponent implements OnInit {
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
     if (history.state.data) {
-      this.permissionarioService.consultarPermissionariosDisponiveisAlteracao(history.state.data.idPermissionario).subscribe(
-        (permissionarios) => {
+      this.permissionarioService.consultarPermissionariosDisponiveisAlteracao(history.state.data.idPermissionario).subscribe({
+        next: (permissionarios) => {
           if (permissionarios == null || permissionarios.length == 0) {
             this.veiculoService.showMessageAlert(
-              "Não há Permissionário disponível para seleção!"
+              "Não há Permissionários disponíveis para seleção!"
             );
           }
           permissionarios?.forEach(element => {
             this.permissionariosOptions.push({ id: element.idPermissionario, nome: element.nomePermissionario });
           });
         },
-        (error) => {
-          this.errors = error;
-          this.veiculoService.showMessageError(this.errors);
+        error: (error) => {
+          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
         }
-      );
+      });
 
-      this.pontoTaxiService.consultarPontosTaxiDisponiveis().subscribe(
-        (pontosTaxi) => {
+      this.pontoTaxiService.consultarPontosTaxiDisponiveis().subscribe({
+        next: (pontosTaxi) => {
           if (pontosTaxi == null || pontosTaxi.length == 0) {
             this.veiculoService.showMessageAlert(
               "Não há Pontos de Estacionamentos de Táxi disponíveis para seleção!"
@@ -133,11 +132,10 @@ export class VeiculoEditComponent implements OnInit {
             this.pontosTaxiOptions.push({ id: element.idPontoTaxi, nome: element.descricaoPonto });
           });
         },
-        (error) => {
-          this.errors = error;
-          this.veiculoService.showMessageError(this.errors);
+        error: (error) => {
+          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
         }
-      );
+      });
 
       this.veiculo.idVeiculo = history.state.data.idVeiculo;
       this.permissionarioSelecionado = history.state.data.idPermissionario;
@@ -152,6 +150,8 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.marca = history.state.data.marca;
       this.veiculo.modelo = history.state.data.modelo;
       this.veiculo.anoModelo = history.state.data.anoModelo;
+      this.corSelecionada = history.state.data.cor;
+      this.veiculo.cor = history.state.data.cor;
       this.corSelecionada = history.state.data.cor;
       this.combustivelSelecionado = history.state.data.combustivel;
       this.veiculo.numeroTaximetro = history.state.data.numeroTaximetro;
@@ -185,7 +185,7 @@ export class VeiculoEditComponent implements OnInit {
           this.veiculo.numeroPermissao = response.numeroPermissao;
         },
         error: (error) => {
-          this.veiculoService.showMessageError(error.message);
+          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
   }
@@ -205,7 +205,7 @@ export class VeiculoEditComponent implements OnInit {
           this.router.navigate(['/veiculo']);
         },
         error: (error) => {
-          this.veiculoService.showMessageError(error.message);
+          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
   }

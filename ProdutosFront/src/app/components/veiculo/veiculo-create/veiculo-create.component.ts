@@ -127,8 +127,8 @@ export class VeiculoCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
-    this.permissionarioService.consultarPermissionariosDisponiveis().subscribe(
-      (permissionarios) => {
+    this.permissionarioService.consultarPermissionariosDisponiveis().subscribe({
+      next: (permissionarios) => {
         if (permissionarios == null || permissionarios.length == 0) {
           this.veiculoService.showMessageAlert(
             "Não há Permissionários disponíveis para seleção!"
@@ -138,14 +138,13 @@ export class VeiculoCreateComponent implements OnInit {
           this.permissionariosOptions.push({ id: element.idPermissionario, nome: element.nomePermissionario });
         });
       },
-      (error) => {
-        this.errors = error;
-        this.veiculoService.showMessageError(this.errors);
+      error: (error) => {
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
       }
-    );
+    });
 
-    this.pontoTaxiService.consultarPontosTaxiDisponiveis().subscribe(
-      (pontosTaxi) => {
+    this.pontoTaxiService.consultarPontosTaxiDisponiveis().subscribe({
+      next: (pontosTaxi) => {
         if (pontosTaxi == null || pontosTaxi.length == 0) {
           this.veiculoService.showMessageAlert(
             "Não há Pontos de Estacionamentos de Táxi disponíveis para seleção!"
@@ -155,11 +154,10 @@ export class VeiculoCreateComponent implements OnInit {
           this.pontosTaxiOptions.push({ id: element.idPontoTaxi, nome: element.descricaoPonto });
         });
       },
-      (error) => {
-        this.errors = error;
-        this.veiculoService.showMessageError(this.errors);
+      error: (error) => {
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
       }
-    );
+    });
   }
 
   getCrlvSelecionado (event: any): void {
@@ -181,7 +179,7 @@ export class VeiculoCreateComponent implements OnInit {
           this.veiculo.numeroPermissao = response.numeroPermissao;
         },
         error: (error) => {
-          this.veiculoService.showMessageError(error.message);
+          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
   }
@@ -212,7 +210,7 @@ export class VeiculoCreateComponent implements OnInit {
           this.router.navigate(['/veiculo']);
         },
         error: (error) => {
-          this.veiculoService.showMessageError(error.message);
+          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
   }

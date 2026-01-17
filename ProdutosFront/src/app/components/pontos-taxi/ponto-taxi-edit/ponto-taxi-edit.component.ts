@@ -5,6 +5,8 @@ import { CurrencyPipe } from '@angular/common';
 import {PontoTaxiModelo} from "../ponto-taxi.model";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 import {environment} from "../../../../environments/environment";
+import {Observable} from "rxjs";
+import {PageModelo} from "../../comum/page-modelo.model";
 
 @Component({
   selector: 'app-ponto-taxi-edit',
@@ -32,14 +34,27 @@ export class PontoTaxiEditComponent implements OnInit {
 
   modalidadeSelecionada = "";
   modalidadeOptions = [
-    { id: '1', nome: 'FIXO' },
-    { id: '2', nome: 'ROTATIVO' },
-    { id: '3', nome: 'FIX-ROTATIVO' }
+    { id: 'FIXO', nome: 'FIXO' },
+    { id: 'ROTATIVO', nome: 'ROTATIVO' },
+    { id: 'FIX-ROTATIVO', nome: 'FIX-ROTATIVO' }
   ];
 
   errors: string;
   id: string;
   nomeLogado: string;
+
+  pontoTaxiFiltro: PontoTaxiModelo = {
+    idPontoTaxi: 0,
+    numeroPonto: "",
+    descricaoPonto: "",
+    fatorRotatividade: "",
+    referenciaPonto: "",
+    numeroVagas: "",
+    modalidade: "",
+    dataCriacao: "",
+    usuario: "",
+    status: ""
+  };
 
   constructor(private pontoTaxiService: PontoTaxiService,
               private router: Router,
@@ -63,6 +78,21 @@ export class PontoTaxiEditComponent implements OnInit {
     }
   }
   editarPontoTaxi(): void {
+    this.pontoTaxiFiltro.numeroPonto = this.pontoTaxi.numeroPonto;
+    const request: Observable<PageModelo> = this.pontoTaxiService.consultarPontosTaxiComFiltros(this.pontoTaxiFiltro, 0, 10);
+    request.subscribe({
+      next: (res) => {
+        if (res.totalElements > 0 && history.state.data.numeroPonto != this.pontoTaxi.numeroPonto) {
+          this.pontoTaxiService.showMessageAlert(
+            "Já existe o Número do Ponto informado!"
+          );
+        }
+      },
+      error: (error) => {
+        this.pontoTaxiService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
+
     this.pontoTaxi.modalidade = this.modalidadeSelecionada;
     this.pontoTaxi.usuario = environment.usuarioLogado;
 

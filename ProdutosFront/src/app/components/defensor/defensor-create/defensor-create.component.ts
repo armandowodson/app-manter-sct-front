@@ -1,9 +1,9 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
 import {DefensorService} from "../../../service/defensor.service";
 import {DefensorModelo} from "../defensor-modelo.model";
 import {environment} from "../../../../environments/environment";
+import {PermissaoService} from "../../../service/permissao.service";
 
 @Injectable({
   providedIn: 'root'
@@ -95,15 +95,35 @@ export class DefensorCreateComponent implements OnInit {
   errors: string;
   nomeLogado: string;
 
+  permissaoSelecionada = "";
+  permissoesOptions: any[] = [];
+
   constructor(private defensorService: DefensorService,
-              private router: Router,
-              private currencyPipe : CurrencyPipe) {
+              private permissaoService: PermissaoService,
+              private router: Router) {
     this.errors = '';
     this.nomeLogado = '';
   }
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
+
+    this.permissaoService.consultarPermissoesDisponiveisDefensor().subscribe(
+      (permissoes) => {
+        if (permissoes == null || permissoes.length == 0) {
+          this.permissaoService.showMessageAlert(
+            "Não há Permissão disponível para seleção!"
+          );
+        }
+        permissoes?.forEach(element => {
+          this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
+        });
+      },
+      (error) => {
+        this.errors = error;
+        this.permissaoService.showMessageError(this.errors);
+      }
+    );
   }
 
   getCertificadoCondutorSelecionado (event: any): void {
@@ -135,7 +155,7 @@ export class DefensorCreateComponent implements OnInit {
         this.router.navigate(['/veiculo']);
       },
       error: (error) => {
-        this.defensorService.showMessageError(error.message);
+        this.defensorService.showMessageError(error.message.replace("Error: ", ""));
       }
     });
   }

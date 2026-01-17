@@ -43,17 +43,30 @@ export class RegistroComponent implements OnInit {
   }
 
   registrarLogin() {
-      if (this.registro.senha != this.senhaConfirmacao) {
-          this.loginService.showMessageError('Senhas não conferem!!!');
-      } else {
-          this.loginService.registrarLogin(this.registro).subscribe(() => {
-              this.loginService.showMessageSuccess('Usuário registrado com Sucesso!!!');
-              this.router.navigate(['/logar']);
-          },
-            error => {
-              this.errors = error
-              this.loginService.showMessageError(this.errors);
-          });
+      if (this.registro.nome.length < 10) {
+        this.loginService.showMessageAlert('O Nome Comple deve conter ao menos 10 caracteres!');
+        return;
       }
+      if (this.registro.senha.length < 8) {
+          this.loginService.showMessageAlert('A senha do usuário deve conter 8 caracteres!');
+          return;
+      }
+      if (this.registro.usuario.length < 8) {
+        this.loginService.showMessageAlert('O nome do Usuário deve ter ao menos 8 caracteres !');
+        return;
+      }
+      if (this.registro.senha != this.senhaConfirmacao) {
+        this.loginService.showMessageAlert('Senhas não conferem!');
+        return;
+      }
+
+      this.loginService.registrarLogin(this.registro).subscribe(() => {
+        this.loginService.showMessageSuccess('Usuário registrado com Sucesso!');
+        this.router.navigate(['/logar']);
+      },
+      error => {
+        this.errors = error
+        this.loginService.showMessageError(this.errors);
+      });
   }
 }

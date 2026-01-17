@@ -83,7 +83,7 @@ export class VeiculoReadComponent implements OnInit {
             marca: item.marca,
             modelo: item.modelo,
             anoModelo: item.anoModelo,
-            cor: item.cor,
+            cor: this.carregarCor(item.cor),
             combustivel: item.combustivel,
             numeroTaximetro: item.numeroTaximetro,
             anoRenovacao: item.anoRenovacao,
@@ -105,7 +105,7 @@ export class VeiculoReadComponent implements OnInit {
         },
         error: (error) => {
           this.loading = false;
-          this.veiculoService.showMessageError(error.message);
+          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
   }
@@ -145,7 +145,7 @@ export class VeiculoReadComponent implements OnInit {
               marca: item.marca,
               modelo: item.modelo,
               anoModelo: item.anoModelo,
-              cor: item.cor,
+              cor: this.carregarCor(item.cor),
               combustivel: item.combustivel,
               numeroTaximetro: item.numeroTaximetro,
               anoRenovacao: item.anoRenovacao,
@@ -167,7 +167,7 @@ export class VeiculoReadComponent implements OnInit {
           },
           error: (error) => {
             this.loading = false;
-            this.veiculoService.showMessageError(error.message);
+            this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
           }
       });
   }
@@ -195,6 +195,31 @@ export class VeiculoReadComponent implements OnInit {
     dialogConfig.id =
       "Deseja excluir o Veículo: " + idVeiculo + " - " + nomeVeiculo + " ?";
     dialogConfig.panelClass = "dialogModal";
+    environment.idSelecionado = idVeiculo;
     this.matDialog.open(VeiculoModalComponent, dialogConfig);
   }
+
+/**
+ * Loads and returns the color name based on the provided color code
+ * @param cor - A string representing the color code (1, 2, or 3)
+ * @returns The corresponding color name as a string
+ */
+  carregarCor(cor: string) {
+    // Initialize an empty string to store the color name
+    var strCor = "";
+    // Switch statement to map color codes to color names
+    switch (cor) {
+      case "1":
+        strCor = "BRANCO";  // Portuguese for WHITE
+        break;
+      case "2":
+        strCor = "PRATA";   // Portuguese for SILVER
+        break;
+      case "3":
+        strCor = "CINZA";   // Portuguese for GRAY
+        break;
+    }
+    return strCor;  // Return the color name
+  }
+
 }

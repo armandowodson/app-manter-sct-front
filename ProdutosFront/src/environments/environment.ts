@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   loginGlobal: '0',
   usuarioLogado: '',
-  nomeLogado: ''
+  nomeLogado: '',
+  idSelecionado: 0
 };
 
 /*

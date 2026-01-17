@@ -61,8 +61,16 @@ export class PermissaoService {
     return this.http.get<PermissaoModelo[]>(this.baseUrl+'/buscar-disponiveis').pipe(catchError(this.errorHandler));  // catch error
   }
 
+  consultarPermissoesDisponiveisDefensor(): Observable<PermissaoModelo[]> {
+    return this.http.get<PermissaoModelo[]>(this.baseUrl+'/buscar-disponiveis-defensor').pipe(catchError(this.errorHandler));  // catch error
+  }
+
   consultarPermissoesDisponiveisAlteracao(numeroPermissao: string): Observable<PermissaoModelo[]> {
     return this.http.get<PermissaoModelo[]>(this.baseUrl+'/buscar-disponiveis/'+numeroPermissao).pipe(catchError(this.errorHandler));  // catch error
+  }
+
+  consultarPermissoesDisponiveisAlteracaoDefensor(numeroPermissao: string): Observable<PermissaoModelo[]> {
+    return this.http.get<PermissaoModelo[]>(this.baseUrl+'/buscar-disponiveis-defensor/'+numeroPermissao).pipe(catchError(this.errorHandler));  // catch error
   }
 
   consultarTodasPermissoes(pageIndex: number, pageSize: number): Observable<PageModelo> {

@@ -106,7 +106,7 @@ export class DefensorService {
       ', "usuario": "' + defensor.usuario + '"}'
     // @ts-ignore
     formDataDefensor.append('defensor', jsonString);
-    if(certidaoNegativaCriminalFile != null)
+    if(certificadoCondutorFile != null)
       // @ts-ignore
       formDataDefensor.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
     if(certidaoNegativaCriminalFile != null)

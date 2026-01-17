@@ -5,6 +5,7 @@ import { CurrencyPipe } from '@angular/common';
 import {DefensorModelo} from "../defensor-modelo.model";
 import {DefensorService} from "../../../service/defensor.service";
 import {environment} from "../../../../environments/environment";
+import {PermissaoService} from "../../../service/permissao.service";
 
 @Component({
   selector: 'app-permissinario-edit',
@@ -97,7 +98,11 @@ export class DefensorEditComponent implements OnInit {
   id: string;
   nomeLogado: string;
 
+  permissaoSelecionada = "";
+  permissoesOptions: any[] = [];
+
   constructor(private defensorService: DefensorService,
+              private permissaoService: PermissaoService,
               private router: Router,
               private currencyPipe : CurrencyPipe) {
     this.errors = '';
@@ -107,6 +112,23 @@ export class DefensorEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (history.state.data) {
+      this.permissaoService.consultarPermissoesDisponiveisAlteracaoDefensor(history.state.data.numeroPermissao).subscribe(
+        (permissoes) => {
+          if (permissoes == null || permissoes.length == 0) {
+            this.permissaoService.showMessageAlert(
+              "Não há Permissão disponível para seleção!"
+            );
+          }
+          permissoes?.forEach(element => {
+            this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
+          });
+        },
+        (error) => {
+          this.errors = error;
+          this.permissaoService.showMessageError(this.errors);
+        }
+      );
+
       this.defensor.idDefensor = history.state.data.idDefensor;
       this.defensor.numeroPermissao = history.state.data.numeroPermissao;
       this.defensor.nomeDefensor = history.state.data.nomeDefensor;
@@ -153,6 +175,8 @@ export class DefensorEditComponent implements OnInit {
     this.defensor.naturezaPessoa = this.naturezaSelecionada;
     this.defensor.ufDefensor = this.ufSelecionada;
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
+    this.defensor.numeroPermissao = this.permissaoSelecionada;
+
     this.defensor.usuario = environment.usuarioLogado;
 
     this.defensorService.editarDefensor(this.defensor, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
@@ -162,7 +186,7 @@ export class DefensorEditComponent implements OnInit {
         this.router.navigate(['/defensor']);
       },
       error: (error) => {
-        this.defensorService.showMessageError(error.message);
+        this.defensorService.showMessageError(error.message.replace("Error: ", ""));
       }
     });
   }

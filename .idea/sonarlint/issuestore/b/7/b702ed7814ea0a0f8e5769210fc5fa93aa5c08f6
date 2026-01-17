@@ -1,9 +1,0 @@
-
-Stypescript:S1128"0Remove this unused import of 'PontoTaxiService'.(œ³Ïä8ØñÍ¹´3
-Ltypescript:S3504"")Unexpected var, use let or const instead.(ÀÓÊÕ8ØñÍ¹´3
-Qtypescript:S3504#")Unexpected var, use let or const instead.(øÑñ±þÿÿÿÿ8ÙñÍ¹´3
-Qtypescript:S3504$")Unexpected var, use let or const instead.(â¨¢ôüÿÿÿÿ8ÙñÍ¹´3
-dtypescript:S1874("B'substr' is deprecated. A legacy feature for browser compatibility(ÐùÔ*8ÙñÍ¹´3
-typescript:S1874*"ä'subscribe' is deprecated. Instead of passing separate callback arguments, use an observer argument. Signatures taking separate callback arguments will be removed in v8. Details: https://rxjs.dev/deprecations/subscribe-arguments(¸®Éèûÿÿÿÿ8ÙñÍ¹´3
-­typescript:S1874="„'routeReuseStrategy' is deprecated. Configure using `providers` instead:\u0010`{provide: RouteReuseStrategy, useClass: MyStrategy}`.(óëË±ýÿÿÿÿ8ÙñÍ¹´3
-typescript:S1874>"n'onSameUrlNavigation' is deprecated. Configure this through `provideRouter` or `RouterModule.forRoot` instead.(ƒ¹“a8ÚñÍ¹´3

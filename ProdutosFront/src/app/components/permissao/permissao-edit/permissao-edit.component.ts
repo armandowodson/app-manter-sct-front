@@ -5,6 +5,8 @@ import { CurrencyPipe } from '@angular/common';
 import {PermissaoModelo} from "../permissao.model";
 import {PermissaoService} from "../../../service/permissao.service";
 import {environment} from "../../../../environments/environment";
+import {Observable} from "rxjs";
+import {PageModelo} from "../../comum/page-modelo.model";
 
 @Component({
   selector: 'app-permissao-edit',
@@ -35,7 +37,28 @@ export class PermissaoEditComponent implements OnInit {
     dataCriacao: "",
     usuario: "",
     autorizacaoTrafego: "",
-    modalidade: ""
+    modalidade: "",
+    status: ""
+  };
+
+  permissaoFiltro: PermissaoModelo = {
+    idPermissao: 0,
+    numeroPermissao: "",
+    numeroAlvara: "",
+    anoAlvara: "",
+    categoriaPermissao: "",
+    statusPermissao: "",
+    periodoInicialStatus: "",
+    periodoFinalStatus: "",
+    dataValidadePermissao: "",
+    penalidade: "",
+    dataValidadePenalidade: "",
+    dataValidadePermissaoOriginal: "",
+    dataCriacao: "",
+    usuario: "",
+    autorizacaoTrafego: "",
+    modalidade: "",
+    status: ""
   };
 
   categoriaPermissaoSelecionada = "";
@@ -67,9 +90,9 @@ export class PermissaoEditComponent implements OnInit {
 
   modalidadeSelecionada = "";
   modalidadeOptions = [
-    { id: '1', nome: 'FIXO' },
-    { id: '2', nome: 'ROTATIVO' },
-    { id: '3', nome: 'FIXO-ROTATIVO' }
+    { id: 'FIXO', nome: 'FIXO' },
+    { id: 'ROTATIVO', nome: 'ROTATIVO' },
+    { id: 'FIXO-ROTATIVO', nome: 'FIXO-ROTATIVO' }
   ];
 
   errors: string;
@@ -108,19 +131,34 @@ export class PermissaoEditComponent implements OnInit {
     }
   }
   editarPermissao(): void {
-    this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
-    this.permissao.statusPermissao = this.statusPermissaoSelecionada;
-    this.permissao.penalidade = this.penalidadeSelecionada;
-    this.permissao.modalidade = this.modalidadeSelecionada;
+    this.permissaoFiltro.numeroPermissao = this.permissao.numeroPermissao;
+    const request: Observable<PageModelo> = this.permissaoService.consultarPermissaoComFiltros(this.permissaoFiltro, 0, 10);
+    request.subscribe({
+      next: (res) => {
+        if (res.totalElements > 0 && history.state.data.numeroPermissao != this.permissao.numeroPermissao) {
+          this.permissaoService.showMessageAlert(
+            "Já existe Permissão para o Número informado!"
+          );
+        }else{
+          this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
+          this.permissao.statusPermissao = this.statusPermissaoSelecionada;
+          this.permissao.penalidade = this.penalidadeSelecionada;
+          this.permissao.modalidade = this.modalidadeSelecionada;
 
-    this.permissao.usuario = environment.usuarioLogado;
-    this.permissaoService.editarPermissao(this.permissao).subscribe(() => {
-      this.permissaoService.showMessageSuccess('Permissão Atualizada com Sucesso!!!');
-      this.router.navigate(['/permissao']);
-    },
-    error => {
-        this.errors = error
-        this.permissaoService.showMessageError(this.errors);
+          this.permissao.usuario = environment.usuarioLogado;
+          this.permissaoService.editarPermissao(this.permissao).subscribe(() => {
+              this.permissaoService.showMessageSuccess('Permissão Atualizada com Sucesso!!!');
+              this.router.navigate(['/permissao']);
+            },
+            error => {
+              this.errors = error
+              this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
+            });
+        }
+      },
+      error: (error) => {
+        this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
+      }
     });
   }
 

@@ -83,6 +83,7 @@ export class PontoTaxiReadComponent implements OnInit {
             fatorRotatividade: item.fatorRotatividade,
             referenciaPonto: item.referenciaPonto,
             numeroVagas: item.numeroVagas,
+            modalidade: this.carregarModalidade(item.modalidade),
             dataCriacao: item.dataCriacao,
             usuario: item.usuario,
             status: item.status
@@ -93,7 +94,7 @@ export class PontoTaxiReadComponent implements OnInit {
         },
         error: (error) => {
           this.loading = false;
-          this.pontoTaxiService.showMessageError(error.message);
+          this.pontoTaxiService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
   }
@@ -140,6 +141,7 @@ export class PontoTaxiReadComponent implements OnInit {
             fatorRotatividade: item.fatorRotatividade,
             referenciaPonto: item.referenciaPonto,
             numeroVagas: item.numeroVagas,
+            modalidade: this.carregarModalidade(item.modalidade),
             dataCriacao: item.dataCriacao,
             usuario: item.usuario,
             status: item.status
@@ -155,7 +157,7 @@ export class PontoTaxiReadComponent implements OnInit {
         },
         error: (error) => {
           this.loading = false;
-          this.pontoTaxiService.showMessageError(error.message);
+          this.pontoTaxiService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
   }
@@ -166,6 +168,23 @@ export class PontoTaxiReadComponent implements OnInit {
     dialogConfig.id =
       "Deseja excluir o Ponto de Estacionamento de Táxi: " + idPontoTaxi + " - " + descricaoPonto + " ?";
     dialogConfig.panelClass = "dialogModal";
+    environment.idSelecionado = idPontoTaxi;
     this.matDialog.open(PontoTaxiModalComponent, dialogConfig);
+  }
+
+  carregarModalidade(modalidade: string) {
+    var strModalidade = "";
+    switch (modalidade) {
+      case "1":
+        strModalidade = "FIXO";
+        break;
+      case "2":
+        strModalidade = "ROTATIVO";
+        break;
+      case "3":
+        strModalidade = "FIXO-ROTATIVO";
+        break;
+    }
+    return strModalidade;
   }
 }

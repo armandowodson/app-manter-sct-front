@@ -188,6 +188,7 @@ export class DefensorReadComponent implements OnInit {
     dialogConfig.id =
       "Deseja excluir o Defensor: " + idDefensor + " - " + nomeDefensor + " ?";
     dialogConfig.panelClass = "dialogModal";
+    environment.idSelecionado = idDefensor;
     this.matDialog.open(DefensorModalComponent, dialogConfig);
   }
 }

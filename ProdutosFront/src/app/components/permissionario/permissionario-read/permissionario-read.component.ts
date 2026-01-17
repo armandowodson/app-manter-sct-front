@@ -81,6 +81,7 @@ export class PermissionarioReadComponent implements OnInit {
           orgaoEmissor: item.orgaoEmissor,
           naturezaPessoa: item.naturezaPessoa,
           ufPermissionario: item.ufPermissionario,
+          cidadePermissionario: item.cidadePermissionario,
           bairroPermissionario: item.bairroPermissionario,
           enderecoPermissionario: item.enderecoPermissionario,
           celularPermissionario: item.celularPermissionario,
@@ -192,6 +193,7 @@ export class PermissionarioReadComponent implements OnInit {
     dialogConfig.id =
       "Deseja excluir o Permissionário: " + idPermissionario + " - " + nomePermissionario + " ?";
     dialogConfig.panelClass = "dialogModal";
+    environment.idSelecionado = idPermissionario;
     this.matDialog.open(PermissionarioModalComponent, dialogConfig);
   }
 }

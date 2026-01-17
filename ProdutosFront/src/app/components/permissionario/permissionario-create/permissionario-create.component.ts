@@ -104,8 +104,8 @@ export class PermissionarioCreateComponent implements OnInit {
   nomeLogado: string;
 
   constructor(private permissionarioService: PermissionarioService,
-              private router: Router,
-              private permissaoService: PermissaoService) {
+              private permissaoService: PermissaoService,
+              private router: Router) {
     this.errors = '';
     this.nomeLogado = '';
   }

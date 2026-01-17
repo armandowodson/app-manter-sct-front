@@ -159,6 +159,7 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionario.numeroQuitacaoEleitoral = history.state.data.numeroQuitacaoEleitoral;
       this.permissionario.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
       this.permissionario.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
+      this.aplicativoAlternativoSelecionado = history.state.data.aplicativoAlternativo;
       this.permissionario.aplicativoAlternativo = history.state.data.aplicativoAlternativo;
       this.permissionario.observacao = history.state.data.observacao;
       this.nomeLogado = environment.nomeLogado;

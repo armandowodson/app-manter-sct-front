@@ -5,6 +5,8 @@ import { CurrencyPipe } from '@angular/common';
 import {PermissaoModelo} from "../permissao.model";
 import {PermissaoService} from "../../../service/permissao.service";
 import {environment} from "../../../../environments/environment";
+import {Observable} from "rxjs";
+import {PageModelo} from "../../comum/page-modelo.model";
 
 @Component({
   selector: 'app-permissao-edit',
@@ -35,7 +37,8 @@ export class PermissaoCreateComponent implements OnInit {
     dataCriacao: "",
     usuario: "",
     autorizacaoTrafego: "",
-    modalidade: ""
+    modalidade: "",
+    status: ""
   };
 
   categoriaPermissaoSelecionada = "";
@@ -90,19 +93,33 @@ export class PermissaoCreateComponent implements OnInit {
   }
 
   inserirPermissao(): void {
-    this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
-    this.permissao.statusPermissao = this.statusPermissaoSelecionada;
-    this.permissao.penalidade = this.penalidadeSelecionada;
-    this.permissao.modalidade = this.modalidadeSelecionada;
+    const request: Observable<PageModelo> = this.permissaoService.consultarPermissaoComFiltros(this.permissao, 0, 10);
+    request.subscribe({
+      next: (res) => {
+        if (res.totalElements > 0) {
+          this.permissaoService.showMessageAlert(
+            "Já existe Permissão para o Número informado!"
+          );
+        }else{
+          this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
+          this.permissao.statusPermissao = this.statusPermissaoSelecionada;
+          this.permissao.penalidade = this.penalidadeSelecionada;
+          this.permissao.modalidade = this.modalidadeSelecionada;
 
-    this.permissao.usuario = environment.usuarioLogado;
-    this.permissaoService.inserirPermissao(this.permissao).subscribe(() => {
-      this.permissaoService.showMessageSuccess('Permissão Criada com Sucesso!!!');
-      this.router.navigate(['/permissao']);
-    },
-    error => {
-        this.errors = error
-        this.permissaoService.showMessageError(this.errors);
+          this.permissao.usuario = environment.usuarioLogado;
+          this.permissaoService.inserirPermissao(this.permissao).subscribe(() => {
+              this.permissaoService.showMessageSuccess('Permissão Criada com Sucesso!!!');
+              this.router.navigate(['/permissao']);
+            },
+            error => {
+              this.errors = error
+              this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
+            });
+        }
+      },
+      error: (error) => {
+        this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
+      }
     });
   }
 

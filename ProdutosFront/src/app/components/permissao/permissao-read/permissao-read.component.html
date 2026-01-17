@@ -97,6 +97,7 @@
               <th style="text-align: center;">Ano Alvará</th>
               <th style="text-align: center;">Situação Permissão</th>
               <th style="text-align: center;">Data Validade Permissão</th>
+              <th style="text-align: center;">Status Registro</th>
               <th style="text-align: center;">Ações</th>
             </tr>
          </thead>
@@ -107,12 +108,13 @@
               <td style="text-align: center;">{{row.anoAlvara}}</td>
               <td style="text-align: center;">{{row.statusPermissao}}</td>
               <td style="text-align: center;">{{row.dataValidadePermissaoOriginal}}</td>
+              <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button mat-icon-button color="primary" (click) = "navegarEditarPermissao(row)" aria-label="Editar Permissão">
+                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarPermissao(row)" aria-label="Editar Permissão">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click) = "openModal(row.idPermissao, row.numeroPermissao)" aria-label="Remover Permissão">
+                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPermissao, row.numeroPermissao)" aria-label="Remover Permissão">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

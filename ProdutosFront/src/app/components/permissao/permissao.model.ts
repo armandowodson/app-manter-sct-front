@@ -15,4 +15,5 @@ export interface PermissaoModelo {
   dataCriacao: string
   autorizacaoTrafego: string
   modalidade: string
+  status: string
 }

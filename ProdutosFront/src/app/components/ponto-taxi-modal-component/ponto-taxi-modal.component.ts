@@ -27,30 +27,18 @@ export class PontoTaxiModalComponent implements OnInit {
       this.pontoTaxiSelecionado = this.dialogRef.id;
   }
 
-  // When the user clicks the action button a.k.a. the logout button in the\
-  // modal, show an alert and followed by the closing of the modal
   confirma() {
-      var posicaoInicio = 0;
-      var posicaoFim = 0;
-      var idPontoTaxi = '';
-
-      posicaoInicio = this.dialogRef.id.indexOf(':');
-      posicaoFim = this.dialogRef.id.indexOf('-');
-      idPontoTaxi = this.dialogRef.id.substr(posicaoInicio+1, (posicaoFim-1) - (posicaoInicio+1)).trim();
-
-      this.pontoTaxiService.excluirPontoTaxi(parseInt(idPontoTaxi), environment.usuarioLogado).subscribe(() => {
-      this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Táxi Excluído com Sucesso!!!');
-      this.reloadComponent();
-    },
-    error => {
+    this.pontoTaxiService.excluirPontoTaxi(environment.idSelecionado, environment.usuarioLogado).subscribe(() => {
+        this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Táxi Excluído com Sucesso!!!');
+        this.reloadComponent();
+      },
+      error => {
         this.errors = error
-        this.pontoTaxiService.showMessageError(this.errors);
-    });
+        this.pontoTaxiService.showMessageError(error.message.replace("Error: ", ""));
+      });
     this.cancela();
   }
 
-  // If the user clicks the cancel button a.k.a. the go back button, then\
-  // just close the modal
   cancela() {
     this.dialogRef.close();
   }

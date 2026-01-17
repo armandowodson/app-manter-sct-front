@@ -37,7 +37,8 @@ export class PermissaoReadComponent implements OnInit {
     dataCriacao: "",
     usuario: "",
     autorizacaoTrafego: "",
-    modalidade: ""
+    modalidade: "",
+    status: ""
   };
 
   statusPermissaoSelecionada = "";
@@ -98,17 +99,17 @@ export class PermissaoReadComponent implements OnInit {
             penalidade: this.carregarPenalidadePermissao(item.penalidade),
             dataValidadePenalidade: item.dataValidadePenalidade,
             autorizacaoTrafego: item.autorizacaoTrafego,
-            modalidade: item.modalidade,
-            usuario: item.usuario
+            modalidade: this.carregarModalidadePermissao(item.modalidade),
+            usuario: item.usuario,
+            status: item.status
           }));
           this.totalPontos = res.totalElements;
           this.pageIndex = res.number;
           this.loading = false;
         },
         error: (err) => {
-          this.errors = err.message;
           this.loading = false;
-          this.permissaoService.showMessageError(this.errors);
+          this.permissaoService.showMessageError(err.message.replace("Error: ", ""));
         }
       });
   }
@@ -150,6 +151,12 @@ export class PermissaoReadComponent implements OnInit {
       const request: Observable<PageModelo> = this.permissaoService.consultarPermissaoComFiltros(this.permissaoFiltro, this.pageIndex, this.pageSize);
       request.subscribe({
         next: (res) => {
+          if (res.totalElements == 0) {
+            this.permissaoService.showMessageAlert(
+              "A consulta não retornou resultado!"
+            );
+          }
+
           this.permissoes = (res.content || []).map((item: any) => ({
             idPermissao: item.idPermissao,
             numeroPermissao: item.numeroPermissao,
@@ -164,32 +171,33 @@ export class PermissaoReadComponent implements OnInit {
             penalidade: this.carregarPenalidadePermissao(item.penalidade),
             dataValidadePenalidade: item.dataValidadePenalidade,
             autorizacaoTrafego: item.autorizacaoTrafego,
-            modalidade: item.modalidade,
-            usuario: item.usuario
+            modalidade: this.carregarModalidadePermissao(item.modalidade),
+            usuario: item.usuario,
+            status: item.status
           }));
-          if (res.totalElements == 0) {
-            this.permissaoService.showMessageAlert(
-              "A consulta não retornou resultado!"
-            );
-          }
           this.totalPontos = res.totalElements;
           this.pageIndex = res.number;
           this.loading = false;
         },
         error: (err) => {
-          this.errors = err.message;
           this.loading = false;
-          this.permissaoService.showMessageError(this.errors);
+          this.permissaoService.showMessageError(err.message.replace("Error: ", ""));
         }
       });
   }
+
   openModal(idPermissao: number, numeroPermissao: string) {
+    if(environment.usuarioLogado == null || environment.usuarioLogado == ''){
+        this.permissaoService.showMessageAlert("Não é possível realizar a operação. Usuário não logado!");
+        return;
+    }
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id =
       "Deseja excluir a Permissão Nº " + numeroPermissao + " ?";
     dialogConfig.panelClass = "dialogModal";
+    environment.idSelecionado = idPermissao;
     this.matDialog.open(PermissaoModalComponent, dialogConfig);
   }
 
@@ -260,6 +268,23 @@ export class PermissaoReadComponent implements OnInit {
     }
 
     return strPenalidade;
+  }
+
+  carregarModalidadePermissao(modalidade: string) {
+    var strModalidade = "";
+    switch (modalidade) {
+      case "1":
+        strModalidade = "FIXO";
+        break;
+      case "2":
+        strModalidade = "ROTATIVO";
+        break;
+      case "3":
+        strModalidade = "FIXO-ROTATIVO";
+        break;
+    }
+
+    return strModalidade;
   }
 
   formatarDataValidadePermissao(dataValidadePermissao: string){

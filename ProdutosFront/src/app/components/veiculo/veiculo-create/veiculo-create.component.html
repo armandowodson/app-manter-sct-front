@@ -60,7 +60,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Situação do Veículo</mat-label>
+      <mat-label>Tipo do Veículo</mat-label>
       <mat-select [(value)]="tipoVeiculoSelecionado">
         <mat-option *ngFor="let tipo of tipoVeiculoOptions" [value]="tipo.id">
           {{ tipo.nome }}

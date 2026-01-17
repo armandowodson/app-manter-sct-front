@@ -130,6 +130,7 @@ export class DefensorEditComponent implements OnInit {
       );
 
       this.defensor.idDefensor = history.state.data.idDefensor;
+      this.permissaoSelecionada = history.state.data.numeroPermissao;
       this.defensor.numeroPermissao = history.state.data.numeroPermissao;
       this.defensor.nomeDefensor = history.state.data.nomeDefensor;
       this.defensor.cpfDefensor = history.state.data.cpfDefensor;

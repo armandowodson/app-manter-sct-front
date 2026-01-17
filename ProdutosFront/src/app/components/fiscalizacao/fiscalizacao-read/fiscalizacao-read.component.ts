@@ -230,6 +230,7 @@ export class FiscalizacaoReadComponent implements OnInit {
     dialogConfig.id =
       "Deseja excluir Fiscalização: " + idFiscalizacao + " - Placa: " + placaFiscalizacao + " - Proprietário: " + nomePermissionario + " ?";
     dialogConfig.panelClass = "dialogModal";
+    environment.idSelecionado = idFiscalizacao;
     this.matDialog.open(FiscalizacaoModalComponent, dialogConfig);
   }
 

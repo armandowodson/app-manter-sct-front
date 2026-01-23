@@ -6,4 +6,6 @@ export interface DefensorFiltro {
   cnpjEmpresa: string
   cnhDefensor: string
   dataCriacao: string
+  nomePermissionario: string
+  cpfPermissionario: string
 }

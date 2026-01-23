@@ -39,9 +39,19 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >CNPJ Empresa</mat-label>
-              <input matInput placeholder="CNPJ Empresa" style="margin-right: 20px;" [(ngModel)]="defensorFiltro.cnpjEmpresa" name="cnpjEmpresa">
-              <button mat-button *ngIf="defensorFiltro.cnpjEmpresa" matSuffix aria-label="Clear" (click)="defensorFiltro.cnpjEmpresa=''">
+              <mat-label >CNH Defensor</mat-label>
+              <input type="number" matInput placeholder="CNH Defensor" style="margin-right: 20px;" [(ngModel)]="defensorFiltro.cnhDefensor" name="cnhDefensor">
+              <button mat-button *ngIf="defensorFiltro.cnhDefensor" matSuffix aria-label="Clear" (click)="defensorFiltro.cnhDefensor=''">
+                <i class="material-icons black v-middle">
+                  close
+                </i>
+              </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+              <mat-label >Nome Permissionário</mat-label>
+              <input matInput placeholder="Nome Permissionário" style="margin-right: 20px;" [(ngModel)]="defensorFiltro.nomePermissionario" name="nomePermissionario">
+              <button mat-button *ngIf="defensorFiltro.nomePermissionario" matSuffix aria-label="Clear" (click)="defensorFiltro.nomePermissionario=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -49,9 +59,9 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >CNH Defensor</mat-label>
-              <input type="number" matInput placeholder="CNH Defensor" style="margin-right: 20px;" [(ngModel)]="defensorFiltro.cnhDefensor" name="cnhDefensor">
-              <button mat-button *ngIf="defensorFiltro.cnhDefensor" matSuffix aria-label="Clear" (click)="defensorFiltro.cnhDefensor=''">
+              <mat-label >CPF Permissionário</mat-label>
+              <input type="number" matInput placeholder="CPF Permissionário" style="margin-right: 20px;" [(ngModel)]="defensorFiltro.cpfPermissionario" name="cpfPermissionario">
+              <button mat-button *ngIf="defensorFiltro.cpfPermissionario" matSuffix aria-label="Clear" (click)="defensorFiltro.cpfPermissionario=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -89,8 +99,9 @@
               <th style="text-align: left;">Nº Permissão</th>
               <th style="text-align: left;">Nome Defensor</th>
               <th style="text-align: center;">CPF Defensor</th>
-              <th style="text-align: center;">CNPJ Empresa</th>
               <th style="text-align: center;">CNH Defensor</th>
+              <th style="text-align: center;">UF Defensor</th>
+              <th style="text-align: center;">Cidade Defensor</th>
               <th style="text-align: center;">Status</th>
               <th style="text-align: center;">Ações</th>
             </tr>
@@ -100,8 +111,9 @@
               <td style="text-align: left;">{{row.numeroPermissao}}</td>
               <td style="text-align: left;">{{row.nomeDefensor}}</td>
               <td style="text-align: center;">{{row.cpfDefensor}}</td>
-              <td style="text-align: center;">{{row.cnpjEmpresa}}</td>
               <td style="text-align: center;">{{row.cnhDefensor}}</td>
+              <td style="text-align: center;">{{row.ufDefensor}}</td>
+              <td style="text-align: center;">{{row.cidadeDefensor}}</td>
               <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">

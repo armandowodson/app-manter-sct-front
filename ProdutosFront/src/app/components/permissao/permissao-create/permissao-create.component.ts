@@ -25,7 +25,7 @@ export class PermissaoCreateComponent implements OnInit {
     idPermissao: 0,
     numeroPermissao: "",
     numeroAlvara: "",
-    anoAlvara: "",
+    anoPermissao: "",
     categoriaPermissao: "",
     statusPermissao: "",
     periodoInicialStatus: "",

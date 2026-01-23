@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import {DefensorModelo} from "../components/defensor/defensor-modelo.model";
 import {DefensorFiltro} from "../components/defensor/defensor-filtro.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
+import {PermissionarioModelo} from "../components/permissionario/permissionario-modelo.model";
 
 @Injectable({
   providedIn: 'root'
@@ -141,6 +142,10 @@ export class DefensorService {
     return this.http.get<DefensorModelo[]>(this.baseUrl+'/buscar-disponiveis/'+idDefensor).pipe(catchError(this.errorHandler));  // catch error
   }
 
+  consultarDefensorNumeroPermissao(numeroPermissao: string): Observable<DefensorModelo> {
+    return this.http.get<DefensorModelo>(this.baseUrl+'/buscar-permissao/'+numeroPermissao).pipe(catchError(this.errorHandler)); // catch error
+  }
+
   consultarDefensoresComFiltros(defensor: DefensorFiltro, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
     if (defensor.numeroPermissao)       {  params = params.set('numeroPermissao', defensor.numeroPermissao); }
@@ -148,6 +153,8 @@ export class DefensorService {
     if (defensor.cpfDefensor)       {  params = params.set('cpfDefensor', defensor.cpfDefensor); }
     if (defensor.cnpjEmpresa)       {  params = params.set('cnpjEmpresa', defensor.cnpjEmpresa); }
     if (defensor.cnhDefensor)       {  params = params.set('cnhDefensor', defensor.cnhDefensor); }
+    if (defensor.nomePermissionario)       {  params = params.set('nomePermissionario', defensor.nomePermissionario); }
+    if (defensor.cpfPermissionario)       {  params = params.set('cpfPermissionario', defensor.cpfPermissionario); }
     params = params.set('pageIndex', pageIndex);
     params = params.set('pageSize', pageSize);
 

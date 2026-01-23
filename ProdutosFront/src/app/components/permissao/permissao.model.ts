@@ -2,7 +2,7 @@ export interface PermissaoModelo {
   idPermissao: number
   numeroPermissao: string
   numeroAlvara: string
-  anoAlvara: string
+  anoPermissao: string
   categoriaPermissao: string
   statusPermissao: string
   periodoInicialStatus: string

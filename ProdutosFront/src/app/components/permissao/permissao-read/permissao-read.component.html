@@ -18,19 +18,9 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Nº Alvará</mat-label>
-              <input type="number" matInput placeholder="Nº Alvará" style="margin-right: 20px;" [(ngModel)]="permissaoFiltro.numeroAlvara" name="numeroAlvara">
-              <button mat-button *ngIf="permissaoFiltro.numeroAlvara" matSuffix aria-label="Clear" (click)="permissaoFiltro.numeroAlvara=''">
-                <i class="material-icons black v-middle">
-                  close
-                </i>
-              </button>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Ano Alvará</mat-label>
-              <input type="number" matInput placeholder="Ano Alvará" style="margin-right: 20px;" [(ngModel)]="permissaoFiltro.anoAlvara" name="anoAlvara">
-              <button mat-button *ngIf="permissaoFiltro.anoAlvara" matSuffix aria-label="Clear" (click)="permissaoFiltro.anoAlvara=''">
+              <mat-label >Ano Permissão</mat-label>
+              <input type="number" matInput placeholder="Ano Permissão" style="margin-right: 20px;" [(ngModel)]="permissaoFiltro.anoPermissao" name="anoPermissao">
+              <button mat-button *ngIf="permissaoFiltro.anoPermissao" matSuffix aria-label="Clear" (click)="permissaoFiltro.anoPermissao=''">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -52,15 +42,15 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Período Inicial Status</mat-label>
-              <input matInput [matDatepicker]="periodoInicial" placeholder="Período Inicial Status" [(ngModel)]="permissaoFiltro.periodoInicialStatus" name="periodoInicialStatus">
+              <mat-label >Período Inicial Situação</mat-label>
+              <input matInput [matDatepicker]="periodoInicial" placeholder="Período Inicial Situação" [(ngModel)]="permissaoFiltro.periodoInicialStatus" name="periodoInicialStatus">
               <mat-datepicker-toggle matIconSuffix [for]="periodoInicial"></mat-datepicker-toggle>
               <mat-datepicker #periodoInicial></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Período Final Status</mat-label>
-              <input matInput [matDatepicker]="periodoFinal" placeholder="Período Inicial Status" [(ngModel)]="permissaoFiltro.periodoFinalStatus" name="periodoFinalStatus">
+              <mat-label >Período Final Situação</mat-label>
+              <input matInput [matDatepicker]="periodoFinal" placeholder="Período Final Situação" [(ngModel)]="permissaoFiltro.periodoFinalStatus" name="periodoFinalStatus">
               <mat-datepicker-toggle matIconSuffix [for]="periodoFinal"></mat-datepicker-toggle>
               <mat-datepicker #periodoFinal></mat-datepicker>
             </mat-form-field>

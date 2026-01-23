@@ -84,7 +84,7 @@ export class PermissaoService {
     let params = new HttpParams();
     if (permissao.numeroPermissao)       {  params = params.set('numeroPermissao', permissao.numeroPermissao); }
     if (permissao.numeroAlvara)       {  params = params.set('numeroAlvara', permissao.numeroAlvara); }
-    if (permissao.anoAlvara)       {  params = params.set('anoAlvara', permissao.anoAlvara); }
+    if (permissao.anoPermissao)       {  params = params.set('anoAlvara', permissao.anoPermissao); }
     if (permissao.statusPermissao)       {  params = params.set('statusPermissao', permissao.statusPermissao); }
     if (permissao.periodoInicialStatus)       {  params = params.set('periodoInicialStatus', permissao.periodoInicialStatus); }
     if (permissao.periodoFinalStatus)       {  params = params.set('periodoFinalStatus', permissao.periodoFinalStatus); }

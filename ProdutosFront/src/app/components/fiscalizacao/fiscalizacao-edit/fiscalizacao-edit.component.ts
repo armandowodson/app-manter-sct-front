@@ -7,6 +7,7 @@ import {environment} from "../../../../environments/environment";
 import {VeiculoService} from "../../../service/veiculo.service";
 import {VeiculoModelo} from "../../veiculo/veiculo-modelo.model";
 import {PermissionarioService} from "../../../service/permissionario.service";
+import {DefensorService} from "../../../service/defensor.service";
 
 @Component({
   selector: 'app-fiscalizacao-edit',
@@ -32,6 +33,8 @@ export class FiscalizacaoEditComponent implements OnInit {
     numeroPermissao: "",
     nomePermissionario: "",
     cnhPermissionario: "",
+    nomeDefensor: "",
+    cnhDefensor: "",
     motivoInfracao: "",
     tipoInfracao: "",
     grupoMultas: "",
@@ -48,6 +51,7 @@ export class FiscalizacaoEditComponent implements OnInit {
 
   veiculo: any;
   permissionario: any;
+  defensor: any;
 
   motivoInfracaoSelecionado = "";
   motivoInfracaoOptions = [
@@ -99,6 +103,7 @@ export class FiscalizacaoEditComponent implements OnInit {
   constructor(private fiscalizacaoService: FiscalizacaoService,
               private veiculoService: VeiculoService,
               private permissionarioService: PermissionarioService,
+              private defensorService: DefensorService,
               private router: Router) {
     this.errors = '';
     this.id = '';
@@ -119,6 +124,8 @@ export class FiscalizacaoEditComponent implements OnInit {
       this.fiscalizacao.numeroPermissao = history.state.data.numeroPermissao;
       this.fiscalizacao.nomePermissionario = history.state.data.nomePermissionario;
       this.fiscalizacao.cnhPermissionario = history.state.data.cnhPermissionario;
+      this.fiscalizacao.nomeDefensor = history.state.data.nomeDefensor;
+      this.fiscalizacao.cnhDefensor = history.state.data.cnhDefensor;
       this.motivoInfracaoSelecionado = history.state.data.motivoInfracao;
       this.fiscalizacao.motivoInfracao = history.state.data.motivoInfracao;
       this.tipoInfracaoSelecionado = history.state.data.tipoInfracao;
@@ -170,6 +177,7 @@ export class FiscalizacaoEditComponent implements OnInit {
         this.fiscalizacao.cor = this.veiculo.cor;
         this.fiscalizacao.idPermissionario = this.veiculo.idPermissionario;
         this.buscarPermissionario(this.fiscalizacao.idPermissionario);
+        this.buscarDefensor(this.veiculo.numeroPermissao);
       },
       error: (error) => {
         this.fiscalizacaoService.showMessageError(error.message);
@@ -185,7 +193,20 @@ export class FiscalizacaoEditComponent implements OnInit {
         this.fiscalizacao.cnhPermissionario = this.permissionario.cnhPermissionario;
       },
       error: (error) => {
-        this.fiscalizacaoService.showMessageError(error.message);
+        this.fiscalizacaoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
+  }
+
+  buscarDefensor(numeroPermissao: string){
+    this.defensorService.consultarDefensorNumeroPermissao(numeroPermissao).subscribe({
+      next: (response) => {
+        this.defensor = response;
+        this.fiscalizacao.nomeDefensor = this.defensor.nomeDefensor;
+        this.fiscalizacao.cnhDefensor = this.defensor.cnhDefensor;
+      },
+      error: (error) => {
+        this.fiscalizacaoService.showMessageError(error.message.replace("Error: ", ""));
       }
     });
   }

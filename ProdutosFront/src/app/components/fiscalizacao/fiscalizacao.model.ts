@@ -11,6 +11,8 @@ export interface FiscalizacaoModelo {
     numeroPermissao: string
     nomePermissionario: string
     cnhPermissionario: string
+    nomeDefensor: string
+    cnhDefensor: string
     motivoInfracao: string
     tipoInfracao: string
     grupoMultas: string

@@ -25,7 +25,7 @@ export class PermissaoReadComponent implements OnInit {
     idPermissao: 0,
     numeroPermissao: "",
     numeroAlvara: "",
-    anoAlvara: "",
+    anoPermissao: "",
     categoriaPermissao: "",
     statusPermissao: "",
     periodoInicialStatus: "",
@@ -119,7 +119,7 @@ export class PermissaoReadComponent implements OnInit {
       this.pageSize = event.pageSize;
       if((this.permissaoFiltro.numeroPermissao != null && this.permissaoFiltro.numeroPermissao != undefined && this.permissaoFiltro.numeroPermissao != '') ||
         (this.permissaoFiltro.numeroAlvara != null && this.permissaoFiltro.numeroAlvara != undefined && this.permissaoFiltro.numeroAlvara != '') ||
-        (this.permissaoFiltro.anoAlvara != null && this.permissaoFiltro.anoAlvara != undefined && this.permissaoFiltro.anoAlvara != '') ||
+        (this.permissaoFiltro.anoPermissao != null && this.permissaoFiltro.anoPermissao != undefined && this.permissaoFiltro.anoPermissao != '') ||
         (this.permissaoFiltro.statusPermissao != null && this.permissaoFiltro.statusPermissao != undefined && this.permissaoFiltro.statusPermissao != '') ||
         (this.permissaoFiltro.periodoInicialStatus != null && this.permissaoFiltro.periodoInicialStatus != undefined && this.permissaoFiltro.periodoInicialStatus != '') ||
         (this.permissaoFiltro.periodoFinalStatus != null && this.permissaoFiltro.periodoFinalStatus != undefined && this.permissaoFiltro.periodoFinalStatus != '')){

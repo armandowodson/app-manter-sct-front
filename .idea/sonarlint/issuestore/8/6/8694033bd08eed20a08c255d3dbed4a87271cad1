@@ -1,0 +1,4 @@
+
+typescript:S1874"ä'subscribe' is deprecated. Instead of passing separate callback arguments, use an observer argument. Signatures taking separate callback arguments will be removed in v8. Details: https://rxjs.dev/deprecations/subscribe-arguments(×Ûïô
+¦typescript:S18740"„'routeReuseStrategy' is deprecated. Configure using `providers` instead:\u0010`{provide: RouteReuseStrategy, useClass: MyStrategy}`.(óëË±ıÿÿÿÿ
+‰typescript:S18741"n'onSameUrlNavigation' is deprecated. Configure this through `provideRouter` or `RouterModule.forRoot` instead.(ƒ¹“a

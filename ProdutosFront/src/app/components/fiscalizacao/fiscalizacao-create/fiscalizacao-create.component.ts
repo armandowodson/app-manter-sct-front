@@ -5,6 +5,7 @@ import {FiscalizacaoService} from "../../../service/fiscalizacao.service";
 import {environment} from "../../../../environments/environment";
 import {VeiculoService} from "../../../service/veiculo.service";
 import {PermissionarioService} from "../../../service/permissionario.service";
+import {DefensorService} from "../../../service/defensor.service";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,8 @@ export class FiscalizacaoCreateComponent implements OnInit {
     numeroPermissao: "",
     nomePermissionario: "",
     cnhPermissionario: "",
+    nomeDefensor: "",
+    cnhDefensor: "",
     motivoInfracao: "",
     tipoInfracao: "",
     grupoMultas: "",
@@ -46,6 +49,7 @@ export class FiscalizacaoCreateComponent implements OnInit {
 
   veiculo: any;
   permissionario: any;
+  defensor: any;
 
   motivoInfracaoSelecionado = "";
   motivoInfracaoOptions = [
@@ -96,6 +100,7 @@ export class FiscalizacaoCreateComponent implements OnInit {
   constructor(private fiscalizacaoService: FiscalizacaoService,
               private veiculoService: VeiculoService,
               private permissionarioService: PermissionarioService,
+              private defensorService: DefensorService,
               private router: Router) {
     this.errors = '';
     this.nomeLogado = "";
@@ -137,6 +142,7 @@ export class FiscalizacaoCreateComponent implements OnInit {
         this.fiscalizacao.cor = this.veiculo.cor;
         this.fiscalizacao.idPermissionario = this.veiculo.idPermissionario;
         this.buscarPermissionario(this.fiscalizacao.idPermissionario);
+        this.buscarDefensor(this.veiculo.numeroPermissao);
       },
       error: (error) => {
         this.fiscalizacaoService.showMessageError(error.message);
@@ -153,6 +159,19 @@ export class FiscalizacaoCreateComponent implements OnInit {
       },
       error: (error) => {
         this.fiscalizacaoService.showMessageError(error.message);
+      }
+    });
+  }
+
+  buscarDefensor(numeroPermissao: string){
+    this.defensorService.consultarDefensorNumeroPermissao(numeroPermissao).subscribe({
+      next: (response) => {
+        this.defensor = response;
+        this.fiscalizacao.nomeDefensor = this.defensor.nomeDefensor;
+        this.fiscalizacao.cnhDefensor = this.defensor.cnhDefensor;
+      },
+      error: (error) => {
+        this.fiscalizacaoService.showMessageError(error.message.replace("Error: ", ""));
       }
     });
   }

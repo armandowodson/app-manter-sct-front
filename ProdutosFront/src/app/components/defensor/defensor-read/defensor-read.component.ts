@@ -26,7 +26,9 @@ export class DefensorReadComponent implements OnInit {
     cpfDefensor: "",
     cnpjEmpresa: "",
     cnhDefensor: "",
-    dataCriacao: ""
+    dataCriacao: "",
+    nomePermissionario: "",
+    cpfPermissionario: ""
   };
 
   defensores: any[] = [];
@@ -171,7 +173,9 @@ export class DefensorReadComponent implements OnInit {
       (this.defensorFiltro.nomeDefensor != null && this.defensorFiltro.nomeDefensor != undefined && this.defensorFiltro.nomeDefensor != '') ||
       (this.defensorFiltro.cpfDefensor != null && this.defensorFiltro.cpfDefensor != undefined && this.defensorFiltro.cpfDefensor != '') ||
       (this.defensorFiltro.cnpjEmpresa != null && this.defensorFiltro.cnpjEmpresa != undefined && this.defensorFiltro.cnpjEmpresa != '') ||
-      (this.defensorFiltro.cnhDefensor != null && this.defensorFiltro.cnhDefensor != undefined && this.defensorFiltro.cnhDefensor != '')){
+      (this.defensorFiltro.cnhDefensor != null && this.defensorFiltro.cnhDefensor != undefined && this.defensorFiltro.cnhDefensor != '') ||
+      (this.defensorFiltro.nomePermissionario != null && this.defensorFiltro.nomePermissionario != undefined && this.defensorFiltro.nomePermissionario != '') ||
+      (this.defensorFiltro.cpfPermissionario != null && this.defensorFiltro.cpfPermissionario != undefined && this.defensorFiltro.cpfPermissionario != '')){
       if(this.buscouTodos)
         this.pageIndex = 0;
       this.consultarDefensoresComFiltros();

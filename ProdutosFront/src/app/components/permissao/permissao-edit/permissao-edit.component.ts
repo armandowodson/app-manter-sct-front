@@ -25,7 +25,7 @@ export class PermissaoEditComponent implements OnInit {
     idPermissao: 0,
     numeroPermissao: "",
     numeroAlvara: "",
-    anoAlvara: "",
+    anoPermissao: "",
     categoriaPermissao: "",
     statusPermissao: "",
     periodoInicialStatus: "",
@@ -45,7 +45,7 @@ export class PermissaoEditComponent implements OnInit {
     idPermissao: 0,
     numeroPermissao: "",
     numeroAlvara: "",
-    anoAlvara: "",
+    anoPermissao: "",
     categoriaPermissao: "",
     statusPermissao: "",
     periodoInicialStatus: "",
@@ -114,7 +114,7 @@ export class PermissaoEditComponent implements OnInit {
       this.permissao.idPermissao = history.state.data.idPermissao;
       this.permissao.numeroPermissao = history.state.data.numeroPermissao;
       this.permissao.numeroAlvara = history.state.data.numeroAlvara;
-      this.permissao.anoAlvara = history.state.data.anoAlvara;
+      this.permissao.anoPermissao = history.state.data.anoPermissao;
       this.categoriaPermissaoSelecionada = history.state.data.categoriaPermissao;
       this.permissao.categoriaPermissao = history.state.data.categoriaPermissao;
       this.statusPermissaoSelecionada = history.state.data.statusPermissao;

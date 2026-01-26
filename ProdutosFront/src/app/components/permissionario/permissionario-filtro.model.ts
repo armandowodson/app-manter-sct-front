@@ -3,7 +3,6 @@ export interface PermissionarioFiltro {
   numeroPermissao: string
   nomePermissionario: string
   cpfPermissionario: string
-  cnpjEmpresa: string
   cnhPermissionario: string
   dataCriacao: string
 }

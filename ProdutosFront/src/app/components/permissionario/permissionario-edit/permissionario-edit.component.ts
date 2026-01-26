@@ -25,7 +25,6 @@ export class PermissionarioEditComponent implements OnInit {
     numeroPermissao: "",
     nomePermissionario: "",
     cpfPermissionario: "",
-    cnpjEmpresa: "",
     rgPermissionario: "",
     orgaoEmissor: "",
     naturezaPessoa: "",
@@ -141,7 +140,6 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionario.numeroPermissao = history.state.data.numeroPermissao;
       this.permissionario.nomePermissionario = history.state.data.nomePermissionario;
       this.permissionario.cpfPermissionario = history.state.data.cpfPermissionario;
-      this.permissionario.cnpjEmpresa = history.state.data.cnpjEmpresa;
       this.permissionario.rgPermissionario = history.state.data.rgPermissionario;
       this.permissionario.orgaoEmissor = history.state.data.orgaoEmissor;
       this.naturezaSelecionada = history.state.data.naturezaPessoa;

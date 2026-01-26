@@ -33,7 +33,7 @@
               {{ categoria.nome }}
             </mat-option>
           </mat-select>
-          <button mat-button *ngIf="categoriaPermissaoSelecionada" matSuffix aria-label="Clear" (click)="categoriaPermissaoSelecionada=''">
+          <button mat-button *ngIf="categoriaPermissaoSelecionada" matSuffix aria-label="Clear" (click)="categoriaPermissaoSelecionada=0">
             <i class="material-icons black v-middle">
               close
             </i>
@@ -47,7 +47,7 @@
               {{ status.nome }}
             </mat-option>
           </mat-select>
-          <button mat-button *ngIf="statusPermissaoSelecionada" matSuffix aria-label="Clear" (click)="statusPermissaoSelecionada=''">
+          <button mat-button *ngIf="statusPermissaoSelecionada" matSuffix aria-label="Clear" (click)="statusPermissaoSelecionada=0">
             <i class="material-icons black v-middle">
               close
             </i>
@@ -82,7 +82,7 @@
               {{ penalidade.nome }}
             </mat-option>
           </mat-select>
-          <button mat-button *ngIf="penalidadeSelecionada" matSuffix aria-label="Clear" (click)="penalidadeSelecionada=''">
+          <button mat-button *ngIf="penalidadeSelecionada" matSuffix aria-label="Clear" (click)="penalidadeSelecionada=0">
             <i class="material-icons black v-middle">
               close
             </i>
@@ -113,7 +113,7 @@
               {{ moda.nome }}
             </mat-option>
           </mat-select>
-          <button mat-button *ngIf="modalidadeSelecionada" matSuffix aria-label="Clear" (click)="modalidadeSelecionada=''">
+          <button mat-button *ngIf="modalidadeSelecionada" matSuffix aria-label="Clear" (click)="modalidadeSelecionada=0">
             <i class="material-icons black v-middle">
               close
             </i>

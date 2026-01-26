@@ -52,7 +52,6 @@ export class PermissionarioService {
     const jsonString = '{"idPermissionario": null, "numeroPermissao": "' + permissionario.numeroPermissao + '"' +
       ', "nomePermissionario": "' + permissionario.nomePermissionario + '"' +
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
-      ', "cnpjEmpresa": "' + permissionario.cnpjEmpresa + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
       ', "naturezaPessoa": "' + permissionario.naturezaPessoa + '"' +
@@ -90,7 +89,6 @@ export class PermissionarioService {
       ', "numeroPermissao": "' + permissionario.numeroPermissao + '"' +
       ', "nomePermissionario": "' + permissionario.nomePermissionario + '"' +
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
-      ', "cnpjEmpresa": "' + permissionario.cnpjEmpresa + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
       ', "naturezaPessoa": "' + permissionario.naturezaPessoa + '"' +
@@ -150,7 +148,6 @@ export class PermissionarioService {
     if (permissionario.numeroPermissao)       {  params = params.set('numeroPermissao', permissionario.numeroPermissao); }
     if (permissionario.nomePermissionario)       {  params = params.set('nomePermissionario', permissionario.nomePermissionario); }
     if (permissionario.cpfPermissionario)       {  params = params.set('cpfPermissionario', permissionario.cpfPermissionario); }
-    if (permissionario.cnpjEmpresa)       {  params = params.set('cnpjEmpresa', permissionario.cnpjEmpresa); }
     if (permissionario.cnhPermissionario)       {  params = params.set('cnhPermissionario', permissionario.cnhPermissionario); }
     params = params.set('pageIndex', pageIndex);
     params = params.set('pageSize', pageSize);

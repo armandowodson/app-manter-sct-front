@@ -34,7 +34,7 @@
                   {{ status.nome }}
                 </mat-option>
               </mat-select>
-              <button mat-button *ngIf="statusPermissaoSelecionada" matSuffix aria-label="Clear" (click)="statusPermissaoSelecionada=''">
+              <button mat-button *ngIf="statusPermissaoSelecionada" matSuffix aria-label="Clear" (click)="statusPermissaoSelecionada=0">
                 <i class="material-icons black v-middle">
                   close
                 </i>
@@ -83,8 +83,8 @@
          <thead style="background-color: gray;">
             <tr style="color: white;">
               <th style="text-align: left;">Nº Permissão</th>
-              <th style="text-align: left;">Nº Alvará</th>
-              <th style="text-align: center;">Ano Alvará</th>
+              <th style="text-align: center;">Ano Permissão</th>
+              <th style="text-align: left;">Categoria Permissão</th>
               <th style="text-align: center;">Situação Permissão</th>
               <th style="text-align: center;">Data Validade Permissão</th>
               <th style="text-align: center;">Status Registro</th>
@@ -94,9 +94,9 @@
          <tbody>
             <tr *ngFor="let row of permissoes | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
               <td style="text-align: left;">{{row.numeroPermissao}}</td>
-              <td style="text-align: left;">{{row.numeroAlvara}}</td>
-              <td style="text-align: center;">{{row.anoAlvara}}</td>
-              <td style="text-align: center;">{{row.statusPermissao}}</td>
+              <td style="text-align: center;">{{row.anoPermissao}}</td>
+              <td style="text-align: left;">{{row.categoriaPermissaoListagem}}</td>
+              <td style="text-align: center;">{{row.statusPermissaoListagem}}</td>
               <td style="text-align: center;">{{row.dataValidadePermissaoOriginal}}</td>
               <td style="text-align: center;">{{row.status}}</td>
 

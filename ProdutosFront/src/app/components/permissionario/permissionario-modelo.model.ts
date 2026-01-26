@@ -3,7 +3,6 @@ export interface PermissionarioModelo {
   numeroPermissao: string
   nomePermissionario: string
   cpfPermissionario: string
-  cnpjEmpresa: string
   rgPermissionario: string
   orgaoEmissor: string
   naturezaPessoa: string

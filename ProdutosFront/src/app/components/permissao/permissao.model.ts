@@ -3,17 +3,17 @@ export interface PermissaoModelo {
   numeroPermissao: string
   numeroAlvara: string
   anoPermissao: string
-  categoriaPermissao: string
-  statusPermissao: string
+  categoriaPermissao: number
+  statusPermissao: number
   periodoInicialStatus: string
   periodoFinalStatus: string
   dataValidadePermissao: string
   dataValidadePermissaoOriginal: string
-  penalidade: string
+  penalidade: number
   dataValidadePenalidade: string
   usuario: string
   dataCriacao: string
   autorizacaoTrafego: string
-  modalidade: string
+  modalidade: number
   status: string
 }

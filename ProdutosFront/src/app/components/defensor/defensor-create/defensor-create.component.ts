@@ -23,7 +23,6 @@ export class DefensorCreateComponent implements OnInit {
     numeroPermissao: "",
     nomeDefensor: "",
     cpfDefensor: "",
-    cnpjEmpresa: "",
     rgDefensor: "",
     orgaoEmissor: "",
     naturezaPessoa: "",

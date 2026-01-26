@@ -84,7 +84,6 @@ export class VeiculoCreateComponent implements OnInit {
     numeroPermissao: "",
     nomePermissionario: "",
     cpfPermissionario: "",
-    cnpjEmpresa: "",
     rgPermissionario: "",
     orgaoEmissor: "",
     naturezaPessoa: "",

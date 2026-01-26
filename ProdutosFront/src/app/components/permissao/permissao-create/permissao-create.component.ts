@@ -26,53 +26,53 @@ export class PermissaoCreateComponent implements OnInit {
     numeroPermissao: "",
     numeroAlvara: "",
     anoPermissao: "",
-    categoriaPermissao: "",
-    statusPermissao: "",
+    categoriaPermissao: 0,
+    statusPermissao: 0,
     periodoInicialStatus: "",
     periodoFinalStatus: "",
     dataValidadePermissao: "",
-    penalidade: "",
+    penalidade: 0,
     dataValidadePenalidade: "",
     dataValidadePermissaoOriginal: "",
     dataCriacao: "",
     usuario: "",
     autorizacaoTrafego: "",
-    modalidade: "",
+    modalidade: 0,
     status: ""
   };
 
-  categoriaPermissaoSelecionada = "";
+  categoriaPermissaoSelecionada = 0;
   categoriaPermissaoOptions = [
-    { id: '1', nome: 'DELEGAÇÃO' },
-    { id: '2', nome: 'TÍTULO PRECÁRIO' },
-    { id: '3', nome: 'LICITAÇÃO' },
-    { id: '4', nome: 'PRESTAÇÃO DO SERVIÇO PÚBLICO DE TRANSPORTE DE PASSAGEIROS' }
+    { id: 1, nome: 'DELEGAÇÃO' },
+    { id: 2, nome: 'TÍTULO PRECÁRIO' },
+    { id: 3, nome: 'LICITAÇÃO' },
+    { id: 4, nome: 'PRESTAÇÃO DO SERVIÇO PÚBLICO DE TRANSPORTE DE PASSAGEIROS' }
   ];
 
-  statusPermissaoSelecionada = "";
+  statusPermissaoSelecionada = 0;
   statusPermissaoOptions = [
-    { id: '1', nome: 'EM USO' },
-    { id: '2', nome: 'SUSPENSA' },
-    { id: '3', nome: 'RENUNCIADA' },
-    { id: '4', nome: 'RESERVADA' },
-    { id: '5', nome: 'SUBSTITUÍDA' },
-    { id: '6', nome: 'REVOGADA' },
-    { id: '7', nome: 'EXPIRADA' },
-    { id: '8', nome: 'ABANDONADA' }
+    { id: 1, nome: 'EM USO' },
+    { id: 2, nome: 'SUSPENSA' },
+    { id: 3, nome: 'RENUNCIADA' },
+    { id: 4, nome: 'RESERVADA' },
+    { id: 5, nome: 'SUBSTITUÍDA' },
+    { id: 6, nome: 'REVOGADA' },
+    { id: 7, nome: 'EXPIRADA' },
+    { id: 8, nome: 'ABANDONADA' }
   ];
 
-  penalidadeSelecionada = "";
+  penalidadeSelecionada = 0;
   penalidadeOptions = [
-    { id: '1', nome: 'MULTA' },
-    { id: '2', nome: 'SUSPENSÃO' },
-    { id: '3', nome: 'CASSAÇÃO DO REGISTRO DE CONDUTOR' }
+    { id: 1, nome: 'MULTA' },
+    { id: 2, nome: 'SUSPENSÃO' },
+    { id: 3, nome: 'CASSAÇÃO DO REGISTRO DE CONDUTOR' }
   ];
 
-  modalidadeSelecionada = "";
+  modalidadeSelecionada = 0;
   modalidadeOptions = [
-    { id: '1', nome: 'FIXO' },
-    { id: '2', nome: 'ROTATIVO' },
-    { id: '3', nome: 'FIXO-ROTATIVO' }
+    { id: 1, nome: 'FIXO' },
+    { id: 2, nome: 'ROTATIVO' },
+    { id: 3, nome: 'FIXO-ROTATIVO' }
   ];
 
   errors: string;
@@ -93,6 +93,11 @@ export class PermissaoCreateComponent implements OnInit {
   }
 
   inserirPermissao(): void {
+    if(this.permissao.numeroPermissao == null || this.permissao.numeroPermissao == ""){
+      this.permissaoService.showMessageAlert("O campo Número da Permissão é obrigatório!");
+      return;
+    }
+
     const request: Observable<PageModelo> = this.permissaoService.consultarPermissaoComFiltros(this.permissao, 0, 10);
     request.subscribe({
       next: (res) => {
@@ -107,6 +112,10 @@ export class PermissaoCreateComponent implements OnInit {
           this.permissao.modalidade = this.modalidadeSelecionada;
 
           this.permissao.usuario = environment.usuarioLogado;
+
+          if(this.validarCamposObrigatoriosPermissao() == false)
+            return;
+
           this.permissaoService.inserirPermissao(this.permissao).subscribe(() => {
               this.permissaoService.showMessageSuccess('Permissão Criada com Sucesso!!!');
               this.router.navigate(['/permissao']);
@@ -121,6 +130,50 @@ export class PermissaoCreateComponent implements OnInit {
         this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
       }
     });
+  }
+
+  validarCamposObrigatoriosPermissao(): boolean{
+    if(this.permissao.anoPermissao == null || this.permissao.anoPermissao == ""){
+      this.permissaoService.showMessageAlert("O campo Ano da Permissão é obrigatório!");
+      return false;
+    }
+
+    if(this.permissao.categoriaPermissao == null || this.permissao.categoriaPermissao == 0){
+      this.permissaoService.showMessageAlert("O campo Categoria é obrigatório!");
+      return false;
+    }
+
+    if(this.permissao.statusPermissao == null || this.permissao.statusPermissao == 0){
+      this.permissaoService.showMessageAlert("O campo Status é obrigatório!");
+      return false;
+    }
+
+    if(this.permissao.periodoInicialStatus == null || this.permissao.periodoInicialStatus == ""){
+      this.permissaoService.showMessageAlert("O campo Período Inicial da Situação é obrigatório!");
+      return false;
+    }
+
+    if(this.permissao.periodoFinalStatus == null || this.permissao.periodoFinalStatus == ""){
+      this.permissaoService.showMessageAlert("O campo Período Final da Situação é obrigatório!");
+      return false;
+    }
+
+    if(this.permissao.dataValidadePermissao == null || this.permissao.dataValidadePermissao == ""){
+      this.permissaoService.showMessageAlert("O campo Data de Validade da Permissão é obrigatório!");
+      return false;
+    }
+
+    if(this.permissao.autorizacaoTrafego == null || this.permissao.autorizacaoTrafego == ""){
+      this.permissaoService.showMessageAlert("O campo Autorizacao de Trafego é obrigatório!");
+      return false;
+    }
+
+    if(this.permissao.modalidade == null || this.permissao.modalidade == 0){
+      this.permissaoService.showMessageAlert("O campo Modalidade é obrigatório!");
+      return false;
+    }
+
+    return true;
   }
 
   voltar(): void{

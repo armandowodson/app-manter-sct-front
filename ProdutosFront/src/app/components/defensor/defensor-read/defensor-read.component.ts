@@ -24,7 +24,6 @@ export class DefensorReadComponent implements OnInit {
     numeroPermissao: "",
     nomeDefensor: "",
     cpfDefensor: "",
-    cnpjEmpresa: "",
     cnhDefensor: "",
     dataCriacao: "",
     nomePermissionario: "",
@@ -78,7 +77,6 @@ export class DefensorReadComponent implements OnInit {
           numeroPermissao: item.numeroPermissao,
           nomeDefensor: item.nomeDefensor,
           cpfDefensor: item.cpfDefensor,
-          cnpjEmpresa: item.cnpjEmpresa,
           rgDefensor: item.rgDefensor,
           orgaoEmissor: item.orgaoEmissor,
           naturezaPessoa: item.naturezaPessoa,
@@ -136,7 +134,6 @@ export class DefensorReadComponent implements OnInit {
           numeroPermissao: item.numeroPermissao,
           nomeDefensor: item.nomeDefensor,
           cpfDefensor: item.cpfDefensor,
-          cnpjEmpresa: item.cnpjEmpresa,
           rgDefensor: item.rgDefensor,
           orgaoEmissor: item.orgaoEmissor,
           naturezaPessoa: item.naturezaPessoa,
@@ -172,7 +169,6 @@ export class DefensorReadComponent implements OnInit {
     if((this.defensorFiltro.numeroPermissao != null && this.defensorFiltro.numeroPermissao != undefined && this.defensorFiltro.numeroPermissao != '') ||
       (this.defensorFiltro.nomeDefensor != null && this.defensorFiltro.nomeDefensor != undefined && this.defensorFiltro.nomeDefensor != '') ||
       (this.defensorFiltro.cpfDefensor != null && this.defensorFiltro.cpfDefensor != undefined && this.defensorFiltro.cpfDefensor != '') ||
-      (this.defensorFiltro.cnpjEmpresa != null && this.defensorFiltro.cnpjEmpresa != undefined && this.defensorFiltro.cnpjEmpresa != '') ||
       (this.defensorFiltro.cnhDefensor != null && this.defensorFiltro.cnhDefensor != undefined && this.defensorFiltro.cnhDefensor != '') ||
       (this.defensorFiltro.nomePermissionario != null && this.defensorFiltro.nomePermissionario != undefined && this.defensorFiltro.nomePermissionario != '') ||
       (this.defensorFiltro.cpfPermissionario != null && this.defensorFiltro.cpfPermissionario != undefined && this.defensorFiltro.cpfPermissionario != '')){

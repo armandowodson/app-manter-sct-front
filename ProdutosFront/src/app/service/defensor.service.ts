@@ -53,7 +53,6 @@ export class DefensorService {
     const jsonString = '{"idDefensor": null, "numeroPermissao": "' + defensor.numeroPermissao + '"' +
       ', "nomeDefensor": "' + defensor.nomeDefensor + '"' +
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
-      ', "cnpjEmpresa": "' + defensor.cnpjEmpresa + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
       ', "orgaoEmissor": "' + defensor.orgaoEmissor + '"' +
       ', "naturezaPessoa": "' + defensor.naturezaPessoa + '"' +
@@ -89,7 +88,6 @@ export class DefensorService {
       ', "numeroPermissao": "' + defensor.numeroPermissao + '"' +
       ', "nomeDefensor": "' + defensor.nomeDefensor + '"' +
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
-      ', "cnpjEmpresa": "' + defensor.cnpjEmpresa + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
       ', "orgaoEmissor": "' + defensor.orgaoEmissor + '"' +
       ', "naturezaPessoa": "' + defensor.naturezaPessoa + '"' +
@@ -151,7 +149,6 @@ export class DefensorService {
     if (defensor.numeroPermissao)       {  params = params.set('numeroPermissao', defensor.numeroPermissao); }
     if (defensor.nomeDefensor)       {  params = params.set('nomeDefensor', defensor.nomeDefensor); }
     if (defensor.cpfDefensor)       {  params = params.set('cpfDefensor', defensor.cpfDefensor); }
-    if (defensor.cnpjEmpresa)       {  params = params.set('cnpjEmpresa', defensor.cnpjEmpresa); }
     if (defensor.cnhDefensor)       {  params = params.set('cnhDefensor', defensor.cnhDefensor); }
     if (defensor.nomePermissionario)       {  params = params.set('nomePermissionario', defensor.nomePermissionario); }
     if (defensor.cpfPermissionario)       {  params = params.set('cpfPermissionario', defensor.cpfPermissionario); }

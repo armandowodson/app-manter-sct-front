@@ -20,7 +20,6 @@ export class PermissionarioCreateComponent implements OnInit {
     numeroPermissao: "",
     nomePermissionario: "",
     cpfPermissionario: "",
-    cnpjEmpresa: "",
     rgPermissionario: "",
     orgaoEmissor: "",
     naturezaPessoa: "",

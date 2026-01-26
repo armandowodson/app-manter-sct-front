@@ -25,7 +25,6 @@ export class PermissionarioReadComponent implements OnInit {
     numeroPermissao: "",
     nomePermissionario: "",
     cpfPermissionario: "",
-    cnpjEmpresa: "",
     cnhPermissionario: "",
     dataCriacao: ""
   };
@@ -76,7 +75,6 @@ export class PermissionarioReadComponent implements OnInit {
           numeroPermissao: item.numeroPermissao,
           nomePermissionario: item.nomePermissionario,
           cpfPermissionario: item.cpfPermissionario,
-          cnpjEmpresa: item.cnpjEmpresa,
           rgPermissionario: item.rgPermissionario,
           orgaoEmissor: item.orgaoEmissor,
           naturezaPessoa: item.naturezaPessoa,
@@ -114,7 +112,6 @@ export class PermissionarioReadComponent implements OnInit {
     if((this.permissionarioFiltro.numeroPermissao != null && this.permissionarioFiltro.numeroPermissao != undefined && this.permissionarioFiltro.numeroPermissao != '') ||
       (this.permissionarioFiltro.nomePermissionario != null && this.permissionarioFiltro.nomePermissionario != undefined && this.permissionarioFiltro.nomePermissionario != '') ||
       (this.permissionarioFiltro.cpfPermissionario != null && this.permissionarioFiltro.cpfPermissionario != undefined && this.permissionarioFiltro.cpfPermissionario != '') ||
-      (this.permissionarioFiltro.cnpjEmpresa != null && this.permissionarioFiltro.cnpjEmpresa != undefined && this.permissionarioFiltro.cnpjEmpresa != '') ||
       (this.permissionarioFiltro.cnhPermissionario != null && this.permissionarioFiltro.cnhPermissionario != undefined && this.permissionarioFiltro.cnhPermissionario != '')){
       if(this.buscouTodos)
         this.pageIndex = 0;
@@ -154,7 +151,6 @@ export class PermissionarioReadComponent implements OnInit {
           numeroPermissao: item.numeroPermissao,
           nomePermissionario: item.nomePermissionario,
           cpfPermissionario: item.cpfPermissionario,
-          cnpjEmpresa: item.cnpjEmpresa,
           rgPermissionario: item.rgPermissionario,
           orgaoEmissor: item.orgaoEmissor,
           naturezaPessoa: item.naturezaPessoa,

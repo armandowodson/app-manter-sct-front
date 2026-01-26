@@ -26,34 +26,36 @@ export class PermissaoReadComponent implements OnInit {
     numeroPermissao: "",
     numeroAlvara: "",
     anoPermissao: "",
-    categoriaPermissao: "",
-    statusPermissao: "",
+    categoriaPermissao: 0,
+    statusPermissao: 0,
     periodoInicialStatus: "",
     periodoFinalStatus: "",
     dataValidadePermissao: "",
-    penalidade: "",
+    penalidade: 0,
     dataValidadePenalidade: "",
     dataValidadePermissaoOriginal: "",
     dataCriacao: "",
     usuario: "",
     autorizacaoTrafego: "",
-    modalidade: "",
+    modalidade: 0,
     status: ""
   };
 
-  statusPermissaoSelecionada = "";
+  statusPermissaoSelecionada = 0;
   statusPermissaoOptions = [
-    { id: '1', nome: 'EM USO' },
-    { id: '2', nome: 'SUSPENSA' },
-    { id: '3', nome: 'RENUNCIADA' },
-    { id: '4', nome: 'RESERVADA' },
-    { id: '5', nome: 'SUBSTITUÍDA' },
-    { id: '6', nome: 'REVOGADA' },
-    { id: '7', nome: 'EXPIRADA' },
-    { id: '8', nome: 'ABANDONADA' }
+    { id: 1, nome: 'EM USO' },
+    { id: 2, nome: 'SUSPENSA' },
+    { id: 3, nome: 'RENUNCIADA' },
+    { id: 4, nome: 'RESERVADA' },
+    { id: 5, nome: 'SUBSTITUÍDA' },
+    { id: 6, nome: 'REVOGADA' },
+    { id: 7, nome: 'EXPIRADA' },
+    { id: 8, nome: 'ABANDONADA' }
   ];
 
   permissoes: any[] = [];
+  categoriaPermissaoListagem: string;
+  statusPermissaoListagem: string;
 
   errors: string;
   nomeLogado: string;
@@ -69,6 +71,8 @@ export class PermissaoReadComponent implements OnInit {
   ) {
     this.errors = "";
     this.nomeLogado = "";
+    this.categoriaPermissaoListagem = "";
+    this.statusPermissaoListagem = "";
     this.totalPontos = 0;
     this.pageIndex = 0;
     this.pageSize = 10;
@@ -89,17 +93,19 @@ export class PermissaoReadComponent implements OnInit {
             idPermissao: item.idPermissao,
             numeroPermissao: item.numeroPermissao,
             numeroAlvara: item.numeroAlvara,
-            anoAlvara: item.anoAlvara,
-            categoriaPermissao: this.carregarCategoriaPermissao(item.categoriaPermissao),
-            statusPermissao: this.carregarStatusPermissao(item.statusPermissao),
+            anoPermissao: item.anoPermissao,
+            categoriaPermissao: item.categoriaPermissao,
+            categoriaPermissaoListagem: this.carregarCategoriaPermissao(item.categoriaPermissao),
+            statusPermissao: item.statusPermissao,
+            statusPermissaoListagem: this.carregarStatusPermissao(item.statusPermissao),
             periodoInicialStatus: item.periodoInicialStatus,
             periodoFinalStatus: item.periodoFinalStatus,
             dataValidadePermissao: item.dataValidadePermissao,
             dataValidadePermissaoOriginal: this.formatarDataValidadePermissao(item.dataValidadePermissaoOriginal),
-            penalidade: this.carregarPenalidadePermissao(item.penalidade),
+            penalidade: item.penalidade,
             dataValidadePenalidade: item.dataValidadePenalidade,
             autorizacaoTrafego: item.autorizacaoTrafego,
-            modalidade: this.carregarModalidadePermissao(item.modalidade),
+            modalidade: item.modalidade,
             usuario: item.usuario,
             status: item.status
           }));
@@ -120,7 +126,7 @@ export class PermissaoReadComponent implements OnInit {
       if((this.permissaoFiltro.numeroPermissao != null && this.permissaoFiltro.numeroPermissao != undefined && this.permissaoFiltro.numeroPermissao != '') ||
         (this.permissaoFiltro.numeroAlvara != null && this.permissaoFiltro.numeroAlvara != undefined && this.permissaoFiltro.numeroAlvara != '') ||
         (this.permissaoFiltro.anoPermissao != null && this.permissaoFiltro.anoPermissao != undefined && this.permissaoFiltro.anoPermissao != '') ||
-        (this.permissaoFiltro.statusPermissao != null && this.permissaoFiltro.statusPermissao != undefined && this.permissaoFiltro.statusPermissao != '') ||
+        (this.permissaoFiltro.statusPermissao != null && this.permissaoFiltro.statusPermissao != undefined && this.permissaoFiltro.statusPermissao != 0) ||
         (this.permissaoFiltro.periodoInicialStatus != null && this.permissaoFiltro.periodoInicialStatus != undefined && this.permissaoFiltro.periodoInicialStatus != '') ||
         (this.permissaoFiltro.periodoFinalStatus != null && this.permissaoFiltro.periodoFinalStatus != undefined && this.permissaoFiltro.periodoFinalStatus != '')){
         if(this.buscouTodos)
@@ -161,17 +167,19 @@ export class PermissaoReadComponent implements OnInit {
             idPermissao: item.idPermissao,
             numeroPermissao: item.numeroPermissao,
             numeroAlvara: item.numeroAlvara,
-            anoAlvara: item.anoAlvara,
-            categoriaPermissao: this.carregarCategoriaPermissao(item.categoriaPermissao),
-            statusPermissao: this.carregarStatusPermissao(item.statusPermissao),
+            anoPermissao: item.anoPermissao,
+            categoriaPermissao: item.categoriaPermissao,
+            categoriaPermissaoListagem: this.carregarCategoriaPermissao(item.categoriaPermissao),
+            statusPermissao: item.statusPermissao,
+            statusPermissaoListagem: this.carregarStatusPermissao(item.statusPermissao),
             periodoInicialStatus: item.periodoInicialStatus,
             periodoFinalStatus: item.periodoFinalStatus,
             dataValidadePermissao: item.dataValidadePermissao,
             dataValidadePermissaoOriginal: this.formatarDataValidadePermissao(item.dataValidadePermissaoOriginal),
-            penalidade: this.carregarPenalidadePermissao(item.penalidade),
+            penalidade: item.penalidade,
             dataValidadePenalidade: item.dataValidadePenalidade,
             autorizacaoTrafego: item.autorizacaoTrafego,
-            modalidade: this.carregarModalidadePermissao(item.modalidade),
+            modalidade: item.modalidade,
             usuario: item.usuario,
             status: item.status
           }));
@@ -251,40 +259,6 @@ export class PermissaoReadComponent implements OnInit {
     }
 
     return strStatus;
-  }
-
-  carregarPenalidadePermissao(penalidade: string) {
-    var strPenalidade = "";
-    switch (penalidade) {
-      case "1":
-        strPenalidade = "MULTA";
-        break;
-      case "2":
-        strPenalidade = "SUSPENSÃO";
-        break;
-      case "3":
-        strPenalidade = "CASSAÇÃO DO REGISTRO DE CONDUTOR";
-        break;
-    }
-
-    return strPenalidade;
-  }
-
-  carregarModalidadePermissao(modalidade: string) {
-    var strModalidade = "";
-    switch (modalidade) {
-      case "1":
-        strModalidade = "FIXO";
-        break;
-      case "2":
-        strModalidade = "ROTATIVO";
-        break;
-      case "3":
-        strModalidade = "FIXO-ROTATIVO";
-        break;
-    }
-
-    return strModalidade;
   }
 
   formatarDataValidadePermissao(dataValidadePermissao: string){

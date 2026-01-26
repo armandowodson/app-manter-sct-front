@@ -3,7 +3,6 @@ export interface DefensorModelo {
   numeroPermissao: string
   nomeDefensor: string
   cpfDefensor: string
-  cnpjEmpresa: string
   rgDefensor: string
   orgaoEmissor: string
   naturezaPessoa: string

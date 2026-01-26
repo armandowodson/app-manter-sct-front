@@ -25,7 +25,6 @@ export class DefensorEditComponent implements OnInit {
     numeroPermissao: "",
     nomeDefensor: "",
     cpfDefensor: "",
-    cnpjEmpresa: "",
     rgDefensor: "",
     orgaoEmissor: "",
     naturezaPessoa: "",
@@ -134,7 +133,6 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.numeroPermissao = history.state.data.numeroPermissao;
       this.defensor.nomeDefensor = history.state.data.nomeDefensor;
       this.defensor.cpfDefensor = history.state.data.cpfDefensor;
-      this.defensor.cnpjEmpresa = history.state.data.cnpjEmpresa;
       this.defensor.rgDefensor = history.state.data.rgDefensor;
       this.defensor.orgaoEmissor = history.state.data.orgaoEmissor;
       this.naturezaSelecionada = history.state.data.naturezaPessoa;

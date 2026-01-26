@@ -7,7 +7,7 @@
     </div>
     <form>
         <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Nº Permissão</mat-label>
+          <mat-label >Nº Permissão*</mat-label>
           <input type="number" matInput placeholder="Nº Permissão" style="margin-right: 20px;" [(ngModel)]="permissao.numeroPermissao" name="numeroPermissao">
           <button mat-button *ngIf="permissao.numeroPermissao" matSuffix aria-label="Clear" (click)="permissao.numeroPermissao=''">
             <i class="material-icons black v-middle">
@@ -17,7 +17,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Ano Permissão</mat-label>
+          <mat-label >Ano Permissão*</mat-label>
           <input type="number" matInput placeholder="Ano Permissão" style="margin-right: 20px;" [(ngModel)]="permissao.anoPermissao" name="anoPermissao">
           <button mat-button *ngIf="permissao.anoPermissao" matSuffix aria-label="Clear" (click)="permissao.anoPermissao=''">
             <i class="material-icons black v-middle">
@@ -27,13 +27,13 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label>Categoria Permissão</mat-label>
+          <mat-label>Categoria Permissão*</mat-label>
           <mat-select [(value)]="categoriaPermissaoSelecionada">
             <mat-option *ngFor="let categoria of categoriaPermissaoOptions" [value]="categoria.id">
               {{ categoria.nome }}
             </mat-option>
           </mat-select>
-          <button mat-button *ngIf="categoriaPermissaoSelecionada" matSuffix aria-label="Clear" (click)="categoriaPermissaoSelecionada=''">
+          <button mat-button *ngIf="categoriaPermissaoSelecionada" matSuffix aria-label="Clear" (click)="categoriaPermissaoSelecionada=0">
             <i class="material-icons black v-middle">
               close
             </i>
@@ -41,13 +41,13 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label>Situação Permissão</mat-label>
+          <mat-label>Situação Permissão*</mat-label>
           <mat-select [(value)]="statusPermissaoSelecionada">
             <mat-option *ngFor="let status of statusPermissaoOptions" [value]="status.id">
               {{ status.nome }}
             </mat-option>
           </mat-select>
-          <button mat-button *ngIf="statusPermissaoSelecionada" matSuffix aria-label="Clear" (click)="statusPermissaoSelecionada=''">
+          <button mat-button *ngIf="statusPermissaoSelecionada" matSuffix aria-label="Clear" (click)="statusPermissaoSelecionada=0">
             <i class="material-icons black v-middle">
               close
             </i>
@@ -55,21 +55,21 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Período Inicial Situação</mat-label>
+          <mat-label >Período Inicial Situação*</mat-label>
           <input matInput [min]="minDate" [matDatepicker]="periodoInicial" placeholder="Período Inicial Situação" [(ngModel)]="permissao.periodoInicialStatus" name="periodoInicialStatus">
           <mat-datepicker-toggle matIconSuffix [for]="periodoInicial"></mat-datepicker-toggle>
           <mat-datepicker #periodoInicial></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Período Final Situação</mat-label>
+          <mat-label >Período Final Situação*</mat-label>
           <input matInput [min]="minDate" [matDatepicker]="periodoFinal" placeholder="Período Final Situação" [(ngModel)]="permissao.periodoFinalStatus" name="periodoFinalStatus">
           <mat-datepicker-toggle matIconSuffix [for]="periodoFinal"></mat-datepicker-toggle>
           <mat-datepicker #periodoFinal></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Data Validade Permissão</mat-label>
+          <mat-label >Data Validade Permissão*</mat-label>
           <input matInput [min]="minDate" [matDatepicker]="dataValidade" placeholder="Data Validade Permissão" [(ngModel)]="permissao.dataValidadePermissao" name="dataValidadePermissao">
           <mat-datepicker-toggle matIconSuffix [for]="dataValidade"></mat-datepicker-toggle>
           <mat-datepicker #dataValidade></mat-datepicker>
@@ -82,7 +82,7 @@
               {{ penalidade.nome }}
             </mat-option>
           </mat-select>
-          <button mat-button *ngIf="penalidadeSelecionada" matSuffix aria-label="Clear" (click)="penalidadeSelecionada=''">
+          <button mat-button *ngIf="penalidadeSelecionada" matSuffix aria-label="Clear" (click)="penalidadeSelecionada=0">
             <i class="material-icons black v-middle">
               close
             </i>
@@ -97,7 +97,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Nº Autorização de Tráfego (AT)</mat-label>
+          <mat-label >Nº Autorização de Tráfego (AT)*</mat-label>
           <input type="number" matInput placeholder="Nº Autorização de Tráfego (AT)" style="margin-right: 20px;" [(ngModel)]="permissao.autorizacaoTrafego" name="autorizacaoTrafego">
           <button mat-button *ngIf="permissao.autorizacaoTrafego" matSuffix aria-label="Clear" (click)="permissao.autorizacaoTrafego=''">
             <i class="material-icons black v-middle">
@@ -107,13 +107,13 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label>Modalidade</mat-label>
+          <mat-label>Modalidade*</mat-label>
           <mat-select [(value)]="modalidadeSelecionada">
             <mat-option *ngFor="let moda of modalidadeOptions" [value]="moda.id">
               {{ moda.nome }}
             </mat-option>
           </mat-select>
-          <button mat-button *ngIf="modalidadeSelecionada" matSuffix aria-label="Clear" (click)="modalidadeSelecionada=''">
+          <button mat-button *ngIf="modalidadeSelecionada" matSuffix aria-label="Clear" (click)="modalidadeSelecionada=0">
             <i class="material-icons black v-middle">
               close
             </i>

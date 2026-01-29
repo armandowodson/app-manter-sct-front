@@ -2,35 +2,108 @@
 
 <mat-drawer-container [class.drawer-opened]="drawer.opened">
   <mat-drawer #drawer mode="side" opened="true" class="menu estilo" mode="side">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
-    <mat-nav-list class="nav-list">
+    <div style="margin-bottom: 10px">
       <a mat-list-item routerLink="/">
         <i class="material-icons">
           home
         </i>
         Início
       </a>
+    </div>
+    <div style="margin-bottom: 10px">
       <a mat-list-item routerLink="/logar" *ngIf="environment.loginGlobal=='0'">
         <i class="material-icons">
           login
         </i>
         Acessar SGSC
       </a>
+    </div>
+    <div style="margin-bottom: 10px">
       <a mat-list-item routerLink="/registrar">
         <i class="material-icons">
           add_circle
         </i>
         Registrar Usuário
       </a>
+    </div>
+    <div style="margin-bottom: 10px">
+      <button mat-button [matMenuTriggerFor]="menuPrincipal" *ngIf="environment.loginGlobal=='1'">Módulos SGSC
+        <i class="material-icons">
+          computer
+        </i>
+      </button>
+    </div>
+    <div style="margin-bottom: 10px">
       <a mat-list-item routerLink="/sair" *ngIf="environment.loginGlobal=='1'">
         <i class="material-icons">
           arrow_back
         </i>
         Sair
       </a>
-    </mat-nav-list>
-  </mat-drawer>
+    </div>
 
+    <!-- Menu Principal -->
+    <mat-menu #menuPrincipal="matMenu">
+      <!-- Item que abre o Submenu do Menu Módulos SGSC -->
+      <div style="margin-bottom: 10px">
+        <a mat-list-item routerLink="/permissao">
+          <i class="material-icons">
+            apps
+          </i>
+          Permissão
+        </a>
+      </div>
+      <div style="margin-bottom: 10px">
+        <a mat-list-item routerLink="/permissionario">
+          <i class="material-icons">
+            person
+          </i>
+          Permissionário
+        </a>
+      </div>
+      <div style="margin-bottom: 10px">
+        <a mat-list-item routerLink="/ponto-taxi">
+          <i class="material-icons">
+            garage
+          </i>
+          PET
+        </a>
+      </div>
+      <div style="margin-bottom: 10px">
+        <a mat-list-item routerLink="/veiculo">
+          <i class="material-icons">
+            local_taxi
+          </i>
+          Veículo
+        </a>
+      </div>
+      <div style="margin-bottom: 10px">
+        <a mat-list-item routerLink="/defensor">
+          <i class="material-icons">
+            person
+          </i>
+          Defensor
+        </a>
+      </div>
+      <div style="margin-bottom: 10px">
+        <a mat-list-item routerLink="/fiscalizacao">
+          <i class="material-icons">
+            folder
+          </i>
+          Fiscalização
+        </a>
+      </div>
+      <div style="margin-bottom: 10px">
+        <a mat-list-item routerLink="/auditoria">
+          <i class="material-icons">
+            check
+          </i>
+          Auditoria
+        </a>
+      </div>
+    </mat-menu>
+
+  </mat-drawer>
   <div class="main contents">
     <router-outlet></router-outlet>
   </div>
@@ -39,3 +112,4 @@
     Versão da Aplicação 1.0 - 2025
   </mat-toolbar>
 </mat-drawer-container>
+

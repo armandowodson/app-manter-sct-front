@@ -5,12 +5,12 @@ export interface PermissionarioModelo {
   cpfPermissionario: string
   rgPermissionario: string
   orgaoEmissor: string
-  naturezaPessoa: string
   ufPermissionario: string
   cidadePermissionario: string
   bairroPermissionario: string
   enderecoPermissionario: string
   celularPermissionario: string
+  emailPermissionario: string
   cnhPermissionario: string
   categoriaCnhPermissionario: string
   numeroQuitacaoMilitar: string

@@ -22,12 +22,12 @@ export class PermissionarioCreateComponent implements OnInit {
     cpfPermissionario: "",
     rgPermissionario: "",
     orgaoEmissor: "",
-    naturezaPessoa: "",
     ufPermissionario: "",
     cidadePermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
+    emailPermissionario: "",
     cnhPermissionario: "",
     categoriaCnhPermissionario: "",
     numeroQuitacaoMilitar: "",
@@ -40,12 +40,6 @@ export class PermissionarioCreateComponent implements OnInit {
     aplicativoAlternativo: "",
     observacao: ""
   };
-
-  naturezaSelecionada = "";
-  naturezaPessoaOptions = [
-    { id: 1, nome: 'FÍSICA' },
-    { id: 2, nome: 'JURÍDICA' }
-  ];
 
   ufSelecionada = "";
   ufOptions = [
@@ -147,13 +141,16 @@ export class PermissionarioCreateComponent implements OnInit {
   }
 
   inserirPermissionario(): void{
-    this.permissionario.naturezaPessoa = this.naturezaSelecionada;
     this.permissionario.ufPermissionario = this.ufSelecionada;
     this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
     this.permissionario.numeroPermissao = this.permissaoSelecionada;
     this.permissionario.aplicativoAlternativo = this.aplicativoAlternativoSelecionado;
 
     this.permissionario.usuario = environment.usuarioLogado;
+
+    if(this.validarCamposObrigatoriosPermissionario() == false){
+      return;
+    }
 
     this.permissionarioService.inserirPermissionario(this.permissionario, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
@@ -165,6 +162,63 @@ export class PermissionarioCreateComponent implements OnInit {
         this.permissionarioService.showMessageError(error.message);
       }
     });
+  }
+
+  validarCamposObrigatoriosPermissionario(): boolean{
+    if(this.permissionario.numeroPermissao == null || this.permissionario.numeroPermissao == ''){
+      this.permissionarioService.showMessageError('O campo Nº da Permissão é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.nomePermissionario == null || this.permissionario.nomePermissionario == ''){
+      this.permissionarioService.showMessageError('O campo Nome Permissionário é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.cpfPermissionario == null || this.permissionario.cpfPermissionario == ''){
+      this.permissionarioService.showMessageError('O campo CPF é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.rgPermissionario == null || this.permissionario.rgPermissionario == ''){
+      this.permissionarioService.showMessageError('O campo RG é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.orgaoEmissor == null || this.permissionario.orgaoEmissor == ''){
+      this.permissionarioService.showMessageError('O campo Órgão Emissor é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.celularPermissionario == null || this.permissionario.celularPermissionario == ''){
+      this.permissionarioService.showMessageError('O campo Celular/Telefone é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.ufPermissionario == null || this.permissionario.ufPermissionario == ''){
+      this.permissionarioService.showMessageError('O campo UF é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.cidadePermissionario == null || this.permissionario.cidadePermissionario == ''){
+      this.permissionarioService.showMessageError('O campo Cidade é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.bairroPermissionario == null || this.permissionario.bairroPermissionario == ''){
+      this.permissionarioService.showMessageError('O campo Bairro é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.enderecoPermissionario == null || this.permissionario.enderecoPermissionario == ''){
+      this.permissionarioService.showMessageError('O campo Endereço é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.cnhPermissionario == null || this.permissionario.cnhPermissionario == ''){
+      this.permissionarioService.showMessageError('O campo CNH é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.categoriaCnhPermissionario == null || this.permissionario.categoriaCnhPermissionario == ''){
+      this.permissionarioService.showMessageError('O campo Categoria CNH é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.aplicativoAlternativo == null || this.permissionario.aplicativoAlternativo == ''){
+      this.permissionarioService.showMessageError('O campo Aplicativo Alternativo é obrigatório!');
+      return false;
+    }
+
+    return true;
   }
 
   voltar(): void{

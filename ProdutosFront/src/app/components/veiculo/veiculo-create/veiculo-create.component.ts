@@ -49,9 +49,8 @@ export class VeiculoCreateComponent implements OnInit {
 
   corSelecionada = "";
   corOptions = [
-    { id: 1, nome: 'BRANCO' },
-    { id: 2, nome: 'PRATA' },
-    { id: 3, nome: 'CINZA' }
+    { id: 1, nome: 'BRANCA' },
+    { id: 2, nome: 'PRATA' }
   ];
 
   combustivelSelecionado = "";
@@ -86,12 +85,12 @@ export class VeiculoCreateComponent implements OnInit {
     cpfPermissionario: "",
     rgPermissionario: "",
     orgaoEmissor: "",
-    naturezaPessoa: "",
     ufPermissionario: "",
     cidadePermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
     celularPermissionario: "",
+    emailPermissionario: "",
     cnhPermissionario: "",
     categoriaCnhPermissionario: "",
     numeroQuitacaoMilitar: "",
@@ -192,13 +191,7 @@ export class VeiculoCreateComponent implements OnInit {
       this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
       this.veiculo.usuario = environment.usuarioLogado;
 
-      if(this.crlvSelecionado?.name == null || this.crlvSelecionado.name == ''){
-        this.veiculoService.showMessageAlert('O anexo do CRLV é obrigatório!');
-        return;
-      }
-
-      if(this.comprovanteVistoriaSelecionado?.name == null || this.comprovanteVistoriaSelecionado.name == ''){
-        this.veiculoService.showMessageAlert('O anexo do Comprovante de Vistoria é obrigatório!');
+      if(this.validarCamposObrigatoriosVeiculo() == false){
         return;
       }
 
@@ -212,6 +205,100 @@ export class VeiculoCreateComponent implements OnInit {
           this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
+  }
+
+  validarCamposObrigatoriosVeiculo(): boolean{
+    if(this.veiculo.idPermissionario == null || this.veiculo.idPermissionario == ''){
+      this.veiculoService.showMessageError('O campo Permissionário é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.idPontoTaxi == null || this.veiculo.idPontoTaxi == ''){
+      this.veiculoService.showMessageError('O campo Ponto de Estacionamento de Táxi é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.idPontoTaxi == null || this.veiculo.idPontoTaxi == ''){
+      this.veiculoService.showMessageError('O campo Ponto de Estacionamento de Táxi é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.placa == null || this.veiculo.placa == ''){
+      this.veiculoService.showMessageError('O campo Placa é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.tipoVeiculo == null || this.veiculo.tipoVeiculo == ''){
+      this.veiculoService.showMessageError('O campo Tipo de Veículo é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.marca == null || this.veiculo.marca == ''){
+      this.veiculoService.showMessageError('O campo Marca é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.modelo == null || this.veiculo.modelo == ''){
+      this.veiculoService.showMessageError('O campo Modelo é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.anoModelo == null || this.veiculo.anoModelo == ''){
+      this.veiculoService.showMessageError('O campo Ano Modelo é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.renavam == null || this.veiculo.renavam == ''){
+      this.veiculoService.showMessageError('O campo Renavam é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.cor == null || this.veiculo.cor == ''){
+      this.veiculoService.showMessageError('O campo Cor é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.combustivel == null || this.veiculo.combustivel == ''){
+      this.veiculoService.showMessageError('O campo Combustível é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.chassi == null || this.veiculo.chassi == ''){
+      this.veiculoService.showMessageError('O campo Chassi é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.anoFabricacao == null || this.veiculo.anoFabricacao == ''){
+      this.veiculoService.showMessageError('O campo Ano Fabricação é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.situacaoVeiculo == null || this.veiculo.situacaoVeiculo == ''){
+      this.veiculoService.showMessageError('O campo Situação do Veículo é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.numeroCrlv == null || this.veiculo.numeroCrlv == ''){
+      this.veiculoService.showMessageError('O campo Nº do CRLV é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.anoCrlv == null || this.veiculo.anoCrlv == ''){
+      this.veiculoService.showMessageError('O campo Ano do CRLV é obrigatório!');
+      return false;
+    }
+
+    if(this.crlvSelecionado?.name == null || this.crlvSelecionado.name == ''){
+      this.veiculoService.showMessageAlert('O anexo do CRLV é obrigatório!');
+      return false;
+    }
+
+    if(this.comprovanteVistoriaSelecionado?.name == null || this.comprovanteVistoriaSelecionado.name == ''){
+      this.veiculoService.showMessageAlert('O anexo do Comprovante de Vistoria é obrigatório!');
+      return false;
+    }
+
+    return true;
   }
 
   voltar(): void{

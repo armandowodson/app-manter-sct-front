@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { CurrencyPipe } from "@angular/common";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import {environment} from "../../../../environments/environment";
+import {Md5} from "ts-md5";
 
 @Injectable({
   providedIn: "root",
@@ -43,20 +44,39 @@ export class LoginComponent implements OnInit {
   }
 
   logar() {
-    this.loginService.efetuarLogin(this.login).subscribe(login => {
-        if (login == null || login.usuario == '') {
-          this.loginService.showMessageAlert('Usuário e/ou Senha inválidos!');
-        }else{
-          environment.loginGlobal = '1';
-          environment.usuarioLogado = this.login.usuario;
-          environment.nomeLogado = login.nome;
-          this.router.navigate(['/principal']);
-        }
+    if(this.validarCamposObrigatoriosLogin() == false){
+      return;
+    }
+
+    const hash = Md5.hashStr(this.login.senha);
+    this.login.senha = hash;
+
+    this.loginService.efetuarLogin(this.login).subscribe({
+      next: (response) => {
+        this.loginService.showMessageSuccess('Login Efetuado com Sucesso!');
+        environment.loginGlobal = '1';
+        environment.usuarioLogado = this.login.usuario;
+        environment.nomeLogado = response.nome;
+        this.router.navigate(['/principal']);
       },
-      error => {
-        this.errors = error
-        this.loginService.showMessageError(this.errors);
+      error: (error) => {
+        this.loginService.showMessageError(error.message.replace("Error: ", ""));
+      }
     });
+  }
+
+  validarCamposObrigatoriosLogin(): boolean{
+    if(this.login.usuario == null || this.login.usuario == ""){
+      this.loginService.showMessageAlert('O campo Usuário é obrigatório!');
+      return false;
+    }
+
+    if(this.login.senha == null || this.login.senha == ""){
+      this.loginService.showMessageAlert('O campo Senha é obrigatório!');
+      return false;
+    }
+
+    return true;
   }
 
 }

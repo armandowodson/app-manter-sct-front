@@ -5,13 +5,14 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {Login} from "../components/template/login/login.model";
 import {Registro} from "../components/template/registro/registro.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LoginService {
-  baseUrl = "http://localhost:9190/login";
+  baseUrl = environment.urlAplicacao+"/login";
   snackBar = inject(MatSnackBar);
 
   constructor(private http: HttpClient, handler: HttpBackend) { }
@@ -20,7 +21,7 @@ export class LoginService {
   }
 
   registrarLogin(registro: Registro): Observable<Registro> {
-    return this.http.post<Registro>(this.baseUrl+'/gravar', registro).pipe(catchError(this.errorHandlerInserir));
+    return this.http.post<Registro>(this.baseUrl+'/gravar', registro).pipe(catchError(this.errorHandler));
   }
 
   public showMessageSuccess(message: string) {
@@ -41,16 +42,13 @@ export class LoginService {
     return config;
   }
 
-  errorHandler() {
-    return throwError("Usuário e/ou Senha Inválidos!");
-  }
 
   public showMessageError(message: string) {
     let config = this.configurarSnackBar('error-snackbar');
     this.snackBar.open(message, 'X', config);
   }
 
-  errorHandlerInserir() {
-    return throwError("Ocorreu um erro ao Inserir o Usuário!");
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(() => new Error(error.error.message));
   }
 }

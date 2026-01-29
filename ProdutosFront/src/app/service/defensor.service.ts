@@ -7,6 +7,7 @@ import {DefensorModelo} from "../components/defensor/defensor-modelo.model";
 import {DefensorFiltro} from "../components/defensor/defensor-filtro.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
 import {PermissionarioModelo} from "../components/permissionario/permissionario-modelo.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import {PermissionarioModelo} from "../components/permissionario/permissionario-
 export class DefensorService {
 
   snackBar = inject(MatSnackBar);
-  baseUrl = "http://localhost:9190/defensor";
+  baseUrl = environment.urlAplicacao+"/defensor";
   erroMetodo  = "";
 
   httpOptions = {
@@ -55,7 +56,6 @@ export class DefensorService {
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
       ', "orgaoEmissor": "' + defensor.orgaoEmissor + '"' +
-      ', "naturezaPessoa": "' + defensor.naturezaPessoa + '"' +
       ', "cnhDefensor": "' + defensor.cnhDefensor + '"' +
       ', "categoriaCnhDefensor": "' + defensor.categoriaCnhDefensor + '"' +
       ', "ufDefensor": "' + defensor.ufDefensor + '"' +
@@ -63,6 +63,7 @@ export class DefensorService {
       ', "bairroDefensor": "' + defensor.bairroDefensor + '"' +
       ', "enderecoDefensor": "' + defensor.enderecoDefensor + '"' +
       ', "celularDefensor": "' + defensor.celularDefensor + '"' +
+      ', "emailDefensor": "' + defensor.emailDefensor + '"' +
       ', "numeroQuitacaoMilitar": "' + defensor.numeroQuitacaoMilitar + '"' +
       ', "numeroQuitacaoEleitoral": "' + defensor.numeroQuitacaoEleitoral + '"' +
       ', "numeroInscricaoInss": "' + defensor.numeroInscricaoInss + '"' +
@@ -90,7 +91,6 @@ export class DefensorService {
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
       ', "orgaoEmissor": "' + defensor.orgaoEmissor + '"' +
-      ', "naturezaPessoa": "' + defensor.naturezaPessoa + '"' +
       ', "cnhDefensor": "' + defensor.cnhDefensor + '"' +
       ', "categoriaCnhDefensor": "' + defensor.categoriaCnhDefensor + '"' +
       ', "ufDefensor": "' + defensor.ufDefensor + '"' +
@@ -98,6 +98,7 @@ export class DefensorService {
       ', "bairroDefensor": "' + defensor.bairroDefensor + '"' +
       ', "enderecoDefensor": "' + defensor.enderecoDefensor + '"' +
       ', "celularDefensor": "' + defensor.celularDefensor + '"' +
+      ', "emailDefensor": "' + defensor.emailDefensor + '"' +
       ', "numeroQuitacaoMilitar": "' + defensor.numeroQuitacaoMilitar + '"' +
       ', "numeroQuitacaoEleitoral": "' + defensor.numeroQuitacaoEleitoral + '"' +
       ', "numeroInscricaoInss": "' + defensor.numeroInscricaoInss + '"' +

@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import {PermissionarioModelo} from "../components/permissionario/permissionario-modelo.model";
 import {PermissionarioFiltro} from "../components/permissionario/permissionario-filtro.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import {PageModelo} from "../components/comum/page-modelo.model";
 export class PermissionarioService {
 
   snackBar = inject(MatSnackBar);
-  baseUrl = "http://localhost:9190/permissionario";
+  baseUrl = environment.urlAplicacao+"/permissionario";
   erroMetodo  = "";
 
   httpOptions = {
@@ -54,7 +55,6 @@ export class PermissionarioService {
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
-      ', "naturezaPessoa": "' + permissionario.naturezaPessoa + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
       ', "categoriaCnhPermissionario": "' + permissionario.categoriaCnhPermissionario + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
@@ -62,6 +62,7 @@ export class PermissionarioService {
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
       ', "celularPermissionario": "' + permissionario.celularPermissionario + '"' +
+      ', "emailPermissionario": "' + permissionario.emailPermissionario + '"' +
       ', "numeroQuitacaoMilitar": "' + permissionario.numeroQuitacaoMilitar + '"' +
       ', "numeroQuitacaoEleitoral": "' + permissionario.numeroQuitacaoEleitoral + '"' +
       ', "numeroInscricaoInss": "' + permissionario.numeroInscricaoInss + '"' +
@@ -91,7 +92,6 @@ export class PermissionarioService {
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
-      ', "naturezaPessoa": "' + permissionario.naturezaPessoa + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
       ', "categoriaCnhPermissionario": "' + permissionario.categoriaCnhPermissionario + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
@@ -99,6 +99,7 @@ export class PermissionarioService {
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
       ', "celularPermissionario": "' + permissionario.celularPermissionario + '"' +
+      ', "emailPermissionario": "' + permissionario.emailPermissionario + '"' +
       ', "numeroQuitacaoMilitar": "' + permissionario.numeroQuitacaoMilitar + '"' +
       ', "numeroQuitacaoEleitoral": "' + permissionario.numeroQuitacaoEleitoral + '"' +
       ', "numeroInscricaoInss": "' + permissionario.numeroInscricaoInss + '"' +

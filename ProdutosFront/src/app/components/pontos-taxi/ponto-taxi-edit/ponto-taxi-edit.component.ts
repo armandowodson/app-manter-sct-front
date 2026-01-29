@@ -34,9 +34,9 @@ export class PontoTaxiEditComponent implements OnInit {
 
   modalidadeSelecionada = "";
   modalidadeOptions = [
-    { id: 'FIXO', nome: 'FIXO' },
-    { id: 'ROTATIVO', nome: 'ROTATIVO' },
-    { id: 'FIX-ROTATIVO', nome: 'FIX-ROTATIVO' }
+    { id: '1', nome: 'FIXO' },
+    { id: '2', nome: 'ROTATIVO' },
+    { id: '3', nome: 'FIX-ROTATIVO' }
   ];
 
   errors: string;
@@ -96,15 +96,44 @@ export class PontoTaxiEditComponent implements OnInit {
     this.pontoTaxi.modalidade = this.modalidadeSelecionada;
     this.pontoTaxi.usuario = environment.usuarioLogado;
 
+    if(this.validarCamposObrigatoriosPontoTaxi() == false){
+      return;
+    }
+
     this.pontoTaxiService.editarPontoTaxi(this.pontoTaxi).subscribe({
       next: (response) => {
         this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Táxi Atualizado com Sucesso!!!');
         this.router.navigate(['/ponto-taxi']);
       },
       error: (error) => {
-        this.pontoTaxiService.showMessageError(error.message);
+        this.pontoTaxiService.showMessageError(error.message.replace("Error: ", ""));
       }
     });
+  }
+
+  validarCamposObrigatoriosPontoTaxi(): boolean{
+    if(this.pontoTaxi.numeroPonto == null || this.pontoTaxi.numeroPonto == undefined || this.pontoTaxi.numeroPonto == ''){
+      this.pontoTaxiService.showMessageAlert('O campo Número do Ponto é obrigatório!');
+      return false;
+    }
+    if(this.pontoTaxi.descricaoPonto == null || this.pontoTaxi.descricaoPonto == undefined || this.pontoTaxi.descricaoPonto == ''){
+      this.pontoTaxiService.showMessageAlert('O campo Nome/Descrição do Ponto é obrigatório!');
+      return false;
+    }
+    if(this.pontoTaxi.numeroVagas == null || this.pontoTaxi.numeroVagas == undefined || this.pontoTaxi.numeroVagas == ''){
+      this.pontoTaxiService.showMessageAlert('O campo Nº de Vagas do Ponto é obrigatório!');
+      return false;
+    }
+    if(this.pontoTaxi.referenciaPonto == null || this.pontoTaxi.referenciaPonto == undefined || this.pontoTaxi.referenciaPonto == ''){
+      this.pontoTaxiService.showMessageAlert('O campo Ponto Referência é obrigatório!');
+      return false;
+    }
+    if(this.pontoTaxi.modalidade == null || this.pontoTaxi.modalidade == undefined || this.pontoTaxi.modalidade == ''){
+      this.pontoTaxiService.showMessageAlert('O campo Modalidade é obrigatório!');
+      return false;
+    }
+
+    return true;
   }
 
   voltar(): void{

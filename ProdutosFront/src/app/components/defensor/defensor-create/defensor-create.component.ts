@@ -25,12 +25,12 @@ export class DefensorCreateComponent implements OnInit {
     cpfDefensor: "",
     rgDefensor: "",
     orgaoEmissor: "",
-    naturezaPessoa: "",
     ufDefensor: "",
     cidadeDefensor: "",
     bairroDefensor: "",
     enderecoDefensor: "",
     celularDefensor: "",
+    emailDefensor: "",
     cnhDefensor: "",
     categoriaCnhDefensor: "",
     numeroQuitacaoMilitar: "",
@@ -41,12 +41,6 @@ export class DefensorCreateComponent implements OnInit {
     usuario: "",
     status: ""
   };
-
-  naturezaSelecionada = "";
-  naturezaPessoaOptions = [
-    { id: 1, nome: 'FÍSICA' },
-    { id: 2, nome: 'JURÍDICA' }
-  ];
 
   ufSelecionada = "";
   ufOptions = [
@@ -142,12 +136,15 @@ export class DefensorCreateComponent implements OnInit {
   }
 
   inserirDefensor(): void{
-    this.defensor.naturezaPessoa = this.naturezaSelecionada;
     this.defensor.ufDefensor = this.ufSelecionada;
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
     this.defensor.numeroPermissao = this.permissaoSelecionada;
 
     this.defensor.usuario = environment.usuarioLogado;
+
+    if(this.validarCamposObrigatoriosDefensor() == false){
+      return;
+    }
 
     this.defensorService.inserirDefensor(this.defensor, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
       this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
@@ -159,6 +156,59 @@ export class DefensorCreateComponent implements OnInit {
         this.defensorService.showMessageError(error.message.replace("Error: ", ""));
       }
     });
+  }
+
+  validarCamposObrigatoriosDefensor(): boolean{
+    if(this.defensor.numeroPermissao == null || this.defensor.numeroPermissao == ''){
+      this.defensorService.showMessageError('O campo Nº da Permissão é obrigatório!');
+      return false;
+    }
+    if(this.defensor.nomeDefensor == null || this.defensor.nomeDefensor == ''){
+      this.defensorService.showMessageError('O campo Nome Permissionário é obrigatório!');
+      return false;
+    }
+    if(this.defensor.cpfDefensor == null || this.defensor.cpfDefensor == ''){
+      this.defensorService.showMessageError('O campo CPF é obrigatório!');
+      return false;
+    }
+    if(this.defensor.rgDefensor == null || this.defensor.rgDefensor == ''){
+      this.defensorService.showMessageError('O campo RG é obrigatório!');
+      return false;
+    }
+    if(this.defensor.orgaoEmissor == null || this.defensor.orgaoEmissor == ''){
+      this.defensorService.showMessageError('O campo Órgão Emissor é obrigatório!');
+      return false;
+    }
+    if(this.defensor.celularDefensor == null || this.defensor.celularDefensor == ''){
+      this.defensorService.showMessageError('O campo Celular/Telefone é obrigatório!');
+      return false;
+    }
+    if(this.defensor.ufDefensor == null || this.defensor.ufDefensor == ''){
+      this.defensorService.showMessageError('O campo UF é obrigatório!');
+      return false;
+    }
+    if(this.defensor.cidadeDefensor == null || this.defensor.cidadeDefensor == ''){
+      this.defensorService.showMessageError('O campo Cidade é obrigatório!');
+      return false;
+    }
+    if(this.defensor.bairroDefensor == null || this.defensor.bairroDefensor == ''){
+      this.defensorService.showMessageError('O campo Bairro é obrigatório!');
+      return false;
+    }
+    if(this.defensor.enderecoDefensor == null || this.defensor.enderecoDefensor == ''){
+      this.defensorService.showMessageError('O campo Endereço é obrigatório!');
+      return false;
+    }
+    if(this.defensor.cnhDefensor == null || this.defensor.cnhDefensor == ''){
+      this.defensorService.showMessageError('O campo CNH é obrigatório!');
+      return false;
+    }
+    if(this.defensor.categoriaCnhDefensor == null || this.defensor.categoriaCnhDefensor == ''){
+      this.defensorService.showMessageError('O campo Categoria CNH é obrigatório!');
+      return false;
+    }
+
+    return true;
   }
 
   voltar(): void{

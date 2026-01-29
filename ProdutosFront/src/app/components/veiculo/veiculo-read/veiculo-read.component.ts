@@ -210,13 +210,10 @@ export class VeiculoReadComponent implements OnInit {
     // Switch statement to map color codes to color names
     switch (cor) {
       case "1":
-        strCor = "BRANCO";  // Portuguese for WHITE
+        strCor = "BRANCA";  // Portuguese for WHITE
         break;
       case "2":
         strCor = "PRATA";   // Portuguese for SILVER
-        break;
-      case "3":
-        strCor = "CINZA";   // Portuguese for GRAY
         break;
     }
     return strCor;  // Return the color name

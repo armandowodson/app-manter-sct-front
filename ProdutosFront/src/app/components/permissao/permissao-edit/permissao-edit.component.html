@@ -8,7 +8,7 @@
     <form>
         <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº Permissão*</mat-label>
-          <input type="number" matInput placeholder="Nº Permissão" style="margin-right: 20px;" [(ngModel)]="permissao.numeroPermissao" name="numeroPermissao">
+          <input maxlength="10" type="number" matInput placeholder="Nº Permissão" style="margin-right: 20px;" [(ngModel)]="permissao.numeroPermissao" name="numeroPermissao">
           <button mat-button *ngIf="permissao.numeroPermissao" matSuffix aria-label="Clear" (click)="permissao.numeroPermissao=''">
             <i class="material-icons black v-middle">
               close
@@ -18,7 +18,7 @@
 
         <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Ano Permissão*</mat-label>
-          <input type="number" matInput placeholder="Ano Permissão" style="margin-right: 20px;" [(ngModel)]="permissao.anoPermissao" name="anoPermissao">
+          <input maxlength="4" type="number" matInput placeholder="Ano Permissão" style="margin-right: 20px;" [(ngModel)]="permissao.anoPermissao" name="anoPermissao">
           <button mat-button *ngIf="permissao.anoPermissao" matSuffix aria-label="Clear" (click)="permissao.anoPermissao=''">
             <i class="material-icons black v-middle">
               close

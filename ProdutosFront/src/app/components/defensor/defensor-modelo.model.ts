@@ -5,12 +5,12 @@ export interface DefensorModelo {
   cpfDefensor: string
   rgDefensor: string
   orgaoEmissor: string
-  naturezaPessoa: string
   ufDefensor: string
   cidadeDefensor: string
   bairroDefensor: string
   enderecoDefensor: string
   celularDefensor: string
+  emailDefensor: string
   cnhDefensor: string
   categoriaCnhDefensor: string
   numeroQuitacaoMilitar: string

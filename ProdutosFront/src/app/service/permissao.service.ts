@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {PermissaoModelo} from "../components/permissao/permissao.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import {PageModelo} from "../components/comum/page-modelo.model";
 export class PermissaoService {
 
   snackBar = inject(MatSnackBar);
-  baseUrl = "http://localhost:9190/permissao";
+  baseUrl = environment.urlAplicacao+"/permissao";
   erroMetodo  = "";
 
   httpOptions = {

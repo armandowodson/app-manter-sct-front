@@ -44,6 +44,7 @@ export class PontoTaxiReadComponent implements OnInit {
   pageIndex: number;
   pageSize: number;
   buscouTodos: number;
+  modalidadeListagem: string;
 
   constructor(
     private pontoTaxiService: PontoTaxiService,
@@ -57,6 +58,7 @@ export class PontoTaxiReadComponent implements OnInit {
     this.pageIndex = 0;
     this.pageSize = 10;
     this.buscouTodos = 0;
+    this.modalidadeListagem = "";
   }
 
   ngOnInit(): void {
@@ -83,7 +85,8 @@ export class PontoTaxiReadComponent implements OnInit {
             fatorRotatividade: item.fatorRotatividade,
             referenciaPonto: item.referenciaPonto,
             numeroVagas: item.numeroVagas,
-            modalidade: this.carregarModalidade(item.modalidade),
+            modalidade: item.modalidade,
+            modalidadeListagem: this.carregarModalidade(item.modalidade),
             dataCriacao: item.dataCriacao,
             usuario: item.usuario,
             status: item.status
@@ -141,7 +144,8 @@ export class PontoTaxiReadComponent implements OnInit {
             fatorRotatividade: item.fatorRotatividade,
             referenciaPonto: item.referenciaPonto,
             numeroVagas: item.numeroVagas,
-            modalidade: this.carregarModalidade(item.modalidade),
+            modalidade: item.modalidade,
+            modalidadeListagem: this.carregarModalidade(item.modalidade),
             dataCriacao: item.dataCriacao,
             usuario: item.usuario,
             status: item.status

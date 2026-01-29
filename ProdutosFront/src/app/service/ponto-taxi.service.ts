@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {PontoTaxiModelo} from "../components/pontos-taxi/ponto-taxi.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import {PageModelo} from "../components/comum/page-modelo.model";
 export class PontoTaxiService {
 
   snackBar = inject(MatSnackBar);
-  baseUrl = "http://localhost:9190/ponto-taxi";
+  baseUrl = environment.urlAplicacao+"/ponto-taxi";
   erroMetodo  = "";
 
   httpOptions = {

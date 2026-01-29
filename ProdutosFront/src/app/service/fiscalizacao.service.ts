@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {FiscalizacaoModelo} from "../components/fiscalizacao/fiscalizacao.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import {PageModelo} from "../components/comum/page-modelo.model";
 export class FiscalizacaoService {
 
   snackBar = inject(MatSnackBar);
-  baseUrl = "http://localhost:9190/fiscalizacao";
+  baseUrl = environment.urlAplicacao+"/fiscalizacao";
   erroMetodo  = "";
 
   httpOptions = {

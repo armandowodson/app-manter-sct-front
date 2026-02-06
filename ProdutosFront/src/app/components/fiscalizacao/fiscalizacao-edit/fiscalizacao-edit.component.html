@@ -7,7 +7,7 @@
   </div>
   <form>
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Placa Veículo</mat-label>
+      <mat-label >Placa Veículo*</mat-label>
       <input matInput placeholder="Placa Veículo" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.placa" name="placa">
       <button mat-button matSuffix aria-label="Clear" (click)="buscarVeiculoPlaca()">
         <i class="material-icons black v-middle">
@@ -52,14 +52,14 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Data Fiscalização</mat-label>
+      <mat-label >Data Fiscalização*</mat-label>
       <input matInput [matDatepicker]="dataFiscalizacao" placeholder="Data Fiscalização" [(ngModel)]="fiscalizacao.dataFiscalizacao" name="dataFiscalizacao">
       <mat-datepicker-toggle matIconSuffix [for]="dataFiscalizacao"></mat-datepicker-toggle>
       <mat-datepicker #dataFiscalizacao></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Motivo Infração</mat-label>
+      <mat-label>Motivo Infração*</mat-label>
       <mat-select [(value)]="motivoInfracaoSelecionado">
         <mat-option *ngFor="let motivo of motivoInfracaoOptions" [value]="motivo.id">
           {{ motivo.nome }}
@@ -73,7 +73,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Tipo Infração</mat-label>
+      <mat-label>Tipo Infração*</mat-label>
       <mat-select [(value)]="tipoInfracaoSelecionado">
         <mat-option *ngFor="let tipo of tipoInfracaoOptions" [value]="tipo.id">
           {{ tipo.nome }}
@@ -87,14 +87,14 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Prazo p/ Regularização (até)</mat-label>
+      <mat-label >Prazo p/ Regularização (até)*</mat-label>
       <input matInput [matDatepicker]="prazoRegularizacao" placeholder="Prazo p/ Regularização (até)" [(ngModel)]="fiscalizacao.prazoRegularizacao" name="prazoRegularizacao">
       <mat-datepicker-toggle matIconSuffix [for]="prazoRegularizacao"></mat-datepicker-toggle>
       <mat-datepicker #prazoRegularizacao></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Grupo de Multas</mat-label>
+      <mat-label>Grupo de Multas*</mat-label>
       <mat-select [(value)]="grupoMultasSelecionado">
         <mat-option *ngFor="let grupo of grupoMultasOptions" [value]="grupo.id">
           {{ grupo.nome }}
@@ -108,7 +108,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Natureza da Infração</mat-label>
+      <mat-label>Natureza da Infração*</mat-label>
       <mat-select [(value)]="naturezaInfracaoSelecionada">
         <mat-option *ngFor="let natureza of naturezaInfracaoOptions" [value]="natureza.id">
           {{ natureza.nome }}
@@ -122,7 +122,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Modalidade</mat-label>
+      <mat-label>Modalidade*</mat-label>
       <mat-select [(value)]="modalidadeInfracaoSelecionada">
         <mat-option *ngFor="let modalidade of modalidadeInfracaoOptions" [value]="modalidade.id">
           {{ modalidade.nome }}
@@ -136,7 +136,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Penalidade</mat-label>
+      <mat-label>Penalidade*</mat-label>
       <mat-select [(value)]="penalidadeInfracaoSelecionada">
         <mat-option *ngFor="let penalidade of penalidadeInfracaoOptions" [value]="penalidade.id">
           {{ penalidade.nome }}
@@ -151,7 +151,7 @@
 
     <mat-card>
       <mat-form-field appearance="outline" style="width: 850px; margin-left: 20px; margin-right: 30px;">
-        <mat-label >Observação</mat-label>
+        <mat-label >Observação*</mat-label>
         <textarea [(ngModel)]="fiscalizacao.observacao" matInput placeholder="Observação" name="observacao"></textarea>
       </mat-form-field>
     </mat-card>

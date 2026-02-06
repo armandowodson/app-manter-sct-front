@@ -1,0 +1,4 @@
+
+typescript:S1874m"ä'subscribe' is deprecated. Instead of passing separate callback arguments, use an observer argument. Signatures taking separate callback arguments will be removed in v8. Details: https://rxjs.dev/deprecations/subscribe-arguments(‘ù‹òıÿÿÿÿ8è’éÍÀ3
+Ytypescript:S1125—"6Refactor the code to avoid using this boolean literal.(À¨ÄL8é’éÍÀ3
+xtypescript:S3776§"TRefactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.(ù¼³Ï8ê’éÍÀ3

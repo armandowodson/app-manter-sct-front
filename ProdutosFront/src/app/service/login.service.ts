@@ -24,6 +24,10 @@ export class LoginService {
     return this.http.post<Registro>(this.baseUrl+'/gravar', registro).pipe(catchError(this.errorHandler));
   }
 
+  alterarSenha(registro: Registro): Observable<Registro> {
+    return this.http.post<Registro>(this.baseUrl+'/alterar', registro).pipe(catchError(this.errorHandler));
+  }
+
   public showMessageSuccess(message: string) {
     let config = this.configurarSnackBar('success-snackbar');
     this.snackBar.open(message, 'X', config);

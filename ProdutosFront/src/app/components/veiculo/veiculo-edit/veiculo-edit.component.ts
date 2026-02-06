@@ -51,8 +51,8 @@ export class VeiculoEditComponent implements OnInit {
 
   corSelecionada = "";
   corOptions = [
-    { id: 'BRANCO', nome: 'BRANCA' },
-    { id: 'PRATA', nome: 'PRATA' }
+    { id: '1', nome: 'BRANCA' },
+    { id: '2', nome: 'PRATA' }
   ];
 
   combustivelSelecionado = "";
@@ -291,16 +291,6 @@ export class VeiculoEditComponent implements OnInit {
 
     if(this.veiculo.anoCrlv == null || this.veiculo.anoCrlv == ''){
       this.veiculoService.showMessageError('O campo Ano do CRLV é obrigatório!');
-      return false;
-    }
-
-    if(this.crlvSelecionado?.name == null || this.crlvSelecionado.name == ''){
-      this.veiculoService.showMessageAlert('O anexo do CRLV é obrigatório!');
-      return false;
-    }
-
-    if(this.comprovanteVistoriaSelecionado?.name == null || this.comprovanteVistoriaSelecionado.name == ''){
-      this.veiculoService.showMessageAlert('O anexo do Comprovante de Vistoria é obrigatório!');
       return false;
     }
 

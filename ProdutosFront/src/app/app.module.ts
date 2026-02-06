@@ -45,6 +45,7 @@ import { PermissaoModalComponent } from './components/permissao-modal-component/
 
 import {LoginComponent} from "./components/template/login/login.component";
 import {RegistroComponent} from "./components/template/registro/registro.component";
+import {AlteraSenhaComponent} from "./components/template/altera-senha/altera-senha.component";
 import {LogoutComponent} from "./components/template/logout/logout.component";
 import {PrincipalComponent} from "./components/template/principal/principal.component";
 import {PontoTaxiReadComponent} from "./components/pontos-taxi/ponto-taxi-read/ponto-taxi-read.component";
@@ -79,6 +80,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 registerLocaleData(localePt);
 
@@ -114,6 +116,7 @@ export const DATE_FORMATS = {
     FiscalizacaoModalComponent,
     LoginComponent,
     RegistroComponent,
+    AlteraSenhaComponent,
     LogoutComponent,
     PrincipalComponent,
     PontoTaxiReadComponent,
@@ -142,33 +145,34 @@ export const DATE_FORMATS = {
     AuditoriaCrudComponent,
     AuditoriaReadComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    HttpClientModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatIconModule,
-    NgxPaginationModule,
-    NgbModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatGridListModule,
-    MatMenuModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatCardModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        HttpClientModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatIconModule,
+        NgxPaginationModule,
+        NgbModule,
+        MatDialogModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatGridListModule,
+        MatMenuModule,
+        MatCheckboxModule
+    ],
 
   providers: [
     {

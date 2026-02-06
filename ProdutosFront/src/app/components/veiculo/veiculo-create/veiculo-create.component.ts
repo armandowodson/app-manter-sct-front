@@ -218,11 +218,6 @@ export class VeiculoCreateComponent implements OnInit {
       return false;
     }
 
-    if(this.veiculo.idPontoTaxi == null || this.veiculo.idPontoTaxi == ''){
-      this.veiculoService.showMessageError('O campo Ponto de Estacionamento de Táxi é obrigatório!');
-      return false;
-    }
-
     if(this.veiculo.placa == null || this.veiculo.placa == ''){
       this.veiculoService.showMessageError('O campo Placa é obrigatório!');
       return false;

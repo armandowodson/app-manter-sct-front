@@ -130,11 +130,6 @@ export class PermissaoEditComponent implements OnInit {
     }
   }
   editarPermissao(): void {
-    if(this.permissao.numeroPermissao == null || this.permissao.numeroPermissao == ""){
-      this.permissaoService.showMessageAlert("O campo Número da Permissão é obrigatório!");
-      return;
-    }
-
     this.permissaoFiltro.numeroPermissao = this.permissao.numeroPermissao;
     const request: Observable<PageModelo> = this.permissaoService.consultarPermissaoComFiltros(this.permissaoFiltro, 0, 10);
     request.subscribe({

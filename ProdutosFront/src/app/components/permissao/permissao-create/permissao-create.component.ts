@@ -93,43 +93,24 @@ export class PermissaoCreateComponent implements OnInit {
   }
 
   inserirPermissao(): void {
-    if(this.permissao.numeroPermissao == null || this.permissao.numeroPermissao == ""){
-      this.permissaoService.showMessageAlert("O campo Número da Permissão é obrigatório!");
+    this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
+    this.permissao.statusPermissao = this.statusPermissaoSelecionada;
+    this.permissao.penalidade = this.penalidadeSelecionada;
+    this.permissao.modalidade = this.modalidadeSelecionada;
+
+    this.permissao.usuario = environment.usuarioLogado;
+
+    if(this.validarCamposObrigatoriosPermissao() == false)
       return;
-    }
 
-    const request: Observable<PageModelo> = this.permissaoService.consultarPermissaoComFiltros(this.permissao, 0, 10);
-    request.subscribe({
-      next: (res) => {
-        if (res.totalElements > 0) {
-          this.permissaoService.showMessageAlert(
-            "Já existe Permissão para o Número informado!"
-          );
-        }else{
-          this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
-          this.permissao.statusPermissao = this.statusPermissaoSelecionada;
-          this.permissao.penalidade = this.penalidadeSelecionada;
-          this.permissao.modalidade = this.modalidadeSelecionada;
-
-          this.permissao.usuario = environment.usuarioLogado;
-
-          if(this.validarCamposObrigatoriosPermissao() == false)
-            return;
-
-          this.permissaoService.inserirPermissao(this.permissao).subscribe(() => {
-              this.permissaoService.showMessageSuccess('Permissão Criada com Sucesso!!!');
-              this.router.navigate(['/permissao']);
-            },
-            error => {
-              this.errors = error
-              this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
-            });
-        }
+    this.permissaoService.inserirPermissao(this.permissao).subscribe(() => {
+        this.permissaoService.showMessageSuccess('Permissão Criada com Sucesso!!!');
+        this.router.navigate(['/permissao']);
       },
-      error: (error) => {
+      error => {
+        this.errors = error
         this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
-      }
-    });
+      });
   }
 
   validarCamposObrigatoriosPermissao(): boolean{

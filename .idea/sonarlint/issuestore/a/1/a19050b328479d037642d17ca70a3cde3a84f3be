@@ -1,0 +1,7 @@
+
+Mtypescript:S3863"%'@angular/core' import is duplicated.(×˜´âúÿÿÿÿ8¨¶™ğÂ3
+Rtypescript:S1128"*Remove this unused import of 'Observable'.(ú•×ûÿÿÿÿ8¥ÖšğÂ3
+Ltypescript:S1128	"*Remove this unused import of 'PageModelo'.(ááŒ8¥ÖšğÂ3
+^typescript:S1125g"6Refactor the code to avoid using this boolean literal.(ó¿§üÿÿÿÿ8¦ÖšğÂ3
+ˆtypescript:S1874j"ä'subscribe' is deprecated. Instead of passing separate callback arguments, use an observer argument. Signatures taking separate callback arguments will be removed in v8. Details: https://rxjs.dev/deprecations/subscribe-arguments(¨ÇÚÌ8¦ÖšğÂ3
+wtypescript:S3776t"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(Â‹Ô‡8ª¶™ğÂ3

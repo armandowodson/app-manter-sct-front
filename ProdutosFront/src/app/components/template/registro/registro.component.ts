@@ -20,21 +20,33 @@ export class RegistroComponent implements OnInit {
   registro: Registro = {
     usuario: "",
     senha: "",
-    nome: ""
+    nome: "",
+    modulos: ""
   };
 
   errors: string;
-  logou = 1;
+  isCheckedTaxi: boolean;
+  isCheckedMotoTaxi: boolean;
 
   constructor(
     private loginService: LoginService,
     private router: Router
   ) {
     this.errors = "";
+    this.isCheckedTaxi = false;
+    this.isCheckedMotoTaxi = false;
   }
 
   ngOnInit(): void {
 
+  }
+
+  verificaTaxi(checked: boolean){
+      this.isCheckedTaxi = checked;
+  }
+
+  verificaMotoTaxi(checked: boolean){
+    this.isCheckedMotoTaxi = checked;
   }
 
   registrarLogin() {
@@ -63,6 +75,14 @@ export class RegistroComponent implements OnInit {
         return;
       }
 
+      if(this.isCheckedTaxi){
+        this.registro.modulos = "1#"
+      }
+
+      if(this.isCheckedMotoTaxi){
+        this.registro.modulos = this.registro.modulos + "2#"
+      }
+
       this.loginService.registrarLogin(this.registro).subscribe({
         next: (response) => {
           this.loginService.showMessageSuccess('Usuário registrado com Sucesso!');
@@ -89,6 +109,11 @@ export class RegistroComponent implements OnInit {
         this.loginService.showMessageAlert('O campo Senha é obrigatório!');
         return false;
       }
+
+    if(this.isCheckedTaxi == false && this.isCheckedMotoTaxi == false){
+      this.loginService.showMessageAlert('É necessário selecionar ao menos um dos Módulos!');
+      return false;
+    }
 
       return true;
   }

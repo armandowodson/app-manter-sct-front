@@ -27,7 +27,22 @@
       </a>
     </div>
     <div style="margin-bottom: 10px">
-      <button mat-button [matMenuTriggerFor]="menuPrincipal" *ngIf="environment.loginGlobal=='1'">Módulos SGSC
+      <a mat-list-item routerLink="/alterar-senha">
+        <i class="material-icons">
+          add_circle
+        </i>
+        Alterar Senha
+      </a>
+    </div>
+    <div style="margin-bottom: 10px">
+      <button mat-button [matMenuTriggerFor]="menuPrincipalTaxi" *ngIf="environment.loginGlobal=='1' && (environment.modulosUsuario=='1#' || environment.modulosUsuario=='1#2#')">Módulos Táxi
+        <i class="material-icons">
+          computer
+        </i>
+      </button>
+    </div>
+    <div style="margin-bottom: 10px">
+      <button mat-button [matMenuTriggerFor]="menuPrincipalMotoTaxi" *ngIf="environment.loginGlobal=='1' && (environment.modulosUsuario=='2#' || environment.modulosUsuario=='1#2#')">Módulos MotoTáxi
         <i class="material-icons">
           computer
         </i>
@@ -42,9 +57,9 @@
       </a>
     </div>
 
-    <!-- Menu Principal -->
-    <mat-menu #menuPrincipal="matMenu">
-      <!-- Item que abre o Submenu do Menu Módulos SGSC -->
+    <!-- Menu Principal Táxi -->
+    <mat-menu #menuPrincipalTaxi="matMenu">
+      <!-- Item que abre o Submenu do Menu Módulos Táxi -->
       <div style="margin-bottom: 10px">
         <a mat-list-item routerLink="/permissao">
           <i class="material-icons">
@@ -99,6 +114,19 @@
             check
           </i>
           Auditoria
+        </a>
+      </div>
+    </mat-menu>
+
+    <!-- Menu Principal Táxi -->
+    <mat-menu #menuPrincipalMotoTaxi="matMenu">
+      <!-- Item que abre o Submenu do Menu Módulos MotoTáxi -->
+      <div style="margin-bottom: 10px">
+        <a mat-list-item routerLink="/motoTaxi">
+          <i class="material-icons">
+            apps
+          </i>
+          Permissão
         </a>
       </div>
     </mat-menu>

@@ -74,7 +74,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Marca</mat-label>
+      <mat-label >Marca*</mat-label>
       <input maxlength="20" matInput placeholder="Marca" style="margin-right: 20px;" [(ngModel)]="veiculo.marca" name="marca">
       <button mat-button *ngIf="veiculo.marca" matSuffix aria-label="Clear" (click)="veiculo.marca=''">
         <i class="material-icons black v-middle">

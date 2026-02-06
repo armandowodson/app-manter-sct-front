@@ -4,6 +4,7 @@ import { HomeComponent} from './views/home/home.component';
 import { PontoTaxiCrudComponent } from './views/ponto-taxi-crud/ponto-taxi-crud.component';
 import {LoginComponent} from "./components/template/login/login.component";
 import {RegistroComponent} from "./components/template/registro/registro.component";
+import {AlteraSenhaComponent} from "./components/template/altera-senha/altera-senha.component";
 import {LogoutComponent} from "./components/template/logout/logout.component";
 import {PontoTaxiCreateComponent} from "./components/pontos-taxi/ponto-taxi-create/ponto-taxi-create.component";
 import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/ponto-taxi-edit.component";
@@ -113,6 +114,10 @@ const routes: Routes = [
   {
     path: "registrar",
     component: RegistroComponent
+  },
+  {
+    path: "alterar-senha",
+    component: AlteraSenhaComponent
   },
   {
     path: "principal",

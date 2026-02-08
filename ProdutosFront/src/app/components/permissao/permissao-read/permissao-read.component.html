@@ -101,10 +101,13 @@
               <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarPermissao(row)" aria-label="Editar Permissão">
+                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarPermissao(row)" aria-label="Editar Permissão">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPermissao, row.numeroPermissao)" aria-label="Remover Permissão">
+                <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharPermissao(row)">
+                  <mat-icon>lists</mat-icon>
+                </button>
+                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPermissao, row.numeroPermissao)" aria-label="Remover Permissão">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

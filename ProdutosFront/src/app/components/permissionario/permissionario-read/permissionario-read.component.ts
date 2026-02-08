@@ -133,6 +133,11 @@ export class PermissionarioReadComponent implements OnInit {
   navegarEditarPermissionario(permissionarioSelecionado: PermissionarioFiltro): void {
     this.router.navigate(['permissionario/edit'], { state: {data: permissionarioSelecionado} });
   }
+
+  navegarDetalharPermissionario(permissionarioSelecionado: PermissionarioFiltro): void {
+    this.router.navigate(['permissionario/detalhe'], { state: {data: permissionarioSelecionado} });
+  }
+
   consultarPermissionariosComFiltros() {
     this.loading = true;
 

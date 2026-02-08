@@ -115,10 +115,13 @@
               <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarFiscalizacao(row)" aria-label="Editar Fiscalização">
+                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarFiscalizacao(row)" aria-label="Editar Fiscalização">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idFiscalizacao, row.placa, row.nomePermissionario)" aria-label="Remover Fiscalização">
+                <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharFiscalizacao(row)">
+                  <mat-icon>lists</mat-icon>
+                </button>
+                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idFiscalizacao, row.placa, row.nomePermissionario)" aria-label="Remover Fiscalização">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

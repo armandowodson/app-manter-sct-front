@@ -150,6 +150,10 @@ export class PermissaoReadComponent implements OnInit {
     this.router.navigate(['permissao/edit'], { state: {data: permissaoSelecionado} });
   }
 
+  navegarDetalharPermissao(permissaoSelecionado: PermissaoModelo): void {
+    this.router.navigate(['permissao/detalhe'], { state: {data: permissaoSelecionado} });
+  }
+
   consultarPermissaoComFiltros() {
       this.loading = true;
       this.permissaoFiltro.statusPermissao = this.statusPermissaoSelecionada;

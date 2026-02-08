@@ -1,0 +1,132 @@
+<mat-card>
+  <div style="width: 550px; margin-left: 950px; font-size: small">
+    <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+  </div>
+  <div style="height: 50px; margin-left: 20px;">
+    <mat-card-title><b>Dados Completos da Fiscalização</b></mat-card-title>
+  </div>
+  <form>
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Placa Veículo*</mat-label>
+      <input [disabled]="true" matInput placeholder="Placa Veículo" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.placa" name="placa">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Modelo</mat-label>
+      <input [disabled]="true" matInput placeholder="Modelo" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.modelo" name="modelo">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Marca</mat-label>
+      <input [disabled]="true" matInput placeholder="Marca" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.marca" name="marca">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Cor</mat-label>
+      <input [disabled]="true" matInput placeholder="Cor" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.cor" name="cor">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nome Permissionário</mat-label>
+      <input [disabled]="true" matInput placeholder="Nome Permissionário" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.nomePermissionario" name="nomePermissionario">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >CNH Permissionário</mat-label>
+      <input [disabled]="true" matInput placeholder="CNH Permissionário" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.cnhPermissionario" name="cnhPermissionario">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nome Defensor</mat-label>
+      <input [disabled]="true" matInput placeholder="Nome Defensor" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.nomeDefensor" name="nomeDefensor">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >CNH Defensor</mat-label>
+      <input [disabled]="true" matInput placeholder="CNH Defensor" style="margin-right: 20px;" [(ngModel)]="fiscalizacao.cnhDefensor" name="cnhDefensor">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Data Fiscalização*</mat-label>
+      <input [disabled]="true" matInput [matDatepicker]="dataFiscalizacao" placeholder="Data Fiscalização" [(ngModel)]="fiscalizacao.dataFiscalizacao" name="dataFiscalizacao">
+      <mat-datepicker-toggle matIconSuffix [for]="dataFiscalizacao"></mat-datepicker-toggle>
+      <mat-datepicker #dataFiscalizacao></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Motivo Infração*</mat-label>
+      <mat-select [disabled]="true" [(value)]="motivoInfracaoSelecionado">
+        <mat-option *ngFor="let motivo of motivoInfracaoOptions" [value]="motivo.id">
+          {{ motivo.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Tipo Infração*</mat-label>
+      <mat-select [disabled]="true" [(value)]="tipoInfracaoSelecionado">
+        <mat-option *ngFor="let tipo of tipoInfracaoOptions" [value]="tipo.id">
+          {{ tipo.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Prazo p/ Regularização (até)*</mat-label>
+      <input [disabled]="true" matInput [matDatepicker]="prazoRegularizacao" placeholder="Prazo p/ Regularização (até)" [(ngModel)]="fiscalizacao.prazoRegularizacao" name="prazoRegularizacao">
+      <mat-datepicker-toggle matIconSuffix [for]="prazoRegularizacao"></mat-datepicker-toggle>
+      <mat-datepicker #prazoRegularizacao></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Grupo de Multas*</mat-label>
+      <mat-select [disabled]="true" [(value)]="grupoMultasSelecionado">
+        <mat-option *ngFor="let grupo of grupoMultasOptions" [value]="grupo.id">
+          {{ grupo.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Natureza da Infração*</mat-label>
+      <mat-select [disabled]="true" [(value)]="naturezaInfracaoSelecionada">
+        <mat-option *ngFor="let natureza of naturezaInfracaoOptions" [value]="natureza.id">
+          {{ natureza.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Modalidade*</mat-label>
+      <mat-select [disabled]="true" [(value)]="modalidadeInfracaoSelecionada">
+        <mat-option *ngFor="let modalidade of modalidadeInfracaoOptions" [value]="modalidade.id">
+          {{ modalidade.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Penalidade*</mat-label>
+      <mat-select [disabled]="true" [(value)]="penalidadeInfracaoSelecionada">
+        <mat-option *ngFor="let penalidade of penalidadeInfracaoOptions" [value]="penalidade.id">
+          {{ penalidade.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-card>
+      <mat-form-field appearance="outline" style="width: 850px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Observação*</mat-label>
+        <textarea [disabled]="true" [(ngModel)]="fiscalizacao.observacao" matInput placeholder="Observação" name="observacao"></textarea>
+      </mat-form-field>
+    </mat-card>
+
+    <div>
+      <button style="background-color: darkgray; margin-left: 20px; margin-right: 30px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
+        Voltar
+      </button>
+    </div>
+
+  </form>
+</mat-card>
+

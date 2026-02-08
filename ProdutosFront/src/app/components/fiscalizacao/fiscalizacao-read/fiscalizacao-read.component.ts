@@ -176,6 +176,10 @@ export class FiscalizacaoReadComponent implements OnInit {
     this.router.navigate(['fiscalizacao/edit'], { state: {data: fiscalizacaoSelecionado} });
   }
 
+  navegarDetalharFiscalizacao(fiscalizacaoSelecionado: FiscalizacaoModelo): void {
+    this.router.navigate(['fiscalizacao/detalhe'], { state: {data: fiscalizacaoSelecionado} });
+  }
+
   consultarFiscalizacoesComFiltros() {
       this.loading = true;
 

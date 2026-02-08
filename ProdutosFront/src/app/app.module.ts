@@ -55,10 +55,12 @@ import {PermissionarioReadComponent} from "./components/permissionario/permissio
 import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
 import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
 import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
+//import {PermissionarioDetalheComponent} from "./components/permissionario/permissionario-detalhe/permissionario-detalhe.component";
 import {DefensorReadComponent} from "./components/defensor/defensor-read/defensor-read.component";
 import {DefensorCrudComponent} from "./views/defensor-crud/defensor-crud.component";
 import {DefensorCreateComponent} from "./components/defensor/defensor-create/defensor-create.component";
 import {DefensorEditComponent} from "./components/defensor/defensor-edit/defensor-edit.component";
+import {DefensorDetalheComponent} from "./components/defensor/defensor-detalhe/defensor-detalhe.component";
 import {VeiculoReadComponent} from "./components/veiculo/veiculo-read/veiculo-read.component";
 import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
 import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
@@ -67,11 +69,13 @@ import {PermissaoReadComponent} from "./components/permissao/permissao-read/perm
 import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
 import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
 import {PermissaoCrudComponent} from './views/permissao-crud/permissao-crud.component';
+import {PermissaoDetalheComponent} from "./components/permissao/permissao-detalhe/permissao-detalhe.component";
 import {FiscalizacaoModalComponent} from "./components/fiscalizacao-modal-component/fiscalizacao-modal.component";
 import {FiscalizacaoCrudComponent} from "./views/fiscalizacao-crud/fiscalizacao-crud.component";
 import {FiscalizacaoReadComponent} from "./components/fiscalizacao/fiscalizacao-read/fiscalizacao-read.component";
 import {FiscalizacaoCreateComponent} from "./components/fiscalizacao/fiscalizacao-create/fiscalizacao-create.component";
 import {FiscalizacaoEditComponent} from "./components/fiscalizacao/fiscalizacao-edit/fiscalizacao-edit.component";
+import {FiscalizacaoDetalheComponent} from "./components/fiscalizacao/fiscalizacao-detalhe/fiscalizacao-detalhe.component";
 import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.component";
 import {AuditoriaReadComponent} from "./components/auditoria/auditoria-read/auditoria-read.component";
 import {MatSelectModule} from "@angular/material/select";
@@ -126,10 +130,12 @@ export const DATE_FORMATS = {
     PermissionarioCrudComponent,
     PermissionarioCreateComponent,
     PermissionarioEditComponent,
+//    PermissionarioDetalheComponent,
     DefensorReadComponent,
     DefensorCrudComponent,
     DefensorCreateComponent,
     DefensorEditComponent,
+    DefensorDetalheComponent,
     VeiculoReadComponent,
     VeiculoCrudComponent,
     VeiculoCreateComponent,
@@ -138,9 +144,11 @@ export const DATE_FORMATS = {
     PermissaoEditComponent,
     PermissaoCreateComponent,
     PermissaoCrudComponent,
+    PermissaoDetalheComponent,
     FiscalizacaoCrudComponent,
     FiscalizacaoReadComponent,
     FiscalizacaoEditComponent,
+    FiscalizacaoDetalheComponent,
     FiscalizacaoCreateComponent,
     AuditoriaCrudComponent,
     AuditoriaReadComponent

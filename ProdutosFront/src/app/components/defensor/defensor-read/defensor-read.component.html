@@ -117,10 +117,13 @@
               <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarDefensor(row)" aria-label="Editar Defensor">
+                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarDefensor(row)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idDefensor, row.nomeDefensor)" aria-label="Remover Defensor">
+                <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharDefensor(row)">
+                  <mat-icon>lists</mat-icon>
+                </button>
+                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idDefensor, row.nomeDefensor)">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

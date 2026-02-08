@@ -12,9 +12,11 @@ import {PrincipalComponent} from "./components/template/principal/principal.comp
 import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
 import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
 import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
+//import {PermissionarioDetalheComponent} from "./components/permissionario/permissionario-detalhe/permissionario-detalhe.component";
 import {DefensorCrudComponent} from "./views/defensor-crud/defensor-crud.component";
 import {DefensorCreateComponent} from "./components/defensor/defensor-create/defensor-create.component";
 import {DefensorEditComponent} from "./components/defensor/defensor-edit/defensor-edit.component";
+import {DefensorDetalheComponent} from "./components/defensor/defensor-detalhe/defensor-detalhe.component";
 import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
 import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
 import {VeiculoEditComponent} from "./components/veiculo/veiculo-edit/veiculo-edit.component";
@@ -22,9 +24,11 @@ import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.comp
 import {PermissaoCrudComponent} from "./views/permissao-crud/permissao-crud.component";
 import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
 import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
+import {PermissaoDetalheComponent} from "./components/permissao/permissao-detalhe/permissao-detalhe.component";
 import {FiscalizacaoCrudComponent} from "./views/fiscalizacao-crud/fiscalizacao-crud.component";
 import {FiscalizacaoCreateComponent} from "./components/fiscalizacao/fiscalizacao-create/fiscalizacao-create.component";
 import {FiscalizacaoEditComponent} from "./components/fiscalizacao/fiscalizacao-edit/fiscalizacao-edit.component";
+import {FiscalizacaoDetalheComponent} from "./components/fiscalizacao/fiscalizacao-detalhe/fiscalizacao-detalhe.component";
 
 const routes: Routes = [
   {
@@ -55,6 +59,10 @@ const routes: Routes = [
     path: "permissionario/edit",
     component: PermissionarioEditComponent
   },
+  /*{
+    path: "permissionario/detalhe",
+    component: PermissionarioDetalheComponent
+  },*/
   {
     path: "defensor",
     component: DefensorCrudComponent
@@ -66,6 +74,10 @@ const routes: Routes = [
   {
     path: "defensor/edit",
     component: DefensorEditComponent
+  },
+  {
+    path: "defensor/detalhe",
+    component: DefensorDetalheComponent
   },
   {
     path: "veiculo",
@@ -92,6 +104,10 @@ const routes: Routes = [
     component: PermissaoEditComponent
   },
   {
+    path: "permissao/detalhe",
+    component: PermissaoDetalheComponent
+  },
+  {
     path: "fiscalizacao",
     component: FiscalizacaoCrudComponent
   },
@@ -102,6 +118,10 @@ const routes: Routes = [
   {
     path: "fiscalizacao/edit",
     component: FiscalizacaoEditComponent
+  },
+  {
+    path: "fiscalizacao/detalhe",
+    component: FiscalizacaoDetalheComponent
   },
   {
     path: "auditoria",

@@ -118,6 +118,11 @@ export class DefensorReadComponent implements OnInit {
   navegarEditarDefensor(defensorSelecionado: DefensorFiltro): void {
     this.router.navigate(['defensor/edit'], { state: {data: defensorSelecionado} });
   }
+
+  navegarDetalharDefensor(defensorSelecionado: DefensorFiltro): void {
+    this.router.navigate(['defensor/detalhe'], { state: {data: defensorSelecionado} });
+  }
+
   consultarDefensoresComFiltros() {
     this.loading = true;
 

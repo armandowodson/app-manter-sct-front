@@ -122,6 +122,10 @@ export class VeiculoReadComponent implements OnInit {
     this.router.navigate(['veiculo/edit'], { state: {data: veiculoSelecionado} });
   }
 
+  navegarDetalharVeiculo(veiculoSelecionado: VeiculoFiltro): void {
+    this.router.navigate(['veiculo/detalhe'], { state: {data: veiculoSelecionado} });
+  }
+
   consultarVeiculoComFiltros() {
       this.loading = true;
 

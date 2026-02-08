@@ -109,10 +109,13 @@
               <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarVeiculo(row)" aria-label="Editar Veículo">
+                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarVeiculo(row)" aria-label="Editar Veículo">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
+                <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharVeiculo(row)">
+                  <mat-icon>lists</mat-icon>
+                </button>
+                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

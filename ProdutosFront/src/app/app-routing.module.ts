@@ -8,11 +8,12 @@ import {AlteraSenhaComponent} from "./components/template/altera-senha/altera-se
 import {LogoutComponent} from "./components/template/logout/logout.component";
 import {PontoTaxiCreateComponent} from "./components/pontos-taxi/ponto-taxi-create/ponto-taxi-create.component";
 import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/ponto-taxi-edit.component";
+import {PontoTaxiDetalheComponent} from "./components/pontos-taxi/ponto-taxi-detalhe/ponto-taxi-detalhe.component";
 import {PrincipalComponent} from "./components/template/principal/principal.component";
 import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
 import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
 import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
-//import {PermissionarioDetalheComponent} from "./components/permissionario/permissionario-detalhe/permissionario-detalhe.component";
+import {PermissionarioDetalheComponent} from "./components/permissionario/permissionario-detalhe/permissionario-detalhe.component";
 import {DefensorCrudComponent} from "./views/defensor-crud/defensor-crud.component";
 import {DefensorCreateComponent} from "./components/defensor/defensor-create/defensor-create.component";
 import {DefensorEditComponent} from "./components/defensor/defensor-edit/defensor-edit.component";
@@ -29,6 +30,9 @@ import {FiscalizacaoCrudComponent} from "./views/fiscalizacao-crud/fiscalizacao-
 import {FiscalizacaoCreateComponent} from "./components/fiscalizacao/fiscalizacao-create/fiscalizacao-create.component";
 import {FiscalizacaoEditComponent} from "./components/fiscalizacao/fiscalizacao-edit/fiscalizacao-edit.component";
 import {FiscalizacaoDetalheComponent} from "./components/fiscalizacao/fiscalizacao-detalhe/fiscalizacao-detalhe.component";
+import {VeiculoDetalheComponent} from "./components/veiculo/veiculo-detalhe/veiculo-detalhe.component";
+import {PermissaoRelatorioComponent} from "./components/permissao/permissao-relatorio/permissao-relatorio.component";
+import {RelatorioCrudComponent} from "./views/relatorio-crud/relatorio-crud.component";
 
 const routes: Routes = [
   {
@@ -48,6 +52,10 @@ const routes: Routes = [
     component: PontoTaxiEditComponent
   },
   {
+    path: "ponto-taxi/detalhe",
+    component: PontoTaxiDetalheComponent
+  },
+  {
     path: "permissionario",
     component: PermissionarioCrudComponent
   },
@@ -59,10 +67,10 @@ const routes: Routes = [
     path: "permissionario/edit",
     component: PermissionarioEditComponent
   },
-  /*{
+  {
     path: "permissionario/detalhe",
     component: PermissionarioDetalheComponent
-  },*/
+  },
   {
     path: "defensor",
     component: DefensorCrudComponent
@@ -92,6 +100,10 @@ const routes: Routes = [
     component: VeiculoEditComponent
   },
   {
+    path: "veiculo/detalhe",
+    component: VeiculoDetalheComponent
+  },
+  {
     path: "permissao",
     component: PermissaoCrudComponent
   },
@@ -106,6 +118,10 @@ const routes: Routes = [
   {
     path: "permissao/detalhe",
     component: PermissaoDetalheComponent
+  },
+  {
+    path: "permissao/relatorio",
+    component: PermissaoRelatorioComponent
   },
   {
     path: "fiscalizacao",
@@ -142,6 +158,10 @@ const routes: Routes = [
   {
     path: "principal",
     component: PrincipalComponent
+  },
+  {
+    path: "relatorio",
+    component: RelatorioCrudComponent
   },
   {
     path: "sair",

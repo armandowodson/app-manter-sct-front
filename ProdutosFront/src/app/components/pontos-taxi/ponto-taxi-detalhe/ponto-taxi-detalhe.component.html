@@ -1,0 +1,49 @@
+<mat-card>
+  <div style="width: 550px; margin-left: 950px; font-size: small">
+    <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+  </div>
+  <div style="height: 50px; margin-left: 20px;">
+    <mat-card-title><b>Dados Completos do Ponto de Estacionamento de Táxi</b></mat-card-title>
+  </div>
+  <form>
+    <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Ponto Nº*</mat-label>
+      <input [disabled]="true" maxlength="10" type="number" matInput placeholder="Ponto Nº" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.numeroPonto" name="numeroPonto">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nome/Descrição Ponto*</mat-label>
+      <input [disabled]="true" maxlength="100" matInput placeholder="Nome/Descrição Ponto" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.descricaoPonto" name="descricaoPonto">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Fator Rotatividade</mat-label>
+      <input [disabled]="true" matInput placeholder="Fator Rotatividade" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.fatorRotatividade" name="fatorRotatividade">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nº Vagas*</mat-label>
+      <input [disabled]="true" maxlength="2" type="number" matInput placeholder="Nº Vagas" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.numeroVagas" name="numeroVagas">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Ponto Referência*</mat-label>
+      <input [disabled]="true" maxlength="100" matInput placeholder="Ponto Referência" style="margin-right: 20px;" [(ngModel)]="pontoTaxi.referenciaPonto" name="referenciaPonto">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Modalidade*</mat-label>
+      <mat-select [disabled]="true" [(value)]="modalidadeSelecionada">
+        <mat-option *ngFor="let moda of modalidadeOptions" [value]="moda.id">
+          {{ moda.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button style="background-color: darkgray; margin-left: 20px; margin-right: 30px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
+        Voltar
+      </button>
+    </div>
+  </form>
+</mat-card>
+

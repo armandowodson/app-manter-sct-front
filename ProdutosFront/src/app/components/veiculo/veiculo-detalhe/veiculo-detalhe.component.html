@@ -1,0 +1,182 @@
+<mat-card>
+  <div style="width: 550px; margin-left: 950px; font-size: small">
+    <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+  </div>
+  <div style="height: 50px; margin-left: 20px;">
+    <mat-card-title><b>Dados Completos do Veículo</b></mat-card-title>
+  </div>
+  <form>
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Permissionário*</mat-label>
+      <mat-select [disabled]="true" [(value)]="permissionarioSelecionado" (selectionChange)="carregarPermissao($event)">
+        <mat-option *ngFor="let permissionario of permissionariosOptions" [value]="permissionario.id">
+          {{ permissionario.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nº Permissão</mat-label>
+      <input [disabled]="true" matInput placeholder="Nº Permissão" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroPermissao" name="numeroPermissao">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nº Taxímetro</mat-label>
+      <input [disabled]="true" maxlength="12" type="number" matInput placeholder="Nº Taxímetro" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroTaximetro" name="cnhPermissionario">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Ponto de Estacionamento de Táxi*</mat-label>
+      <mat-select [disabled]="true" [(value)]="pontoTaxiSelecionado">
+        <mat-option *ngFor="let pontoTaxi of pontosTaxiOptions" [value]="pontoTaxi.id">
+          {{ pontoTaxi.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Placa*</mat-label>
+      <input [disabled]="true" maxlength="7" matInput placeholder="Placa" style="margin-right: 20px;" [(ngModel)]="veiculo.placa" name="placa">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Tipo do Veículo*</mat-label>
+      <mat-select [disabled]="true" [(value)]="tipoVeiculoSelecionado">
+        <mat-option *ngFor="let tipo of tipoVeiculoOptions" [value]="tipo.id">
+          {{ tipo.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Marca*</mat-label>
+      <input [disabled]="true" maxlength="20" matInput placeholder="Marca" style="margin-right: 20px;" [(ngModel)]="veiculo.marca" name="marca">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Modelo*</mat-label>
+      <input [disabled]="true" maxlength="20" matInput placeholder="Modelo" style="margin-right: 20px;" [(ngModel)]="veiculo.modelo" name="modelo">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Ano Modelo*</mat-label>
+      <input [disabled]="true" maxlength="4" type="number" matInput placeholder="Ano Modelo" style="margin-right: 20px;" [(ngModel)]="veiculo.anoModelo" name="anoModelo">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Renavam*</mat-label>
+      <input [disabled]="true" maxlength="11" type="number" matInput placeholder="Renavam" style="margin-right: 20px;" [(ngModel)]="veiculo.renavam" name="renavam">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Cor*</mat-label>
+      <mat-select [disabled]="true" [(value)]="corSelecionada">
+        <mat-option *ngFor="let cor of corOptions" [value]="cor.id">
+          {{ cor.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Combustível*</mat-label>
+      <mat-select [disabled]="true" [(value)]="combustivelSelecionado">
+        <mat-option *ngFor="let combustivel of combustivelOptions" [value]="combustivel.id">
+          {{ combustivel.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Chassi*</mat-label>
+      <input [disabled]="true" maxlength="20" matInput placeholder="Chassi" style="margin-right: 20px;" [(ngModel)]="veiculo.chassi" name="chassi">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Ano Fabricação*</mat-label>
+      <input [disabled]="true" maxlength="4" type="number" matInput placeholder="Ano Fabricação" style="margin-right: 20px;" [(ngModel)]="veiculo.anoFabricacao" name="anoFabricacao">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Situação do Veículo*</mat-label>
+      <mat-select [disabled]="true" [(value)]="situacaoVeiculoSelecionada">
+        <mat-option *ngFor="let situacao of situacaoVeiculoOptions" [value]="situacao.id">
+          {{ situacao.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Data da Vistoria</mat-label>
+      <input [disabled]="true" matInput [matDatepicker]="vistoria" placeholder="Data da Vistoria" [(ngModel)]="veiculo.dataVistoria" name="dataVistoria">
+      <mat-datepicker-toggle matIconSuffix [for]="vistoria"></mat-datepicker-toggle>
+      <mat-datepicker #vistoria></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nº CRLV*</mat-label>
+      <input [disabled]="true" maxlength="15" type="number" matInput placeholder="Nº CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroCrlv" name="numeroCrlv">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Ano CRLV*</mat-label>
+      <input [disabled]="true" maxlength="4" type="number" matInput placeholder="Ano CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.anoCrlv" name="anoCrlv">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Nº Certificado de Aferição</mat-label>
+      <input [disabled]="true" maxlength="15" type="number" matInput placeholder="Certificado de Aferição" style="margin-right: 20px;" [(ngModel)]="veiculo.certificadoAfericao" name="certificadoAfericao">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Data do Retorno</mat-label>
+      <input [disabled]="true" matInput [matDatepicker]="retorno" placeholder="Data do Retorno" [(ngModel)]="veiculo.dataRetorno" name="dataRetorno">
+      <mat-datepicker-toggle matIconSuffix [for]="retorno"></mat-datepicker-toggle>
+      <mat-datepicker #retorno></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Ano Renovação</mat-label>
+      <input [disabled]="true" maxlength="4" type="number" matInput placeholder="Ano Renovação" style="margin-right: 20px;" [(ngModel)]="veiculo.anoRenovacao" name="anoRenovacao">
+    </mat-form-field>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-label >CRLV*</mat-label>
+        <div class="file-upload-container">
+          <input [disabled]="true" type="file" #fileInputCrlv (change)="getCrlvSelecionado($event)" style="display: none;">
+          <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCrlv.click()">
+            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+          </button>
+          <span *ngIf="crlvSelecionado">{{ crlvSelecionado.name }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-label >Comprovante de Vistoria*</mat-label>
+        <div class="file-upload-container">
+          <input [disabled]="true" type="file" #fileInputVistoria (change)="getComprovanteVistoriaSelecionado($event)" style="display: none;">
+          <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputVistoria.click()">
+            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+          </button>
+          <span *ngIf="comprovanteVistoriaSelecionado">{{ comprovanteVistoriaSelecionado.name }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-form-field appearance="outline" style="width: 900px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Observação</mat-label>
+        <textarea [disabled]="true" [(ngModel)]="veiculo.observacao" matInput placeholder="Observação" name="observacao"></textarea>
+      </mat-form-field>
+    </mat-card>
+    <div>
+      <button style="background-color: darkgray; margin-left: 20px; margin-right: 30px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
+        Voltar
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+

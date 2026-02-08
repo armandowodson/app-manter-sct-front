@@ -131,6 +131,10 @@ export class PontoTaxiReadComponent implements OnInit {
     this.router.navigate(['ponto-taxi/edit'], { state: {data: pontoTaxiSelecionado} });
   }
 
+  navegarDetalharPontoTaxi(pontoTaxiSelecionado: PontoTaxiModelo): void {
+    this.router.navigate(['ponto-taxi/detalhe'], { state: {data: pontoTaxiSelecionado} });
+  }
+
   consultarPontosTaxiComFiltros() {
       this.loading = true;
 

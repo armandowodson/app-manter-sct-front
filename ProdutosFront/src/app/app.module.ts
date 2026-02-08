@@ -51,11 +51,12 @@ import {PrincipalComponent} from "./components/template/principal/principal.comp
 import {PontoTaxiReadComponent} from "./components/pontos-taxi/ponto-taxi-read/ponto-taxi-read.component";
 import {PontoTaxiCreateComponent} from "./components/pontos-taxi/ponto-taxi-create/ponto-taxi-create.component";
 import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/ponto-taxi-edit.component";
+import {PontoTaxiDetalheComponent} from "./components/pontos-taxi/ponto-taxi-detalhe/ponto-taxi-detalhe.component";
 import {PermissionarioReadComponent} from "./components/permissionario/permissionario-read/permissionario-read.component";
 import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
 import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
 import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
-//import {PermissionarioDetalheComponent} from "./components/permissionario/permissionario-detalhe/permissionario-detalhe.component";
+import {PermissionarioDetalheComponent} from "./components/permissionario/permissionario-detalhe/permissionario-detalhe.component";
 import {DefensorReadComponent} from "./components/defensor/defensor-read/defensor-read.component";
 import {DefensorCrudComponent} from "./views/defensor-crud/defensor-crud.component";
 import {DefensorCreateComponent} from "./components/defensor/defensor-create/defensor-create.component";
@@ -65,11 +66,13 @@ import {VeiculoReadComponent} from "./components/veiculo/veiculo-read/veiculo-re
 import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
 import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
 import {VeiculoEditComponent} from "./components/veiculo/veiculo-edit/veiculo-edit.component";
+import {VeiculoDetalheComponent} from "./components/veiculo/veiculo-detalhe/veiculo-detalhe.component";
 import {PermissaoReadComponent} from "./components/permissao/permissao-read/permissao-read.component";
 import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
 import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
 import {PermissaoCrudComponent} from './views/permissao-crud/permissao-crud.component';
 import {PermissaoDetalheComponent} from "./components/permissao/permissao-detalhe/permissao-detalhe.component";
+import {PermissaoRelatorioComponent} from "./components/permissao/permissao-relatorio/permissao-relatorio.component";
 import {FiscalizacaoModalComponent} from "./components/fiscalizacao-modal-component/fiscalizacao-modal.component";
 import {FiscalizacaoCrudComponent} from "./views/fiscalizacao-crud/fiscalizacao-crud.component";
 import {FiscalizacaoReadComponent} from "./components/fiscalizacao/fiscalizacao-read/fiscalizacao-read.component";
@@ -78,6 +81,8 @@ import {FiscalizacaoEditComponent} from "./components/fiscalizacao/fiscalizacao-
 import {FiscalizacaoDetalheComponent} from "./components/fiscalizacao/fiscalizacao-detalhe/fiscalizacao-detalhe.component";
 import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.component";
 import {AuditoriaReadComponent} from "./components/auditoria/auditoria-read/auditoria-read.component";
+import {RelatorioComponent} from "./components/template/relatorio/relatorio.component";
+import {RelatorioCrudComponent} from "./views/relatorio-crud/relatorio-crud.component";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
@@ -126,11 +131,12 @@ export const DATE_FORMATS = {
     PontoTaxiReadComponent,
     PontoTaxiCreateComponent,
     PontoTaxiEditComponent,
+    PontoTaxiDetalheComponent,
     PermissionarioReadComponent,
     PermissionarioCrudComponent,
     PermissionarioCreateComponent,
     PermissionarioEditComponent,
-//    PermissionarioDetalheComponent,
+    PermissionarioDetalheComponent,
     DefensorReadComponent,
     DefensorCrudComponent,
     DefensorCreateComponent,
@@ -140,18 +146,22 @@ export const DATE_FORMATS = {
     VeiculoCrudComponent,
     VeiculoCreateComponent,
     VeiculoEditComponent,
+    VeiculoDetalheComponent,
     PermissaoReadComponent,
     PermissaoEditComponent,
     PermissaoCreateComponent,
     PermissaoCrudComponent,
     PermissaoDetalheComponent,
+    PermissaoRelatorioComponent,
     FiscalizacaoCrudComponent,
     FiscalizacaoReadComponent,
     FiscalizacaoEditComponent,
     FiscalizacaoDetalheComponent,
     FiscalizacaoCreateComponent,
     AuditoriaCrudComponent,
-    AuditoriaReadComponent
+    AuditoriaReadComponent,
+    RelatorioComponent,
+    RelatorioCrudComponent
   ],
     imports: [
         BrowserModule,

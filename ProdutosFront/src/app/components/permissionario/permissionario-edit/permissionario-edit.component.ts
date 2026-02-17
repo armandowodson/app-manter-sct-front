@@ -94,17 +94,17 @@ export class PermissionarioEditComponent implements OnInit {
 
   sexoSelecionado = "";
   sexoOptions = [
-    { id: 1, nome: 'MASCULINO' },
-    { id: 2, nome: 'FEMININO' }
+    { id: '1', nome: 'MASCULINO' },
+    { id: '2', nome: 'FEMININO' }
   ];
 
   estadoCivilSelecionado = "";
   estadoCivilOptions = [
-    { id: 1, nome: 'SOLTEIRO' },
-    { id: 2, nome: 'CASADO' },
-    { id: 3, nome: 'SEPARADO' },
-    { id: 4, nome: 'DIVORCIADO' },
-    { id: 5, nome: 'VIÚVO' }
+    { id: '1', nome: 'SOLTEIRO' },
+    { id: '2', nome: 'CASADO' },
+    { id: '3', nome: 'SEPARADO' },
+    { id: '4', nome: 'DIVORCIADO' },
+    { id: '5', nome: 'VIÚVO' }
   ];
 
   certificadoCondutorSelecionado: File | null = null;
@@ -153,6 +153,11 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionario.cpfPermissionario = history.state.data.cpfPermissionario;
       this.permissionario.rgPermissionario = history.state.data.rgPermissionario;
       this.permissionario.orgaoEmissor = history.state.data.orgaoEmissor;
+      this.sexoSelecionado = history.state.data.sexo;
+      this.permissionario.sexo = history.state.data.sexo;
+      this.estadoCivilSelecionado = history.state.data.estadoCivil;
+      this.permissionario.estadoCivil = history.state.data.estadoCivil;
+      this.permissionario.dataNascimento = history.state.data.dataNascimento;
       this.permissionario.cnhPermissionario = history.state.data.cnhPermissionario;
       this.categoriaCnhSelecionada = history.state.data.categoriaCnhPermissionario;
       this.permissionario.categoriaCnhPermissionario = history.state.data.categoriaCnhPermissionario;

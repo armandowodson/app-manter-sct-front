@@ -34,10 +34,13 @@ export class VeiculoEditComponent implements OnInit {
     anoModelo: "",
     cor: "",
     combustivel: "",
+    capacidade: "",
+    quilometragem: "",
     numeroTaximetro: "",
     anoRenovacao: "",
     dataVistoria: "",
     dataRetorno: "",
+    statusVistoria: "",
     situacaoVeiculo: "",
     numeroCrlv: "",
     anoCrlv: "",
@@ -78,6 +81,13 @@ export class VeiculoEditComponent implements OnInit {
     { id: '1', nome: 'CONVENCIONAL' },
     { id: '2', nome: 'EXECUTIVO' },
     { id: '3', nome: 'ESPECIAL' }
+  ];
+
+  statusVistoriaSelecionada = "";
+  statusVistoriaOptions = [
+    { id: '1', nome: 'APROVADO' },
+    { id: '2', nome: 'RESSALVAS' },
+    { id: '3', nome: 'REPROVADO' }
   ];
 
   permissionarioSelecionado = "";
@@ -151,14 +161,20 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.anoModelo = history.state.data.anoModelo;
       this.corSelecionada = history.state.data.cor;
       this.veiculo.cor = history.state.data.cor;
-      this.corSelecionada = history.state.data.cor;
       this.combustivelSelecionado = history.state.data.combustivel;
+      this.veiculo.combustivel = history.state.data.combustivel;
+      this.veiculo.capacidade = history.state.data.capacidade;
+      this.veiculo.quilometragem = history.state.data.quilometragem;
       this.veiculo.numeroTaximetro = history.state.data.numeroTaximetro;
       this.veiculo.anoRenovacao = history.state.data.anoRenovacao;
       this.veiculo.dataVistoria = history.state.data.dataVistoria;
       this.veiculo.dataRetorno = history.state.data.dataRetorno;
+      this.statusVistoriaSelecionada = history.state.data.statusVistoria;
+      this.veiculo.statusVistoria = history.state.data.statusVistoria;
       this.situacaoVeiculoSelecionada = history.state.data.situacaoVeiculo;
+      this.veiculo.situacaoVeiculo = history.state.data.situacaoVeiculo;
       this.tipoVeiculoSelecionado = history.state.data.tipoVeiculo;
+      this.veiculo.tipoVeiculo = history.state.data.tipoVeiculo;
       this.veiculo.numeroCrlv = history.state.data.numeroCrlv;
       this.veiculo.anoCrlv = history.state.data.anoCrlv;
       this.veiculo.certificadoAfericao = history.state.data.certificadoAfericao;
@@ -194,6 +210,7 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.combustivel = this.combustivelSelecionado;
       this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
       this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
+      this.veiculo.statusVistoria = this.statusVistoriaSelecionada;
       this.veiculo.idPermissionario = this.permissionarioSelecionado;
       this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
       this.veiculo.usuario = environment.usuarioLogado;
@@ -276,6 +293,16 @@ export class VeiculoEditComponent implements OnInit {
 
     if(this.veiculo.anoFabricacao == null || this.veiculo.anoFabricacao == ''){
       this.veiculoService.showMessageError('O campo Ano Fabricação é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.dataVistoria == null || this.veiculo.dataVistoria == ''){
+      this.veiculoService.showMessageError('O campo Data da Vistoria é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.statusVistoria == null || this.veiculo.statusVistoria == ''){
+      this.veiculoService.showMessageError('O campo Status da Vistoria é obrigatório!');
       return false;
     }
 

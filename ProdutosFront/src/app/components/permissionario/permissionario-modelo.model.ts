@@ -5,6 +5,9 @@ export interface PermissionarioModelo {
   cpfPermissionario: string
   rgPermissionario: string
   orgaoEmissor: string
+  sexo: string
+  estadoCivil: string
+  dataNascimento: string
   ufPermissionario: string
   cidadePermissionario: string
   bairroPermissionario: string

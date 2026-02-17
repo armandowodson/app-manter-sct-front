@@ -107,6 +107,9 @@
                 <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharPermissao(row)">
                   <mat-icon>lists</mat-icon>
                 </button>
+                <button title="Gerar Autorização de Tráfego" [disabled]="row.statusPermissao != '2'" mat-icon-button color="primary" (click) = "gerarAutorizacaoTrafego(row)" aria-label="Editar Permissão">
+                  <mat-icon>article</mat-icon>
+                </button>
                 <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPermissao, row.numeroPermissao)" aria-label="Remover Permissão">
                     <mat-icon>delete</mat-icon>
                 </button>

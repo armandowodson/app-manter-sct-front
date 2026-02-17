@@ -8,6 +8,8 @@ import { PermissionarioModalComponent } from "../../permissionario-modal-compone
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
 import {PageModelo} from "../../comum/page-modelo.model";
+import {PermissaoModelo} from "../../permissao/permissao.model";
+import {LoadingService} from "../../../service/loading.service";
 
 @Injectable({
   providedIn: "root",
@@ -40,6 +42,7 @@ export class PermissionarioReadComponent implements OnInit {
 
   constructor(
     private permissionarioService: PermissionarioService,
+    private loadingService: LoadingService,
     private router: Router,
     public matDialog: MatDialog
   ) {
@@ -77,6 +80,9 @@ export class PermissionarioReadComponent implements OnInit {
           cpfPermissionario: item.cpfPermissionario,
           rgPermissionario: item.rgPermissionario,
           orgaoEmissor: item.orgaoEmissor,
+          sexo: item.sexo,
+          estadoCivil: item.estadoCivil,
+          dataNascimento: item.dataNascimento,
           ufPermissionario: item.ufPermissionario,
           cidadePermissionario: item.cidadePermissionario,
           bairroPermissionario: item.bairroPermissionario,
@@ -138,6 +144,28 @@ export class PermissionarioReadComponent implements OnInit {
     this.router.navigate(['permissionario/detalhe'], { state: {data: permissionarioSelecionado} });
   }
 
+  gerarPermissaoTaxi(permissaoSelecionado: PermissaoModelo): void {
+    this.permissionarioService.gerarPermissaoTaxi(permissaoSelecionado).subscribe({
+      next: (permissionarios) => {
+        if (permissionarios.byteLength == 0) {
+          this.permissionarioService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([permissionarios], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.permissionarioService.showMessageSuccess("Permissão de Táxi gerada com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.permissionarioService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
+  }
+
   consultarPermissionariosComFiltros() {
     this.loading = true;
 
@@ -158,6 +186,9 @@ export class PermissionarioReadComponent implements OnInit {
           cpfPermissionario: item.cpfPermissionario,
           rgPermissionario: item.rgPermissionario,
           orgaoEmissor: item.orgaoEmissor,
+          sexo: item.sexo,
+          estadoCivil: item.estadoCivil,
+          dataNascimento: item.dataNascimento,
           ufPermissionario: item.ufPermissionario,
           cidadePermissionario: item.cidadePermissionario,
           bairroPermissionario: item.bairroPermissionario,

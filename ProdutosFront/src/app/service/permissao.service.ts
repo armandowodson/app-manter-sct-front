@@ -107,7 +107,35 @@ export class PermissaoService {
     return this.http.get(this.baseUrl+'/gerar-relatorio', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  errorHandler(error: HttpErrorResponse) {
+  gerarAutorizacaoTrafego(permissao: PermissaoModelo): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    params = params.set('idPermissao', permissao.idPermissao);
+
+    return this.http.get(this.baseUrl+'/gerar-autorizacao-trafego', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
+  }
+
+  errorHandler(error: any) {
     return throwError(() => new Error(error.error.message));
+  }
+
+  errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Permissão para o ID informado!';
+    }
+    if (error.status == 401){
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Veículo associado à Permissão!';
+    }
+    if (error.status == 402){
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';
+    }
+    if (error.status == 403){
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível gerar a Autorização de Tráfego!';
+    }
+
+    return throwError(() => new Error(msgErro));
   }
 }

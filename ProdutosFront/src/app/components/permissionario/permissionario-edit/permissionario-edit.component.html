@@ -61,6 +61,41 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Sexo*</mat-label>
+      <mat-select [(value)]="sexoSelecionado">
+        <mat-option *ngFor="let sexo of sexoOptions" [value]="sexo.id">
+          {{ sexo.nome }}
+        </mat-option>
+      </mat-select>
+      <button mat-button *ngIf="sexoSelecionado" matSuffix aria-label="Clear" (click)="sexoSelecionado=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Estado Civil</mat-label>
+      <mat-select [(value)]="estadoCivilSelecionado">
+        <mat-option *ngFor="let estadoCivil of estadoCivilOptions" [value]="estadoCivil.id">
+          {{ estadoCivil.nome }}
+        </mat-option>
+      </mat-select>
+      <button mat-button *ngIf="estadoCivilSelecionado" matSuffix aria-label="Clear" (click)="estadoCivilSelecionado=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Data de Nascimento*</mat-label>
+      <input matInput [matDatepicker]="dataNascimento" placeholder="Data de Nascimento" [(ngModel)]="permissionario.dataNascimento" name="dataNascimento">
+      <mat-datepicker-toggle matIconSuffix [for]="dataNascimento"></mat-datepicker-toggle>
+      <mat-datepicker #dataNascimento></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
       <mat-label>UF*</mat-label>
       <mat-select [(value)]="ufSelecionada">
         <mat-option *ngFor="let uf of ufOptions" [value]="uf.sigla">

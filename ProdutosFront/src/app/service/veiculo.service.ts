@@ -61,10 +61,13 @@ export class VeiculoService {
       ', "anoModelo": "' + veiculo.anoModelo + '"' +
       ', "cor": "' + veiculo.cor + '"' +
       ', "combustivel": "' + veiculo.combustivel + '"' +
+      ', "capacidade": "' + veiculo.capacidade + '"' +
+      ', "quilometragem": "' + veiculo.quilometragem + '"' +
       ', "numeroTaximetro": "' + veiculo.numeroTaximetro + '"' +
       ', "anoRenovacao": "' + veiculo.anoRenovacao + '"' +
       ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
       ', "dataRetorno": "' + veiculo.dataRetorno + '"' +
+      ', "statusVistoria": "' + veiculo.statusVistoria + '"' +
       ', "situacaoVeiculo": "' + veiculo.situacaoVeiculo + '"' +
       ', "numeroCrlv": "' + veiculo.numeroCrlv + '"' +
       ', "anoCrlv": "' + veiculo.anoCrlv + '"' +
@@ -96,10 +99,13 @@ export class VeiculoService {
       ', "anoModelo": "' + veiculo.anoModelo + '"' +
       ', "cor": "' + veiculo.cor + '"' +
       ', "combustivel": "' + veiculo.combustivel + '"' +
+      ', "capacidade": "' + veiculo.capacidade + '"' +
+      ', "quilometragem": "' + veiculo.quilometragem + '"' +
       ', "numeroTaximetro": "' + veiculo.numeroTaximetro + '"' +
       ', "anoRenovacao": "' + veiculo.anoRenovacao + '"' +
       ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
       ', "dataRetorno": "' + veiculo.dataRetorno + '"' +
+      ', "statusVistoria": "' + veiculo.statusVistoria + '"' +
       ', "situacaoVeiculo": "' + veiculo.situacaoVeiculo + '"' +
       ', "numeroCrlv": "' + veiculo.numeroCrlv + '"' +
       ', "anoCrlv": "' + veiculo.anoCrlv + '"' +

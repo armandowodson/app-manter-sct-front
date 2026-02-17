@@ -7,6 +7,7 @@ import {PermissionarioModelo} from "../components/permissionario/permissionario-
 import {PermissionarioFiltro} from "../components/permissionario/permissionario-filtro.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
 import {environment} from "../../environments/environment";
+import {PermissaoModelo} from "../components/permissao/permissao.model";
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,9 @@ export class PermissionarioService {
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
+      ', "sexo": "' + permissionario.sexo + '"' +
+      ', "estadoCivil": "' + permissionario.estadoCivil + '"' +
+      ', "dataNascimento": "' + permissionario.dataNascimento + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
       ', "categoriaCnhPermissionario": "' + permissionario.categoriaCnhPermissionario + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
@@ -92,6 +96,9 @@ export class PermissionarioService {
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
+      ', "sexo": "' + permissionario.sexo + '"' +
+      ', "estadoCivil": "' + permissionario.estadoCivil + '"' +
+      ', "dataNascimento": "' + permissionario.dataNascimento + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
       ', "categoriaCnhPermissionario": "' + permissionario.categoriaCnhPermissionario + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
@@ -160,7 +167,35 @@ export class PermissionarioService {
     return this.http.get<PermissionarioModelo>(this.baseUrl+'/buscar/'+identificador).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  errorHandler(error: HttpErrorResponse) {
+  gerarPermissaoTaxi(permissao: PermissaoModelo): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    params = params.set('numeroPermissao', permissao.numeroPermissao);
+
+    return this.http.get(this.baseUrl+'/gerar-permissao-taxi', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarPermissaoTaxi)); // catch error
+  }
+
+  errorHandler(error: any) {
     return throwError(() => new Error(error.error.message));
+  }
+
+  errorHandlerGerarPermissaoTaxi(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Permissão para o ID informado!';
+    }
+    if (error.status == 401){
+      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Veículo associado à Permissão!';
+    }
+    if (error.status == 402){
+      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há PET associado ao Veículo!';
+    }
+    if (error.status == 403){
+      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Permissionário associado à Permissão!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível gerar a Permissão de Táxi';
+    }
+
+    return throwError(() => new Error(msgErro));
   }
 }

@@ -12,10 +12,13 @@ export interface VeiculoModelo {
   anoModelo: string
   cor: string
   combustivel: string
+  capacidade: string
+  quilometragem: string
   numeroTaximetro: string
   anoRenovacao: string
   dataVistoria: string
   dataRetorno: string
+  statusVistoria: string
   situacaoVeiculo: string
   numeroCrlv: string
   anoCrlv: string

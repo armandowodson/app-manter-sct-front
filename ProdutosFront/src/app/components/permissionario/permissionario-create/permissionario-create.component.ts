@@ -22,6 +22,9 @@ export class PermissionarioCreateComponent implements OnInit {
     cpfPermissionario: "",
     rgPermissionario: "",
     orgaoEmissor: "",
+    sexo: "",
+    estadoCivil: "",
+    dataNascimento: "",
     ufPermissionario: "",
     cidadePermissionario: "",
     bairroPermissionario: "",
@@ -85,6 +88,21 @@ export class PermissionarioCreateComponent implements OnInit {
     { id: 2, nome: 'NÃO' }
   ];
 
+  sexoSelecionado = "";
+  sexoOptions = [
+    { id: 1, nome: 'MASCULINO' },
+    { id: 2, nome: 'FEMININO' }
+  ];
+
+  estadoCivilSelecionado = "";
+  estadoCivilOptions = [
+    { id: 1, nome: 'SOLTEIRO' },
+    { id: 2, nome: 'CASADO' },
+    { id: 3, nome: 'SEPARADO' },
+    { id: 4, nome: 'DIVORCIADO' },
+    { id: 5, nome: 'VIÚVO' }
+  ];
+
   certificadoCondutorSelecionado: File | null = null;
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
@@ -145,6 +163,8 @@ export class PermissionarioCreateComponent implements OnInit {
     this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
     this.permissionario.numeroPermissao = this.permissaoSelecionada;
     this.permissionario.aplicativoAlternativo = this.aplicativoAlternativoSelecionado;
+    this.permissionario.sexo = this.sexoSelecionado;
+    this.permissionario.estadoCivil = this.estadoCivilSelecionado;
 
     this.permissionario.usuario = environment.usuarioLogado;
 
@@ -183,6 +203,14 @@ export class PermissionarioCreateComponent implements OnInit {
     }
     if(this.permissionario.orgaoEmissor == null || this.permissionario.orgaoEmissor == ''){
       this.permissionarioService.showMessageError('O campo Órgão Emissor é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.sexo == null || this.permissionario.sexo == ''){
+      this.permissionarioService.showMessageError('O campo Sexo é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.dataNascimento == null || this.permissionario.dataNascimento == ''){
+      this.permissionarioService.showMessageError('O campo Data de Nascimento é obrigatório!');
       return false;
     }
     if(this.permissionario.celularPermissionario == null || this.permissionario.celularPermissionario == ''){

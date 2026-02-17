@@ -1,0 +1,5 @@
+
+Mtypescript:S3863"%'@angular/core' import is duplicated.(×˜´âúÿÿÿÿ8‡Ñ·ÚÆ3
+_typescript:S1125–"6Refactor the code to avoid using this boolean literal.(ó¿§üÿÿÿÿ8ˆÑ·ÚÆ3
+‰typescript:S1874™"ä'subscribe' is deprecated. Instead of passing separate callback arguments, use an observer argument. Signatures taking separate callback arguments will be removed in v8. Details: https://rxjs.dev/deprecations/subscribe-arguments(”¢©ƒ8ˆÑ·ÚÆ3
+xtypescript:S3776©"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(Â‹Ô‡8ˆÑ·ÚÆ3

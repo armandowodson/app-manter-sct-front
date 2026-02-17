@@ -8,6 +8,7 @@ import { PermissaoModalComponent } from "../../permissao-modal-component/permiss
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
 import {PageModelo} from "../../comum/page-modelo.model";
+import {LoadingService} from "../../../service/loading.service";
 
 @Injectable({
   providedIn: "root",
@@ -67,6 +68,7 @@ export class PermissaoReadComponent implements OnInit {
 
   constructor(
     private permissaoService: PermissaoService,
+    private loadingService: LoadingService,
     private router: Router,
     public matDialog: MatDialog
   ) {
@@ -153,6 +155,28 @@ export class PermissaoReadComponent implements OnInit {
 
   navegarDetalharPermissao(permissaoSelecionado: PermissaoModelo): void {
     this.router.navigate(['permissao/detalhe'], { state: {data: permissaoSelecionado} });
+  }
+
+  gerarAutorizacaoTrafego(permissaoSelecionado: PermissaoModelo): void {
+    this.permissaoService.gerarAutorizacaoTrafego(permissaoSelecionado).subscribe({
+      next: (permissoes) => {
+        if (permissoes.byteLength == 0) {
+          this.permissaoService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([permissoes], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.permissaoService.showMessageSuccess("Autorização de Tráfego gerada com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   consultarPermissaoComFiltros() {

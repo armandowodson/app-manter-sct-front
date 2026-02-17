@@ -1,6 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
 import {VeiculoService} from "../../../service/veiculo.service";
 import {VeiculoModelo} from "../veiculo-modelo.model";
 import {environment} from "../../../../environments/environment";
@@ -32,10 +31,13 @@ export class VeiculoCreateComponent implements OnInit {
     anoModelo: "",
     cor: "",
     combustivel: "",
+    capacidade: "",
+    quilometragem: "",
     numeroTaximetro: "",
     anoRenovacao: "",
     dataVistoria: "",
     dataRetorno: "",
+    statusVistoria: "",
     situacaoVeiculo: "",
     numeroCrlv: "",
     anoCrlv: "",
@@ -78,6 +80,13 @@ export class VeiculoCreateComponent implements OnInit {
     { id: '3', nome: 'ESPECIAL' }
   ];
 
+  statusVistoriaSelecionada = "";
+  statusVistoriaOptions = [
+    { id: '1', nome: 'APROVADO' },
+    { id: '2', nome: 'RESSALVAS' },
+    { id: '3', nome: 'REPROVADO' }
+  ];
+
   permissionario: PermissionarioModelo = {
     idPermissionario: 0,
     numeroPermissao: "",
@@ -85,6 +94,9 @@ export class VeiculoCreateComponent implements OnInit {
     cpfPermissionario: "",
     rgPermissionario: "",
     orgaoEmissor: "",
+    sexo: "",
+    estadoCivil: "",
+    dataNascimento: "",
     ufPermissionario: "",
     cidadePermissionario: "",
     bairroPermissionario: "",
@@ -187,6 +199,7 @@ export class VeiculoCreateComponent implements OnInit {
       this.veiculo.combustivel = this.combustivelSelecionado;
       this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
       this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
+      this.veiculo.statusVistoria = this.statusVistoriaSelecionada;
       this.veiculo.idPermissionario = this.permissionarioSelecionado;
       this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
       this.veiculo.usuario = environment.usuarioLogado;
@@ -265,6 +278,16 @@ export class VeiculoCreateComponent implements OnInit {
 
     if(this.veiculo.anoFabricacao == null || this.veiculo.anoFabricacao == ''){
       this.veiculoService.showMessageError('O campo Ano Fabricação é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.dataVistoria == null || this.veiculo.dataVistoria == ''){
+      this.veiculoService.showMessageError('O campo Data da Vistoria é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.statusVistoria == null || this.veiculo.statusVistoria == ''){
+      this.veiculoService.showMessageError('O campo Status da Vistoria é obrigatório!');
       return false;
     }
 

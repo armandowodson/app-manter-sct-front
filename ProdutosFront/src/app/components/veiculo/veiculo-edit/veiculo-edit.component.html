@@ -141,7 +141,7 @@
       </button>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
       <mat-label >Chassi*</mat-label>
       <input maxlength="20" matInput placeholder="Chassi" style="margin-right: 20px;" [(ngModel)]="veiculo.chassi" name="chassi">
       <button mat-button *ngIf="veiculo.chassi" matSuffix aria-label="Clear" (click)="veiculo.chassi=''">
@@ -161,7 +161,7 @@
       </button>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
       <mat-label>Situação do Veículo*</mat-label>
       <mat-select [(value)]="situacaoVeiculoSelecionada">
         <mat-option *ngFor="let situacao of situacaoVeiculoOptions" [value]="situacao.id">
@@ -175,11 +175,45 @@
       </button>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Capacidade</mat-label>
+      <input maxlength="20" matInput placeholder="Capacidade" style="margin-right: 20px;" [(ngModel)]="veiculo.capacidade" name="capacidade">
+      <button mat-button *ngIf="veiculo.capacidade" matSuffix aria-label="Clear" (click)="veiculo.capacidade=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Quilometragem</mat-label>
+      <input maxlength="20" matInput placeholder="Quilometragem" style="margin-right: 20px;" [(ngModel)]="veiculo.quilometragem" name="quilometragem">
+      <button mat-button *ngIf="veiculo.quilometragem" matSuffix aria-label="Clear" (click)="veiculo.quilometragem=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
     <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Data da Vistoria</mat-label>
+      <mat-label >Data da Vistoria*</mat-label>
       <input matInput [matDatepicker]="vistoria" placeholder="Data da Vistoria" [(ngModel)]="veiculo.dataVistoria" name="dataVistoria">
       <mat-datepicker-toggle matIconSuffix [for]="vistoria"></mat-datepicker-toggle>
       <mat-datepicker #vistoria></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Status da Vistoria*</mat-label>
+      <mat-select [(value)]="statusVistoriaSelecionada">
+        <mat-option *ngFor="let status of statusVistoriaOptions" [value]="status.id">
+          {{ status.nome }}
+        </mat-option>
+      </mat-select>
+      <button mat-button *ngIf="statusVistoriaSelecionada" matSuffix aria-label="Clear" (click)="statusVistoriaSelecionada=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
@@ -192,7 +226,7 @@
       </button>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+    <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
       <mat-label >Ano CRLV*</mat-label>
       <input maxlength="4" type="number" matInput placeholder="Ano CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.anoCrlv" name="anoCrlv">
       <button mat-button *ngIf="veiculo.anoCrlv" matSuffix aria-label="Clear" (click)="veiculo.anoCrlv=''">

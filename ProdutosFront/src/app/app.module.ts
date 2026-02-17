@@ -17,7 +17,7 @@ import { ForDirective } from './directives/for.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -90,6 +90,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+
+import { LoadingInterceptor} from "./loading.interceptor";
 
 registerLocaleData(localePt);
 
@@ -202,7 +204,11 @@ export const DATE_FORMATS = {
       useValue: 'en-GB'
     },
     { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true // multi: true is crucial as it allows multiple interceptors to exist
+    },
     HttpClientModule,
     AppComponent,
     CurrencyPipe,

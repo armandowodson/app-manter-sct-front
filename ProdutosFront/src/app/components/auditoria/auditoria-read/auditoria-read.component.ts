@@ -140,25 +140,25 @@ export class AuditoriaReadComponent implements OnInit {
 
   imprimirAuditoria() {
     this.loading = true;
-
     this.auditoriaFiltro.operacao = this.operacaoSelecionada;
-    this.auditoriaService
-      .imprimirAuditoria(this.auditoriaFiltro, this.pageIndex, this.pageSize)
-      .subscribe(
-        (auditorias) => {
-          if (auditorias.length == 0) {
-            this.auditoriaService.showMessageAlert(
-              "Não há dados para imprimir!"
-            );
-          }
-          this.auditoriaService.showMessageSuccess("Relatório gerado com sucesso! Local gerado C:\\Relatorio");
-          this.loading = false;
-        },
-        (error) => {
-          this.errors = error;
-          this.auditoriaService.showMessageError(this.errors);
-          this.loading = false;
+
+    this.auditoriaService.imprimirAuditoria(this.auditoriaFiltro).subscribe({
+      next: (auditorias) => {
+        if (auditorias.byteLength == 0) {
+          this.auditoriaService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
         }
-      );
+        const blob = new Blob([auditorias], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.auditoriaService.showMessageSuccess("Relatório gerado com sucesso!");
+        this.loading = false;
+      },
+      error: (error) => {
+        this.auditoriaService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpBackend, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpBackend, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Observable, throwError  } from 'rxjs';
@@ -15,7 +15,6 @@ export class AuditoriaService {
 
   snackBar = inject(MatSnackBar);
   baseUrl = environment.urlAplicacao+"/auditoria";
-  erroMetodo  = "";
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -66,20 +65,19 @@ export class AuditoriaService {
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  imprimirAuditoria(auditoria: AuditoriaFiltro, pageIndex: number, pageSize: number): Observable<PageModelo[]> {
+  imprimirAuditoria(auditoria: AuditoriaFiltro): Observable<ArrayBuffer> {
     let params = new HttpParams();
     if (auditoria.nomeModulo)       {  params = params.set('nomeModulo', auditoria.nomeModulo); }
     if (auditoria.usuarioOperacao)       {  params = params.set('usuarioOperacao', auditoria.usuarioOperacao); }
     if (auditoria.operacao)       {  params = params.set('operacao', auditoria.operacao); }
     if (auditoria.dataInicioOperacao)       {  params = params.set('dataInicioOperacao', auditoria.dataInicioOperacao); }
     if (auditoria.dataFimOperacao)       {  params = params.set('dataFimOperacao', auditoria.dataFimOperacao); }
-    params = params.set('pageIndex', pageIndex);
-    params = params.set('pageSize', pageSize);
 
-    return this.http.get<PageModelo[]>(this.baseUrl+'/imprimir', {params}).pipe(catchError(this.errorHandler)); // catch error
+    return this.http.get(this.baseUrl+'/imprimir', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandler));
   }
 
-  errorHandler() {
-    return throwError("Ocorreu um erro! Operação não concluída!");
+  errorHandler(error: HttpErrorResponse) {
+    alert(error.error.message);
+    return throwError(() => new Error(error.error.message));
   }
 }

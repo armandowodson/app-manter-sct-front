@@ -3,11 +3,11 @@ import {PermissaoModelo} from "../permissao.model";
 import { PermissaoService } from "../../../service/permissao.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import { Router } from "@angular/router";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { PermissaoModalComponent } from "../../permissao-modal-component/permissao-modal.component";
+import { MatDialog } from "@angular/material/dialog";
 import {environment} from "../../../../environments/environment";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {PageModelo} from "../../comum/page-modelo.model";
+import {LoadingService} from "../../../service/loading.service";
 
 @Injectable({
   providedIn: "root",
@@ -18,8 +18,6 @@ import {PageModelo} from "../../comum/page-modelo.model";
 })
 export class PermissaoRelatorioComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  public loading = false;
 
   permissaoFiltro: PermissaoModelo = {
     idPermissao: 0,
@@ -43,14 +41,15 @@ export class PermissaoRelatorioComponent implements OnInit {
 
   statusPermissaoSelecionada = 0;
   statusPermissaoOptions = [
-    { id: 1, nome: 'EM USO' },
-    { id: 2, nome: 'SUSPENSA' },
-    { id: 3, nome: 'RENUNCIADA' },
-    { id: 4, nome: 'RESERVADA' },
-    { id: 5, nome: 'SUBSTITUÍDA' },
-    { id: 6, nome: 'REVOGADA' },
-    { id: 7, nome: 'EXPIRADA' },
-    { id: 8, nome: 'ABANDONADA' }
+    { id: 1, nome: 'GERADA' },
+    { id: 2, nome: 'EM USO' },
+    { id: 3, nome: 'SUSPENSA' },
+    { id: 4, nome: 'RENUNCIADA' },
+    { id: 5, nome: 'RESERVADA' },
+    { id: 6, nome: 'SUBSTITUÍDA' },
+    { id: 7, nome: 'REVOGADA' },
+    { id: 8, nome: 'EXPIRADA' },
+    { id: 9, nome: 'ABANDONADA' }
   ];
 
   permissoes: any[] = [];
@@ -66,8 +65,8 @@ export class PermissaoRelatorioComponent implements OnInit {
 
   constructor(
     private permissaoService: PermissaoService,
-    private router: Router,
-    public matDialog: MatDialog
+    private loadingService: LoadingService,
+    private router: Router
   ) {
     this.errors = "";
     this.nomeLogado = "";
@@ -85,6 +84,7 @@ export class PermissaoRelatorioComponent implements OnInit {
   }
 
   buscarTodasPermissoes(){
+      this.loadingService.show();
       this.buscouTodos = 1;
       const request: Observable<PageModelo> = this.permissaoService.consultarTodasPermissoes(this.pageIndex, this.pageSize);
       request.subscribe({
@@ -111,10 +111,10 @@ export class PermissaoRelatorioComponent implements OnInit {
           }));
           this.totalPontos = res.totalElements;
           this.pageIndex = res.number;
-          this.loading = false;
+          this.loadingService.hide();
         },
         error: (err) => {
-          this.loading = false;
+          this.loadingService.hide();
           this.permissaoService.showMessageError(err.message.replace("Error: ", ""));
         }
       });
@@ -142,20 +142,8 @@ export class PermissaoRelatorioComponent implements OnInit {
     this.router.navigate(["/relatorio"]);
   }
 
-  navegarInserirPermissao(): void {
-    this.router.navigate(["permissao/create"]);
-  }
-
-  navegarEditarPermissao(permissaoSelecionado: PermissaoModelo): void {
-    this.router.navigate(['permissao/edit'], { state: {data: permissaoSelecionado} });
-  }
-
-  navegarDetalharPermissao(permissaoSelecionado: PermissaoModelo): void {
-    this.router.navigate(['permissao/detalhe'], { state: {data: permissaoSelecionado} });
-  }
-
   consultarPermissaoComFiltros() {
-      this.loading = true;
+      this.loadingService.show();
       this.permissaoFiltro.statusPermissao = this.statusPermissaoSelecionada;
 
       const request: Observable<PageModelo> = this.permissaoService.consultarPermissaoComFiltros(this.permissaoFiltro, this.pageIndex, this.pageSize);
@@ -189,28 +177,48 @@ export class PermissaoRelatorioComponent implements OnInit {
           }));
           this.totalPontos = res.totalElements;
           this.pageIndex = res.number;
-          this.loading = false;
+          this.loadingService.hide();
         },
         error: (err) => {
-          this.loading = false;
+          this.loadingService.hide();
           this.permissaoService.showMessageError(err.message.replace("Error: ", ""));
         }
       });
   }
 
-  openModal(idPermissao: number, numeroPermissao: string) {
-    if(environment.usuarioLogado == null || environment.usuarioLogado == ''){
-        this.permissaoService.showMessageAlert("Não é possível realizar a operação. Usuário não logado!");
+  gerarRelatorio(){
+      this.loadingService.show();
+      this.permissaoFiltro.statusPermissao = this.statusPermissaoSelecionada;
+
+      if(this.permissaoFiltro.periodoInicialStatus == null || this.permissaoFiltro.periodoInicialStatus == ""){
+        this.permissaoService.showMessageAlert("O campo Data Início Geração é obrigatório!");
         return;
-    }
-    const dialogConfig = new MatDialogConfig();
-    // The user can't close the dialog by clicking outside its body
-    dialogConfig.disableClose = true;
-    dialogConfig.id =
-      "Deseja excluir a Permissão Nº " + numeroPermissao + " ?";
-    dialogConfig.panelClass = "dialogModal";
-    environment.idSelecionado = idPermissao;
-    this.matDialog.open(PermissaoModalComponent, dialogConfig);
+      }
+
+      if(this.permissaoFiltro.periodoFinalStatus == null || this.permissaoFiltro.periodoFinalStatus == ""){
+        this.permissaoService.showMessageAlert("O campo Data Fim Geração é obrigatório!");
+        return;
+      }
+
+      this.permissaoService.gerarRelatorio(this.permissaoFiltro, this.pageIndex, this.pageSize).subscribe({
+        next: (permissoes) => {
+          if (permissoes.byteLength == 0) {
+            this.permissaoService.showMessageAlert(
+              "Não há dados para imprimir!"
+            );
+          }
+          const blob = new Blob([permissoes], { type: 'application/pdf' });
+          const url = window.URL.createObjectURL(blob);
+          window.open(url, '_blank');
+
+          this.loadingService.hide();
+          this.permissaoService.showMessageSuccess("Relatório gerado com sucesso!");
+        },
+        error: (error) => {
+          this.loadingService.hide();
+          this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
+        }
+      });
   }
 
   carregarCategoriaPermissao(categoria: string) {
@@ -237,27 +245,30 @@ export class PermissaoRelatorioComponent implements OnInit {
     var strStatus = "";
     switch (status) {
       case "1":
-        strStatus = "EM USO";
+        strStatus = "GERADA";
         break;
       case "2":
-        strStatus = "SUSPENSA";
+        strStatus = "EM USO";
         break;
       case "3":
-        strStatus = "RENUNCIADA";
+        strStatus = "SUSPENSA";
         break;
       case "4":
-        strStatus = "RESERVADA";
+        strStatus = "RENUNCIADA";
         break;
       case "5":
-        strStatus = "SUBSTITUÍDA";
+        strStatus = "RESERVADA";
         break;
       case "6":
-        strStatus = "REVOGADA";
+        strStatus = "SUBSTITUÍDA";
         break;
       case "7":
-        strStatus = "EXPIRADA";
+        strStatus = "REVOGADA";
         break;
       case "8":
+        strStatus = "EXPIRADA";
+        break;
+      case "9":
         strStatus = "ABANDONADA";
         break;
     }

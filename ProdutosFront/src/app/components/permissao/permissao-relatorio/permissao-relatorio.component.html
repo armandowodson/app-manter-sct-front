@@ -1,109 +1,104 @@
 <mat-card>
-    <div style="width: 550px; margin-left: 950px; font-size: small">
-      <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
-    </div>
-    <div style="height: 50px; margin-left: 20px;">
-      <mat-card-title><b>Relatório das Permissões</b></mat-card-title>
-    </div>
-    <div>
-        <form>
-            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-                <mat-label >Nº Permissão</mat-label>
-                <input type="number" matInput placeholder="Nº Permissão" style="margin-right: 20px;" [(ngModel)]="permissaoFiltro.numeroPermissao" name="numeroPermissao">
-                <button mat-button *ngIf="permissaoFiltro.numeroPermissao" matSuffix aria-label="Clear" (click)="permissaoFiltro.numeroPermissao=''">
-                    <i class="material-icons black v-middle">
-                        close
-                    </i>
-                </button>
-            </mat-form-field>
+  <div style="width: 550px; margin-left: 950px; font-size: small">
+    <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+  </div>
+  <div style="height: 50px; margin-left: 20px;">
+    <mat-card-title><b>Relatório de Permissões</b></mat-card-title>
+  </div>
+  <div>
+    <form>
+      <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Ano Permissão</mat-label>
+        <input type="number" matInput placeholder="Ano Permissão" style="margin-right: 20px;" [(ngModel)]="permissaoFiltro.anoPermissao" name="anoPermissao">
+        <button mat-button *ngIf="permissaoFiltro.anoPermissao" matSuffix aria-label="Clear" (click)="permissaoFiltro.anoPermissao=''">
+          <i class="material-icons black v-middle">
+            close
+          </i>
+        </button>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Ano Permissão</mat-label>
-              <input type="number" matInput placeholder="Ano Permissão" style="margin-right: 20px;" [(ngModel)]="permissaoFiltro.anoPermissao" name="anoPermissao">
-              <button mat-button *ngIf="permissaoFiltro.anoPermissao" matSuffix aria-label="Clear" (click)="permissaoFiltro.anoPermissao=''">
-                <i class="material-icons black v-middle">
-                  close
-                </i>
-              </button>
-            </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+        <mat-label>Situação Permissão</mat-label>
+        <mat-select [(value)]="statusPermissaoSelecionada">
+          <mat-option *ngFor="let status of statusPermissaoOptions" [value]="status.id">
+            {{ status.nome }}
+          </mat-option>
+        </mat-select>
+        <button mat-button *ngIf="statusPermissaoSelecionada" matSuffix aria-label="Clear" (click)="statusPermissaoSelecionada=0">
+          <i class="material-icons black v-middle">
+            close
+          </i>
+        </button>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-              <mat-label>Situação Permissão</mat-label>
-              <mat-select [(value)]="statusPermissaoSelecionada">
-                <mat-option *ngFor="let status of statusPermissaoOptions" [value]="status.id">
-                  {{ status.nome }}
-                </mat-option>
-              </mat-select>
-              <button mat-button *ngIf="statusPermissaoSelecionada" matSuffix aria-label="Clear" (click)="statusPermissaoSelecionada=0">
-                <i class="material-icons black v-middle">
-                  close
-                </i>
-              </button>
-            </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Data Início Geração</mat-label>
+        <input matInput [matDatepicker]="dataInicial" placeholder="Data Início Criação" [(ngModel)]="permissaoFiltro.periodoInicialStatus" name="periodoInicialStatus">
+        <mat-datepicker-toggle matIconSuffix [for]="dataInicial"></mat-datepicker-toggle>
+        <mat-datepicker #dataInicial></mat-datepicker>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Período Inicial Situação</mat-label>
-              <input matInput [matDatepicker]="periodoInicial" placeholder="Período Inicial Situação" [(ngModel)]="permissaoFiltro.periodoInicialStatus" name="periodoInicialStatus">
-              <mat-datepicker-toggle matIconSuffix [for]="periodoInicial"></mat-datepicker-toggle>
-              <mat-datepicker #periodoInicial></mat-datepicker>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Período Final Situação</mat-label>
-              <input matInput [matDatepicker]="periodoFinal" placeholder="Período Final Situação" [(ngModel)]="permissaoFiltro.periodoFinalStatus" name="periodoFinalStatus">
-              <mat-datepicker-toggle matIconSuffix [for]="periodoFinal"></mat-datepicker-toggle>
-              <mat-datepicker #periodoFinal></mat-datepicker>
-            </mat-form-field>
-        </form>
-    </div>
+      <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Data Fim Geração</mat-label>
+        <input matInput [matDatepicker]="dataFinal" placeholder="Data Fim Criação" [(ngModel)]="permissaoFiltro.periodoFinalStatus" name="periodoFinalStatus">
+        <mat-datepicker-toggle matIconSuffix [for]="dataFinal"></mat-datepicker-toggle>
+        <mat-datepicker #dataFinal></mat-datepicker>
+      </mat-form-field>
+    </form>
+  </div>
 </mat-card>
 <br>
 <div class="btn-toolbar" style="float: right;">
-    <div class="btn-group">
-      <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarPermissaoComFiltros()">
-        Consultar
-      </button>
-    </div>
-    <div class="btn-group">
-      <button style="width: 200px; background-color: darkgray;"  class="buttonVoltar" mat-raised-button (click) = "voltarPaginaRelatorio()">
-        Voltar
-      </button>
-    </div>
+  <div class="btn-group">
+    <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarPermissaoComFiltros()">
+      Consultar
+    </button>
+  </div>
+  <div class="btn-group">
+    <button style="width: 200px; background-color: #04AA6D;"  class="buttonInserir" mat-raised-button (click) = "gerarRelatorio()">
+      Gerar Relatório
+    </button>
+  </div>
+  <div class="btn-group">
+    <button style="width: 200px; background-color: darkgray;"  class="buttonVoltar" mat-raised-button (click) = "voltarPaginaRelatorio()">
+      Voltar
+    </button>
+  </div>
 </div>
 <br>
 <br>
 <br>
 <div class="mat-elevation-z4">
-    <table class="table table-striped table-hover" style="outline-color: black;">
-         <thead style="background-color: gray;">
-            <tr style="color: white;">
-              <th style="text-align: left;">Nº Permissão</th>
-              <th style="text-align: center;">Ano Permissão</th>
-              <th style="text-align: left;">Categoria Permissão</th>
-              <th style="text-align: center;">Situação Permissão</th>
-              <th style="text-align: center;">Data Validade Permissão</th>
-              <th style="text-align: center;">Status Registro</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr *ngFor="let row of permissoes | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
-              <td style="text-align: left;">{{row.numeroPermissao}}</td>
-              <td style="text-align: center;">{{row.anoPermissao}}</td>
-              <td style="text-align: left;">{{row.categoriaPermissaoListagem}}</td>
-              <td style="text-align: center;">{{row.statusPermissaoListagem}}</td>
-              <td style="text-align: center;">{{row.dataValidadePermissaoOriginal}}</td>
-              <td style="text-align: center;">{{row.status}}</td>
-            </tr>
-         </tbody>
-    </table>
-    <mat-paginator
-      #paginator
-      (page)="onPageChange($event)"
-      [length]= "totalPontos"
-      [pageSize]= "pageSize"
-      [pageIndex]="pageIndex"
-      [pageSizeOptions]= "[10, 15, 20]"
-      [showFirstLastButtons]>
-    </mat-paginator>
+  <table class="table table-striped table-hover" style="outline-color: black;">
+    <thead style="background-color: gray;">
+    <tr style="color: white;">
+      <th style="text-align: left;">Nº Permissão</th>
+      <th style="text-align: center;">Ano Permissão</th>
+      <th style="text-align: left;">Categoria Permissão</th>
+      <th style="text-align: center;">Situação Permissão</th>
+      <th style="text-align: center;">Data Validade Permissão</th>
+      <th style="text-align: center;">Status Registro</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of permissoes | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
+      <td style="text-align: left;">{{row.numeroPermissao}}</td>
+      <td style="text-align: center;">{{row.anoPermissao}}</td>
+      <td style="text-align: left;">{{row.categoriaPermissaoListagem}}</td>
+      <td style="text-align: center;">{{row.statusPermissaoListagem}}</td>
+      <td style="text-align: center;">{{row.dataValidadePermissaoOriginal}}</td>
+      <td style="text-align: center;">{{row.status}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <mat-paginator
+    #paginator
+    (page)="onPageChange($event)"
+    [length]= "totalPontos"
+    [pageSize]= "pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]= "[10, 15, 20]"
+    [showFirstLastButtons]>
+  </mat-paginator>
 </div>
 

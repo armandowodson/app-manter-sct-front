@@ -85,7 +85,7 @@ export class PermissaoService {
     let params = new HttpParams();
     if (permissao.numeroPermissao)       {  params = params.set('numeroPermissao', permissao.numeroPermissao); }
     if (permissao.numeroAlvara)       {  params = params.set('numeroAlvara', permissao.numeroAlvara); }
-    if (permissao.anoPermissao)       {  params = params.set('anoAlvara', permissao.anoPermissao); }
+    if (permissao.anoPermissao)       {  params = params.set('anoPermissao', permissao.anoPermissao); }
     if (permissao.statusPermissao)       {  params = params.set('statusPermissao', permissao.statusPermissao); }
     if (permissao.periodoInicialStatus)       {  params = params.set('periodoInicialStatus', permissao.periodoInicialStatus); }
     if (permissao.periodoFinalStatus)       {  params = params.set('periodoFinalStatus', permissao.periodoFinalStatus); }
@@ -93,6 +93,18 @@ export class PermissaoService {
     params = params.set('pageSize', pageSize);
 
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
+  }
+
+  gerarRelatorio(permissao: PermissaoModelo, pageIndex: number, pageSize: number): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    if (permissao.anoPermissao)       {  params = params.set('anoPermissao', permissao.anoPermissao); }
+    if (permissao.statusPermissao)       {  params = params.set('statusPermissao', permissao.statusPermissao); }
+    if (permissao.periodoInicialStatus)       {  params = params.set('dataInicioGeracao', permissao.periodoInicialStatus); }
+    if (permissao.periodoFinalStatus)       {  params = params.set('dataFimGeracao', permissao.periodoFinalStatus); }
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
+
+    return this.http.get(this.baseUrl+'/gerar-relatorio', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
   errorHandler(error: HttpErrorResponse) {

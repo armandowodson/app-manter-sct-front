@@ -43,14 +43,15 @@ export class PermissaoReadComponent implements OnInit {
 
   statusPermissaoSelecionada = 0;
   statusPermissaoOptions = [
-    { id: 1, nome: 'EM USO' },
-    { id: 2, nome: 'SUSPENSA' },
-    { id: 3, nome: 'RENUNCIADA' },
-    { id: 4, nome: 'RESERVADA' },
-    { id: 5, nome: 'SUBSTITUÍDA' },
-    { id: 6, nome: 'REVOGADA' },
-    { id: 7, nome: 'EXPIRADA' },
-    { id: 8, nome: 'ABANDONADA' }
+    { id: '1', nome: 'GERADA' },
+    { id: '2', nome: 'EM USO' },
+    { id: '3', nome: 'SUSPENSA' },
+    { id: '4', nome: 'RENUNCIADA' },
+    { id: '5', nome: 'RESERVADA' },
+    { id: '6', nome: 'SUBSTITUÍDA' },
+    { id: '7', nome: 'REVOGADA' },
+    { id: '8', nome: 'EXPIRADA' },
+    { id: '9', nome: 'ABANDONADA' }
   ];
 
   permissoes: any[] = [];
@@ -237,27 +238,30 @@ export class PermissaoReadComponent implements OnInit {
     var strStatus = "";
     switch (status) {
       case "1":
-        strStatus = "EM USO";
+        strStatus = "GERADA";
         break;
       case "2":
-        strStatus = "SUSPENSA";
+        strStatus = "EM USO";
         break;
       case "3":
-        strStatus = "RENUNCIADA";
+        strStatus = "SUSPENSA";
         break;
       case "4":
-        strStatus = "RESERVADA";
+        strStatus = "RENUNCIADA";
         break;
       case "5":
-        strStatus = "SUBSTITUÍDA";
+        strStatus = "RESERVADA";
         break;
       case "6":
-        strStatus = "REVOGADA";
+        strStatus = "SUBSTITUÍDA";
         break;
       case "7":
-        strStatus = "EXPIRADA";
+        strStatus = "REVOGADA";
         break;
       case "8":
+        strStatus = "EXPIRADA";
+        break;
+      case "9":
         strStatus = "ABANDONADA";
         break;
     }

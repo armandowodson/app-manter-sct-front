@@ -167,33 +167,33 @@ export class PermissionarioService {
     return this.http.get<PermissionarioModelo>(this.baseUrl+'/buscar/'+identificador).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  gerarPermissaoTaxi(permissao: PermissaoModelo): Observable<ArrayBuffer> {
+  gerarRegistroCondutor(numeroPermissao: string): Observable<ArrayBuffer> {
     let params = new HttpParams();
-    params = params.set('numeroPermissao', permissao.numeroPermissao);
+    params = params.set('numeroPermissao', numeroPermissao);
 
-    return this.http.get(this.baseUrl+'/gerar-permissao-taxi', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarPermissaoTaxi)); // catch error
+    return this.http.get(this.baseUrl+'/gerar-registro-condutor', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
   }
 
   errorHandler(error: any) {
     return throwError(() => new Error(error.error.message));
   }
 
-  errorHandlerGerarPermissaoTaxi(error: HttpErrorResponse) {
+  errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Permissão para o ID informado!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Permissão para o ID informado!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Veículo associado à Permissão!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Veículo associado à Permissão!';
     }
     if (error.status == 402){
-      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há PET associado ao Veículo!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há PET associado ao Veículo!';
     }
     if (error.status == 403){
-      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Permissionário associado à Permissão!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há PET associado ao Veículo!';
     }
     if (error.status == 500){
-      msgErro = 'Ocorreu um erro! Não foi possível gerar a Permissão de Táxi';
+      msgErro = 'Ocorreu um erro! Não foi possível gerar o Registro do Condutor!';
     }
 
     return throwError(() => new Error(msgErro));

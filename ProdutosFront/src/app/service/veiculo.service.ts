@@ -7,6 +7,7 @@ import {VeiculoModelo} from "../components/veiculo/veiculo-modelo.model";
 import {VeiculoFiltro} from "../components/veiculo/veiculo-filtro.model";
 import {PageModelo} from "../components/comum/page-modelo.model";
 import {environment} from "../../environments/environment";
+import {PermissaoModelo} from "../components/permissao/permissao.model";
 
 @Injectable({
   providedIn: 'root'
@@ -154,7 +155,36 @@ export class VeiculoService {
 
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
+
+  gerarAutorizacaoTrafego(numeroPermissao: string): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    params = params.set('numeroPermissao', numeroPermissao);
+
+    return this.http.get(this.baseUrl+'/gerar-autorizacao-trafego', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(() => new Error(error.error.message));
+  }
+
+  errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Permissão para o ID informado!';
+    }
+    if (error.status == 401){
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Veículo associado à Permissão!';
+    }
+    if (error.status == 402){
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';
+    }
+    if (error.status == 403){
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível gerar a Autorização de Tráfego!';
+    }
+
+    return throwError(() => new Error(msgErro));
   }
 }

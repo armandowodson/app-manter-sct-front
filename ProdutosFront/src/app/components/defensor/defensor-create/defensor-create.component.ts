@@ -25,6 +25,9 @@ export class DefensorCreateComponent implements OnInit {
     cpfDefensor: "",
     rgDefensor: "",
     orgaoEmissor: "",
+    sexo: "",
+    estadoCivil: "",
+    dataNascimento: "",
     ufDefensor: "",
     cidadeDefensor: "",
     bairroDefensor: "",
@@ -78,6 +81,21 @@ export class DefensorCreateComponent implements OnInit {
     { id: 2, nome: 'C' },
     { id: 3, nome: 'D' },
     { id: 4, nome: 'E' }
+  ];
+
+  sexoSelecionado = "";
+  sexoOptions = [
+    { id: 1, nome: 'MASCULINO' },
+    { id: 2, nome: 'FEMININO' }
+  ];
+
+  estadoCivilSelecionado = "";
+  estadoCivilOptions = [
+    { id: 1, nome: 'SOLTEIRO' },
+    { id: 2, nome: 'CASADO' },
+    { id: 3, nome: 'SEPARADO' },
+    { id: 4, nome: 'DIVORCIADO' },
+    { id: 5, nome: 'VIÚVO' }
   ];
 
   certificadoCondutorSelecionado: File | null = null;
@@ -139,6 +157,8 @@ export class DefensorCreateComponent implements OnInit {
     this.defensor.ufDefensor = this.ufSelecionada;
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
     this.defensor.numeroPermissao = this.permissaoSelecionada;
+    this.defensor.sexo = this.sexoSelecionado;
+    this.defensor.estadoCivil = this.estadoCivilSelecionado;
 
     this.defensor.usuario = environment.usuarioLogado;
 

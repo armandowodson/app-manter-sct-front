@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DefensorModalComponent } from "../../defensor-modal-component/defensor-modal.component";
 import {environment} from "../../../../environments/environment";
+import {LoadingService} from "../../../service/loading.service";
 
 @Injectable({
   providedIn: "root",
@@ -41,6 +42,7 @@ export class DefensorReadComponent implements OnInit {
 
   constructor(
     private defensorService: DefensorService,
+    private loadingService: LoadingService,
     private router: Router,
     public matDialog: MatDialog
   ) {
@@ -79,6 +81,9 @@ export class DefensorReadComponent implements OnInit {
           cpfDefensor: item.cpfDefensor,
           rgDefensor: item.rgDefensor,
           orgaoEmissor: item.orgaoEmissor,
+          sexo: item.sexo,
+          estadoCivil: item.estadoCivil,
+          dataNascimento: item.dataNascimento,
           ufDefensor: item.ufDefensor,
           cidadeDefensor: item.cidadeDefensor,
           bairroDefensor: item.bairroDefensor,
@@ -141,6 +146,9 @@ export class DefensorReadComponent implements OnInit {
           cpfDefensor: item.cpfDefensor,
           rgDefensor: item.rgDefensor,
           orgaoEmissor: item.orgaoEmissor,
+          sexo: item.sexo,
+          estadoCivil: item.estadoCivil,
+          dataNascimento: item.dataNascimento,
           ufDefensor: item.ufDefensor,
           cidadeDefensor: item.cidadeDefensor,
           bairroDefensor: item.bairroDefensor,
@@ -195,5 +203,27 @@ export class DefensorReadComponent implements OnInit {
     dialogConfig.panelClass = "dialogModal";
     environment.idSelecionado = idDefensor;
     this.matDialog.open(DefensorModalComponent, dialogConfig);
+  }
+
+  gerarRegistroCondutor(numeroPermissao: string): void {
+    this.defensorService.gerarRegistroCondutor(numeroPermissao).subscribe({
+      next: (defensores) => {
+        if (defensores.byteLength == 0) {
+          this.defensorService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([defensores], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.defensorService.showMessageSuccess("Registro do Condutor gerado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.defensorService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 }

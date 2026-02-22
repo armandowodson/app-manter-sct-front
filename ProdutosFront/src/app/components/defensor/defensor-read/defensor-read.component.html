@@ -123,6 +123,9 @@
                 <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharDefensor(row)">
                   <mat-icon>lists</mat-icon>
                 </button>
+                <button title="Gerar Registro Condutor" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarRegistroCondutor(row.numeroPermissao)" aria-label="Editar Permissão">
+                  <mat-icon>article</mat-icon>
+                </button>
                 <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idDefensor, row.nomeDefensor)">
                     <mat-icon>delete</mat-icon>
                 </button>

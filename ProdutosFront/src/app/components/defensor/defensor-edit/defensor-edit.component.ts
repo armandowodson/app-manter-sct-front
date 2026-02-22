@@ -27,6 +27,9 @@ export class DefensorEditComponent implements OnInit {
     cpfDefensor: "",
     rgDefensor: "",
     orgaoEmissor: "",
+    sexo: "",
+    estadoCivil: "",
+    dataNascimento: "",
     ufDefensor: "",
     cidadeDefensor: "",
     bairroDefensor: "",
@@ -82,6 +85,21 @@ export class DefensorEditComponent implements OnInit {
     { id: '4', nome: 'E' }
   ];
 
+  sexoSelecionado = "";
+  sexoOptions = [
+    { id: '1', nome: 'MASCULINO' },
+    { id: '2', nome: 'FEMININO' }
+  ];
+
+  estadoCivilSelecionado = "";
+  estadoCivilOptions = [
+    { id: '1', nome: 'SOLTEIRO' },
+    { id: '2', nome: 'CASADO' },
+    { id: '3', nome: 'SEPARADO' },
+    { id: '4', nome: 'DIVORCIADO' },
+    { id: '5', nome: 'VIÚVO' }
+  ];
+
   certificadoCondutorSelecionado: File | null = null;
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
@@ -129,6 +147,11 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.cpfDefensor = history.state.data.cpfDefensor;
       this.defensor.rgDefensor = history.state.data.rgDefensor;
       this.defensor.orgaoEmissor = history.state.data.orgaoEmissor;
+      this.sexoSelecionado = history.state.data.sexo;
+      this.defensor.sexo = history.state.data.sexo;
+      this.estadoCivilSelecionado = history.state.data.estadoCivil;
+      this.defensor.estadoCivil = history.state.data.estadoCivil;
+      this.defensor.dataNascimento = history.state.data.dataNascimento;
       this.defensor.cnhDefensor = history.state.data.cnhDefensor;
       this.categoriaCnhSelecionada = history.state.data.categoriaCnhDefensor;
       this.defensor.categoriaCnhDefensor = history.state.data.categoriaCnhDefensor;
@@ -167,6 +190,8 @@ export class DefensorEditComponent implements OnInit {
     this.defensor.ufDefensor = this.ufSelecionada;
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
     this.defensor.numeroPermissao = this.permissaoSelecionada;
+    this.defensor.sexo = this.sexoSelecionado;
+    this.defensor.estadoCivil = this.estadoCivilSelecionado;
 
     this.defensor.usuario = environment.usuarioLogado;
 

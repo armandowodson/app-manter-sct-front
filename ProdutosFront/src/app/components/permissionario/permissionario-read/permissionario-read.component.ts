@@ -144,28 +144,6 @@ export class PermissionarioReadComponent implements OnInit {
     this.router.navigate(['permissionario/detalhe'], { state: {data: permissionarioSelecionado} });
   }
 
-  gerarPermissaoTaxi(permissaoSelecionado: PermissaoModelo): void {
-    this.permissionarioService.gerarPermissaoTaxi(permissaoSelecionado).subscribe({
-      next: (permissionarios) => {
-        if (permissionarios.byteLength == 0) {
-          this.permissionarioService.showMessageAlert(
-            "Não há dados para imprimir!"
-          );
-        }
-        const blob = new Blob([permissionarios], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
-        window.open(url, '_blank');
-
-        this.loadingService.hide();
-        this.permissionarioService.showMessageSuccess("Permissão de Táxi gerada com sucesso!");
-      },
-      error: (error) => {
-        this.loadingService.hide();
-        this.permissionarioService.showMessageError(error.message.replace("Error: ", ""));
-      }
-    });
-  }
-
   consultarPermissionariosComFiltros() {
     this.loading = true;
 
@@ -227,5 +205,27 @@ export class PermissionarioReadComponent implements OnInit {
     dialogConfig.panelClass = "dialogModal";
     environment.idSelecionado = idPermissionario;
     this.matDialog.open(PermissionarioModalComponent, dialogConfig);
+  }
+
+  gerarRegistroCondutor(numeroPermissao: string): void {
+    this.permissionarioService.gerarRegistroCondutor(numeroPermissao).subscribe({
+      next: (permissionarios) => {
+        if (permissionarios.byteLength == 0) {
+          this.permissionarioService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([permissionarios], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.permissionarioService.showMessageSuccess("Registro do Condutor gerado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.permissionarioService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 }

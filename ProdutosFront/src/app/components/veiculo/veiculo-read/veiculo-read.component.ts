@@ -7,6 +7,8 @@ import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { VeiculoModalComponent } from "../../veiculo-modal-component/veiculo-modal.component";
 import {environment} from "../../../../environments/environment";
+import {PermissaoModelo} from "../../permissao/permissao.model";
+import {LoadingService} from "../../../service/loading.service";
 
 @Injectable({
   providedIn: "root",
@@ -40,6 +42,7 @@ export class VeiculoReadComponent implements OnInit {
 
   constructor(
     private veiculoService: VeiculoService,
+    private loadingService: LoadingService,
     private router: Router,
     public matDialog: MatDialog
   ) {
@@ -209,24 +212,25 @@ export class VeiculoReadComponent implements OnInit {
     this.matDialog.open(VeiculoModalComponent, dialogConfig);
   }
 
-/**
- * Loads and returns the color name based on the provided color code
- * @param cor - A string representing the color code (1, 2, or 3)
- * @returns The corresponding color name as a string
- */
-  carregarCor(cor: string) {
-    // Initialize an empty string to store the color name
-    var strCor = "";
-    // Switch statement to map color codes to color names
-    switch (cor) {
-      case "1":
-        strCor = "BRANCA";  // Portuguese for WHITE
-        break;
-      case "2":
-        strCor = "PRATA";   // Portuguese for SILVER
-        break;
-    }
-    return strCor;  // Return the color name
-  }
+  gerarAutorizacaoTrafego(numeroPermissao: string): void {
+    this.veiculoService.gerarAutorizacaoTrafego(numeroPermissao).subscribe({
+      next: (permissoes) => {
+        if (permissoes.byteLength == 0) {
+          this.veiculoService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([permissoes], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
 
+        this.loadingService.hide();
+        this.veiculoService.showMessageSuccess("Autorização de Tráfego gerada com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
+  }
 }

@@ -107,35 +107,36 @@ export class PermissaoService {
     return this.http.get(this.baseUrl+'/gerar-relatorio', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  gerarAutorizacaoTrafego(permissao: PermissaoModelo): Observable<ArrayBuffer> {
+  gerarPermissaoTaxi(permissao: PermissaoModelo): Observable<ArrayBuffer> {
     let params = new HttpParams();
-    params = params.set('idPermissao', permissao.idPermissao);
+    params = params.set('numeroPermissao', permissao.numeroPermissao);
 
-    return this.http.get(this.baseUrl+'/gerar-autorizacao-trafego', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
+    return this.http.get(this.baseUrl+'/gerar-permissao-taxi', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarPermissaoTaxi)); // catch error
   }
 
   errorHandler(error: any) {
     return throwError(() => new Error(error.error.message));
   }
 
-  errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
+  errorHandlerGerarPermissaoTaxi(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Permissão para o ID informado!';
+      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Permissão para o ID informado!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Veículo associado à Permissão!';
+      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Veículo associado à Permissão!';
     }
     if (error.status == 402){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';
+      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há PET associado ao Veículo!';
     }
     if (error.status == 403){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';
+      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Permissionário associado à Permissão!';
     }
     if (error.status == 500){
-      msgErro = 'Ocorreu um erro! Não foi possível gerar a Autorização de Tráfego!';
+      msgErro = 'Ocorreu um erro! Não foi possível gerar a Permissão de Táxi';
     }
 
     return throwError(() => new Error(msgErro));
   }
+
 }

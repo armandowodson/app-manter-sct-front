@@ -56,6 +56,9 @@ export class DefensorService {
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
       ', "orgaoEmissor": "' + defensor.orgaoEmissor + '"' +
+      ', "sexo": "' + defensor.sexo + '"' +
+      ', "estadoCivil": "' + defensor.estadoCivil + '"' +
+      ', "dataNascimento": "' + defensor.dataNascimento + '"' +
       ', "cnhDefensor": "' + defensor.cnhDefensor + '"' +
       ', "categoriaCnhDefensor": "' + defensor.categoriaCnhDefensor + '"' +
       ', "ufDefensor": "' + defensor.ufDefensor + '"' +
@@ -91,6 +94,9 @@ export class DefensorService {
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
       ', "orgaoEmissor": "' + defensor.orgaoEmissor + '"' +
+      ', "sexo": "' + defensor.sexo + '"' +
+      ', "estadoCivil": "' + defensor.estadoCivil + '"' +
+      ', "dataNascimento": "' + defensor.dataNascimento + '"' +
       ', "cnhDefensor": "' + defensor.cnhDefensor + '"' +
       ', "categoriaCnhDefensor": "' + defensor.categoriaCnhDefensor + '"' +
       ', "ufDefensor": "' + defensor.ufDefensor + '"' +
@@ -158,8 +164,36 @@ export class DefensorService {
 
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
-  errorHandler(error: HttpErrorResponse) {
+  gerarRegistroCondutor(numeroPermissao: string): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    params = params.set('numeroPermissao', numeroPermissao);
+
+    return this.http.get(this.baseUrl+'/gerar-registro-condutor', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
+  }
+
+  errorHandler(error: any) {
     return throwError(() => new Error(error.error.message));
+  }
+
+  errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Permissão para o ID informado!';
+    }
+    if (error.status == 401){
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Veículo associado à Permissão!';
+    }
+    if (error.status == 402){
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há PET associado ao Veículo!';
+    }
+    if (error.status == 403){
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há PET associado ao Veículo!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível gerar o Registro do Condutor!';
+    }
+
+    return throwError(() => new Error(msgErro));
   }
 
 }

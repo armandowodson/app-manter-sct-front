@@ -5,6 +5,9 @@ export interface DefensorModelo {
   cpfDefensor: string
   rgDefensor: string
   orgaoEmissor: string
+  sexo: string
+  estadoCivil: string
+  dataNascimento: string
   ufDefensor: string
   cidadeDefensor: string
   bairroDefensor: string

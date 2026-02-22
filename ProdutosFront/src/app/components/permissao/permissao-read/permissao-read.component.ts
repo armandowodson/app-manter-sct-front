@@ -157,28 +157,6 @@ export class PermissaoReadComponent implements OnInit {
     this.router.navigate(['permissao/detalhe'], { state: {data: permissaoSelecionado} });
   }
 
-  gerarAutorizacaoTrafego(permissaoSelecionado: PermissaoModelo): void {
-    this.permissaoService.gerarAutorizacaoTrafego(permissaoSelecionado).subscribe({
-      next: (permissoes) => {
-        if (permissoes.byteLength == 0) {
-          this.permissaoService.showMessageAlert(
-            "Não há dados para imprimir!"
-          );
-        }
-        const blob = new Blob([permissoes], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
-        window.open(url, '_blank');
-
-        this.loadingService.hide();
-        this.permissaoService.showMessageSuccess("Autorização de Tráfego gerada com sucesso!");
-      },
-      error: (error) => {
-        this.loadingService.hide();
-        this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
-      }
-    });
-  }
-
   consultarPermissaoComFiltros() {
       this.loading = true;
       this.permissaoFiltro.statusPermissao = this.statusPermissaoSelecionada;
@@ -236,6 +214,28 @@ export class PermissaoReadComponent implements OnInit {
     dialogConfig.panelClass = "dialogModal";
     environment.idSelecionado = idPermissao;
     this.matDialog.open(PermissaoModalComponent, dialogConfig);
+  }
+
+  gerarPermissaoTaxi(permissaoSelecionado: PermissaoModelo): void {
+    this.permissaoService.gerarPermissaoTaxi(permissaoSelecionado).subscribe({
+      next: (permissionarios) => {
+        if (permissionarios.byteLength == 0) {
+          this.permissaoService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([permissionarios], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.permissaoService.showMessageSuccess("Permissão de Táxi gerada com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.permissaoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   carregarCategoriaPermissao(categoria: string) {

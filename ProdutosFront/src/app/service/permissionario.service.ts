@@ -71,6 +71,7 @@ export class PermissionarioService {
       ', "numeroQuitacaoEleitoral": "' + permissionario.numeroQuitacaoEleitoral + '"' +
       ', "numeroInscricaoInss": "' + permissionario.numeroInscricaoInss + '"' +
       ', "numeroCertificadoCondutor": "' + permissionario.numeroCertificadoCondutor + '"' +
+      ', "dataValidadeCertificadoCondutor": "' + permissionario.dataValidadeCertificadoCondutor + '"' +
       ', "aplicativoAlternativo": "' + permissionario.aplicativoAlternativo + '"' +
       ', "observacao": "' + permissionario.observacao + '"' +
       ', "usuario": "' + permissionario.usuario + '"}'
@@ -111,6 +112,7 @@ export class PermissionarioService {
       ', "numeroQuitacaoEleitoral": "' + permissionario.numeroQuitacaoEleitoral + '"' +
       ', "numeroInscricaoInss": "' + permissionario.numeroInscricaoInss + '"' +
       ', "numeroCertificadoCondutor": "' + permissionario.numeroCertificadoCondutor + '"' +
+      ', "dataValidadeCertificadoCondutor": "' + permissionario.dataValidadeCertificadoCondutor + '"' +
       ', "aplicativoAlternativo": "' + permissionario.aplicativoAlternativo + '"' +
       ', "observacao": "' + permissionario.observacao + '"' +
       ', "usuario": "' + permissionario.usuario + '"}'

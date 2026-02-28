@@ -109,6 +109,7 @@ export class VeiculoCreateComponent implements OnInit {
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
+    dataValidadeCertificadoCondutor: "",
     dataCriacao: "",
     usuario: "",
     status: "",

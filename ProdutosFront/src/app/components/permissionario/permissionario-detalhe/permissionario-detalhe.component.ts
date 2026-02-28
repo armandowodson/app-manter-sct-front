@@ -38,6 +38,7 @@ export class PermissionarioDetalheComponent implements OnInit {
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
+    dataValidadeCertificadoCondutor: "",
     dataCriacao: "",
     usuario: "",
     status: "",
@@ -149,6 +150,7 @@ export class PermissionarioDetalheComponent implements OnInit {
       this.permissionario.numeroQuitacaoEleitoral = history.state.data.numeroQuitacaoEleitoral;
       this.permissionario.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
       this.permissionario.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
+      this.permissionario.dataValidadeCertificadoCondutor = history.state.data.dataValidadeCertificadoCondutor;
       this.aplicativoAlternativoSelecionado = history.state.data.aplicativoAlternativo;
       this.permissionario.aplicativoAlternativo = history.state.data.aplicativoAlternativo;
       this.permissionario.observacao = history.state.data.observacao;

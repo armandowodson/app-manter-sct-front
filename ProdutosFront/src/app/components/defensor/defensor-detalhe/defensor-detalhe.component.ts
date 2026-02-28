@@ -41,6 +41,7 @@ export class DefensorDetalheComponent implements OnInit {
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
+    dataValidadeCertificadoCondutor: "",
     dataCriacao: "",
     usuario: "",
     status: ""
@@ -145,6 +146,7 @@ export class DefensorDetalheComponent implements OnInit {
       this.defensor.numeroQuitacaoEleitoral = history.state.data.numeroQuitacaoEleitoral;
       this.defensor.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
       this.defensor.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
+      this.defensor.dataValidadeCertificadoCondutor = history.state.data.dataValidadeCertificadoCondutor;
       this.nomeLogado = environment.nomeLogado;
     }
   }

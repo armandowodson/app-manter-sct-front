@@ -222,6 +222,13 @@
           </button>
         </mat-form-field>
 
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Data Validade Certificado Condutor*</mat-label>
+          <input matInput [matDatepicker]="dataValidade" placeholder="Data Validade Certificado Condutor" [(ngModel)]="permissionario.dataValidadeCertificadoCondutor" name="dataValidadeCertificadoCondutor">
+          <mat-datepicker-toggle matIconSuffix [for]="dataValidade"></mat-datepicker-toggle>
+          <mat-datepicker #dataValidade></mat-datepicker>
+        </mat-form-field>
+
         <mat-card>
           <mat-card-content>
             <mat-label >Certificado Condutor*</mat-label>

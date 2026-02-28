@@ -71,6 +71,7 @@ export class DefensorService {
       ', "numeroQuitacaoEleitoral": "' + defensor.numeroQuitacaoEleitoral + '"' +
       ', "numeroInscricaoInss": "' + defensor.numeroInscricaoInss + '"' +
       ', "numeroCertificadoCondutor": "' + defensor.numeroCertificadoCondutor + '"' +
+      ', "dataValidadeCertificadoCondutor": "' + defensor.dataValidadeCertificadoCondutor + '"' +
       ', "usuario": "' + defensor.usuario + '"}'
     // @ts-ignore
     formDataDefensor.append('defensor', jsonString);
@@ -109,6 +110,7 @@ export class DefensorService {
       ', "numeroQuitacaoEleitoral": "' + defensor.numeroQuitacaoEleitoral + '"' +
       ', "numeroInscricaoInss": "' + defensor.numeroInscricaoInss + '"' +
       ', "numeroCertificadoCondutor": "' + defensor.numeroCertificadoCondutor + '"' +
+      ', "dataValidadeCertificadoCondutor": "' + defensor.dataValidadeCertificadoCondutor + '"' +
       ', "usuario": "' + defensor.usuario + '"}'
     // @ts-ignore
     formDataDefensor.append('defensor', jsonString);

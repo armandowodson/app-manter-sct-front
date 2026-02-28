@@ -40,6 +40,7 @@ export class DefensorCreateComponent implements OnInit {
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
+    dataValidadeCertificadoCondutor: "",
     dataCriacao: "",
     usuario: "",
     status: ""
@@ -225,6 +226,10 @@ export class DefensorCreateComponent implements OnInit {
     }
     if(this.defensor.categoriaCnhDefensor == null || this.defensor.categoriaCnhDefensor == ''){
       this.defensorService.showMessageError('O campo Categoria CNH é obrigatório!');
+      return false;
+    }
+    if(this.defensor.dataValidadeCertificadoCondutor == null || this.defensor.dataValidadeCertificadoCondutor == ''){
+      this.defensorService.showMessageError('O campo Data Validade Certificado Condutor é obrigatório!');
       return false;
     }
 

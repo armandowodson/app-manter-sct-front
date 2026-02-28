@@ -214,18 +214,40 @@ export class VeiculoReadComponent implements OnInit {
 
   gerarAutorizacaoTrafego(numeroPermissao: string): void {
     this.veiculoService.gerarAutorizacaoTrafego(numeroPermissao).subscribe({
-      next: (permissoes) => {
-        if (permissoes.byteLength == 0) {
+      next: (veiculos) => {
+        if (veiculos.byteLength == 0) {
           this.veiculoService.showMessageAlert(
             "Não há dados para imprimir!"
           );
         }
-        const blob = new Blob([permissoes], { type: 'application/pdf' });
+        const blob = new Blob([veiculos], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         window.open(url, '_blank');
 
         this.loadingService.hide();
         this.veiculoService.showMessageSuccess("Autorização de Tráfego gerada com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
+  }
+
+  gerarLaudoVistoria(numeroPermissao: string): void {
+    this.veiculoService.gerarLaudoVistoria(numeroPermissao).subscribe({
+      next: (veiculos) => {
+        if (veiculos.byteLength == 0) {
+          this.veiculoService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([veiculos], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.veiculoService.showMessageSuccess("Laudo de Vistoria gerado com sucesso!");
       },
       error: (error) => {
         this.loadingService.hide();

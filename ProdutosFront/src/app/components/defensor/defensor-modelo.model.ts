@@ -20,6 +20,7 @@ export interface DefensorModelo {
   numeroQuitacaoEleitoral: string
   numeroInscricaoInss: string
   numeroCertificadoCondutor: string
+  dataValidadeCertificadoCondutor: string
   dataCriacao: string
   usuario: string
   status: string

@@ -42,6 +42,7 @@ export class DefensorEditComponent implements OnInit {
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
+    dataValidadeCertificadoCondutor: "",
     dataCriacao: "",
     usuario: "",
     status: ""
@@ -166,6 +167,7 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.numeroQuitacaoEleitoral = history.state.data.numeroQuitacaoEleitoral;
       this.defensor.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
       this.defensor.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
+      this.defensor.dataValidadeCertificadoCondutor = history.state.data.dataValidadeCertificadoCondutor;
       this.nomeLogado = environment.nomeLogado;
     }
   }
@@ -258,6 +260,10 @@ export class DefensorEditComponent implements OnInit {
     }
     if(this.defensor.categoriaCnhDefensor == null || this.defensor.categoriaCnhDefensor == ''){
       this.defensorService.showMessageError('O campo Categoria CNH é obrigatório!');
+      return false;
+    }
+    if(this.defensor.dataValidadeCertificadoCondutor == null || this.defensor.dataValidadeCertificadoCondutor == ''){
+      this.defensorService.showMessageError('O campo Data Validade Certificado Condutor é obrigatório!');
       return false;
     }
 

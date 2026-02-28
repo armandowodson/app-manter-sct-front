@@ -118,6 +118,9 @@
                 <button title="Gerar Autorização de Tráfego" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarAutorizacaoTrafego(row.numeroPermissao)" aria-label="Editar Permissão">
                   <mat-icon>article</mat-icon>
                 </button>
+                <button title="Gerar Laudo Vistoria" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarLaudoVistoria(row.numeroPermissao)" aria-label="Editar Permissão">
+                  <mat-icon>assignment</mat-icon>
+                </button>
                 <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
                     <mat-icon>delete</mat-icon>
                 </button>

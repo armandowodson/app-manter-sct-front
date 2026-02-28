@@ -37,6 +37,7 @@ export class PermissionarioCreateComponent implements OnInit {
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
     numeroCertificadoCondutor: "",
+    dataValidadeCertificadoCondutor: "",
     dataCriacao: "",
     usuario: "",
     status: "",
@@ -243,6 +244,10 @@ export class PermissionarioCreateComponent implements OnInit {
     }
     if(this.permissionario.aplicativoAlternativo == null || this.permissionario.aplicativoAlternativo == ''){
       this.permissionarioService.showMessageError('O campo Aplicativo Alternativo é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.dataValidadeCertificadoCondutor == null || this.permissionario.dataValidadeCertificadoCondutor == ''){
+      this.permissionarioService.showMessageError('O campo Data Validade Certificado Condutor é obrigatório!');
       return false;
     }
 

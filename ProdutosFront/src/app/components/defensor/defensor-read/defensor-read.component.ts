@@ -96,6 +96,7 @@ export class DefensorReadComponent implements OnInit {
           numeroQuitacaoEleitoral: item.numeroQuitacaoEleitoral,
           numeroInscricaoInss: item.numeroInscricaoInss,
           numeroCertificadoCondutor: item.numeroCertificadoCondutor,
+          dataValidadeCertificadoCondutor: item.dataValidadeCertificadoCondutor,
           dataCriacao: item.dataCriacao,
           usuario: item.usuario,
           status: item.status
@@ -161,6 +162,7 @@ export class DefensorReadComponent implements OnInit {
           numeroQuitacaoEleitoral: item.numeroQuitacaoEleitoral,
           numeroInscricaoInss: item.numeroInscricaoInss,
           numeroCertificadoCondutor: item.numeroCertificadoCondutor,
+          dataValidadeCertificadoCondutor: item.dataValidadeCertificadoCondutor,
           dataCriacao: item.dataCriacao,
           usuario: item.usuario,
           status: item.status

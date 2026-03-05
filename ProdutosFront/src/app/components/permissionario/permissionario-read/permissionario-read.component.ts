@@ -210,7 +210,7 @@ export class PermissionarioReadComponent implements OnInit {
   }
 
   gerarRegistroCondutor(numeroPermissao: string): void {
-    this.permissionarioService.gerarRegistroCondutor(numeroPermissao).subscribe({
+    this.permissionarioService.gerarRegistroCondutor(numeroPermissao, environment.moduloSelecionado).subscribe({
       next: (permissionarios) => {
         if (permissionarios.byteLength == 0) {
           this.permissionarioService.showMessageAlert(

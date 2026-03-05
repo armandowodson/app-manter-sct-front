@@ -107,9 +107,10 @@ export class PermissaoService {
     return this.http.get(this.baseUrl+'/gerar-relatorio', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  gerarPermissaoTaxi(permissao: PermissaoModelo): Observable<ArrayBuffer> {
+  gerarPermissaoTaxi(permissao: PermissaoModelo, modulo: number): Observable<ArrayBuffer> {
     let params = new HttpParams();
     params = params.set('numeroPermissao', permissao.numeroPermissao);
+    params = params.set('modulo', modulo);
 
     return this.http.get(this.baseUrl+'/gerar-permissao-taxi', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarPermissaoTaxi)); // catch error
   }

@@ -11,18 +11,22 @@ import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/p
 import {PontoTaxiDetalheComponent} from "./components/pontos-taxi/ponto-taxi-detalhe/ponto-taxi-detalhe.component";
 import {PrincipalComponent} from "./components/template/principal/principal.component";
 import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
+import {PermissionarioCrudMotoComponent} from "./views/permissionario-crud-moto/permissionario-crud-moto.component";
 import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
 import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
 import {PermissionarioDetalheComponent} from "./components/permissionario/permissionario-detalhe/permissionario-detalhe.component";
 import {DefensorCrudComponent} from "./views/defensor-crud/defensor-crud.component";
+import {DefensorCrudMotoComponent} from "./views/defensor-crud-moto/defensor-crud-moto.component";
 import {DefensorCreateComponent} from "./components/defensor/defensor-create/defensor-create.component";
 import {DefensorEditComponent} from "./components/defensor/defensor-edit/defensor-edit.component";
 import {DefensorDetalheComponent} from "./components/defensor/defensor-detalhe/defensor-detalhe.component";
 import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
+import {VeiculoCrudMotoComponent} from "./views/veiculo-crud-moto/veiculo-crud-moto.component";
 import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
 import {VeiculoEditComponent} from "./components/veiculo/veiculo-edit/veiculo-edit.component";
 import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.component";
 import {PermissaoCrudComponent} from "./views/permissao-crud/permissao-crud.component";
+import {PermissaoCrudMotoComponent} from "./views/permissao-crud-moto/permissao-crud-moto.component";
 import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
 import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
 import {PermissaoDetalheComponent} from "./components/permissao/permissao-detalhe/permissao-detalhe.component";
@@ -60,6 +64,10 @@ const routes: Routes = [
     component: PermissionarioCrudComponent
   },
   {
+    path: "autorizatariomoto",
+    component: PermissionarioCrudMotoComponent
+  },
+  {
     path: "permissionario/create",
     component: PermissionarioCreateComponent
   },
@@ -74,6 +82,10 @@ const routes: Routes = [
   {
     path: "defensor",
     component: DefensorCrudComponent
+  },
+  {
+    path: "defensormoto",
+    component: DefensorCrudMotoComponent
   },
   {
     path: "defensor/create",
@@ -92,6 +104,10 @@ const routes: Routes = [
     component: VeiculoCrudComponent
   },
   {
+    path: "veiculomoto",
+    component: VeiculoCrudMotoComponent
+  },
+  {
     path: "veiculo/create",
     component: VeiculoCreateComponent
   },
@@ -106,6 +122,10 @@ const routes: Routes = [
   {
     path: "permissao",
     component: PermissaoCrudComponent
+  },
+  {
+    path: "permissaomoto",
+    component: PermissaoCrudMotoComponent
   },
   {
     path: "permissao/create",

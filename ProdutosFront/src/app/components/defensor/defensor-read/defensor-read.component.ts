@@ -208,7 +208,7 @@ export class DefensorReadComponent implements OnInit {
   }
 
   gerarRegistroCondutor(numeroPermissao: string): void {
-    this.defensorService.gerarRegistroCondutor(numeroPermissao).subscribe({
+    this.defensorService.gerarRegistroCondutor(numeroPermissao, environment.moduloSelecionado).subscribe({
       next: (defensores) => {
         if (defensores.byteLength == 0) {
           this.defensorService.showMessageAlert(

@@ -156,16 +156,18 @@ export class VeiculoService {
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  gerarAutorizacaoTrafego(numeroPermissao: string): Observable<ArrayBuffer> {
+  gerarAutorizacaoTrafego(numeroPermissao: string, modulo : number): Observable<ArrayBuffer> {
     let params = new HttpParams();
     params = params.set('numeroPermissao', numeroPermissao);
+    params = params.set('modulo', modulo);
 
     return this.http.get(this.baseUrl+'/gerar-autorizacao-trafego', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
   }
 
-  gerarLaudoVistoria(numeroPermissao: string): Observable<ArrayBuffer> {
+  gerarLaudoVistoria(numeroPermissao: string, modulo : number): Observable<ArrayBuffer> {
     let params = new HttpParams();
     params = params.set('numeroPermissao', numeroPermissao);
+    params = params.set('modulo', modulo);
 
     return this.http.get(this.baseUrl+'/gerar-laudo-vistoria', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
   }

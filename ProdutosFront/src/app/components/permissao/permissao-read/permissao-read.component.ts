@@ -83,6 +83,7 @@ export class PermissaoReadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    alert(environment.moduloSelecionado);
     this.nomeLogado = environment.nomeLogado;
     this.buscarTodasPermissoes();
   }
@@ -217,7 +218,7 @@ export class PermissaoReadComponent implements OnInit {
   }
 
   gerarPermissaoTaxi(permissaoSelecionado: PermissaoModelo): void {
-    this.permissaoService.gerarPermissaoTaxi(permissaoSelecionado).subscribe({
+    this.permissaoService.gerarPermissaoTaxi(permissaoSelecionado, environment.moduloSelecionado).subscribe({
       next: (permissionarios) => {
         if (permissionarios.byteLength == 0) {
           this.permissaoService.showMessageAlert(

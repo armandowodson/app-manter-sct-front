@@ -166,9 +166,10 @@ export class DefensorService {
 
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
-  gerarRegistroCondutor(numeroPermissao: string): Observable<ArrayBuffer> {
+  gerarRegistroCondutor(numeroPermissao: string, modulo: number): Observable<ArrayBuffer> {
     let params = new HttpParams();
     params = params.set('numeroPermissao', numeroPermissao);
+    params = params.set('modulo', modulo);
 
     return this.http.get(this.baseUrl+'/gerar-registro-condutor', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
   }

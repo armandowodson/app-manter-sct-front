@@ -54,16 +54,19 @@ import {PontoTaxiEditComponent} from "./components/pontos-taxi/ponto-taxi-edit/p
 import {PontoTaxiDetalheComponent} from "./components/pontos-taxi/ponto-taxi-detalhe/ponto-taxi-detalhe.component";
 import {PermissionarioReadComponent} from "./components/permissionario/permissionario-read/permissionario-read.component";
 import {PermissionarioCrudComponent} from "./views/permissionario-crud/permissionario-crud.component";
+import {PermissionarioCrudMotoComponent} from "./views/permissionario-crud-moto/permissionario-crud-moto.component";
 import {PermissionarioCreateComponent} from "./components/permissionario/permissionario-create/permissionario-create.component";
 import {PermissionarioEditComponent} from "./components/permissionario/permissionario-edit/permissionario-edit.component";
 import {PermissionarioDetalheComponent} from "./components/permissionario/permissionario-detalhe/permissionario-detalhe.component";
 import {DefensorReadComponent} from "./components/defensor/defensor-read/defensor-read.component";
 import {DefensorCrudComponent} from "./views/defensor-crud/defensor-crud.component";
+import {DefensorCrudMotoComponent} from "./views/defensor-crud-moto/defensor-crud-moto.component";
 import {DefensorCreateComponent} from "./components/defensor/defensor-create/defensor-create.component";
 import {DefensorEditComponent} from "./components/defensor/defensor-edit/defensor-edit.component";
 import {DefensorDetalheComponent} from "./components/defensor/defensor-detalhe/defensor-detalhe.component";
 import {VeiculoReadComponent} from "./components/veiculo/veiculo-read/veiculo-read.component";
 import {VeiculoCrudComponent} from "./views/veiculo-crud/veiculo-crud.component";
+import {VeiculoCrudMotoComponent} from "./views/veiculo-crud-moto/veiculo-crud-moto.component";
 import {VeiculoCreateComponent} from "./components/veiculo/veiculo-create/veiculo-create.component";
 import {VeiculoEditComponent} from "./components/veiculo/veiculo-edit/veiculo-edit.component";
 import {VeiculoDetalheComponent} from "./components/veiculo/veiculo-detalhe/veiculo-detalhe.component";
@@ -71,6 +74,7 @@ import {PermissaoReadComponent} from "./components/permissao/permissao-read/perm
 import {PermissaoEditComponent} from "./components/permissao/permissao-edit/permissao-edit.component";
 import {PermissaoCreateComponent} from "./components/permissao/permissao-create/permissao-create.component";
 import {PermissaoCrudComponent} from './views/permissao-crud/permissao-crud.component';
+import {PermissaoCrudMotoComponent} from "./views/permissao-crud-moto/permissao-crud-moto.component";
 import {PermissaoDetalheComponent} from "./components/permissao/permissao-detalhe/permissao-detalhe.component";
 import {PermissaoRelatorioComponent} from "./components/permissao/permissao-relatorio/permissao-relatorio.component";
 import {FiscalizacaoModalComponent} from "./components/fiscalizacao-modal-component/fiscalizacao-modal.component";
@@ -136,16 +140,19 @@ export const DATE_FORMATS = {
     PontoTaxiDetalheComponent,
     PermissionarioReadComponent,
     PermissionarioCrudComponent,
+    PermissionarioCrudMotoComponent,
     PermissionarioCreateComponent,
     PermissionarioEditComponent,
     PermissionarioDetalheComponent,
     DefensorReadComponent,
     DefensorCrudComponent,
+    DefensorCrudMotoComponent,
     DefensorCreateComponent,
     DefensorEditComponent,
     DefensorDetalheComponent,
     VeiculoReadComponent,
     VeiculoCrudComponent,
+    VeiculoCrudMotoComponent,
     VeiculoCreateComponent,
     VeiculoEditComponent,
     VeiculoDetalheComponent,
@@ -153,6 +160,7 @@ export const DATE_FORMATS = {
     PermissaoEditComponent,
     PermissaoCreateComponent,
     PermissaoCrudComponent,
+    PermissaoCrudMotoComponent,
     PermissaoDetalheComponent,
     PermissaoRelatorioComponent,
     FiscalizacaoCrudComponent,

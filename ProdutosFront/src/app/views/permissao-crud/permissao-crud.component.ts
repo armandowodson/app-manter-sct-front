@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-permissao-crud',
@@ -10,6 +11,7 @@ export class PermissaoCrudComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    environment.moduloSelecionado = 1;
   }
 
 }

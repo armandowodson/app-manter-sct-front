@@ -213,7 +213,7 @@ export class VeiculoReadComponent implements OnInit {
   }
 
   gerarAutorizacaoTrafego(numeroPermissao: string): void {
-    this.veiculoService.gerarAutorizacaoTrafego(numeroPermissao).subscribe({
+    this.veiculoService.gerarAutorizacaoTrafego(numeroPermissao, environment.moduloSelecionado).subscribe({
       next: (veiculos) => {
         if (veiculos.byteLength == 0) {
           this.veiculoService.showMessageAlert(
@@ -235,7 +235,7 @@ export class VeiculoReadComponent implements OnInit {
   }
 
   gerarLaudoVistoria(numeroPermissao: string): void {
-    this.veiculoService.gerarLaudoVistoria(numeroPermissao).subscribe({
+    this.veiculoService.gerarLaudoVistoria(numeroPermissao, environment.moduloSelecionado).subscribe({
       next: (veiculos) => {
         if (veiculos.byteLength == 0) {
           this.veiculoService.showMessageAlert(

@@ -1,28 +1,32 @@
 <mat-card xmlns="http://www.w3.org/1999/html">
-    <div style="width: 550px; margin-left: 950px; font-size: small">
-      <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
-    </div>
-    <div style="height: 50px; margin-left: 20px;">
-      <mat-card-title><b>Inlcusão do Permissionário</b></mat-card-title>
-    </div>
-    <form>
-      <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-        <mat-label>Nº Permissão*</mat-label>
-        <mat-select [(value)]="permissaoSelecionada">
-          <mat-option *ngFor="let permissao of permissoesOptions" [value]="permissao.numeroPermissao">
-            {{ permissao.numeroPermissao }}
-          </mat-option>
-        </mat-select>
-        <button mat-button *ngIf="permissaoSelecionada" matSuffix aria-label="Clear" (click)="permissaoSelecionada=''">
-          <i class="material-icons black v-middle">
-            close
-          </i>
-        </button>
-      </mat-form-field>
+  <div style="width: 550px; margin-left: 950px; font-size: small">
+    <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+  </div>
+  <div style="height: 50px; margin-left: 20px;">
+    <mat-card-title><b>Inclusão do Autorizatário</b></mat-card-title>
+  </div>
+  <form>
+    <mat-tab-group>
+      <mat-tab label="Dados Gerais">
+        <br>
+        <br>
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label>Nº Permissão*</mat-label>
+          <mat-select [(value)]="permissaoSelecionada">
+            <mat-option *ngFor="let permissao of permissoesOptions" [value]="permissao.numeroPermissao">
+              {{ permissao.numeroPermissao }}
+            </mat-option>
+          </mat-select>
+          <button mat-button *ngIf="permissaoSelecionada" matSuffix aria-label="Clear" (click)="permissaoSelecionada=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Nome Permissionário*</mat-label>
-          <input maxlength="100" matInput placeholder="Nome Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.nomePermissionario" name="nomePermissionario">
+          <mat-label >Nome Autorizatário*</mat-label>
+          <input maxlength="100" matInput placeholder="Nome Autorizatário" style="margin-right: 20px;" [(ngModel)]="permissionario.nomePermissionario" name="nomePermissionario">
           <button mat-button *ngIf="permissionario.nomePermissionario" matSuffix aria-label="Clear" (click)="permissionario.nomePermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -31,8 +35,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >CPF Permissionário*</mat-label>
-          <input maxlength="11" type="number" matInput placeholder="CPF Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.cpfPermissionario" name="cpfPermissionario">
+          <mat-label >CPF Autorizatário*</mat-label>
+          <input maxlength="11" type="number" matInput placeholder="CPF Autorizatário" style="margin-right: 20px;" [(ngModel)]="permissionario.cpfPermissionario" name="cpfPermissionario">
           <button mat-button *ngIf="permissionario.cpfPermissionario" matSuffix aria-label="Clear" (click)="permissionario.cpfPermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -41,8 +45,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >RG Permissionário*</mat-label>
-          <input maxlength="10" type="number" matInput placeholder="RG Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.rgPermissionario" name="rgPermissionario">
+          <mat-label >RG Autorizatário*</mat-label>
+          <input maxlength="10" type="number" matInput placeholder="RG Autorizatário" style="margin-right: 20px;" [(ngModel)]="permissionario.rgPermissionario" name="rgPermissionario">
           <button mat-button *ngIf="permissionario.rgPermissionario" matSuffix aria-label="Clear" (click)="permissionario.rgPermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -54,6 +58,26 @@
           <mat-label >Órgão Emissor*</mat-label>
           <input maxlength="10" matInput placeholder="Órgão Emissor" style="margin-right: 20px;" [(ngModel)]="permissionario.orgaoEmissor" name="orgaoEmissor">
           <button mat-button *ngIf="permissionario.orgaoEmissor" matSuffix aria-label="Clear" (click)="permissionario.orgaoEmissor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Filiação Mãe*</mat-label>
+          <input maxlength="100" matInput placeholder="Filiação Mãe" style="margin-right: 20px;" [(ngModel)]="permissionario.filiacaoMae" name="filiacaoMae">
+          <button mat-button *ngIf="permissionario.filiacaoMae" matSuffix aria-label="Clear" (click)="permissionario.filiacaoMae=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Filiação Pai</mat-label>
+          <input maxlength="100" matInput placeholder="Filiação Pai" style="margin-right: 20px;" [(ngModel)]="permissionario.filiacaoPai" name="filiacaoPai">
+          <button mat-button *ngIf="permissionario.filiacaoPai" matSuffix aria-label="Clear" (click)="permissionario.filiacaoPai=''">
             <i class="material-icons black v-middle">
               close
             </i>
@@ -116,7 +140,7 @@
 
         <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Bairro*</mat-label>
-          <input maxlength="100" matInput placeholder="Bairro Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.bairroPermissionario" name="bairroPermissionario">
+          <input maxlength="100" matInput placeholder="Bairro" style="margin-right: 20px;" [(ngModel)]="permissionario.bairroPermissionario" name="bairroPermissionario">
           <button mat-button *ngIf="permissionario.bairroPermissionario" matSuffix aria-label="Clear" (click)="permissionario.bairroPermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -126,7 +150,7 @@
 
         <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Endereço*</mat-label>
-          <input maxlength="100" matInput placeholder="Endereço Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.enderecoPermissionario" name="enderecoPermissionario">
+          <input maxlength="100" matInput placeholder="Endereço" style="margin-right: 20px;" [(ngModel)]="permissionario.enderecoPermissionario" name="enderecoPermissionario">
           <button mat-button *ngIf="permissionario.enderecoPermissionario" matSuffix aria-label="Clear" (click)="permissionario.enderecoPermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -135,7 +159,17 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Celular/Telefone*</mat-label>
+          <mat-label >CEP*</mat-label>
+          <input maxlength="100" matInput placeholder="CEP" style="margin-right: 20px;" [(ngModel)]="permissionario.cep" name="cep">
+          <button mat-button *ngIf="permissionario.cep" matSuffix aria-label="Clear" (click)="permissionario.cep=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Celular/WhatsApp*</mat-label>
           <input maxlength="12" matInput placeholder="Celular/Telefone" style="margin-right: 20px;" [(ngModel)]="permissionario.celularPermissionario" name="celularPermissionario">
           <button mat-button *ngIf="permissionario.celularPermissionario" matSuffix aria-label="Clear" (click)="permissionario.celularPermissionario=''">
             <i class="material-icons black v-middle">
@@ -155,8 +189,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >CNH Permissionário*</mat-label>
-          <input maxlength="10" type="number" matInput placeholder="CNH Permissionário" style="margin-right: 20px;" [(ngModel)]="permissionario.cnhPermissionario" name="cnhPermissionario">
+          <mat-label >CNH*</mat-label>
+          <input maxlength="10" type="number" matInput placeholder="CNH" style="margin-right: 20px;" [(ngModel)]="permissionario.cnhPermissionario" name="cnhPermissionario">
           <button mat-button *ngIf="permissionario.cnhPermissionario" matSuffix aria-label="Clear" (click)="permissionario.cnhPermissionario=''">
             <i class="material-icons black v-middle">
               close
@@ -176,6 +210,13 @@
               close
             </i>
           </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Data de Validadade CNH*</mat-label>
+          <input matInput [matDatepicker]="dataValidade" placeholder="Data de Validadade CNH" [(ngModel)]="permissionario.dataValidadeCnh" name="dataValidadeCnh">
+          <mat-datepicker-toggle matIconSuffix [for]="dataValidade"></mat-datepicker-toggle>
+          <mat-datepicker #dataValidade></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
@@ -221,43 +262,66 @@
             </i>
           </button>
         </mat-form-field>
-
-        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-          <mat-label >Data Validade Certificado Condutor*</mat-label>
-          <input matInput [matDatepicker]="dataValidade" placeholder="Data Validade Certificado Condutor" [(ngModel)]="permissionario.dataValidadeCertificadoCondutor" name="dataValidadeCertificadoCondutor">
-          <mat-datepicker-toggle matIconSuffix [for]="dataValidade"></mat-datepicker-toggle>
-          <mat-datepicker #dataValidade></mat-datepicker>
-        </mat-form-field>
+      </mat-tab>
+      <mat-tab label="Documentos">
+        <br>
+        <br>
 
         <mat-card>
           <mat-card-content>
-            <mat-label >Certificado Condutor*</mat-label>
+            <mat-label >RG (Carteira de Identidade)*</mat-label>
             <div class="file-upload-container">
-              <input type="file" #fileInputCertificado (change)="getCertificadoCondutorSelecionado($event)" style="display: none;">
-              <button mat-raised-button color="primary" (click)="fileInputCertificado.click()">
+              <input type="file" #fileInputRg (change)="getAnexoRgSelecionado($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputRg.click()">
                 <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
               </button>
-              <span *ngIf="certificadoCondutorSelecionado">{{ certificadoCondutorSelecionado.name }}</span>
+              <span *ngIf="anexoRgSelecionado">{{ anexoRgSelecionado.name }}</span>
             </div>
           </mat-card-content>
         </mat-card>
 
         <mat-card>
           <mat-card-content>
-            <mat-label >Certidão Negativa Criminal*</mat-label>
+            <mat-label >CPF*</mat-label>
             <div class="file-upload-container">
-              <input type="file" #fileInputCriminal (change)="getCertidaoNegativaCriminalSelecionada($event)" style="display: none;">
-              <button mat-raised-button color="primary" (click)="fileInputCriminal.click()">
+              <input type="file" #fileInputCpf (change)="getAnexoCpfSelecionado($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputCpf.click()">
                 <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
               </button>
-              <span *ngIf="certidaoNegativaCriminalSelecionada">{{ certidaoNegativaCriminalSelecionada.name }}</span>
+              <span *ngIf="anexoCpfSelecionado">{{ anexoCpfSelecionado.name }}</span>
             </div>
           </mat-card-content>
         </mat-card>
 
         <mat-card>
           <mat-card-content>
-            <mat-label >Certidão Negativa Municipal*</mat-label>
+            <mat-label >CNH Categoria 'A' (mín. 2 anos de experiência)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputCnh (change)="getAnexoCnhSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputCnh.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="anexoCnhSelecionada">{{ anexoCnhSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Comprovante Residência em Barreirinhas (mín. 3 anos)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputResidencia (change)="getComprovanteResidenciaSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputResidencia.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="comprovanteResidenciaSelecionada">{{ comprovanteResidenciaSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Certidão Negativa de Multas e Ocorrências DETRAN-MA*</mat-label>
             <div class="file-upload-container">
               <input type="file" #fileInputMunicipal (change)="getCertidaoNegativaMunicipalSelecionada($event)" style="display: none;">
               <button mat-raised-button color="primary" (click)="fileInputMunicipal.click()">
@@ -270,7 +334,72 @@
 
         <mat-card>
           <mat-card-content>
-            <mat-label >Foto 3x4 Permissionário*</mat-label>
+            <mat-label >Certidão Negativa de Antecedentes Criminais*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputCriminal (change)="getCertidaoNegativaCriminalSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputCriminal.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="certidaoNegativaCriminalSelecionada">{{ certidaoNegativaCriminalSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Certificado de Propriedade da Motocicleta*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputPropriedade (change)="getCertificadoPropriedadeSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputPropriedade.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="certificadoPropriedadeSelecionada">{{ certificadoPropriedadeSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Certificado de Curso Específico (Emitido máx. 2 anos)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputCertificado (change)="getCertificadoCondutorSelecionado($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputCertificado.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="certificadoCondutorSelecionado">{{ certificadoCondutorSelecionado.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Apólice de Seguro de Vida*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputVida (change)="getApoliceSeguroVidaSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputVida.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="apoliceSeguroVidaSelecionada">{{ apoliceSeguroVidaSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Apólice de Seguro da Motocicleta (acidentes, furto, incêndio, terceiros)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputMotocicleta (change)="getApoliceSeguroMotocicletaSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputMotocicleta.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="apoliceSeguroMotocicletaSelecionada">{{ apoliceSeguroMotocicletaSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Foto 3x4 Autorizatário*</mat-label>
             <div class="file-upload-container">
               <input type="file" #fileInputFoto (change)="getFotoSelecionada($event)" style="display: none;">
               <button mat-raised-button color="primary" (click)="fileInputFoto.click()">
@@ -287,16 +416,18 @@
             <textarea maxlength="200" [(ngModel)]="permissionario.observacao" matInput placeholder="Observação" name="observacao"></textarea>
           </mat-form-field>
         </mat-card>
+      </mat-tab>
+    </mat-tab-group>
 
-        <div>
-          <button style="background-color: darkgray; margin-left: 20px; margin-right: 30px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
-            Voltar
-          </button>
-          <button color="primary" class="buttonSalvar" mat-raised-button (click) = "inserirPermissionario()">
-            Salvar
-          </button>
-        </div>
-    </form>
+    <div>
+      <button style="background-color: darkgray; margin-left: 20px; margin-right: 30px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
+        Voltar
+      </button>
+      <button color="primary" class="buttonSalvar" mat-raised-button (click) = "inserirPermissionario()">
+        Salvar
+      </button>
+    </div>
+  </form>
 </mat-card>
 
 

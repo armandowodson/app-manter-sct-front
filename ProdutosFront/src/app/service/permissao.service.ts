@@ -122,19 +122,19 @@ export class PermissaoService {
   errorHandlerGerarPermissaoTaxi(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Permissão para o ID informado!';
+      msgErro = 'Não é possível imprimir o Termo de Autorização de Serviço de Moto Táxi! Não há TAS para o ID informado!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Veículo associado à Permissão!';
+      msgErro = 'Não é possível imprimir o Termo de Autorização de Serviço de Moto Táxi! Não há Veículo associado ao TAS!';
     }
     if (error.status == 402){
-      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há PET associado ao Veículo!';
+      msgErro = 'Não é possível imprimir o Termo de Autorização de Serviço de Moto Táxi! Não há PET associado ao Veículo!';
     }
     if (error.status == 403){
-      msgErro = 'Não é possível emitir a Permissão de Táxi! Não há Permissionário associado à Permissão!';
+      msgErro = 'Não é possível imprimir o Termo de Autorização de Serviço de Moto Táxi! Não há Autorizatário associado ao TAS!';
     }
     if (error.status == 500){
-      msgErro = 'Ocorreu um erro! Não foi possível gerar a Permissão de Táxi';
+      msgErro = 'Ocorreu um erro! Não foi possível imprimir o Termo de Autorização de Serviço de Moto Táxi';
     }
 
     return throwError(() => new Error(msgErro));

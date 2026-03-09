@@ -7,7 +7,7 @@
   </div>
   <form>
     <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Permissionário*</mat-label>
+      <mat-label>Autorizatário*</mat-label>
       <mat-select [(value)]="permissionarioSelecionado" (selectionChange)="carregarPermissao($event)">
         <mat-option *ngFor="let permissionario of permissionariosOptions" [value]="permissionario.id">
           {{ permissionario.nome }}
@@ -37,7 +37,7 @@
 
     <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
       <mat-label>Ponto de Estacionamento de Táxi*</mat-label>
-      <mat-select [(value)]="pontoTaxiSelecionado" (selectionChange)="carregarPermissao($event)">
+      <mat-select [(value)]="pontoTaxiSelecionado">
         <mat-option *ngFor="let pontoTaxi of pontosTaxiOptions" [value]="pontoTaxi.id">
           {{ pontoTaxi.nome }}
         </mat-option>
@@ -189,6 +189,16 @@
       <mat-label >Quilometragem</mat-label>
       <input maxlength="20" matInput placeholder="Quilometragem" style="margin-right: 20px;" [(ngModel)]="veiculo.quilometragem" name="quilometragem">
       <button mat-button *ngIf="veiculo.quilometragem" matSuffix aria-label="Clear" (click)="veiculo.quilometragem=''">
+        <i class="material-icons black v-middle">
+          close
+        </i>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Cilindrada(cc)*</mat-label>
+      <input maxlength="20" matInput placeholder="Cilindrada(cc)" style="margin-right: 20px;" [(ngModel)]="veiculo.cilindrada" name="cilindrada">
+      <button mat-button *ngIf="veiculo.cilindrada" matSuffix aria-label="Clear" (click)="veiculo.cilindrada=''">
         <i class="material-icons black v-middle">
           close
         </i>

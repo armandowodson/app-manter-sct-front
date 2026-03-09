@@ -36,6 +36,7 @@ export class VeiculoEditComponent implements OnInit {
     combustivel: "",
     capacidade: "",
     quilometragem: "",
+    cilindrada: "",
     numeroTaximetro: "",
     anoRenovacao: "",
     dataVistoria: "",
@@ -54,8 +55,10 @@ export class VeiculoEditComponent implements OnInit {
 
   corSelecionada = "";
   corOptions = [
-    { id: '1', nome: 'BRANCA' },
-    { id: '2', nome: 'PRATA' }
+    { id: '1', nome: 'AMARELA' },
+    { id: '2', nome: 'LARANJA' },
+    { id: '3', nome: 'BRANCA' },
+    { id: '4', nome: 'PRETA' }
   ];
 
   combustivelSelecionado = "";
@@ -118,7 +121,7 @@ export class VeiculoEditComponent implements OnInit {
         next: (permissionarios) => {
           if (permissionarios == null || permissionarios.length == 0) {
             this.veiculoService.showMessageAlert(
-              "Não há Permissionários disponíveis para seleção!"
+              "Não há Autorizatários disponíveis para seleção!"
             );
           }
           permissionarios?.forEach(element => {
@@ -165,6 +168,7 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.combustivel = history.state.data.combustivel;
       this.veiculo.capacidade = history.state.data.capacidade;
       this.veiculo.quilometragem = history.state.data.quilometragem;
+      this.veiculo.cilindrada = history.state.data.cilindrada;
       this.veiculo.numeroTaximetro = history.state.data.numeroTaximetro;
       this.veiculo.anoRenovacao = history.state.data.anoRenovacao;
       this.veiculo.dataVistoria = history.state.data.dataVistoria;
@@ -232,7 +236,7 @@ export class VeiculoEditComponent implements OnInit {
 
   validarCamposObrigatoriosVeiculo(): boolean{
     if(this.veiculo.idPermissionario == null || this.veiculo.idPermissionario == ''){
-      this.veiculoService.showMessageError('O campo Permissionário é obrigatório!');
+      this.veiculoService.showMessageError('O campo Autorizatário é obrigatório!');
       return false;
     }
 
@@ -288,6 +292,11 @@ export class VeiculoEditComponent implements OnInit {
 
     if(this.veiculo.chassi == null || this.veiculo.chassi == ''){
       this.veiculoService.showMessageError('O campo Chassi é obrigatório!');
+      return false;
+    }
+
+    if(this.veiculo.cilindrada == null || this.veiculo.cilindrada == ''){
+      this.veiculoService.showMessageError('O campo Cilindrada(cc) é obrigatório!');
       return false;
     }
 

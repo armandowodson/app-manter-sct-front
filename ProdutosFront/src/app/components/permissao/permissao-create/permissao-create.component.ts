@@ -106,8 +106,8 @@ export class PermissaoCreateComponent implements OnInit {
       return;
 
     this.permissaoService.inserirPermissao(this.permissao).subscribe(() => {
-        this.permissaoService.showMessageSuccess('Permissão Criada com Sucesso!!!');
-        this.router.navigate(['/permissao']);
+        this.permissaoService.showMessageSuccess('Termo de Autorização Criado com Sucesso!!!');
+        this.router.navigate(['/permissaomoto']);
       },
       error => {
         this.errors = error
@@ -117,7 +117,7 @@ export class PermissaoCreateComponent implements OnInit {
 
   validarCamposObrigatoriosPermissao(): boolean{
     if(this.permissao.anoPermissao == null || this.permissao.anoPermissao == ""){
-      this.permissaoService.showMessageAlert("O campo Ano da Permissão é obrigatório!");
+      this.permissaoService.showMessageAlert("O campo Ano do Termo de Autorização é obrigatório!");
       return false;
     }
 
@@ -142,7 +142,7 @@ export class PermissaoCreateComponent implements OnInit {
     }
 
     if(this.permissao.dataValidadePermissao == null || this.permissao.dataValidadePermissao == ""){
-      this.permissaoService.showMessageAlert("O campo Data de Validade da Permissão é obrigatório!");
+      this.permissaoService.showMessageAlert("O campo Data de Validade do Termo de Autorização é obrigatório!");
       return false;
     }
 
@@ -160,6 +160,6 @@ export class PermissaoCreateComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/permissao']);
+    this.router.navigate(['/permissaomoto']);
   }
 }

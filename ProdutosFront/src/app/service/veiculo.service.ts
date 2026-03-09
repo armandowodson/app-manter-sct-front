@@ -64,6 +64,7 @@ export class VeiculoService {
       ', "combustivel": "' + veiculo.combustivel + '"' +
       ', "capacidade": "' + veiculo.capacidade + '"' +
       ', "quilometragem": "' + veiculo.quilometragem + '"' +
+      ', "cilindrada": "' + veiculo.cilindrada + '"' +
       ', "numeroTaximetro": "' + veiculo.numeroTaximetro + '"' +
       ', "anoRenovacao": "' + veiculo.anoRenovacao + '"' +
       ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
@@ -102,6 +103,7 @@ export class VeiculoService {
       ', "combustivel": "' + veiculo.combustivel + '"' +
       ', "capacidade": "' + veiculo.capacidade + '"' +
       ', "quilometragem": "' + veiculo.quilometragem + '"' +
+      ', "cilindrada": "' + veiculo.cilindrada + '"' +
       ', "numeroTaximetro": "' + veiculo.numeroTaximetro + '"' +
       ', "anoRenovacao": "' + veiculo.anoRenovacao + '"' +
       ', "dataVistoria": "' + veiculo.dataVistoria + '"' +

@@ -14,6 +14,7 @@ export interface VeiculoModelo {
   combustivel: string
   capacidade: string
   quilometragem: string
+  cilindrada: string
   numeroTaximetro: string
   anoRenovacao: string
   dataVistoria: string

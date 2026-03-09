@@ -26,6 +26,8 @@ export class DefensorDetalheComponent implements OnInit {
     cpfDefensor: "",
     rgDefensor: "",
     orgaoEmissor: "",
+    filiacaoMae: "",
+    filiacaoPai: "",
     sexo: "",
     estadoCivil: "",
     dataNascimento: "",
@@ -37,6 +39,7 @@ export class DefensorDetalheComponent implements OnInit {
     emailDefensor: "",
     cnhDefensor: "",
     categoriaCnhDefensor: "",
+    dataValidadeCnh: "",
     numeroQuitacaoMilitar: "",
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
@@ -129,17 +132,21 @@ export class DefensorDetalheComponent implements OnInit {
       this.defensor.cpfDefensor = history.state.data.cpfDefensor;
       this.defensor.rgDefensor = history.state.data.rgDefensor;
       this.defensor.orgaoEmissor = history.state.data.orgaoEmissor;
+      this.defensor.filiacaoMae = history.state.data.filiacaoMae;
+      this.defensor.filiacaoPai = history.state.data.filiacaoPai;
       this.sexoSelecionado = history.state.data.sexo;
       this.defensor.sexo = history.state.data.sexo;
       this.estadoCivilSelecionado = history.state.data.estadoCivil;
       this.defensor.cnhDefensor = history.state.data.cnhDefensor;
       this.categoriaCnhSelecionada = history.state.data.categoriaCnhDefensor;
       this.defensor.categoriaCnhDefensor = history.state.data.categoriaCnhDefensor;
+      this.defensor.dataValidadeCnh = history.state.data.dataValidadeCnh;
       this.ufSelecionada = history.state.data.ufDefensor;
       this.defensor.ufDefensor = history.state.data.ufDefensor;
       this.defensor.cidadeDefensor = history.state.data.cidadeDefensor;
       this.defensor.bairroDefensor = history.state.data.bairroDefensor;
       this.defensor.enderecoDefensor = history.state.data.enderecoDefensor;
+      this.defensor.cep = history.state.data.cep;
       this.defensor.celularDefensor = history.state.data.celularDefensor;
       this.defensor.emailDefensor = history.state.data.emailDefensor;
       this.defensor.numeroQuitacaoMilitar = history.state.data.numeroQuitacaoMilitar;

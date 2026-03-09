@@ -6,266 +6,398 @@
     <mat-card-title><b>Alteração do Defensor</b></mat-card-title>
   </div>
   <form>
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Nº Permissão*</mat-label>
-      <mat-select [(value)]="permissaoSelecionada">
-        <mat-option *ngFor="let permissao of permissoesOptions" [value]="permissao.numeroPermissao">
-          {{ permissao.numeroPermissao }}
-        </mat-option>
-      </mat-select>
-      <button mat-button *ngIf="permissaoSelecionada" matSuffix aria-label="Clear" (click)="permissaoSelecionada=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Nome Defensor*</mat-label>
-      <input maxlength="50" matInput placeholder="Nome Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.nomeDefensor" name="nomeDefensor">
-      <button mat-button *ngIf="defensor.nomeDefensor" matSuffix aria-label="Clear" (click)="defensor.nomeDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >CPF Defensor*</mat-label>
-      <input maxlength="100" type="number" matInput placeholder="CPF Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.cpfDefensor" name="cpfDefensor">
-      <button mat-button *ngIf="defensor.cpfDefensor" matSuffix aria-label="Clear" (click)="defensor.cpfDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >RG Defensor*</mat-label>
-      <input maxlength="10" type="number" matInput placeholder="RG Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.rgDefensor" name="rgDefensor">
-      <button mat-button *ngIf="defensor.rgDefensor" matSuffix aria-label="Clear" (click)="defensor.rgDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Órgão Emissor</mat-label>
-      <input maxlength="10" matInput placeholder="Órgão Emissor" style="margin-right: 20px;" [(ngModel)]="defensor.orgaoEmissor" name="orgaoEmissor">
-      <button mat-button *ngIf="defensor.orgaoEmissor" matSuffix aria-label="Clear" (click)="defensor.orgaoEmissor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Sexo*</mat-label>
-      <mat-select [(value)]="sexoSelecionado">
-        <mat-option *ngFor="let sexo of sexoOptions" [value]="sexo.id">
-          {{ sexo.nome }}
-        </mat-option>
-      </mat-select>
-      <button mat-button *ngIf="sexoSelecionado" matSuffix aria-label="Clear" (click)="sexoSelecionado=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Estado Civil</mat-label>
-      <mat-select [(value)]="estadoCivilSelecionado">
-        <mat-option *ngFor="let estadoCivil of estadoCivilOptions" [value]="estadoCivil.id">
-          {{ estadoCivil.nome }}
-        </mat-option>
-      </mat-select>
-      <button mat-button *ngIf="estadoCivilSelecionado" matSuffix aria-label="Clear" (click)="estadoCivilSelecionado=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Data de Nascimento*</mat-label>
-      <input matInput [matDatepicker]="dataNascimento" placeholder="Data de Nascimento" [(ngModel)]="defensor.dataNascimento" name="dataNascimento">
-      <mat-datepicker-toggle matIconSuffix [for]="dataNascimento"></mat-datepicker-toggle>
-      <mat-datepicker #dataNascimento></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>UF*</mat-label>
-      <mat-select [(value)]="ufSelecionada">
-        <mat-option *ngFor="let uf of ufOptions" [value]="uf.sigla">
-          {{ uf.nome }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Cidade*</mat-label>
-      <input maxlength="100" matInput placeholder="Cidade" style="margin-right: 20px;" [(ngModel)]="defensor.cidadeDefensor" name="cidadeDefensor">
-      <button mat-button *ngIf="defensor.cidadeDefensor" matSuffix aria-label="Clear" (click)="defensor.cidadeDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Bairro*</mat-label>
-      <input maxlength="100" matInput placeholder="Bairro Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.bairroDefensor" name="bairroDefensor">
-      <button mat-button *ngIf="defensor.bairroDefensor" matSuffix aria-label="Clear" (click)="defensor.bairroDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Endereço*</mat-label>
-      <input maxlength="100" matInput placeholder="Endereço Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.enderecoDefensor" name="enderecoDefensor">
-      <button mat-button *ngIf="defensor.enderecoDefensor" matSuffix aria-label="Clear" (click)="defensor.enderecoDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Celular/Telefone*</mat-label>
-      <input maxlength="12" matInput placeholder="Celular/Telefone" style="margin-right: 20px;" [(ngModel)]="defensor.celularDefensor" name="celularDefensor">
-      <button mat-button *ngIf="defensor.celularDefensor" matSuffix aria-label="Clear" (click)="defensor.celularDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 400px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >E-mail</mat-label>
-      <input maxlength="50" matInput placeholder="Celular/Telefone" style="margin-right: 20px;" [(ngModel)]="defensor.emailDefensor" name="emailDefensor">
-      <button mat-button *ngIf="defensor.emailDefensor" matSuffix aria-label="Clear" (click)="defensor.emailDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >CNH Defensor*</mat-label>
-      <input maxlength="10" type="number" matInput placeholder="CNH Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.cnhDefensor" name="cnhDefensor">
-      <button mat-button *ngIf="defensor.cnhDefensor" matSuffix aria-label="Clear" (click)="defensor.cnhDefensor=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Categoria CNH*</mat-label>
-      <mat-select [(value)]="categoriaCnhSelecionada">
-        <mat-option *ngFor="let categoria of categoriaOptions" [value]="categoria.id">
-          {{ categoria.nome }}
-        </mat-option>
-      </mat-select>
-      <button mat-button *ngIf="categoriaCnhSelecionada" matSuffix aria-label="Clear" (click)="categoriaCnhSelecionada=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Nº Inscrição INSS</mat-label>
-      <input maxlength="15" type="number" matInput placeholder="Nº Inscrição INSS" style="margin-right: 20px;" [(ngModel)]="defensor.numeroInscricaoInss" name="numeroInscricaoInss">
-      <button mat-button *ngIf="defensor.numeroInscricaoInss" matSuffix aria-label="Clear" (click)="defensor.numeroInscricaoInss=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Nº Quitação Militar</mat-label>
-      <input maxlength="15" type="number" matInput placeholder="Nº Quitação Militar" style="margin-right: 20px;" [(ngModel)]="defensor.numeroQuitacaoMilitar" name="numeroQuitacaoMilitar">
-      <button mat-button *ngIf="defensor.numeroQuitacaoMilitar" matSuffix aria-label="Clear" (click)="defensor.numeroQuitacaoMilitar=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Nº Quitação Eleitoral</mat-label>
-      <input maxlength="15" type="number" matInput placeholder="Nº Quitação Eleitoral" style="margin-right: 20px;" [(ngModel)]="defensor.numeroQuitacaoEleitoral" name="numeroQuitacaoEleitoral">
-      <button mat-button *ngIf="defensor.numeroQuitacaoEleitoral" matSuffix aria-label="Clear" (click)="defensor.numeroQuitacaoEleitoral=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Data Validade Certificado Condutor*</mat-label>
-      <input matInput [matDatepicker]="dataValidade" placeholder="Data Validade Certificado Condutor" [(ngModel)]="defensor.dataValidadeCertificadoCondutor" name="dataValidadeCertificadoCondutor">
-      <mat-datepicker-toggle matIconSuffix [for]="dataValidade"></mat-datepicker-toggle>
-      <mat-datepicker #dataValidade></mat-datepicker>
-    </mat-form-field>
-
-    <mat-card>
-      <mat-card-content>
-        <mat-label >Certificado Condutor*</mat-label>
-        <div class="file-upload-container">
-          <input type="file" #fileInputCertificado (change)="getCertificadoCondutorSelecionado($event)" style="display: none;">
-          <button mat-raised-button color="primary" (click)="fileInputCertificado.click()">
-            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+    <mat-tab-group>
+      <mat-tab label="Dados Gerais">
+        <br>
+        <br>
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label>Nº Permissão*</mat-label>
+          <mat-select [(value)]="permissaoSelecionada">
+            <mat-option *ngFor="let permissao of permissoesOptions" [value]="permissao.numeroPermissao">
+              {{ permissao.numeroPermissao }}
+            </mat-option>
+          </mat-select>
+          <button mat-button *ngIf="permissaoSelecionada" matSuffix aria-label="Clear" (click)="permissaoSelecionada=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
           </button>
-          <span *ngIf="certificadoCondutorSelecionado">{{ certificadoCondutorSelecionado.name }}</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
+        </mat-form-field>
 
-    <mat-card>
-      <mat-card-content>
-        <mat-label >Certidão Negativa Criminal*</mat-label>
-        <div class="file-upload-container">
-          <input type="file" #fileInputCriminal (change)="getCertidaoNegativaCriminalSelecionada($event)" style="display: none;">
-          <button mat-raised-button color="primary" (click)="fileInputCriminal.click()">
-            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Nome Defensor*</mat-label>
+          <input maxlength="50" matInput placeholder="Nome Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.nomeDefensor" name="nomeDefensor">
+          <button mat-button *ngIf="defensor.nomeDefensor" matSuffix aria-label="Clear" (click)="defensor.nomeDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
           </button>
-          <span *ngIf="certidaoNegativaCriminalSelecionada">{{ certidaoNegativaCriminalSelecionada.name }}</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
+        </mat-form-field>
 
-    <mat-card>
-      <mat-card-content>
-        <mat-label >Certidão Negativa Municipal*</mat-label>
-        <div class="file-upload-container">
-          <input type="file" #fileInputMunicipal (change)="getCertidaoNegativaMunicipalSelecionada($event)" style="display: none;">
-          <button mat-raised-button color="primary" (click)="fileInputMunicipal.click()">
-            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >CPF Defensor*</mat-label>
+          <input maxlength="100" type="number" matInput placeholder="CPF Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.cpfDefensor" name="cpfDefensor">
+          <button mat-button *ngIf="defensor.cpfDefensor" matSuffix aria-label="Clear" (click)="defensor.cpfDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
           </button>
-          <span *ngIf="certidaoNegativaMunicipalSelecionada">{{ certidaoNegativaMunicipalSelecionada.name }}</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
+        </mat-form-field>
 
-    <mat-card>
-      <mat-card-content>
-        <mat-label >Foto 3x4 Defensor*</mat-label>
-        <div class="file-upload-container">
-          <input type="file" #fileInputFoto (change)="getFotoSelecionada($event)" style="display: none;">
-          <button mat-raised-button color="primary" (click)="fileInputFoto.click()">
-            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >RG Defensor*</mat-label>
+          <input maxlength="10" type="number" matInput placeholder="RG Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.rgDefensor" name="rgDefensor">
+          <button mat-button *ngIf="defensor.rgDefensor" matSuffix aria-label="Clear" (click)="defensor.rgDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
           </button>
-          <span *ngIf="fotoSelecionada">{{ fotoSelecionada.name }}</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Órgão Emissor*</mat-label>
+          <input maxlength="10" matInput placeholder="Órgão Emissor" style="margin-right: 20px;" [(ngModel)]="defensor.orgaoEmissor" name="orgaoEmissor">
+          <button mat-button *ngIf="defensor.orgaoEmissor" matSuffix aria-label="Clear" (click)="defensor.orgaoEmissor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Filiação Mãe*</mat-label>
+          <input maxlength="100" matInput placeholder="Filiação Mãe" style="margin-right: 20px;" [(ngModel)]="defensor.filiacaoMae" name="filiacaoMae">
+          <button mat-button *ngIf="defensor.filiacaoMae" matSuffix aria-label="Clear" (click)="defensor.filiacaoMae=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Filiação Pai</mat-label>
+          <input maxlength="100" matInput placeholder="Filiação Pai" style="margin-right: 20px;" [(ngModel)]="defensor.filiacaoPai" name="filiacaoPai">
+          <button mat-button *ngIf="defensor.filiacaoPai" matSuffix aria-label="Clear" (click)="defensor.filiacaoPai=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label>Sexo*</mat-label>
+          <mat-select [(value)]="sexoSelecionado">
+            <mat-option *ngFor="let sexo of sexoOptions" [value]="sexo.id">
+              {{ sexo.nome }}
+            </mat-option>
+          </mat-select>
+          <button mat-button *ngIf="sexoSelecionado" matSuffix aria-label="Clear" (click)="sexoSelecionado=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label>Estado Civil</mat-label>
+          <mat-select [(value)]="estadoCivilSelecionado">
+            <mat-option *ngFor="let estadoCivil of estadoCivilOptions" [value]="estadoCivil.id">
+              {{ estadoCivil.nome }}
+            </mat-option>
+          </mat-select>
+          <button mat-button *ngIf="estadoCivilSelecionado" matSuffix aria-label="Clear" (click)="estadoCivilSelecionado=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Data de Nascimento*</mat-label>
+          <input matInput [matDatepicker]="dataNascimento" placeholder="Data de Nascimento" [(ngModel)]="defensor.dataNascimento" name="dataNascimento">
+          <mat-datepicker-toggle matIconSuffix [for]="dataNascimento"></mat-datepicker-toggle>
+          <mat-datepicker #dataNascimento></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label>UF*</mat-label>
+          <mat-select [(value)]="ufSelecionada">
+            <mat-option *ngFor="let uf of ufOptions" [value]="uf.sigla">
+              {{ uf.nome }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Cidade*</mat-label>
+          <input maxlength="100" matInput placeholder="Cidade" style="margin-right: 20px;" [(ngModel)]="defensor.cidadeDefensor" name="cidadeDefensor">
+          <button mat-button *ngIf="defensor.cidadeDefensor" matSuffix aria-label="Clear" (click)="defensor.cidadeDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Bairro*</mat-label>
+          <input maxlength="100" matInput placeholder="Bairro Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.bairroDefensor" name="bairroDefensor">
+          <button mat-button *ngIf="defensor.bairroDefensor" matSuffix aria-label="Clear" (click)="defensor.bairroDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Endereço*</mat-label>
+          <input maxlength="100" matInput placeholder="Endereço Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.enderecoDefensor" name="enderecoDefensor">
+          <button mat-button *ngIf="defensor.enderecoDefensor" matSuffix aria-label="Clear" (click)="defensor.enderecoDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >CEP*</mat-label>
+          <input maxlength="100" matInput placeholder="CEP" style="margin-right: 20px;" [(ngModel)]="defensor.cep" name="cep">
+          <button mat-button *ngIf="defensor.cep" matSuffix aria-label="Clear" (click)="defensor.cep=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Celular/WhatsApp*</mat-label>
+          <input maxlength="12" matInput placeholder="Celular/Telefone" style="margin-right: 20px;" [(ngModel)]="defensor.celularDefensor" name="celularDefensor">
+          <button mat-button *ngIf="defensor.celularDefensor" matSuffix aria-label="Clear" (click)="defensor.celularDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 400px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >E-mail</mat-label>
+          <input maxlength="50" matInput placeholder="Celular/Telefone" style="margin-right: 20px;" [(ngModel)]="defensor.emailDefensor" name="emailDefensor">
+          <button mat-button *ngIf="defensor.emailDefensor" matSuffix aria-label="Clear" (click)="defensor.emailDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >CNH Defensor*</mat-label>
+          <input maxlength="10" type="number" matInput placeholder="CNH Defensor" style="margin-right: 20px;" [(ngModel)]="defensor.cnhDefensor" name="cnhDefensor">
+          <button mat-button *ngIf="defensor.cnhDefensor" matSuffix aria-label="Clear" (click)="defensor.cnhDefensor=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label>Categoria CNH*</mat-label>
+          <mat-select [(value)]="categoriaCnhSelecionada">
+            <mat-option *ngFor="let categoria of categoriaOptions" [value]="categoria.id">
+              {{ categoria.nome }}
+            </mat-option>
+          </mat-select>
+          <button mat-button *ngIf="categoriaCnhSelecionada" matSuffix aria-label="Clear" (click)="categoriaCnhSelecionada=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Data de Validadade CNH*</mat-label>
+          <input matInput [matDatepicker]="dataValidade" placeholder="Data de Validadade CNH" [(ngModel)]="defensor.dataValidadeCnh" name="dataValidadeCnh">
+          <mat-datepicker-toggle matIconSuffix [for]="dataValidade"></mat-datepicker-toggle>
+          <mat-datepicker #dataValidade></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Nº Inscrição INSS</mat-label>
+          <input maxlength="15" type="number" matInput placeholder="Nº Inscrição INSS" style="margin-right: 20px;" [(ngModel)]="defensor.numeroInscricaoInss" name="numeroInscricaoInss">
+          <button mat-button *ngIf="defensor.numeroInscricaoInss" matSuffix aria-label="Clear" (click)="defensor.numeroInscricaoInss=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Nº Quitação Militar</mat-label>
+          <input maxlength="15" type="number" matInput placeholder="Nº Quitação Militar" style="margin-right: 20px;" [(ngModel)]="defensor.numeroQuitacaoMilitar" name="numeroQuitacaoMilitar">
+          <button mat-button *ngIf="defensor.numeroQuitacaoMilitar" matSuffix aria-label="Clear" (click)="defensor.numeroQuitacaoMilitar=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+          <mat-label >Nº Quitação Eleitoral</mat-label>
+          <input maxlength="15" type="number" matInput placeholder="Nº Quitação Eleitoral" style="margin-right: 20px;" [(ngModel)]="defensor.numeroQuitacaoEleitoral" name="numeroQuitacaoEleitoral">
+          <button mat-button *ngIf="defensor.numeroQuitacaoEleitoral" matSuffix aria-label="Clear" (click)="defensor.numeroQuitacaoEleitoral=''">
+            <i class="material-icons black v-middle">
+              close
+            </i>
+          </button>
+        </mat-form-field>
+      </mat-tab>
+
+      <mat-tab label="Documentos">
+        <br>
+        <br>
+        <mat-card>
+          <mat-card-content>
+            <mat-label >RG (Carteira de Identidade)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputRg (change)="getAnexoRgSelecionado($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputRg.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="anexoRgSelecionado">{{ anexoRgSelecionado.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >CPF*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputCpf (change)="getAnexoCpfSelecionado($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputCpf.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="anexoCpfSelecionado">{{ anexoCpfSelecionado.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >CNH Categoria 'A' (mín. 2 anos de experiência)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputCnh (change)="getAnexoCnhSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputCnh.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="anexoCnhSelecionada">{{ anexoCnhSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Comprovante Residência em Barreirinhas (mín. 3 anos)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputResidencia (change)="getComprovanteResidenciaSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputResidencia.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="comprovanteResidenciaSelecionada">{{ comprovanteResidenciaSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Certidão Negativa de Multas e Ocorrências DETRAN-MA*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputMunicipal (change)="getCertidaoNegativaMunicipalSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputMunicipal.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="certidaoNegativaMunicipalSelecionada">{{ certidaoNegativaMunicipalSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Certidão Negativa de Antecedentes Criminais*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputCriminal (change)="getCertidaoNegativaCriminalSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputCriminal.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="certidaoNegativaCriminalSelecionada">{{ certidaoNegativaCriminalSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Certificado de Propriedade da Motocicleta*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputPropriedade (change)="getCertificadoPropriedadeSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputPropriedade.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="certificadoPropriedadeSelecionada">{{ certificadoPropriedadeSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Certificado de Curso Específico (Emitido máx. 2 anos)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputCertificado (change)="getCertificadoCondutorSelecionado($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputCertificado.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="certificadoCondutorSelecionado">{{ certificadoCondutorSelecionado.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Apólice de Seguro de Vida*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputVida (change)="getApoliceSeguroVidaSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputVida.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="apoliceSeguroVidaSelecionada">{{ apoliceSeguroVidaSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Apólice de Seguro da Motocicleta (acidentes, furto, incêndio, terceiros)*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputMotocicleta (change)="getApoliceSeguroMotocicletaSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputMotocicleta.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="apoliceSeguroMotocicletaSelecionada">{{ apoliceSeguroMotocicletaSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-label >Foto 3x4 Defensor*</mat-label>
+            <div class="file-upload-container">
+              <input type="file" #fileInputFoto (change)="getFotoSelecionada($event)" style="display: none;">
+              <button mat-raised-button color="primary" (click)="fileInputFoto.click()">
+                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+              </button>
+              <span *ngIf="fotoSelecionada">{{ fotoSelecionada.name }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+
     <div>
       <button style="background-color: darkgray; margin-left: 20px; margin-right: 30px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
         Voltar

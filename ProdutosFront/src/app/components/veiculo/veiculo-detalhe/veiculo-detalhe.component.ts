@@ -51,8 +51,10 @@ export class VeiculoDetalheComponent implements OnInit {
 
   corSelecionada = "";
   corOptions = [
-    { id: '1', nome: 'BRANCA' },
-    { id: '2', nome: 'PRATA' }
+    { id: '1', nome: 'AMARELA' },
+    { id: '2', nome: 'LARANJA' },
+    { id: '3', nome: 'BRANCA' },
+    { id: '4', nome: 'PRETA' }
   ];
 
   combustivelSelecionado = "";
@@ -108,7 +110,7 @@ export class VeiculoDetalheComponent implements OnInit {
         next: (permissionarios) => {
           if (permissionarios == null || permissionarios.length == 0) {
             this.veiculoService.showMessageAlert(
-              "Não há Permissionários disponíveis para seleção!"
+              "Não há Autorizatários disponíveis para seleção!"
             );
           }
           permissionarios?.forEach(element => {

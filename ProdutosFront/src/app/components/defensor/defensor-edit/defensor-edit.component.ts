@@ -27,6 +27,8 @@ export class DefensorEditComponent implements OnInit {
     cpfDefensor: "",
     rgDefensor: "",
     orgaoEmissor: "",
+    filiacaoMae: "",
+    filiacaoPai: "",
     sexo: "",
     estadoCivil: "",
     dataNascimento: "",
@@ -34,10 +36,12 @@ export class DefensorEditComponent implements OnInit {
     cidadeDefensor: "",
     bairroDefensor: "",
     enderecoDefensor: "",
+    cep: "",
     celularDefensor: "",
     emailDefensor: "",
     cnhDefensor: "",
     categoriaCnhDefensor: "",
+    dataValidadeCnh: "",
     numeroQuitacaoMilitar: "",
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
@@ -101,9 +105,16 @@ export class DefensorEditComponent implements OnInit {
     { id: '5', nome: 'VIÚVO' }
   ];
 
-  certificadoCondutorSelecionado: File | null = null;
-  certidaoNegativaCriminalSelecionada: File | null = null;
+  anexoRgSelecionado: File | null = null;
+  anexoCpfSelecionado: File | null = null;
+  anexoCnhSelecionada: File | null = null;
+  comprovanteResidenciaSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
+  certidaoNegativaCriminalSelecionada: File | null = null;
+  certificadoPropriedadeSelecionada: File | null = null;
+  certificadoCondutorSelecionado: File | null = null;
+  apoliceSeguroVidaSelecionada: File | null = null;
+  apoliceSeguroMotocicletaSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
   errors: string;
@@ -148,6 +159,8 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.cpfDefensor = history.state.data.cpfDefensor;
       this.defensor.rgDefensor = history.state.data.rgDefensor;
       this.defensor.orgaoEmissor = history.state.data.orgaoEmissor;
+      this.defensor.filiacaoMae = history.state.data.filiacaoMae;
+      this.defensor.filiacaoPai = history.state.data.filiacaoPai;
       this.sexoSelecionado = history.state.data.sexo;
       this.defensor.sexo = history.state.data.sexo;
       this.estadoCivilSelecionado = history.state.data.estadoCivil;
@@ -156,6 +169,7 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.cnhDefensor = history.state.data.cnhDefensor;
       this.categoriaCnhSelecionada = history.state.data.categoriaCnhDefensor;
       this.defensor.categoriaCnhDefensor = history.state.data.categoriaCnhDefensor;
+      this.defensor.dataValidadeCnh = history.state.data.dataValidadeCnh;
       this.ufSelecionada = history.state.data.ufDefensor;
       this.defensor.ufDefensor = history.state.data.ufDefensor;
       this.defensor.cidadeDefensor = history.state.data.cidadeDefensor;
@@ -172,16 +186,44 @@ export class DefensorEditComponent implements OnInit {
     }
   }
 
-  getCertificadoCondutorSelecionado (event: any): void {
-    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  getAnexoRgSelecionado (event: any): void {
+    this.anexoRgSelecionado = event.target.files[0] || null;
+  }
+
+  getAnexoCpfSelecionado (event: any): void {
+    this.anexoCpfSelecionado = event.target.files[0] || null;
+  }
+
+  getAnexoCnhSelecionada (event: any): void {
+    this.anexoCnhSelecionada = event.target.files[0] || null;
+  }
+
+  getComprovanteResidenciaSelecionada (event: any): void {
+    this.comprovanteResidenciaSelecionada = event.target.files[0] || null;
+  }
+
+  getCertidaoNegativaMunicipalSelecionada (event: any): void {
+    this.certidaoNegativaMunicipalSelecionada = event.target.files[0] || null;
   }
 
   getCertidaoNegativaCriminalSelecionada (event: any): void {
     this.certidaoNegativaCriminalSelecionada = event.target.files[0] || null;
   }
 
-  getCertidaoNegativaMunicipalSelecionada (event: any): void {
-    this.certidaoNegativaMunicipalSelecionada = event.target.files[0] || null;
+  getCertificadoPropriedadeSelecionada(event: any): void {
+    this.certificadoPropriedadeSelecionada = event.target.files[0] || null;
+  }
+
+  getCertificadoCondutorSelecionado (event: any): void {
+    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  }
+
+  getApoliceSeguroVidaSelecionada(event: any): void {
+    this.apoliceSeguroVidaSelecionada = event.target.files[0] || null;
+  }
+
+  getApoliceSeguroMotocicletaSelecionada(event: any): void {
+    this.apoliceSeguroMotocicletaSelecionada = event.target.files[0] || null;
   }
 
   getFotoSelecionada (event: any): void {
@@ -201,8 +243,10 @@ export class DefensorEditComponent implements OnInit {
       return;
     }
 
-    this.defensorService.editarDefensor(this.defensor, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
-      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
+    this.defensorService.editarDefensor(this.defensor, this.anexoRgSelecionado, this.anexoCpfSelecionado,
+      this.anexoCnhSelecionada, this.comprovanteResidenciaSelecionada, this.certidaoNegativaMunicipalSelecionada,
+      this.certidaoNegativaCriminalSelecionada, this.certificadoPropriedadeSelecionada, this.certificadoCondutorSelecionado,
+      this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
         this.defensorService.showMessageSuccess('Defensor Atualizado com Sucesso!!!');
         this.router.navigate(['/defensor']);
@@ -219,7 +263,7 @@ export class DefensorEditComponent implements OnInit {
       return false;
     }
     if(this.defensor.nomeDefensor == null || this.defensor.nomeDefensor == ''){
-      this.defensorService.showMessageError('O campo Nome Permissionário é obrigatório!');
+      this.defensorService.showMessageError('O campo Nome Autorizatário é obrigatório!');
       return false;
     }
     if(this.defensor.cpfDefensor == null || this.defensor.cpfDefensor == ''){
@@ -232,6 +276,10 @@ export class DefensorEditComponent implements OnInit {
     }
     if(this.defensor.orgaoEmissor == null || this.defensor.orgaoEmissor == ''){
       this.defensorService.showMessageError('O campo Órgão Emissor é obrigatório!');
+      return false;
+    }
+    if(this.defensor.filiacaoMae == null || this.defensor.filiacaoMae == ''){
+      this.defensorService.showMessageError('O campo Filiação Mãe é obrigatório!');
       return false;
     }
     if(this.defensor.celularDefensor == null || this.defensor.celularDefensor == ''){
@@ -258,12 +306,12 @@ export class DefensorEditComponent implements OnInit {
       this.defensorService.showMessageError('O campo CNH é obrigatório!');
       return false;
     }
-    if(this.defensor.categoriaCnhDefensor == null || this.defensor.categoriaCnhDefensor == ''){
-      this.defensorService.showMessageError('O campo Categoria CNH é obrigatório!');
+    if(this.defensor.dataValidadeCnh == null || this.defensor.dataValidadeCnh == ''){
+      this.defensorService.showMessageError('O campo Data Validade CNH é obrigatório!');
       return false;
     }
-    if(this.defensor.dataValidadeCertificadoCondutor == null || this.defensor.dataValidadeCertificadoCondutor == ''){
-      this.defensorService.showMessageError('O campo Data Validade Certificado Condutor é obrigatório!');
+    if(this.defensor.categoriaCnhDefensor == null || this.defensor.categoriaCnhDefensor == ''){
+      this.defensorService.showMessageError('O campo Categoria CNH é obrigatório!');
       return false;
     }
 

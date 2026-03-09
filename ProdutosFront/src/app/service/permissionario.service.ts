@@ -48,23 +48,41 @@ export class PermissionarioService {
     return config;
   }
 
-  inserirPermissionario(permissionario: PermissionarioModelo, certificadoCondutorFile: File | null, certidaoNegativaCriminalFile: File | null,
-                        certidaoNegativaMunicipalFile: File | null, fotoFile: File | null): Observable<PermissionarioModelo>{
+  inserirPermissionario(permissionario: PermissionarioModelo, anexoRgFile: File | null, anexoCpfFile: File | null, anexoCnhFile: File | null,
+                        comprovanteResidenciaFile: File | null, certidaoNegativaMunicipalFile: File | null, certidaoNegativaCriminalFile: File | null,
+                        certificadoPropriedadeFile : File | null, certificadoCondutorFile: File | null, apoliceSeguroVidaFile : File | null,
+                        apoliceSeguroMotocicletaFile : File | null, fotoFile: File | null): Observable<PermissionarioModelo>{
     const formDataPermissionario = new FormData();
+    if(permissionario.filiacaoPai == null || permissionario.filiacaoPai == "null")
+      permissionario.filiacaoPai = "";
+    if(permissionario.estadoCivil == null || permissionario.estadoCivil == "null")
+      permissionario.estadoCivil = "";
+    if(permissionario.emailPermissionario == null || permissionario.emailPermissionario == "null")
+      permissionario.emailPermissionario = "";
+    if(permissionario.numeroInscricaoInss == null || permissionario.numeroInscricaoInss == "null")
+      permissionario.numeroInscricaoInss = "";
+    if(permissionario.numeroQuitacaoMilitar == null || permissionario.numeroQuitacaoMilitar == "null")
+      permissionario.numeroQuitacaoMilitar = "";
+    if(permissionario.numeroQuitacaoEleitoral == null || permissionario.numeroQuitacaoEleitoral == "null")
+      permissionario.numeroQuitacaoEleitoral = "";
     const jsonString = '{"idPermissionario": null, "numeroPermissao": "' + permissionario.numeroPermissao + '"' +
       ', "nomePermissionario": "' + permissionario.nomePermissionario + '"' +
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
+      ', "filiacaoMae": "' + permissionario.filiacaoMae + '"' +
+      ', "filiacaoPai": "' + permissionario.filiacaoPai + '"' +
       ', "sexo": "' + permissionario.sexo + '"' +
       ', "estadoCivil": "' + permissionario.estadoCivil + '"' +
       ', "dataNascimento": "' + permissionario.dataNascimento + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
       ', "categoriaCnhPermissionario": "' + permissionario.categoriaCnhPermissionario + '"' +
+      ', "dataValidadeCnh": "' + permissionario.dataValidadeCnh + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
       ', "cidadePermissionario": "' + permissionario.cidadePermissionario + '"' +
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
+      ', "cep": "' + permissionario.cep + '"' +
       ', "celularPermissionario": "' + permissionario.celularPermissionario + '"' +
       ', "emailPermissionario": "' + permissionario.emailPermissionario + '"' +
       ', "numeroQuitacaoMilitar": "' + permissionario.numeroQuitacaoMilitar + '"' +
@@ -77,35 +95,69 @@ export class PermissionarioService {
       ', "usuario": "' + permissionario.usuario + '"}'
     // @ts-ignore
     formDataPermissionario.append('permissionario', jsonString);
+
     // @ts-ignore
-    formDataPermissionario.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
+    formDataPermissionario.append('anexoRg', anexoRgFile, anexoRgFile.name);
+    // @ts-ignore
+    formDataPermissionario.append('anexoCpf', anexoCpfFile, anexoCpfFile.name);
+    // @ts-ignore
+    formDataPermissionario.append('anexoCnh', anexoCnhFile, anexoCnhFile.name);
+    // @ts-ignore
+    formDataPermissionario.append('comprovanteResidencia', comprovanteResidenciaFile, comprovanteResidenciaFile.name);
+    // @ts-ignore
+    formDataPermissionario.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
     // @ts-ignore
     formDataPermissionario.append('certidaoNegativaCriminal', certidaoNegativaCriminalFile, certidaoNegativaCriminalFile.name);
     // @ts-ignore
-    formDataPermissionario.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
+    formDataPermissionario.append('certificadoPropriedade', certificadoPropriedadeFile, certificadoPropriedadeFile.name);
+    // @ts-ignore
+    formDataPermissionario.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
+    // @ts-ignore
+    formDataPermissionario.append('apoliceSeguroVida', apoliceSeguroVidaFile, apoliceSeguroVidaFile.name);
+    // @ts-ignore
+    formDataPermissionario.append('apoliceSeguroMotocicleta', apoliceSeguroMotocicletaFile, apoliceSeguroMotocicletaFile.name);
     // @ts-ignore
     formDataPermissionario.append('foto', fotoFile, fotoFile.name);
     return this.http.post<PermissionarioModelo>(this.baseUrl+'/inserir', formDataPermissionario).pipe(catchError(this.errorHandler));
   }
 
-  editarPermissionario(permissionario: PermissionarioModelo, certificadoCondutorFile: File | null, certidaoNegativaCriminalFile: File | null,
-                       certidaoNegativaMunicipalFile: File | null, fotoFile: File | null): Observable<PermissionarioModelo>{
+  editarPermissionario(permissionario: PermissionarioModelo, anexoRgFile: File | null, anexoCpfFile: File | null, anexoCnhFile: File | null,
+                       comprovanteResidenciaFile: File | null, certidaoNegativaMunicipalFile: File | null, certidaoNegativaCriminalFile: File | null,
+                       certificadoPropriedadeFile : File | null, certificadoCondutorFile: File | null, apoliceSeguroVidaFile : File | null,
+                       apoliceSeguroMotocicletaFile : File | null, fotoFile: File | null): Observable<PermissionarioModelo>{
     const formDataPermissionario = new FormData();
+    if(permissionario.filiacaoPai == null || permissionario.filiacaoPai == "null")
+      permissionario.filiacaoPai = "";
+    if(permissionario.estadoCivil == null || permissionario.estadoCivil == "null")
+      permissionario.estadoCivil = "";
+    if(permissionario.emailPermissionario == null || permissionario.emailPermissionario == "null")
+      permissionario.emailPermissionario = "";
+    if(permissionario.numeroInscricaoInss == null || permissionario.numeroInscricaoInss == "null")
+      permissionario.numeroInscricaoInss = "";
+    if(permissionario.numeroQuitacaoMilitar == null || permissionario.numeroQuitacaoMilitar == "null")
+      permissionario.numeroQuitacaoMilitar = "";
+    if(permissionario.numeroQuitacaoEleitoral == null || permissionario.numeroQuitacaoEleitoral == "null")
+      permissionario.numeroQuitacaoEleitoral = "";
+
     const jsonString = '{"idPermissionario": "' + permissionario.idPermissionario + '"' +
       ', "numeroPermissao": "' + permissionario.numeroPermissao + '"' +
       ', "nomePermissionario": "' + permissionario.nomePermissionario + '"' +
       ', "cpfPermissionario": "' + permissionario.cpfPermissionario + '"' +
       ', "rgPermissionario": "' + permissionario.rgPermissionario + '"' +
       ', "orgaoEmissor": "' + permissionario.orgaoEmissor + '"' +
+      ', "filiacaoMae": "' + permissionario.filiacaoMae + '"' +
+      ', "filiacaoPai": "' + permissionario.filiacaoPai + '"' +
       ', "sexo": "' + permissionario.sexo + '"' +
       ', "estadoCivil": "' + permissionario.estadoCivil + '"' +
       ', "dataNascimento": "' + permissionario.dataNascimento + '"' +
       ', "cnhPermissionario": "' + permissionario.cnhPermissionario + '"' +
       ', "categoriaCnhPermissionario": "' + permissionario.categoriaCnhPermissionario + '"' +
+      ', "dataValidadeCnh": "' + permissionario.dataValidadeCnh + '"' +
       ', "ufPermissionario": "' + permissionario.ufPermissionario + '"' +
       ', "cidadePermissionario": "' + permissionario.cidadePermissionario + '"' +
       ', "bairroPermissionario": "' + permissionario.bairroPermissionario + '"' +
       ', "enderecoPermissionario": "' + permissionario.enderecoPermissionario + '"' +
+      ', "cep": "' + permissionario.cep + '"' +
       ', "celularPermissionario": "' + permissionario.celularPermissionario + '"' +
       ', "emailPermissionario": "' + permissionario.emailPermissionario + '"' +
       ', "numeroQuitacaoMilitar": "' + permissionario.numeroQuitacaoMilitar + '"' +
@@ -118,15 +170,37 @@ export class PermissionarioService {
       ', "usuario": "' + permissionario.usuario + '"}'
     // @ts-ignore
     formDataPermissionario.append('permissionario', jsonString);
-    if(certificadoCondutorFile != null)
+
+    if(anexoRgFile != null)
       // @ts-ignore
-      formDataPermissionario.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
-    if(certidaoNegativaCriminalFile != null)
+      formDataPermissionario.append('anexoRg', anexoRgFile, anexoRgFile.name);
+    if (anexoCpfFile != null)
       // @ts-ignore
-      formDataPermissionario.append('certidaoNegativaCriminal', certidaoNegativaCriminalFile, certidaoNegativaCriminalFile.name);
+      formDataPermissionario.append('anexoCpf', anexoCpfFile, anexoCpfFile.name);
+    if (anexoCnhFile != null)
+      // @ts-ignore
+      formDataPermissionario.append('anexoCnh', anexoCnhFile, anexoCnhFile.name);
+    if (comprovanteResidenciaFile != null)
+      // @ts-ignore
+      formDataPermissionario.append('comprovanteResidencia', comprovanteResidenciaFile, comprovanteResidenciaFile.name);
     if(certidaoNegativaMunicipalFile != null)
       // @ts-ignore
       formDataPermissionario.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
+    if(certidaoNegativaCriminalFile != null)
+      // @ts-ignore
+      formDataPermissionario.append('certidaoNegativaCriminal', certidaoNegativaCriminalFile, certidaoNegativaCriminalFile.name);
+    if(certificadoPropriedadeFile != null)
+      // @ts-ignore
+      formDataPermissionario.append('certificadoPropriedade', certificadoPropriedadeFile, certificadoPropriedadeFile.name);
+    if(certificadoCondutorFile != null)
+      // @ts-ignore
+      formDataPermissionario.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
+    if(apoliceSeguroVidaFile != null)
+      // @ts-ignore
+      formDataPermissionario.append('apoliceSeguroVida', apoliceSeguroVidaFile, apoliceSeguroVidaFile.name);
+    if(apoliceSeguroMotocicletaFile != null)
+      // @ts-ignore
+      formDataPermissionario.append('apoliceSeguroMotocicleta', apoliceSeguroMotocicletaFile, apoliceSeguroMotocicletaFile.name);
     if(fotoFile != null)
       // @ts-ignore
       formDataPermissionario.append('foto', fotoFile, fotoFile.name);
@@ -134,7 +208,7 @@ export class PermissionarioService {
   }
 
   excluirPermissionario(idPermissionario: number, usuario: string): Observable<String>{
-    this.erroMetodo = "Não foi possível excluir o Permissionário!";
+    this.erroMetodo = "Não foi possível excluir o Autorizatário!";
     return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissionario+'/usuario/'+usuario).pipe(catchError(this.errorHandler));
   }
 

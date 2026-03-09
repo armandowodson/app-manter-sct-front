@@ -83,7 +83,6 @@ export class PermissaoReadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    alert(environment.moduloSelecionado);
     this.nomeLogado = environment.nomeLogado;
     this.buscarTodasPermissoes();
   }
@@ -211,7 +210,7 @@ export class PermissaoReadComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id =
-      "Deseja excluir a Permissão Nº " + numeroPermissao + " ?";
+      "Deseja excluir o Termo de Autorização Nº " + numeroPermissao + " ?";
     dialogConfig.panelClass = "dialogModal";
     environment.idSelecionado = idPermissao;
     this.matDialog.open(PermissaoModalComponent, dialogConfig);
@@ -230,7 +229,7 @@ export class PermissaoReadComponent implements OnInit {
         window.open(url, '_blank');
 
         this.loadingService.hide();
-        this.permissaoService.showMessageSuccess("Permissão de Táxi gerada com sucesso!");
+        this.permissaoService.showMessageSuccess("Termo de Autorização de Moto Táxi gerado com sucesso!");
       },
       error: (error) => {
         this.loadingService.hide();

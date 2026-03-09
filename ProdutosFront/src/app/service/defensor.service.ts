@@ -48,23 +48,41 @@ export class DefensorService {
     return config;
   }
 
-  inserirDefensor(defensor: DefensorModelo, certificadoCondutorFile: File | null, certidaoNegativaCriminalFile: File | null,
-                        certidaoNegativaMunicipalFile: File | null, fotoFile: File | null): Observable<DefensorModelo>{
+  inserirDefensor(defensor: DefensorModelo, anexoRgFile: File | null, anexoCpfFile: File | null, anexoCnhFile: File | null,
+                  comprovanteResidenciaFile: File | null, certidaoNegativaMunicipalFile: File | null, certidaoNegativaCriminalFile: File | null,
+                  certificadoPropriedadeFile : File | null, certificadoCondutorFile: File | null, apoliceSeguroVidaFile : File | null,
+                  apoliceSeguroMotocicletaFile : File | null, fotoFile: File | null): Observable<DefensorModelo>{
     const formDataDefensor = new FormData();
+    if(defensor.filiacaoPai == null || defensor.filiacaoPai == "null")
+      defensor.filiacaoPai = "";
+    if(defensor.estadoCivil == null || defensor.estadoCivil == "null")
+      defensor.estadoCivil = "";
+    if(defensor.emailDefensor == null || defensor.emailDefensor == "null")
+      defensor.emailDefensor = "";
+    if(defensor.numeroInscricaoInss == null || defensor.numeroInscricaoInss == "null")
+      defensor.numeroInscricaoInss = "";
+    if(defensor.numeroQuitacaoMilitar == null || defensor.numeroQuitacaoMilitar == "null")
+      defensor.numeroQuitacaoMilitar = "";
+    if(defensor.numeroQuitacaoEleitoral == null || defensor.numeroQuitacaoEleitoral == "null")
+      defensor.numeroQuitacaoEleitoral = "";
     const jsonString = '{"idDefensor": null, "numeroPermissao": "' + defensor.numeroPermissao + '"' +
       ', "nomeDefensor": "' + defensor.nomeDefensor + '"' +
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
       ', "orgaoEmissor": "' + defensor.orgaoEmissor + '"' +
+      ', "filiacaoMae": "' + defensor.filiacaoMae + '"' +
+      ', "filiacaoPai": "' + defensor.filiacaoPai + '"' +
       ', "sexo": "' + defensor.sexo + '"' +
       ', "estadoCivil": "' + defensor.estadoCivil + '"' +
       ', "dataNascimento": "' + defensor.dataNascimento + '"' +
       ', "cnhDefensor": "' + defensor.cnhDefensor + '"' +
       ', "categoriaCnhDefensor": "' + defensor.categoriaCnhDefensor + '"' +
+      ', "dataValidadeCnh": "' + defensor.dataValidadeCnh + '"' +
       ', "ufDefensor": "' + defensor.ufDefensor + '"' +
       ', "cidadeDefensor": "' + defensor.cidadeDefensor + '"' +
       ', "bairroDefensor": "' + defensor.bairroDefensor + '"' +
       ', "enderecoDefensor": "' + defensor.enderecoDefensor + '"' +
+      ', "cep": "' + defensor.cep + '"' +
       ', "celularDefensor": "' + defensor.celularDefensor + '"' +
       ', "emailDefensor": "' + defensor.emailDefensor + '"' +
       ', "numeroQuitacaoMilitar": "' + defensor.numeroQuitacaoMilitar + '"' +
@@ -75,35 +93,68 @@ export class DefensorService {
       ', "usuario": "' + defensor.usuario + '"}'
     // @ts-ignore
     formDataDefensor.append('defensor', jsonString);
+
     // @ts-ignore
-    formDataDefensor.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
+    formDataDefensor.append('anexoRg', anexoRgFile, anexoRgFile.name);
+    // @ts-ignore
+    formDataDefensor.append('anexoCpf', anexoCpfFile, anexoCpfFile.name);
+    // @ts-ignore
+    formDataDefensor.append('anexoCnh', anexoCnhFile, anexoCnhFile.name);
+    // @ts-ignore
+    formDataDefensor.append('comprovanteResidencia', comprovanteResidenciaFile, comprovanteResidenciaFile.name);
+    // @ts-ignore
+    formDataDefensor.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
     // @ts-ignore
     formDataDefensor.append('certidaoNegativaCriminal', certidaoNegativaCriminalFile, certidaoNegativaCriminalFile.name);
     // @ts-ignore
-    formDataDefensor.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
+    formDataDefensor.append('certificadoPropriedade', certificadoPropriedadeFile, certificadoPropriedadeFile.name);
+    // @ts-ignore
+    formDataDefensor.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
+    // @ts-ignore
+    formDataDefensor.append('apoliceSeguroVida', apoliceSeguroVidaFile, apoliceSeguroVidaFile.name);
+    // @ts-ignore
+    formDataDefensor.append('apoliceSeguroMotocicleta', apoliceSeguroMotocicletaFile, apoliceSeguroMotocicletaFile.name);
     // @ts-ignore
     formDataDefensor.append('foto', fotoFile, fotoFile.name);
     return this.http.post<DefensorModelo>(this.baseUrl+'/inserir', formDataDefensor).pipe(catchError(this.errorHandler));
   }
 
-  editarDefensor(defensor: DefensorModelo, certificadoCondutorFile: File | null, certidaoNegativaCriminalFile: File | null,
-                       certidaoNegativaMunicipalFile: File | null, fotoFile: File | null): Observable<DefensorModelo>{
+  editarDefensor(defensor: DefensorModelo, anexoRgFile: File | null, anexoCpfFile: File | null, anexoCnhFile: File | null,
+                 comprovanteResidenciaFile: File | null, certidaoNegativaMunicipalFile: File | null, certidaoNegativaCriminalFile: File | null,
+                 certificadoPropriedadeFile : File | null, certificadoCondutorFile: File | null, apoliceSeguroVidaFile : File | null,
+                 apoliceSeguroMotocicletaFile : File | null, fotoFile: File | null): Observable<DefensorModelo>{
     const formDataDefensor = new FormData();
+    if(defensor.filiacaoPai == null || defensor.filiacaoPai == "null")
+      defensor.filiacaoPai = "";
+    if(defensor.estadoCivil == null || defensor.estadoCivil == "null")
+      defensor.estadoCivil = "";
+    if(defensor.emailDefensor == null || defensor.emailDefensor == "null")
+      defensor.emailDefensor = "";
+    if(defensor.numeroInscricaoInss == null || defensor.numeroInscricaoInss == "null")
+      defensor.numeroInscricaoInss = "";
+    if(defensor.numeroQuitacaoMilitar == null || defensor.numeroQuitacaoMilitar == "null")
+      defensor.numeroQuitacaoMilitar = "";
+    if(defensor.numeroQuitacaoEleitoral == null || defensor.numeroQuitacaoEleitoral == "null")
+      defensor.numeroQuitacaoEleitoral = "";
     const jsonString = '{"idDefensor": "' + defensor.idDefensor + '"' +
       ', "numeroPermissao": "' + defensor.numeroPermissao + '"' +
       ', "nomeDefensor": "' + defensor.nomeDefensor + '"' +
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
       ', "orgaoEmissor": "' + defensor.orgaoEmissor + '"' +
+      ', "filiacaoMae": "' + defensor.filiacaoMae + '"' +
+      ', "filiacaoPai": "' + defensor.filiacaoPai + '"' +
       ', "sexo": "' + defensor.sexo + '"' +
       ', "estadoCivil": "' + defensor.estadoCivil + '"' +
       ', "dataNascimento": "' + defensor.dataNascimento + '"' +
       ', "cnhDefensor": "' + defensor.cnhDefensor + '"' +
       ', "categoriaCnhDefensor": "' + defensor.categoriaCnhDefensor + '"' +
+      ', "dataValidadeCnh": "' + defensor.dataValidadeCnh + '"' +
       ', "ufDefensor": "' + defensor.ufDefensor + '"' +
       ', "cidadeDefensor": "' + defensor.cidadeDefensor + '"' +
       ', "bairroDefensor": "' + defensor.bairroDefensor + '"' +
       ', "enderecoDefensor": "' + defensor.enderecoDefensor + '"' +
+      ', "cep": "' + defensor.cep + '"' +
       ', "celularDefensor": "' + defensor.celularDefensor + '"' +
       ', "emailDefensor": "' + defensor.emailDefensor + '"' +
       ', "numeroQuitacaoMilitar": "' + defensor.numeroQuitacaoMilitar + '"' +
@@ -114,18 +165,40 @@ export class DefensorService {
       ', "usuario": "' + defensor.usuario + '"}'
     // @ts-ignore
     formDataDefensor.append('defensor', jsonString);
-    if(certificadoCondutorFile != null)
+
+    if(anexoRgFile != null)
       // @ts-ignore
-      formDataDefensor.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
+      formDataDefensor.append('anexoRg', anexoRgFile, anexoRgFile.name);
+    if (anexoCpfFile != null)
+      // @ts-ignore
+      formDataDefensor.append('anexoCpf', anexoCpfFile, anexoCpfFile.name);
+    if (anexoCnhFile != null)
+      // @ts-ignore
+      formDataDefensor.append('anexoCnh', anexoCnhFile, anexoCnhFile.name);
+    if (comprovanteResidenciaFile != null)
+      // @ts-ignore
+      formDataDefensor.append('comprovanteResidencia', comprovanteResidenciaFile, comprovanteResidenciaFile.name);
+    if(certidaoNegativaMunicipalFile != null)
+      // @ts-ignore
+      formDataDefensor.append('certidaoNegativaMunicipal', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
     if(certidaoNegativaCriminalFile != null)
       // @ts-ignore
       formDataDefensor.append('certidaoNegativaCriminal', certidaoNegativaCriminalFile, certidaoNegativaCriminalFile.name);
-    if(certidaoNegativaMunicipalFile != null)
+    if(certificadoPropriedadeFile != null)
       // @ts-ignore
-      formDataDefensor.append('certidaoNegativaMunicipalFile', certidaoNegativaMunicipalFile, certidaoNegativaMunicipalFile.name);
+      formDataDefensor.append('certificadoPropriedade', certificadoPropriedadeFile, certificadoPropriedadeFile.name);
+    if(certificadoCondutorFile != null)
+      // @ts-ignore
+      formDataDefensor.append('certificadoCondutor', certificadoCondutorFile, certificadoCondutorFile.name);
+    if(apoliceSeguroVidaFile != null)
+      // @ts-ignore
+      formDataDefensor.append('apoliceSeguroVida', apoliceSeguroVidaFile, apoliceSeguroVidaFile.name);
+    if(apoliceSeguroMotocicletaFile != null)
+      // @ts-ignore
+      formDataDefensor.append('apoliceSeguroMotocicleta', apoliceSeguroMotocicletaFile, apoliceSeguroMotocicletaFile.name);
     if(fotoFile != null)
       // @ts-ignore
-      formDataDefensor.append('fotoFile', certidaoNegativaCriminalFile, fotoFile.name);
+      formDataDefensor.append('foto', fotoFile, fotoFile.name);
     return this.http.post<DefensorModelo>(this.baseUrl+'/alterar', formDataDefensor).pipe(catchError(this.errorHandler));
   }
 

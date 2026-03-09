@@ -22,6 +22,8 @@ export class PermissionarioCreateComponent implements OnInit {
     cpfPermissionario: "",
     rgPermissionario: "",
     orgaoEmissor: "",
+    filiacaoMae: "",
+    filiacaoPai: "",
     sexo: "",
     estadoCivil: "",
     dataNascimento: "",
@@ -29,10 +31,12 @@ export class PermissionarioCreateComponent implements OnInit {
     cidadePermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
+    cep: "",
     celularPermissionario: "",
     emailPermissionario: "",
     cnhPermissionario: "",
     categoriaCnhPermissionario: "",
+    dataValidadeCnh: "",
     numeroQuitacaoMilitar: "",
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
@@ -104,9 +108,16 @@ export class PermissionarioCreateComponent implements OnInit {
     { id: 5, nome: 'VIÚVO' }
   ];
 
-  certificadoCondutorSelecionado: File | null = null;
-  certidaoNegativaCriminalSelecionada: File | null = null;
+  anexoRgSelecionado: File | null = null;
+  anexoCpfSelecionado: File | null = null;
+  anexoCnhSelecionada: File | null = null;
+  comprovanteResidenciaSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
+  certidaoNegativaCriminalSelecionada: File | null = null;
+  certificadoPropriedadeSelecionada: File | null = null;
+  certificadoCondutorSelecionado: File | null = null;
+  apoliceSeguroVidaSelecionada: File | null = null;
+  apoliceSeguroMotocicletaSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
   permissaoSelecionada = "";
@@ -143,16 +154,44 @@ export class PermissionarioCreateComponent implements OnInit {
     );
   }
 
-  getCertificadoCondutorSelecionado (event: any): void {
-    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  getAnexoRgSelecionado (event: any): void {
+    this.anexoRgSelecionado = event.target.files[0] || null;
+  }
+
+  getAnexoCpfSelecionado (event: any): void {
+    this.anexoCpfSelecionado = event.target.files[0] || null;
+  }
+
+  getAnexoCnhSelecionada (event: any): void {
+    this.anexoCnhSelecionada = event.target.files[0] || null;
+  }
+
+  getComprovanteResidenciaSelecionada (event: any): void {
+    this.comprovanteResidenciaSelecionada = event.target.files[0] || null;
+  }
+
+  getCertidaoNegativaMunicipalSelecionada (event: any): void {
+    this.certidaoNegativaMunicipalSelecionada = event.target.files[0] || null;
   }
 
   getCertidaoNegativaCriminalSelecionada (event: any): void {
     this.certidaoNegativaCriminalSelecionada = event.target.files[0] || null;
   }
 
-  getCertidaoNegativaMunicipalSelecionada (event: any): void {
-    this.certidaoNegativaMunicipalSelecionada = event.target.files[0] || null;
+  getCertificadoPropriedadeSelecionada(event: any): void {
+    this.certificadoPropriedadeSelecionada = event.target.files[0] || null;
+  }
+
+  getCertificadoCondutorSelecionado (event: any): void {
+    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  }
+
+  getApoliceSeguroVidaSelecionada(event: any): void {
+    this.apoliceSeguroVidaSelecionada = event.target.files[0] || null;
+  }
+
+  getApoliceSeguroMotocicletaSelecionada(event: any): void {
+    this.apoliceSeguroMotocicletaSelecionada = event.target.files[0] || null;
   }
 
   getFotoSelecionada (event: any): void {
@@ -173,10 +212,12 @@ export class PermissionarioCreateComponent implements OnInit {
       return;
     }
 
-    this.permissionarioService.inserirPermissionario(this.permissionario, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
-      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
+    this.permissionarioService.inserirPermissionario(this.permissionario, this.anexoRgSelecionado, this.anexoCpfSelecionado,
+      this.anexoCnhSelecionada, this.comprovanteResidenciaSelecionada, this.certidaoNegativaMunicipalSelecionada,
+      this.certidaoNegativaCriminalSelecionada, this.certificadoPropriedadeSelecionada, this.certificadoCondutorSelecionado,
+      this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
-        this.permissionarioService.showMessageSuccess('Permissionário Criado com Sucesso!!!');
+        this.permissionarioService.showMessageSuccess('Autorizatário Criado com Sucesso!!!');
         this.router.navigate(['/permissionario']);
       },
       error: (error) => {
@@ -191,7 +232,7 @@ export class PermissionarioCreateComponent implements OnInit {
       return false;
     }
     if(this.permissionario.nomePermissionario == null || this.permissionario.nomePermissionario == ''){
-      this.permissionarioService.showMessageError('O campo Nome Permissionário é obrigatório!');
+      this.permissionarioService.showMessageError('O campo Nome Autorizatário é obrigatório!');
       return false;
     }
     if(this.permissionario.cpfPermissionario == null || this.permissionario.cpfPermissionario == ''){
@@ -204,6 +245,10 @@ export class PermissionarioCreateComponent implements OnInit {
     }
     if(this.permissionario.orgaoEmissor == null || this.permissionario.orgaoEmissor == ''){
       this.permissionarioService.showMessageError('O campo Órgão Emissor é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.filiacaoMae == null || this.permissionario.filiacaoMae == ''){
+      this.permissionarioService.showMessageError('O campo Filiação Mãe é obrigatório!');
       return false;
     }
     if(this.permissionario.sexo == null || this.permissionario.sexo == ''){
@@ -234,12 +279,20 @@ export class PermissionarioCreateComponent implements OnInit {
       this.permissionarioService.showMessageError('O campo Endereço é obrigatório!');
       return false;
     }
+    if(this.permissionario.cep == null || this.permissionario.cep == ''){
+      this.permissionarioService.showMessageError('O campo CEP é obrigatório!');
+      return false;
+    }
     if(this.permissionario.cnhPermissionario == null || this.permissionario.cnhPermissionario == ''){
       this.permissionarioService.showMessageError('O campo CNH é obrigatório!');
       return false;
     }
     if(this.permissionario.categoriaCnhPermissionario == null || this.permissionario.categoriaCnhPermissionario == ''){
       this.permissionarioService.showMessageError('O campo Categoria CNH é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.dataValidadeCnh == null || this.permissionario.dataValidadeCnh == ''){
+      this.permissionarioService.showMessageError('O campo Data Validade CNH é obrigatório!');
       return false;
     }
     if(this.permissionario.aplicativoAlternativo == null || this.permissionario.aplicativoAlternativo == ''){

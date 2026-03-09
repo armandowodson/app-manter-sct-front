@@ -5,6 +5,8 @@ export interface PermissionarioModelo {
   cpfPermissionario: string
   rgPermissionario: string
   orgaoEmissor: string
+  filiacaoMae: string
+  filiacaoPai: string
   sexo: string
   estadoCivil: string
   dataNascimento: string
@@ -12,10 +14,12 @@ export interface PermissionarioModelo {
   cidadePermissionario: string
   bairroPermissionario: string
   enderecoPermissionario: string
+  cep: string
   celularPermissionario: string
   emailPermissionario: string
   cnhPermissionario: string
   categoriaCnhPermissionario: string
+  dataValidadeCnh: string
   numeroQuitacaoMilitar: string
   numeroQuitacaoEleitoral: string
   numeroInscricaoInss: string

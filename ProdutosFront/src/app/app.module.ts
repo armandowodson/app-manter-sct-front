@@ -96,6 +96,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 
 import { LoadingInterceptor} from "./loading.interceptor";
+import {MatTabsModule} from "@angular/material/tabs";
 
 registerLocaleData(localePt);
 
@@ -173,34 +174,35 @@ export const DATE_FORMATS = {
     RelatorioComponent,
     RelatorioCrudComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatCardModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        HttpClientModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatIconModule,
-        NgxPaginationModule,
-        NgbModule,
-        MatDialogModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatGridListModule,
-        MatMenuModule,
-        MatCheckboxModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule,
+    NgxPaginationModule,
+    NgbModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatCheckboxModule,
+    MatTabsModule
+  ],
 
   providers: [
     {

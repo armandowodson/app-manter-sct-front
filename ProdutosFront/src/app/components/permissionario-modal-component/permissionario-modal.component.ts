@@ -29,7 +29,7 @@ export class PermissionarioModalComponent implements OnInit {
 
   confirma() {
     this.permissionarioService.excluirPermissionario(environment.idSelecionado, environment.usuarioLogado).subscribe(() => {
-        this.permissionarioService.showMessageSuccess('Permissionário Excluído com Sucesso!!!');
+        this.permissionarioService.showMessageSuccess('Autorizatário Excluído com Sucesso!!!');
         this.reloadComponent();
       },
       error => {

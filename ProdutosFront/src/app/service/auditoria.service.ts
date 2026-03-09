@@ -77,7 +77,6 @@ export class AuditoriaService {
   }
 
   errorHandler(error: HttpErrorResponse) {
-    alert(error.error.message);
     return throwError(() => new Error(error.error.message));
   }
 }

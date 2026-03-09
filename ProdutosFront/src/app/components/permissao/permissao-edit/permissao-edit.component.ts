@@ -137,7 +137,7 @@ export class PermissaoEditComponent implements OnInit {
       next: (res) => {
         if (res.totalElements > 0 && history.state.data.numeroPermissao != this.permissao.numeroPermissao) {
           this.permissaoService.showMessageAlert(
-            "Já existe Permissão para o Número informado!"
+            "Já existe Termo de Autorização para o Número informado!"
           );
         }else{
           this.permissao.categoriaPermissao = this.categoriaPermissaoSelecionada;
@@ -151,8 +151,8 @@ export class PermissaoEditComponent implements OnInit {
             return;
 
           this.permissaoService.editarPermissao(this.permissao).subscribe(() => {
-              this.permissaoService.showMessageSuccess('Permissão Atualizada com Sucesso!!!');
-              this.router.navigate(['/permissao']);
+              this.permissaoService.showMessageSuccess('Termo de Autorização Atualizado com Sucesso!!!');
+              this.router.navigate(['/permissaomoto']);
             },
             error => {
               this.errors = error
@@ -168,7 +168,7 @@ export class PermissaoEditComponent implements OnInit {
 
   validarCamposObrigatoriosPermissao(): boolean{
     if(this.permissao.anoPermissao == null || this.permissao.anoPermissao == ""){
-      this.permissaoService.showMessageAlert("O campo Ano da Permissão é obrigatório!");
+      this.permissaoService.showMessageAlert("O campo Ano do Termo de Autorização é obrigatório!");
       return false;
     }
 
@@ -193,12 +193,7 @@ export class PermissaoEditComponent implements OnInit {
     }
 
     if(this.permissao.dataValidadePermissao == null || this.permissao.dataValidadePermissao == ""){
-      this.permissaoService.showMessageAlert("O campo Data de Validade da Permissão é obrigatório!");
-      return false;
-    }
-
-    if(this.permissao.autorizacaoTrafego == null || this.permissao.autorizacaoTrafego == ""){
-      this.permissaoService.showMessageAlert("O campo Autorizacao de Trafego é obrigatório!");
+      this.permissaoService.showMessageAlert("O campo Data de Validade do Termo de Autorização é obrigatório!");
       return false;
     }
 
@@ -211,6 +206,6 @@ export class PermissaoEditComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/permissao']);
+    this.router.navigate(['/permissaomoto']);
   }
 }

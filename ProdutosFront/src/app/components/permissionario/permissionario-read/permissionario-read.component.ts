@@ -8,7 +8,6 @@ import { PermissionarioModalComponent } from "../../permissionario-modal-compone
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
 import {PageModelo} from "../../comum/page-modelo.model";
-import {PermissaoModelo} from "../../permissao/permissao.model";
 import {LoadingService} from "../../../service/loading.service";
 
 @Injectable({
@@ -80,6 +79,8 @@ export class PermissionarioReadComponent implements OnInit {
           cpfPermissionario: item.cpfPermissionario,
           rgPermissionario: item.rgPermissionario,
           orgaoEmissor: item.orgaoEmissor,
+          filiacaoMae: item.filiacaoMae,
+          filiacaoPai: item.filiacaoPai,
           sexo: item.sexo,
           estadoCivil: item.estadoCivil,
           dataNascimento: item.dataNascimento,
@@ -87,10 +88,12 @@ export class PermissionarioReadComponent implements OnInit {
           cidadePermissionario: item.cidadePermissionario,
           bairroPermissionario: item.bairroPermissionario,
           enderecoPermissionario: item.enderecoPermissionario,
+          cep: item.cep,
           celularPermissionario: item.celularPermissionario,
           emailPermissionario: item.emailPermissionario,
           cnhPermissionario: item.cnhPermissionario,
           categoriaCnhPermissionario: item.categoriaCnhPermissionario,
+          dataValidadeCnh: item.dataValidadeCnh,
           numeroQuitacaoMilitar: item.numeroQuitacaoMilitar,
           numeroQuitacaoEleitoral: item.numeroQuitacaoEleitoral,
           numeroInscricaoInss: item.numeroInscricaoInss,
@@ -165,6 +168,8 @@ export class PermissionarioReadComponent implements OnInit {
           cpfPermissionario: item.cpfPermissionario,
           rgPermissionario: item.rgPermissionario,
           orgaoEmissor: item.orgaoEmissor,
+          filiacaoMae: item.filiacaoMae,
+          filiacaoPai: item.filiacaoPai,
           sexo: item.sexo,
           estadoCivil: item.estadoCivil,
           dataNascimento: item.dataNascimento,
@@ -172,10 +177,12 @@ export class PermissionarioReadComponent implements OnInit {
           cidadePermissionario: item.cidadePermissionario,
           bairroPermissionario: item.bairroPermissionario,
           enderecoPermissionario: item.enderecoPermissionario,
+          cep: item.cep,
           celularPermissionario: item.celularPermissionario,
           emailPermissionario: item.emailPermissionario,
           cnhPermissionario: item.cnhPermissionario,
           categoriaCnhPermissionario: item.categoriaCnhPermissionario,
+          dataValidadeCnh: item.dataValidadeCnh,
           numeroQuitacaoMilitar: item.numeroQuitacaoMilitar,
           numeroQuitacaoEleitoral: item.numeroQuitacaoEleitoral,
           numeroInscricaoInss: item.numeroInscricaoInss,
@@ -203,7 +210,7 @@ export class PermissionarioReadComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id =
-      "Deseja excluir o Permissionário: " + idPermissionario + " - " + nomePermissionario + " ?";
+      "Deseja excluir o Autorizatário: " + idPermissionario + " - " + nomePermissionario + " ?";
     dialogConfig.panelClass = "dialogModal";
     environment.idSelecionado = idPermissionario;
     this.matDialog.open(PermissionarioModalComponent, dialogConfig);

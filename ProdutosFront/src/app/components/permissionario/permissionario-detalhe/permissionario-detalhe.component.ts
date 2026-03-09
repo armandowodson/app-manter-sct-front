@@ -26,6 +26,8 @@ export class PermissionarioDetalheComponent implements OnInit {
     cpfPermissionario: "",
     rgPermissionario: "",
     orgaoEmissor: "",
+    filiacaoMae: "",
+    filiacaoPai: "",
     ufPermissionario: "",
     cidadePermissionario: "",
     bairroPermissionario: "",
@@ -34,6 +36,7 @@ export class PermissionarioDetalheComponent implements OnInit {
     emailPermissionario: "",
     cnhPermissionario: "",
     categoriaCnhPermissionario: "",
+    dataValidadeCnh: "",
     numeroQuitacaoMilitar: "",
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
@@ -136,9 +139,12 @@ export class PermissionarioDetalheComponent implements OnInit {
       this.permissionario.cpfPermissionario = history.state.data.cpfPermissionario;
       this.permissionario.rgPermissionario = history.state.data.rgPermissionario;
       this.permissionario.orgaoEmissor = history.state.data.orgaoEmissor;
+      this.permissionario.filiacaoMae = history.state.data.filiacaoMae;
+      this.permissionario.filiacaoPai = history.state.data.filiacaoPai;
       this.permissionario.cnhPermissionario = history.state.data.cnhPermissionario;
       this.categoriaCnhSelecionada = history.state.data.categoriaCnhPermissionario;
       this.permissionario.categoriaCnhPermissionario = history.state.data.categoriaCnhPermissionario;
+      this.permissionario.dataValidadeCnh = history.state.data.dataValidadeCnh;
       this.ufSelecionada = history.state.data.ufPermissionario;
       this.permissionario.ufPermissionario = history.state.data.ufPermissionario;
       this.permissionario.cidadePermissionario = history.state.data.cidadePermissionario;

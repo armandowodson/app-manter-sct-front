@@ -132,6 +132,6 @@ export class PermissaoDetalheComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/permissao']);
+    this.router.navigate(['/permissaomoto']);
   }
 }

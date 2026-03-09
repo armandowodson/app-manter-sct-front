@@ -26,6 +26,8 @@ export class PermissionarioEditComponent implements OnInit {
     cpfPermissionario: "",
     rgPermissionario: "",
     orgaoEmissor: "",
+    filiacaoMae: "",
+    filiacaoPai: "",
     sexo: "",
     estadoCivil: "",
     dataNascimento: "",
@@ -33,10 +35,12 @@ export class PermissionarioEditComponent implements OnInit {
     cidadePermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
+    cep: "",
     celularPermissionario: "",
     emailPermissionario: "",
     cnhPermissionario: "",
     categoriaCnhPermissionario: "",
+    dataValidadeCnh: "",
     numeroQuitacaoMilitar: "",
     numeroQuitacaoEleitoral: "",
     numeroInscricaoInss: "",
@@ -108,9 +112,16 @@ export class PermissionarioEditComponent implements OnInit {
     { id: '5', nome: 'VIÚVO' }
   ];
 
-  certificadoCondutorSelecionado: File | null = null;
-  certidaoNegativaCriminalSelecionada: File | null = null;
+  anexoRgSelecionado: File | null = null;
+  anexoCpfSelecionado: File | null = null;
+  anexoCnhSelecionada: File | null = null;
+  comprovanteResidenciaSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
+  certidaoNegativaCriminalSelecionada: File | null = null;
+  certificadoPropriedadeSelecionada: File | null = null;
+  certificadoCondutorSelecionado: File | null = null;
+  apoliceSeguroVidaSelecionada: File | null = null;
+  apoliceSeguroMotocicletaSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
   permissaoSelecionada = "";
@@ -154,6 +165,8 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionario.cpfPermissionario = history.state.data.cpfPermissionario;
       this.permissionario.rgPermissionario = history.state.data.rgPermissionario;
       this.permissionario.orgaoEmissor = history.state.data.orgaoEmissor;
+      this.permissionario.filiacaoMae = history.state.data.filiacaoMae;
+      this.permissionario.filiacaoPai = history.state.data.filiacaoPai;
       this.sexoSelecionado = history.state.data.sexo;
       this.permissionario.sexo = history.state.data.sexo;
       this.estadoCivilSelecionado = history.state.data.estadoCivil;
@@ -162,11 +175,13 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionario.cnhPermissionario = history.state.data.cnhPermissionario;
       this.categoriaCnhSelecionada = history.state.data.categoriaCnhPermissionario;
       this.permissionario.categoriaCnhPermissionario = history.state.data.categoriaCnhPermissionario;
+      this.permissionario.dataValidadeCnh = history.state.data.dataValidadeCnh;
       this.ufSelecionada = history.state.data.ufPermissionario;
       this.permissionario.ufPermissionario = history.state.data.ufPermissionario;
       this.permissionario.cidadePermissionario = history.state.data.cidadePermissionario;
       this.permissionario.bairroPermissionario = history.state.data.bairroPermissionario;
       this.permissionario.enderecoPermissionario = history.state.data.enderecoPermissionario;
+      this.permissionario.cep = history.state.data.cep;
       this.permissionario.celularPermissionario = history.state.data.celularPermissionario;
       this.permissionario.emailPermissionario = history.state.data.emailPermissionario;
       this.permissionario.numeroQuitacaoMilitar = history.state.data.numeroQuitacaoMilitar;
@@ -181,16 +196,44 @@ export class PermissionarioEditComponent implements OnInit {
     }
   }
 
-  getCertificadoCondutorSelecionado (event: any): void {
-    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  getAnexoRgSelecionado (event: any): void {
+    this.anexoRgSelecionado = event.target.files[0] || null;
+  }
+
+  getAnexoCpfSelecionado (event: any): void {
+    this.anexoCpfSelecionado = event.target.files[0] || null;
+  }
+
+  getAnexoCnhSelecionada (event: any): void {
+    this.anexoCnhSelecionada = event.target.files[0] || null;
+  }
+
+  getComprovanteResidenciaSelecionada (event: any): void {
+    this.comprovanteResidenciaSelecionada = event.target.files[0] || null;
+  }
+
+  getCertidaoNegativaMunicipalSelecionada (event: any): void {
+    this.certidaoNegativaMunicipalSelecionada = event.target.files[0] || null;
   }
 
   getCertidaoNegativaCriminalSelecionada (event: any): void {
     this.certidaoNegativaCriminalSelecionada = event.target.files[0] || null;
   }
 
-  getCertidaoNegativaMunicipalSelecionada (event: any): void {
-    this.certidaoNegativaMunicipalSelecionada = event.target.files[0] || null;
+  getCertificadoPropriedadeSelecionada(event: any): void {
+    this.certificadoPropriedadeSelecionada = event.target.files[0] || null;
+  }
+
+  getCertificadoCondutorSelecionado (event: any): void {
+    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  }
+
+  getApoliceSeguroVidaSelecionada(event: any): void {
+    this.apoliceSeguroVidaSelecionada = event.target.files[0] || null;
+  }
+
+  getApoliceSeguroMotocicletaSelecionada(event: any): void {
+    this.apoliceSeguroMotocicletaSelecionada = event.target.files[0] || null;
   }
 
   getFotoSelecionada (event: any): void {
@@ -211,10 +254,12 @@ export class PermissionarioEditComponent implements OnInit {
       return;
     }
 
-    this.permissionarioService.editarPermissionario(this.permissionario, this.certificadoCondutorSelecionado, this.certidaoNegativaCriminalSelecionada,
-      this.certidaoNegativaMunicipalSelecionada, this.fotoSelecionada).subscribe({
+    this.permissionarioService.editarPermissionario(this.permissionario, this.anexoRgSelecionado, this.anexoCpfSelecionado,
+      this.anexoCnhSelecionada, this.comprovanteResidenciaSelecionada, this.certidaoNegativaMunicipalSelecionada,
+      this.certidaoNegativaCriminalSelecionada, this.certificadoPropriedadeSelecionada, this.certificadoCondutorSelecionado,
+      this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
-        this.permissionarioService.showMessageSuccess('Permissionário Atualizado com Sucesso!!!');
+        this.permissionarioService.showMessageSuccess('Autorizatário Atualizado com Sucesso!!!');
         this.router.navigate(['/permissionario']);
       },
       error: (error) => {
@@ -229,7 +274,7 @@ export class PermissionarioEditComponent implements OnInit {
       return false;
     }
     if(this.permissionario.nomePermissionario == null || this.permissionario.nomePermissionario == ''){
-      this.permissionarioService.showMessageError('O campo Nome Permissionário é obrigatório!');
+      this.permissionarioService.showMessageError('O campo Nome Autorizatário é obrigatório!');
       return false;
     }
     if(this.permissionario.cpfPermissionario == null || this.permissionario.cpfPermissionario == ''){
@@ -242,6 +287,10 @@ export class PermissionarioEditComponent implements OnInit {
     }
     if(this.permissionario.orgaoEmissor == null || this.permissionario.orgaoEmissor == ''){
       this.permissionarioService.showMessageError('O campo Órgão Emissor é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.filiacaoMae == null || this.permissionario.filiacaoMae == ''){
+      this.permissionarioService.showMessageError('O campo Filiação Mãe é obrigatório!');
       return false;
     }
     if(this.permissionario.sexo == null || this.permissionario.sexo == ''){
@@ -272,6 +321,10 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionarioService.showMessageError('O campo Endereço é obrigatório!');
       return false;
     }
+    if(this.permissionario.cep == null || this.permissionario.cep == ''){
+      this.permissionarioService.showMessageError('O campo CEP é obrigatório!');
+      return false;
+    }
     if(this.permissionario.cnhPermissionario == null || this.permissionario.cnhPermissionario == ''){
       this.permissionarioService.showMessageError('O campo CNH é obrigatório!');
       return false;
@@ -280,12 +333,12 @@ export class PermissionarioEditComponent implements OnInit {
       this.permissionarioService.showMessageError('O campo Categoria CNH é obrigatório!');
       return false;
     }
-    if(this.permissionario.aplicativoAlternativo == null || this.permissionario.aplicativoAlternativo == ''){
-      this.permissionarioService.showMessageError('O campo Aplicativo Alternativo é obrigatório!');
+    if(this.permissionario.dataValidadeCnh == null || this.permissionario.dataValidadeCnh == ''){
+      this.permissionarioService.showMessageError('O campo Data Validade CNH é obrigatório!');
       return false;
     }
-    if(this.permissionario.dataValidadeCertificadoCondutor == null || this.permissionario.dataValidadeCertificadoCondutor == ''){
-      this.permissionarioService.showMessageError('O campo Data Validade Certificado Condutor é obrigatório!');
+    if(this.permissionario.aplicativoAlternativo == null || this.permissionario.aplicativoAlternativo == ''){
+      this.permissionarioService.showMessageError('O campo Aplicativo Alternativo é obrigatório!');
       return false;
     }
 

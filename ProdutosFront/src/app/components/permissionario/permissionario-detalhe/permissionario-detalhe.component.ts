@@ -119,7 +119,7 @@ export class PermissionarioDetalheComponent implements OnInit {
         (permissoes) => {
           if (permissoes == null || permissoes.length == 0) {
             this.permissaoService.showMessageAlert(
-              "Não há Permissão disponível para seleção!"
+              "Não há Termo de Autorização disponível para seleção!"
             );
           }
           permissoes?.forEach(element => {
@@ -181,6 +181,10 @@ export class PermissionarioDetalheComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/permissionario']);
+    if(environment.moduloSelecionado == 1){
+      this.router.navigate(['/permissionario']);
+    }else{
+      this.router.navigate(['/permissionariomoto']);
+    }
   }
 }

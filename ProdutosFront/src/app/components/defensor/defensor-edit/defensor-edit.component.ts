@@ -8,7 +8,7 @@ import {environment} from "../../../../environments/environment";
 import {PermissaoService} from "../../../service/permissao.service";
 
 @Component({
-  selector: 'app-permissinario-edit',
+  selector: 'app-defensor-edit',
   templateUrl: './defensor-edit.component.html',
 })
 
@@ -139,7 +139,7 @@ export class DefensorEditComponent implements OnInit {
         (permissoes) => {
           if (permissoes == null || permissoes.length == 0) {
             this.permissaoService.showMessageAlert(
-              "Não há Permissão disponível para seleção!"
+              "Não há Termo de Autorização disponível para seleção!"
             );
           }
           permissoes?.forEach(element => {
@@ -249,7 +249,11 @@ export class DefensorEditComponent implements OnInit {
       this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
         this.defensorService.showMessageSuccess('Defensor Atualizado com Sucesso!!!');
-        this.router.navigate(['/defensor']);
+        if(environment.moduloSelecionado == 1){
+          this.router.navigate(['/defensor']);
+        }else{
+          this.router.navigate(['/defensormoto']);
+        }
       },
       error: (error) => {
         this.defensorService.showMessageError(error.message.replace("Error: ", ""));
@@ -259,7 +263,7 @@ export class DefensorEditComponent implements OnInit {
 
   validarCamposObrigatoriosDefensor(): boolean{
     if(this.defensor.numeroPermissao == null || this.defensor.numeroPermissao == ''){
-      this.defensorService.showMessageError('O campo Nº da Permissão é obrigatório!');
+      this.defensorService.showMessageError('O campo Nº do Termo de Autorização é obrigatório!');
       return false;
     }
     if(this.defensor.nomeDefensor == null || this.defensor.nomeDefensor == ''){
@@ -319,6 +323,10 @@ export class DefensorEditComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/defensor']);
+    if(environment.moduloSelecionado == 1){
+      this.router.navigate(['/defensor']);
+    }else{
+      this.router.navigate(['/defensormoto']);
+    }
   }
 }

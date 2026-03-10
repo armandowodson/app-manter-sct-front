@@ -48,7 +48,7 @@ export class VeiculoService {
     return config;
   }
 
-  inserirVeiculo(veiculo: VeiculoModelo, crlv: File | null, comprovanteVistoria: File | null): Observable<VeiculoModelo>{
+  inserirVeiculo(veiculo: VeiculoModelo, crlv: File | null): Observable<VeiculoModelo>{
     const formDataVeiculo = new FormData();
     const jsonString = '{"idVeiculo": null, "idPermissionario": "' + veiculo.idPermissionario + '"' +
       ', "numeroPermissao": "' + veiculo.numeroPermissao + '"' +
@@ -67,9 +67,6 @@ export class VeiculoService {
       ', "cilindrada": "' + veiculo.cilindrada + '"' +
       ', "numeroTaximetro": "' + veiculo.numeroTaximetro + '"' +
       ', "anoRenovacao": "' + veiculo.anoRenovacao + '"' +
-      ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
-      ', "dataRetorno": "' + veiculo.dataRetorno + '"' +
-      ', "statusVistoria": "' + veiculo.statusVistoria + '"' +
       ', "situacaoVeiculo": "' + veiculo.situacaoVeiculo + '"' +
       ', "numeroCrlv": "' + veiculo.numeroCrlv + '"' +
       ', "anoCrlv": "' + veiculo.anoCrlv + '"' +
@@ -81,12 +78,10 @@ export class VeiculoService {
     formDataVeiculo.append('veiculo', jsonString);
     // @ts-ignore
     formDataVeiculo.append('crlv', crlv, crlv.name);
-    // @ts-ignore
-    formDataVeiculo.append('comprovanteVistoria', comprovanteVistoria, comprovanteVistoria.name);
     return this.http.post<VeiculoModelo>(this.baseUrl+'/inserir', formDataVeiculo).pipe(catchError(this.errorHandler));
   }
 
-  editarVeiculo(veiculo: VeiculoModelo, crlv: File | null, comprovanteVistoria: File | null): Observable<VeiculoModelo>{
+  editarVeiculo(veiculo: VeiculoModelo, crlv: File | null): Observable<VeiculoModelo>{
     const formDataVeiculo = new FormData();
     const jsonString = '{"idVeiculo": "' + veiculo.idVeiculo + '"' +
       ', "idPermissionario": "' + veiculo.idPermissionario + '"' +
@@ -106,9 +101,6 @@ export class VeiculoService {
       ', "cilindrada": "' + veiculo.cilindrada + '"' +
       ', "numeroTaximetro": "' + veiculo.numeroTaximetro + '"' +
       ', "anoRenovacao": "' + veiculo.anoRenovacao + '"' +
-      ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
-      ', "dataRetorno": "' + veiculo.dataRetorno + '"' +
-      ', "statusVistoria": "' + veiculo.statusVistoria + '"' +
       ', "situacaoVeiculo": "' + veiculo.situacaoVeiculo + '"' +
       ', "numeroCrlv": "' + veiculo.numeroCrlv + '"' +
       ', "anoCrlv": "' + veiculo.anoCrlv + '"' +
@@ -121,9 +113,6 @@ export class VeiculoService {
     if(crlv != null)
       // @ts-ignore
       formDataVeiculo.append('crlv', crlv, crlv.name);
-    if(comprovanteVistoria != null)
-      // @ts-ignore
-      formDataVeiculo.append('comprovanteVistoria', comprovanteVistoria, comprovanteVistoria.name);
     return this.http.post<VeiculoModelo>(this.baseUrl+'/alterar', formDataVeiculo).pipe(catchError(this.errorHandler));
   }
 
@@ -181,10 +170,10 @@ export class VeiculoService {
   errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Permissão para o ID informado!';
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Termo de Autorização para o ID informado!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Veículo associado à Permissão!';
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Veículo associado ao Termo de Autorização!';
     }
     if (error.status == 402){
       msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';

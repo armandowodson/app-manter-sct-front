@@ -87,6 +87,12 @@ import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.comp
 import {AuditoriaReadComponent} from "./components/auditoria/auditoria-read/auditoria-read.component";
 import {RelatorioComponent} from "./components/template/relatorio/relatorio.component";
 import {RelatorioCrudComponent} from "./views/relatorio-crud/relatorio-crud.component";
+import {VistoriaCrudMotoComponent} from "./views/vistoria-crud-moto/vistoria-crud-moto.component";
+import {VistoriaModalComponent} from "./components/vistoria-modal-component/vistoria-modal.component";
+import {VistoriaReadComponent} from "./components/vistoria/vistoria-read/vistoria-read.component";
+import {VistoriaEditComponent} from "./components/vistoria/vistoria-edit/vistoria-edit.component";
+import {VistoriaCreateComponent} from "./components/vistoria/vistoria-create/vistoria-create.component";
+
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
@@ -97,6 +103,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 
 import { LoadingInterceptor} from "./loading.interceptor";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatRadioModule} from "@angular/material/radio";
 
 registerLocaleData(localePt);
 
@@ -172,7 +179,12 @@ export const DATE_FORMATS = {
     AuditoriaCrudComponent,
     AuditoriaReadComponent,
     RelatorioComponent,
-    RelatorioCrudComponent
+    RelatorioCrudComponent,
+    VistoriaCrudMotoComponent,
+    VistoriaModalComponent,
+    VistoriaReadComponent,
+    VistoriaEditComponent,
+    VistoriaCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -201,7 +213,8 @@ export const DATE_FORMATS = {
     MatGridListModule,
     MatMenuModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatRadioModule
   ],
 
   providers: [

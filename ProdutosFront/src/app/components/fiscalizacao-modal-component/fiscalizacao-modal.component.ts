@@ -6,7 +6,7 @@ import { FiscalizacaoService } from '../../service/fiscalizacao.service';
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-fiscalizacao',
   templateUrl: './fiscalizacao-modal.component.html',
   styleUrls: ['./fiscalizacao-modal.component.css']
 })

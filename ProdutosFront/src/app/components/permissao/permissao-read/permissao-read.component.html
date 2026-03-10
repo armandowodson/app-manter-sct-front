@@ -101,16 +101,16 @@
               <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarPermissao(row)" aria-label="Editar Permissão">
+                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarPermissao(row)" aria-label="Editar Termo de Autorização">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharPermissao(row)">
                   <mat-icon>lists</mat-icon>
                 </button>
-                <button title="Imprimir TAS" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarPermissaoTaxi(row)" aria-label="Editar Permissão">
+                <button title="Imprimir TAS" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarPermissaoTaxi(row)" aria-label="Editar Termo de Autorização">
                   <mat-icon>article</mat-icon>
                 </button>
-                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPermissao, row.numeroPermissao)" aria-label="Remover Permissão">
+                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPermissao, row.numeroPermissao)" aria-label="Remover Termo de Autorização">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

@@ -96,6 +96,7 @@ export class VeiculoReadComponent implements OnInit {
             dataVistoria: item.dataVistoria,
             dataRetorno: item.dataRetorno,
             statusVistoria: item.statusVistoria,
+            ressalvas: item.ressalvas,
             situacaoVeiculo: item.situacaoVeiculo,
             numeroCrlv: item.numeroCrlv,
             anoCrlv: item.anoCrlv,
@@ -166,6 +167,7 @@ export class VeiculoReadComponent implements OnInit {
               dataVistoria: item.dataVistoria,
               dataRetorno: item.dataRetorno,
               statusVistoria: item.statusVistoria,
+              ressalvas: item.ressalvas,
               situacaoVeiculo: item.situacaoVeiculo,
               numeroCrlv: item.numeroCrlv,
               anoCrlv: item.anoCrlv,
@@ -236,25 +238,4 @@ export class VeiculoReadComponent implements OnInit {
     });
   }
 
-  gerarLaudoVistoria(numeroPermissao: string): void {
-    this.veiculoService.gerarLaudoVistoria(numeroPermissao, environment.moduloSelecionado).subscribe({
-      next: (veiculos) => {
-        if (veiculos.byteLength == 0) {
-          this.veiculoService.showMessageAlert(
-            "Não há dados para imprimir!"
-          );
-        }
-        const blob = new Blob([veiculos], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
-        window.open(url, '_blank');
-
-        this.loadingService.hide();
-        this.veiculoService.showMessageSuccess("Laudo de Vistoria gerado com sucesso!");
-      },
-      error: (error) => {
-        this.loadingService.hide();
-        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
-      }
-    });
-  }
 }

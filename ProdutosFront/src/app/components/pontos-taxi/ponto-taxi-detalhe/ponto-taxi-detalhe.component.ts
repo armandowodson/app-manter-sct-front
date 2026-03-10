@@ -5,8 +5,6 @@ import { CurrencyPipe } from '@angular/common';
 import {PontoTaxiModelo} from "../ponto-taxi.model";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 import {environment} from "../../../../environments/environment";
-import {Observable} from "rxjs";
-import {PageModelo} from "../../comum/page-modelo.model";
 
 @Component({
   selector: 'app-ponto-taxi-detalhe',

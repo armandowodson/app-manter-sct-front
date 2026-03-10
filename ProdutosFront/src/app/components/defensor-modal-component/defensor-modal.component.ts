@@ -6,7 +6,7 @@ import {DefensorService} from "../../service/defensor.service";
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-defensor',
   templateUrl: './defensor-modal.component.html',
   styleUrls: ['./defensor-modal.component.css']
 })
@@ -44,7 +44,12 @@ export class DefensorModalComponent implements OnInit {
   }
 
   reloadComponent() {
-      let currentUrl = '/defensor';
+      let currentUrl = '';
+      if(environment.moduloSelecionado == 1){
+        currentUrl = '/defensor';
+      }else{
+        currentUrl = '/defensormoto';
+      }
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate([currentUrl]);

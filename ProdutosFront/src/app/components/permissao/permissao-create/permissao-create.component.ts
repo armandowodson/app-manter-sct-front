@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 import {PageModelo} from "../../comum/page-modelo.model";
 
 @Component({
-  selector: 'app-permissao-edit',
+  selector: 'app-permissao-create',
   templateUrl: './permissao-create.component.html',
 })
 

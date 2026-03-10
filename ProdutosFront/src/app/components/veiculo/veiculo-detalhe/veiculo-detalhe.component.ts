@@ -8,7 +8,7 @@ import {PermissionarioService} from "../../../service/permissionario.service";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 
 @Component({
-  selector: 'app-permissinario-detalhe',
+  selector: 'app-veiculo-detalhe',
   templateUrl: './veiculo-detalhe.component.html',
 })
 
@@ -36,8 +36,6 @@ export class VeiculoDetalheComponent implements OnInit {
     combustivel: "",
     numeroTaximetro: "",
     anoRenovacao: "",
-    dataVistoria: "",
-    dataRetorno: "",
     situacaoVeiculo: "",
     numeroCrlv: "",
     anoCrlv: "",
@@ -157,8 +155,6 @@ export class VeiculoDetalheComponent implements OnInit {
       this.combustivelSelecionado = history.state.data.combustivel;
       this.veiculo.numeroTaximetro = history.state.data.numeroTaximetro;
       this.veiculo.anoRenovacao = history.state.data.anoRenovacao;
-      this.veiculo.dataVistoria = history.state.data.dataVistoria;
-      this.veiculo.dataRetorno = history.state.data.dataRetorno;
       this.situacaoVeiculoSelecionada = history.state.data.situacaoVeiculo;
       this.tipoVeiculoSelecionado = history.state.data.tipoVeiculo;
       this.veiculo.numeroCrlv = history.state.data.numeroCrlv;
@@ -193,6 +189,10 @@ export class VeiculoDetalheComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/veiculo']);
+    if(environment.moduloSelecionado == 1){
+      this.router.navigate(['/veiculo']);
+    }else{
+      this.router.navigate(['/veiculomoto']);
+    }
   }
 }

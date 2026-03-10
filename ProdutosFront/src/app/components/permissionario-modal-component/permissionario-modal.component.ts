@@ -6,7 +6,7 @@ import {PermissionarioService} from "../../service/permissionario.service";
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-permissionario',
   templateUrl: './permissionario-modal.component.html',
   styleUrls: ['./permissionario-modal.component.css']
 })
@@ -44,7 +44,12 @@ export class PermissionarioModalComponent implements OnInit {
   }
 
   reloadComponent() {
-      let currentUrl = '/permissionario';
+      let currentUrl = '';
+      if(environment.moduloSelecionado == 1){
+        currentUrl = '/permissionario';
+      }else{
+        currentUrl = '/permissionariomoto';
+      }
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate([currentUrl]);

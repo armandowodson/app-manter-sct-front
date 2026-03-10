@@ -7,7 +7,7 @@ import {environment} from "../../../../environments/environment";
 import {PermissaoService} from "../../../service/permissao.service";
 
 @Component({
-  selector: 'app-permissinario-detalhe',
+  selector: 'app-defensor-detalhe',
   templateUrl: './defensor-detalhe.component.html',
 })
 
@@ -175,6 +175,10 @@ export class DefensorDetalheComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/defensor']);
+    if(environment.moduloSelecionado == 1){
+      this.router.navigate(['/defensor']);
+    }else{
+      this.router.navigate(['/defensormoto']);
+    }
   }
 }

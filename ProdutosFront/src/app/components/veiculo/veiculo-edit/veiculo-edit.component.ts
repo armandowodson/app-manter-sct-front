@@ -8,7 +8,7 @@ import {PermissionarioService} from "../../../service/permissionario.service";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 
 @Component({
-  selector: 'app-permissinario-edit',
+  selector: 'app-veiculo-edit',
   templateUrl: './veiculo-edit.component.html',
 })
 
@@ -39,9 +39,6 @@ export class VeiculoEditComponent implements OnInit {
     cilindrada: "",
     numeroTaximetro: "",
     anoRenovacao: "",
-    dataVistoria: "",
-    dataRetorno: "",
-    statusVistoria: "",
     situacaoVeiculo: "",
     numeroCrlv: "",
     anoCrlv: "",
@@ -86,13 +83,6 @@ export class VeiculoEditComponent implements OnInit {
     { id: '3', nome: 'ESPECIAL' }
   ];
 
-  statusVistoriaSelecionada = "";
-  statusVistoriaOptions = [
-    { id: '1', nome: 'APROVADO' },
-    { id: '2', nome: 'RESSALVAS' },
-    { id: '3', nome: 'REPROVADO' }
-  ];
-
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
 
@@ -100,7 +90,6 @@ export class VeiculoEditComponent implements OnInit {
   pontosTaxiOptions: any[] = [];
 
   crlvSelecionado: File | null = null;
-  comprovanteVistoriaSelecionado: File | null = null;
   errors: string;
   id: number;
   nomeLogado: string;
@@ -171,10 +160,6 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.cilindrada = history.state.data.cilindrada;
       this.veiculo.numeroTaximetro = history.state.data.numeroTaximetro;
       this.veiculo.anoRenovacao = history.state.data.anoRenovacao;
-      this.veiculo.dataVistoria = history.state.data.dataVistoria;
-      this.veiculo.dataRetorno = history.state.data.dataRetorno;
-      this.statusVistoriaSelecionada = history.state.data.statusVistoria;
-      this.veiculo.statusVistoria = history.state.data.statusVistoria;
       this.situacaoVeiculoSelecionada = history.state.data.situacaoVeiculo;
       this.veiculo.situacaoVeiculo = history.state.data.situacaoVeiculo;
       this.tipoVeiculoSelecionado = history.state.data.tipoVeiculo;
@@ -187,10 +172,6 @@ export class VeiculoEditComponent implements OnInit {
   }
   getCrlvSelecionado (event: any): void {
     this.crlvSelecionado = event.target.files[0] || null;
-  }
-
-  getComprovanteVistoriaSelecionado (event: any): void {
-    this.comprovanteVistoriaSelecionado = event.target.files[0] || null;
   }
 
   carregarPermissao(permissionario: any){
@@ -214,7 +195,6 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.combustivel = this.combustivelSelecionado;
       this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
       this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
-      this.veiculo.statusVistoria = this.statusVistoriaSelecionada;
       this.veiculo.idPermissionario = this.permissionarioSelecionado;
       this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
       this.veiculo.usuario = environment.usuarioLogado;
@@ -223,10 +203,15 @@ export class VeiculoEditComponent implements OnInit {
         return;
       }
 
-      this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado, this.comprovanteVistoriaSelecionado).subscribe({
+      this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado).subscribe({
         next: (response) => {
           this.veiculoService.showMessageSuccess('Veículo Atualizado com Sucesso!!!');
           this.router.navigate(['/veiculo']);
+          if(environment.moduloSelecionado == 1){
+            this.router.navigate(['/veiculo']);
+          }else{
+            this.router.navigate(['/veiculomoto']);
+          }
         },
         error: (error) => {
           this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
@@ -305,16 +290,6 @@ export class VeiculoEditComponent implements OnInit {
       return false;
     }
 
-    if(this.veiculo.dataVistoria == null || this.veiculo.dataVistoria == ''){
-      this.veiculoService.showMessageError('O campo Data da Vistoria é obrigatório!');
-      return false;
-    }
-
-    if(this.veiculo.statusVistoria == null || this.veiculo.statusVistoria == ''){
-      this.veiculoService.showMessageError('O campo Status da Vistoria é obrigatório!');
-      return false;
-    }
-
     if(this.veiculo.situacaoVeiculo == null || this.veiculo.situacaoVeiculo == ''){
       this.veiculoService.showMessageError('O campo Situação do Veículo é obrigatório!');
       return false;
@@ -334,6 +309,10 @@ export class VeiculoEditComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/veiculo']);
+    if(environment.moduloSelecionado == 1){
+      this.router.navigate(['/veiculo']);
+    }else{
+      this.router.navigate(['/veiculomoto']);
+    }
   }
 }

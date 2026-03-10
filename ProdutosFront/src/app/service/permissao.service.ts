@@ -14,7 +14,7 @@ import {environment} from "../../environments/environment";
 export class PermissaoService {
 
   snackBar = inject(MatSnackBar);
-  baseUrl = environment.urlAplicacao+"/permissao";
+  baseUrl = environment.urlAplicacao+"/permissaomoto";
   erroMetodo  = "";
 
   httpOptions = {
@@ -54,7 +54,7 @@ export class PermissaoService {
   }
 
   excluirPermissao(idPermissao: number, usuario: string): Observable<String>{
-    this.erroMetodo = "Não foi possível excluir a Permissão!";
+    this.erroMetodo = "Não foi possível excluir o Termo de Autorização!";
     return this.http.delete<String>(this.baseUrl+'/excluir/'+idPermissao+'/usuario/'+usuario).pipe(catchError(this.errorHandler));
   }
 

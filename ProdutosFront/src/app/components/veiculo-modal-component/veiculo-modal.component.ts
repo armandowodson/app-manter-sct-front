@@ -6,7 +6,7 @@ import {VeiculoService} from "../../service/veiculo.service";
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-veiculo',
   templateUrl: './veiculo-modal.component.html',
   styleUrls: ['./veiculo-modal.component.css']
 })
@@ -44,7 +44,12 @@ export class VeiculoModalComponent implements OnInit {
   }
 
   reloadComponent() {
-      let currentUrl = '/veiculo';
+      let currentUrl = '';
+      if(environment.moduloSelecionado == 1){
+        currentUrl = '/veiculo';
+      }else{
+        currentUrl = '/veiculomoto';
+      }
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate([currentUrl]);

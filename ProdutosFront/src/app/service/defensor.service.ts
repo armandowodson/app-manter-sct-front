@@ -254,10 +254,10 @@ export class DefensorService {
   errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Permissão para o ID informado!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Termo de Autorização para o ID informado!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Veículo associado à Permissão!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Veículo associado ao Termo de Autorização!';
     }
     if (error.status == 402){
       msgErro = 'Não é possível emitir o Registro do Condutor! Não há PET associado ao Veículo!';

@@ -145,7 +145,7 @@ export class PermissionarioEditComponent implements OnInit {
         (permissoes) => {
           if (permissoes == null || permissoes.length == 0) {
             this.permissaoService.showMessageAlert(
-              "Não há Permissão disponível para seleção!"
+              "Não há Termo de Autorização disponível para seleção!"
             );
           }
           permissoes?.forEach(element => {
@@ -260,7 +260,11 @@ export class PermissionarioEditComponent implements OnInit {
       this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada).subscribe({
       next: (response) => {
         this.permissionarioService.showMessageSuccess('Autorizatário Atualizado com Sucesso!!!');
-        this.router.navigate(['/permissionario']);
+        if(environment.moduloSelecionado == 1){
+          this.router.navigate(['/permissionario']);
+        }else{
+          this.router.navigate(['/permissionariomoto']);
+        }
       },
       error: (error) => {
         this.permissionarioService.showMessageError(error.message);
@@ -270,7 +274,7 @@ export class PermissionarioEditComponent implements OnInit {
 
   validarCamposObrigatoriosPermissionario(): boolean{
     if(this.permissionario.numeroPermissao == null || this.permissionario.numeroPermissao == ''){
-      this.permissionarioService.showMessageError('O campo Nº da Permissão é obrigatório!');
+      this.permissionarioService.showMessageError('O campo Nº do Termo de Autorização é obrigatório!');
       return false;
     }
     if(this.permissionario.nomePermissionario == null || this.permissionario.nomePermissionario == ''){
@@ -346,6 +350,10 @@ export class PermissionarioEditComponent implements OnInit {
   }
 
   voltar(): void{
-    this.router.navigate(['/permissionario']);
+    if(environment.moduloSelecionado == 1){
+      this.router.navigate(['/permissionario']);
+    }else{
+      this.router.navigate(['/permissionariomoto']);
+    }
   }
 }

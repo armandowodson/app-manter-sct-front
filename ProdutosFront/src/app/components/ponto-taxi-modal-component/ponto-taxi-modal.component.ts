@@ -6,7 +6,7 @@ import { PontoTaxiService } from '../../service/ponto-taxi.service';
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-ponto-taxi',
   templateUrl: './ponto-taxi-modal.component.html',
   styleUrls: ['./ponto-taxi-modal.component.css']
 })

@@ -1,0 +1,36 @@
+export interface VistoriaModelo {
+  idVistoria: number
+  idVeiculo: number
+  numeroPermissao: string
+  placa: string
+  chassiFunilariaPintura: string
+  instalacaoEletrica: string
+  farolAtlaBaixa: string
+  buzina: string
+  lanternaTraseira: string
+  freioDianteiro: string
+  luzPlaca: string
+  freioTraseiro: string
+  luzesDirecao: string
+  pneusDesgateCalibragem: string
+  luzFreio: string
+  correnteCorreia: string
+  placasDianteiraTraseira: string
+  vazamentoOleoCombustivel: string
+  limpezaGeralInterna: string
+  escapamento: string
+  assentoFixacao: string
+  equipamentosObrigatorios: string
+  espelhosRetrovisores: string
+  selosVistoria: string
+  guidaoManoplas: string
+  outros: string
+  dataVistoria: string
+  dataRetorno: string
+  statusVistoria: string
+  ressalvas: string
+  observacao: string
+  dataCriacao: string
+  usuario: string
+  status: string
+}

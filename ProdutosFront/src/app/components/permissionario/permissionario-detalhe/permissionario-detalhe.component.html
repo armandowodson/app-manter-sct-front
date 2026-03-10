@@ -7,7 +7,7 @@
   </div>
   <form>
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Nº Permissão*</mat-label>
+      <mat-label>Nº Termo de Autorização*</mat-label>
       <mat-select [disabled]="true" [(value)]="permissaoSelecionada">
         <mat-option *ngFor="let permissao of permissoesOptions" [value]="permissao.numeroPermissao">
           {{ permissao.numeroPermissao }}

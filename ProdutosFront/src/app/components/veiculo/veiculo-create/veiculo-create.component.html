@@ -6,6 +6,7 @@
     <mat-card-title><b>Inclusão do Veículo</b></mat-card-title>
   </div>
   <form>
+
     <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
       <mat-label>Autorizatário*</mat-label>
       <mat-select [(value)]="permissionarioSelecionado" (selectionChange)="carregarPermissao($event)">
@@ -21,8 +22,8 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Nº Permissão</mat-label>
-      <input disabled="true" matInput placeholder="Nº Permissão" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroPermissao" name="numeroPermissao">
+      <mat-label >Nº Termo de Autorização</mat-label>
+      <input disabled="true" matInput placeholder="Nº Termo de Autorização" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroPermissao" name="numeroPermissao">
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
@@ -37,7 +38,7 @@
 
     <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
       <mat-label>Ponto de Estacionamento de Táxi*</mat-label>
-      <mat-select [(value)]="pontoTaxiSelecionado">
+      <mat-select [(value)]="pontoTaxiSelecionado" (selectionChange)="carregarPermissao($event)">
         <mat-option *ngFor="let pontoTaxi of pontosTaxiOptions" [value]="pontoTaxi.id">
           {{ pontoTaxi.nome }}
         </mat-option>
@@ -205,27 +206,6 @@
       </button>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Data da Vistoria*</mat-label>
-      <input matInput [matDatepicker]="vistoria" placeholder="Data da Vistoria" [(ngModel)]="veiculo.dataVistoria" name="dataVistoria">
-      <mat-datepicker-toggle matIconSuffix [for]="vistoria"></mat-datepicker-toggle>
-      <mat-datepicker #vistoria></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
-      <mat-label>Status da Vistoria*</mat-label>
-      <mat-select [(value)]="statusVistoriaSelecionada">
-        <mat-option *ngFor="let status of statusVistoriaOptions" [value]="status.id">
-          {{ status.nome }}
-        </mat-option>
-      </mat-select>
-      <button mat-button *ngIf="statusVistoriaSelecionada" matSuffix aria-label="Clear" (click)="statusVistoriaSelecionada=''">
-        <i class="material-icons black v-middle">
-          close
-        </i>
-      </button>
-    </mat-form-field>
-
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
       <mat-label >Nº CRLV*</mat-label>
       <input maxlength="15" type="number" matInput placeholder="Nº CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroCrlv" name="numeroCrlv">
@@ -257,13 +237,6 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Data do Retorno</mat-label>
-      <input matInput [matDatepicker]="retorno" placeholder="Data do Retorno" [(ngModel)]="veiculo.dataRetorno" name="dataRetorno">
-      <mat-datepicker-toggle matIconSuffix [for]="retorno"></mat-datepicker-toggle>
-      <mat-datepicker #retorno></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
       <mat-label >Ano Renovação</mat-label>
       <input maxlength="4" type="number" matInput placeholder="Ano Renovação" style="margin-right: 20px;" [(ngModel)]="veiculo.anoRenovacao" name="anoRenovacao">
       <button mat-button *ngIf="veiculo.anoRenovacao" matSuffix aria-label="Clear" (click)="veiculo.anoRenovacao=''">
@@ -287,24 +260,12 @@
     </mat-card>
 
     <mat-card>
-      <mat-card-content>
-        <mat-label >Comprovante de Vistoria*</mat-label>
-        <div class="file-upload-container">
-          <input type="file" #fileInputVistoria (change)="getComprovanteVistoriaSelecionado($event)" style="display: none;">
-          <button mat-raised-button color="primary" (click)="fileInputVistoria.click()">
-            <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-          </button>
-          <span *ngIf="comprovanteVistoriaSelecionado">{{ comprovanteVistoriaSelecionado.name }}</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card>
       <mat-form-field appearance="outline" style="width: 900px; margin-left: 20px; margin-right: 30px;">
         <mat-label >Observação</mat-label>
         <textarea [(ngModel)]="veiculo.observacao" matInput placeholder="Observação" name="observacao"></textarea>
       </mat-form-field>
     </mat-card>
+
     <div>
       <button style="background-color: darkgray; margin-left: 20px; margin-right: 30px;"  class="buttonVoltar" mat-raised-button (click) = "voltar()">
         Voltar

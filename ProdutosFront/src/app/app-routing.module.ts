@@ -37,6 +37,9 @@ import {FiscalizacaoDetalheComponent} from "./components/fiscalizacao/fiscalizac
 import {VeiculoDetalheComponent} from "./components/veiculo/veiculo-detalhe/veiculo-detalhe.component";
 import {PermissaoRelatorioComponent} from "./components/permissao/permissao-relatorio/permissao-relatorio.component";
 import {RelatorioCrudComponent} from "./views/relatorio-crud/relatorio-crud.component";
+import {VistoriaCrudMotoComponent} from "./views/vistoria-crud-moto/vistoria-crud-moto.component";
+import {VistoriaCreateComponent} from "./components/vistoria/vistoria-create/vistoria-create.component";
+import {VistoriaEditComponent} from "./components/vistoria/vistoria-edit/vistoria-edit.component";
 
 const routes: Routes = [
   {
@@ -182,6 +185,18 @@ const routes: Routes = [
   {
     path: "relatorio",
     component: RelatorioCrudComponent
+  },
+  {
+    path: "vistoriamoto",
+    component: VistoriaCrudMotoComponent
+  },
+  {
+    path: "vistoria/create",
+    component: VistoriaCreateComponent
+  },
+  {
+    path: "vistoria/edit",
+    component: VistoriaEditComponent
   },
   {
     path: "sair",

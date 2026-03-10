@@ -6,7 +6,7 @@ import {environment} from "../../../environments/environment";
 import {PermissaoService} from "../../service/permissao.service";
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-permissao',
   templateUrl: './permissao-modal.component.html',
   styleUrls: ['./permissao-modal.component.css']
 })
@@ -29,7 +29,7 @@ export class PermissaoModalComponent implements OnInit {
 
   confirma() {
       this.permissaoService.excluirPermissao(environment.idSelecionado, environment.usuarioLogado).subscribe(() => {
-        this.permissaoService.showMessageSuccess('Permissão Excluída com Sucesso!!!');
+        this.permissaoService.showMessageSuccess('Termo de Autorização Excluído com Sucesso!!!');
         this.reloadComponent();
       },
       error => {
@@ -44,7 +44,12 @@ export class PermissaoModalComponent implements OnInit {
   }
 
   reloadComponent() {
-      let currentUrl = '/permissao';
+      let currentUrl = '';
+      if(environment.moduloSelecionado == 1){
+        currentUrl = '/permissao';
+      }else{
+        currentUrl = '/permissaomoto';
+      }
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate([currentUrl]);

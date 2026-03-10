@@ -1,0 +1,10 @@
+.loading-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.buttonVoltar{
+  margin-top: 40px;
+  float: right;
+  width: 150px;
+  background-color: darkgray;
+}

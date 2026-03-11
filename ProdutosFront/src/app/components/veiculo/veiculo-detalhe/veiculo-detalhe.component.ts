@@ -8,12 +8,12 @@ import {PermissionarioService} from "../../../service/permissionario.service";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 
 @Component({
-  selector: 'app-veiculo-detalhe',
+  selector: 'app-permissinario-detalhe',
   templateUrl: './veiculo-detalhe.component.html',
 })
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 
 export class VeiculoDetalheComponent implements OnInit {
@@ -36,6 +36,11 @@ export class VeiculoDetalheComponent implements OnInit {
     combustivel: "",
     numeroTaximetro: "",
     anoRenovacao: "",
+    dataVistoria: "",
+    dataRetorno: "",
+    statusVistoria: "",
+    ressalvas: "",
+    matriculaVistoriador: "",
     situacaoVeiculo: "",
     numeroCrlv: "",
     anoCrlv: "",
@@ -80,6 +85,13 @@ export class VeiculoDetalheComponent implements OnInit {
     { id: '3', nome: 'ESPECIAL' }
   ];
 
+  statusVistoriaSelecionada = "";
+  statusVistoriaOptions = [
+    { id: '1', nome: 'APROVADO' },
+    { id: '2', nome: 'RESSALVAS' },
+    { id: '3', nome: 'REPROVADO' }
+  ];
+
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
 
@@ -87,7 +99,6 @@ export class VeiculoDetalheComponent implements OnInit {
   pontosTaxiOptions: any[] = [];
 
   crlvSelecionado: File | null = null;
-  comprovanteVistoriaSelecionado: File | null = null;
   errors: string;
   id: number;
   nomeLogado: string;
@@ -155,6 +166,11 @@ export class VeiculoDetalheComponent implements OnInit {
       this.combustivelSelecionado = history.state.data.combustivel;
       this.veiculo.numeroTaximetro = history.state.data.numeroTaximetro;
       this.veiculo.anoRenovacao = history.state.data.anoRenovacao;
+      this.veiculo.dataVistoria = history.state.data.dataVistoria;
+      this.veiculo.statusVistoria = history.state.data.statusVistoria;
+      this.veiculo.ressalvas = history.state.data.ressalvas;
+      this.veiculo.matriculaVistoriador = history.state.data.matriculaVistoriador;
+      this.veiculo.dataRetorno = history.state.data.dataRetorno;
       this.situacaoVeiculoSelecionada = history.state.data.situacaoVeiculo;
       this.tipoVeiculoSelecionado = history.state.data.tipoVeiculo;
       this.veiculo.numeroCrlv = history.state.data.numeroCrlv;
@@ -184,15 +200,7 @@ export class VeiculoDetalheComponent implements OnInit {
     this.crlvSelecionado = event.target.files[0] || null;
   }
 
-  getComprovanteVistoriaSelecionado (event: any): void {
-    this.comprovanteVistoriaSelecionado = event.target.files[0] || null;
-  }
-
   voltar(): void{
-    if(environment.moduloSelecionado == 1){
-      this.router.navigate(['/veiculo']);
-    }else{
-      this.router.navigate(['/veiculomoto']);
-    }
+    this.router.navigate(['/veiculo']);
   }
 }

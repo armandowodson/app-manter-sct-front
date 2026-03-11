@@ -17,6 +17,11 @@ export interface VeiculoModelo {
   cilindrada: string
   numeroTaximetro: string
   anoRenovacao: string
+  dataVistoria: string
+  dataRetorno: string
+  statusVistoria: string
+  ressalvas: string
+  matriculaVistoriador: string
   situacaoVeiculo: string
   numeroCrlv: string
   anoCrlv: string

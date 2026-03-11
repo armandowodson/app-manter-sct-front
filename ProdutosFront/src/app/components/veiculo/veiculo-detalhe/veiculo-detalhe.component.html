@@ -16,8 +16,8 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-      <mat-label >Nº Termo de Autorização</mat-label>
-      <input [disabled]="true" matInput placeholder="Nº Termo de Autorização" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroPermissao" name="numeroPermissao">
+      <mat-label >Nº Permissão</mat-label>
+      <input [disabled]="true" matInput placeholder="Nº Permissão" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroPermissao" name="numeroPermissao">
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
@@ -105,6 +105,39 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Data da Vistoria</mat-label>
+      <input [disabled]="true" matInput [matDatepicker]="vistoria" placeholder="Data da Vistoria" [(ngModel)]="veiculo.dataVistoria" name="dataVistoria">
+      <mat-datepicker-toggle matIconSuffix [for]="vistoria"></mat-datepicker-toggle>
+      <mat-datepicker #vistoria></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Data do Retorno</mat-label>
+      <input [disabled]="true" matInput [matDatepicker]="retorno" placeholder="Data do Retorno" [(ngModel)]="veiculo.dataRetorno" name="dataRetorno">
+      <mat-datepicker-toggle matIconSuffix [for]="retorno"></mat-datepicker-toggle>
+      <mat-datepicker #retorno></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 300px; margin-left: 20px; margin-right: 30px;">
+      <mat-label>Status da Vistoria*</mat-label>
+      <mat-select [disabled]="true" [(value)]="statusVistoriaSelecionada">
+        <mat-option *ngFor="let status of statusVistoriaOptions" [value]="status.id">
+          {{ status.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 550px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Ressalvas</mat-label>
+      <input [disabled]="true" maxlength="100" matInput placeholder="Ressalvas" style="margin-right: 20px;" [(ngModel)]="veiculo.ressalvas" name="ressalvas">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+      <mat-label >Matricula Vistoriador</mat-label>
+      <input [disabled]="true" maxlength="15" matInput placeholder="Matricula Vistoriador" style="margin-right: 20px;" [(ngModel)]="veiculo.matriculaVistoriador" name="matriculaVistoriador">
+    </mat-form-field>
+
     <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
       <mat-label >Nº CRLV*</mat-label>
       <input [disabled]="true" maxlength="15" type="number" matInput placeholder="Nº CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroCrlv" name="numeroCrlv">
@@ -151,5 +184,4 @@
     </div>
   </form>
 </mat-card>
-
 

@@ -60,7 +60,7 @@ export class PontoTaxiCreateComponent implements OnInit {
 
     this.pontoTaxiService.inserirPontoTaxi(this.pontoTaxi).subscribe({
       next: (response) => {
-        this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Táxi Criado com Sucesso!!!');
+        this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Moto Táxi Criado com Sucesso!!!');
         this.router.navigate(['/ponto-taxi']);
       },
       error: (error) => {

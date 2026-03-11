@@ -8,12 +8,12 @@ import {PermissionarioService} from "../../../service/permissionario.service";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 
 @Component({
-  selector: 'app-veiculo-edit',
+  selector: 'app-permissinario-edit',
   templateUrl: './veiculo-edit.component.html',
 })
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 
 export class VeiculoEditComponent implements OnInit {
@@ -39,6 +39,11 @@ export class VeiculoEditComponent implements OnInit {
     cilindrada: "",
     numeroTaximetro: "",
     anoRenovacao: "",
+    dataVistoria: "",
+    dataRetorno: "",
+    statusVistoria: "",
+    ressalvas: "",
+    matriculaVistoriador: "",
     situacaoVeiculo: "",
     numeroCrlv: "",
     anoCrlv: "",
@@ -81,6 +86,13 @@ export class VeiculoEditComponent implements OnInit {
     { id: '1', nome: 'CONVENCIONAL' },
     { id: '2', nome: 'EXECUTIVO' },
     { id: '3', nome: 'ESPECIAL' }
+  ];
+
+  statusVistoriaSelecionada = "";
+  statusVistoriaOptions = [
+    { id: '1', nome: 'APROVADO' },
+    { id: '2', nome: 'RESSALVAS' },
+    { id: '3', nome: 'REPROVADO' }
   ];
 
   permissionarioSelecionado = "";
@@ -160,6 +172,12 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.cilindrada = history.state.data.cilindrada;
       this.veiculo.numeroTaximetro = history.state.data.numeroTaximetro;
       this.veiculo.anoRenovacao = history.state.data.anoRenovacao;
+      this.veiculo.dataVistoria = history.state.data.dataVistoria;
+      this.veiculo.dataRetorno = history.state.data.dataRetorno;
+      this.statusVistoriaSelecionada = history.state.data.statusVistoria;
+      this.veiculo.statusVistoria = history.state.data.statusVistoria;
+      this.veiculo.ressalvas = history.state.data.ressalvas;
+      this.veiculo.matriculaVistoriador = history.state.data.matriculaVistoriador;
       this.situacaoVeiculoSelecionada = history.state.data.situacaoVeiculo;
       this.veiculo.situacaoVeiculo = history.state.data.situacaoVeiculo;
       this.tipoVeiculoSelecionado = history.state.data.tipoVeiculo;
@@ -175,48 +193,44 @@ export class VeiculoEditComponent implements OnInit {
   }
 
   carregarPermissao(permissionario: any){
-      this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe({
-        next: (response) => {
-          if (response == null) {
-            this.veiculoService.showMessageAlert(
-              "Não foram encontradas Permissões disponíveis para o cadastro do Veículo!"
-            );
-          }
-          this.veiculo.numeroPermissao = response.numeroPermissao;
-        },
-        error: (error) => {
-          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+    this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe({
+      next: (response) => {
+        if (response == null) {
+          this.veiculoService.showMessageAlert(
+            "Não foram encontradas Permissões disponíveis para o cadastro do Veículo!"
+          );
         }
-      });
+        this.veiculo.numeroPermissao = response.numeroPermissao;
+      },
+      error: (error) => {
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   editarVeiculo(): void{
-      this.veiculo.cor = this.corSelecionada;
-      this.veiculo.combustivel = this.combustivelSelecionado;
-      this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
-      this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
-      this.veiculo.idPermissionario = this.permissionarioSelecionado;
-      this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
-      this.veiculo.usuario = environment.usuarioLogado;
+    this.veiculo.cor = this.corSelecionada;
+    this.veiculo.combustivel = this.combustivelSelecionado;
+    this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
+    this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
+    this.veiculo.statusVistoria = this.statusVistoriaSelecionada;
+    this.veiculo.idPermissionario = this.permissionarioSelecionado;
+    this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
+    this.veiculo.usuario = environment.usuarioLogado;
 
-      if(this.validarCamposObrigatoriosVeiculo() == false){
-        return;
+    if(this.validarCamposObrigatoriosVeiculo() == false){
+      return;
+    }
+
+    this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado).subscribe({
+      next: (response) => {
+        this.veiculoService.showMessageSuccess('Veículo Atualizado com Sucesso!!!');
+        this.router.navigate(['/veiculo']);
+      },
+      error: (error) => {
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
       }
-
-      this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado).subscribe({
-        next: (response) => {
-          this.veiculoService.showMessageSuccess('Veículo Atualizado com Sucesso!!!');
-          this.router.navigate(['/veiculo']);
-          if(environment.moduloSelecionado == 1){
-            this.router.navigate(['/veiculo']);
-          }else{
-            this.router.navigate(['/veiculomoto']);
-          }
-        },
-        error: (error) => {
-          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
-        }
-      });
+    });
   }
 
   validarCamposObrigatoriosVeiculo(): boolean{
@@ -309,10 +323,6 @@ export class VeiculoEditComponent implements OnInit {
   }
 
   voltar(): void{
-    if(environment.moduloSelecionado == 1){
-      this.router.navigate(['/veiculo']);
-    }else{
-      this.router.navigate(['/veiculomoto']);
-    }
+    this.router.navigate(['/veiculo']);
   }
 }

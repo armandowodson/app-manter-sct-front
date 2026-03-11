@@ -102,7 +102,7 @@ export class PontoTaxiEditComponent implements OnInit {
 
     this.pontoTaxiService.editarPontoTaxi(this.pontoTaxi).subscribe({
       next: (response) => {
-        this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Táxi Atualizado com Sucesso!!!');
+        this.pontoTaxiService.showMessageSuccess('Ponto de Estacionamento de Moto Táxi Atualizado com Sucesso!!!');
         this.router.navigate(['/ponto-taxi']);
       },
       error: (error) => {

@@ -56,66 +56,67 @@ export class VeiculoReadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.loading = true;
-      this.nomeLogado = environment.nomeLogado;
+    this.loading = true;
+    this.nomeLogado = environment.nomeLogado;
 
-      this.buscarTodosVeiculos();
+    this.buscarTodosVeiculos();
   }
 
   buscarTodosVeiculos(){
-      this.loading = true;
-      this.buscouTodos = 1;
+    this.loading = true;
+    this.buscouTodos = 1;
 
-      this.veiculoService.consultarTodosVeiculos(this.pageIndex, this.pageSize).subscribe({
-        next: (res) => {
-          if (res == null || res.totalElements == 0) {
-            this.veiculoService.showMessageAlert(
-              "A consulta não retornou resultado!"
-            );
-          }
-
-          this.veiculos = (res.content || []).map((item: any) => ({
-            idVeiculo: item.idVeiculo,
-            idPermissionario: item.idPermissionario,
-            numeroPermissao: item.numeroPermissao,
-            idPontoTaxi: item.idPontoTaxi,
-            placa: item.placa,
-            renavam: item.renavam,
-            chassi: item.chassi,
-            anoFabricacao: item.anoFabricacao,
-            marca: item.marca,
-            modelo: item.modelo,
-            anoModelo: item.anoModelo,
-            cor: item.cor,
-            combustivel: item.combustivel,
-            capacidade: item.capacidade,
-            quilometragem: item.quilometragem,
-            cilindrada: item.cilindrada,
-            numeroTaximetro: item.numeroTaximetro,
-            anoRenovacao: item.anoRenovacao,
-            dataVistoria: item.dataVistoria,
-            dataRetorno: item.dataRetorno,
-            statusVistoria: item.statusVistoria,
-            ressalvas: item.ressalvas,
-            situacaoVeiculo: item.situacaoVeiculo,
-            numeroCrlv: item.numeroCrlv,
-            anoCrlv: item.anoCrlv,
-            certificadoAfericao: item.certificadoAfericao,
-            tipoVeiculo: item.tipoVeiculo,
-            observacao: item.observacao,
-            dataCriacao: item.dataCriacao,
-            usuario: item.usuario,
-            status: item.status
-          }));
-          this.totalVeiculos = res.totalElements;
-          this.pageIndex = res.number;
-          this.loading = false;
-        },
-        error: (error) => {
-          this.loading = false;
-          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+    this.veiculoService.consultarTodosVeiculos(this.pageIndex, this.pageSize).subscribe({
+      next: (res) => {
+        if (res == null || res.totalElements == 0) {
+          this.veiculoService.showMessageAlert(
+            "A consulta não retornou resultado!"
+          );
         }
-      });
+
+        this.veiculos = (res.content || []).map((item: any) => ({
+          idVeiculo: item.idVeiculo,
+          idPermissionario: item.idPermissionario,
+          numeroPermissao: item.numeroPermissao,
+          idPontoTaxi: item.idPontoTaxi,
+          placa: item.placa,
+          renavam: item.renavam,
+          chassi: item.chassi,
+          anoFabricacao: item.anoFabricacao,
+          marca: item.marca,
+          modelo: item.modelo,
+          anoModelo: item.anoModelo,
+          cor: item.cor,
+          combustivel: item.combustivel,
+          capacidade: item.capacidade,
+          quilometragem: item.quilometragem,
+          cilindrada: item.cilindrada,
+          numeroTaximetro: item.numeroTaximetro,
+          anoRenovacao: item.anoRenovacao,
+          dataVistoria: item.dataVistoria,
+          dataRetorno: item.dataRetorno,
+          statusVistoria: item.statusVistoria,
+          ressalvas: item.ressalvas,
+          matriculaVistoriador: item.matriculaVistoriador,
+          situacaoVeiculo: item.situacaoVeiculo,
+          numeroCrlv: item.numeroCrlv,
+          anoCrlv: item.anoCrlv,
+          certificadoAfericao: item.certificadoAfericao,
+          tipoVeiculo: item.tipoVeiculo,
+          observacao: item.observacao,
+          dataCriacao: item.dataCriacao,
+          usuario: item.usuario,
+          status: item.status
+        }));
+        this.totalVeiculos = res.totalElements;
+        this.pageIndex = res.number;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.loading = false;
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   voltarPaginaPrincipal(): void {
@@ -135,58 +136,59 @@ export class VeiculoReadComponent implements OnInit {
   }
 
   consultarVeiculoComFiltros() {
-      this.loading = true;
+    this.loading = true;
 
-      this.veiculoService.consultarVeiculosComFiltros(this.veiculoFiltro, this.pageIndex, this.pageSize).subscribe({
-          next: (res) => {
-            if (res == null || res.totalElements == 0) {
-              this.veiculoService.showMessageAlert(
-                "A consulta não retornou resultado!"
-              );
-            }
+    this.veiculoService.consultarVeiculosComFiltros(this.veiculoFiltro, this.pageIndex, this.pageSize).subscribe({
+      next: (res) => {
+        if (res == null || res.totalElements == 0) {
+          this.veiculoService.showMessageAlert(
+            "A consulta não retornou resultado!"
+          );
+        }
 
-            this.veiculos = (res.content || []).map((item: any) => ({
-              idVeiculo: item.idVeiculo,
-              idPermissionario: item.idPermissionario,
-              numeroPermissao: item.numeroPermissao,
-              idPontoTaxi: item.idPontoTaxi,
-              placa: item.placa,
-              renavam: item.renavam,
-              chassi: item.chassi,
-              anoFabricacao: item.anoFabricacao,
-              marca: item.marca,
-              modelo: item.modelo,
-              anoModelo: item.anoModelo,
-              cor: item.cor,
-              combustivel: item.combustivel,
-              capacidade: item.capacidade,
-              quilometragem: item.quilometragem,
-              cilindrada: item.cilindrada,
-              numeroTaximetro: item.numeroTaximetro,
-              anoRenovacao: item.anoRenovacao,
-              dataVistoria: item.dataVistoria,
-              dataRetorno: item.dataRetorno,
-              statusVistoria: item.statusVistoria,
-              ressalvas: item.ressalvas,
-              situacaoVeiculo: item.situacaoVeiculo,
-              numeroCrlv: item.numeroCrlv,
-              anoCrlv: item.anoCrlv,
-              certificadoAfericao: item.certificadoAfericao,
-              tipoVeiculo: item.tipoVeiculo,
-              observacao: item.observacao,
-              dataCriacao: item.dataCriacao,
-              usuario: item.usuario,
-              status: item.status
-            }));
-            this.totalVeiculos = res.totalElements;
-            this.pageIndex = res.number;
-            this.loading = false;
-          },
-          error: (error) => {
-            this.loading = false;
-            this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
-          }
-      });
+        this.veiculos = (res.content || []).map((item: any) => ({
+          idVeiculo: item.idVeiculo,
+          idPermissionario: item.idPermissionario,
+          numeroPermissao: item.numeroPermissao,
+          idPontoTaxi: item.idPontoTaxi,
+          placa: item.placa,
+          renavam: item.renavam,
+          chassi: item.chassi,
+          anoFabricacao: item.anoFabricacao,
+          marca: item.marca,
+          modelo: item.modelo,
+          anoModelo: item.anoModelo,
+          cor: item.cor,
+          combustivel: item.combustivel,
+          capacidade: item.capacidade,
+          quilometragem: item.quilometragem,
+          cilindrada: item.cilindrada,
+          numeroTaximetro: item.numeroTaximetro,
+          anoRenovacao: item.anoRenovacao,
+          dataVistoria: item.dataVistoria,
+          dataRetorno: item.dataRetorno,
+          statusVistoria: item.statusVistoria,
+          ressalvas: item.ressalvas,
+          matriculaVistoriador: item.matriculaVistoriador,
+          situacaoVeiculo: item.situacaoVeiculo,
+          numeroCrlv: item.numeroCrlv,
+          anoCrlv: item.anoCrlv,
+          certificadoAfericao: item.certificadoAfericao,
+          tipoVeiculo: item.tipoVeiculo,
+          observacao: item.observacao,
+          dataCriacao: item.dataCriacao,
+          usuario: item.usuario,
+          status: item.status
+        }));
+        this.totalVeiculos = res.totalElements;
+        this.pageIndex = res.number;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.loading = false;
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   onPageChange(event: PageEvent): void {
@@ -238,4 +240,25 @@ export class VeiculoReadComponent implements OnInit {
     });
   }
 
+  gerarLaudoVistoria(numeroPermissao: string): void {
+    this.veiculoService.gerarLaudoVistoria(numeroPermissao, environment.moduloSelecionado).subscribe({
+      next: (veiculos) => {
+        if (veiculos.byteLength == 0) {
+          this.veiculoService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([veiculos], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.veiculoService.showMessageSuccess("Laudo de Vistoria gerado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
+  }
 }

@@ -3,7 +3,7 @@
       <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
     </div>
     <div style="height: 50px; margin-left: 20px;">
-      <mat-card-title><b>Consulta de Pontos de Estacionamentos de Táxi</b></mat-card-title>
+      <mat-card-title><b>Consulta de Pontos de Estacionamentos de Moto Táxi</b></mat-card-title>
     </div>
     <div>
         <form>
@@ -59,7 +59,7 @@
     </div>
     <div class="btn-group">
         <button style="width: 200px; background-color: #04AA6D;"  class="buttonInserir" mat-raised-button (click) = "navegarInserirPontoTaxi()">
-            Novo Ponto Táxi
+            Novo Ponto Moto Táxi
         </button>
     </div>
     <div class="btn-group">
@@ -96,13 +96,13 @@
               <td style="text-align: center;">{{row.status}}</td>
 
               <td style="text-align: center;">
-                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarPontoTaxi(row)" aria-label="Editar Ponto Táxi">
+                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarPontoTaxi(row)" aria-label="Editar Ponto Moto Táxi">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharPontoTaxi(row)">
                   <mat-icon>lists</mat-icon>
                 </button>
-                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPontoTaxi, row.descricaoPonto)" aria-label="Remover Ponto Táxi">
+                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idPontoTaxi, row.descricaoPonto)" aria-label="Remover Ponto Moto Táxi">
                     <mat-icon>delete</mat-icon>
                 </button>
               </td>

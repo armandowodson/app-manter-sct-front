@@ -36,6 +36,11 @@ export class VeiculoCreateComponent implements OnInit {
     cilindrada: "",
     numeroTaximetro: "",
     anoRenovacao: "",
+    dataVistoria: "",
+    dataRetorno: "",
+    statusVistoria: "",
+    ressalvas: "",
+    matriculaVistoriador: "",
     situacaoVeiculo: "",
     numeroCrlv: "",
     anoCrlv: "",
@@ -78,6 +83,13 @@ export class VeiculoCreateComponent implements OnInit {
     { id: '1', nome: 'CONVENCIONAL' },
     { id: '2', nome: 'EXECUTIVO' },
     { id: '3', nome: 'ESPECIAL' }
+  ];
+
+  statusVistoriaSelecionada = "";
+  statusVistoriaOptions = [
+    { id: '1', nome: 'APROVADO' },
+    { id: '2', nome: 'RESSALVAS' },
+    { id: '3', nome: 'REPROVADO' }
   ];
 
   permissionario: PermissionarioModelo = {
@@ -172,47 +184,44 @@ export class VeiculoCreateComponent implements OnInit {
   }
 
   carregarPermissao(permissionario: any){
-      this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe({
-        next: (response) => {
-          if (response == null) {
-            this.veiculoService.showMessageAlert(
-              "Não foram encontradas Permissões disponíveis para o cadastro do Veículo!"
-            );
-          }
-          this.veiculo.numeroPermissao = response.numeroPermissao;
-        },
-        error: (error) => {
-          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+    this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe({
+      next: (response) => {
+        if (response == null) {
+          this.veiculoService.showMessageAlert(
+            "Não foram encontradas Permissões disponíveis para o cadastro do Veículo!"
+          );
         }
-      });
+        this.veiculo.numeroPermissao = response.numeroPermissao;
+      },
+      error: (error) => {
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   inserirVeiculo(): void{
-      this.veiculo.cor = this.corSelecionada;
-      this.veiculo.combustivel = this.combustivelSelecionado;
-      this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
-      this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
-      this.veiculo.idPermissionario = this.permissionarioSelecionado;
-      this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
-      this.veiculo.usuario = environment.usuarioLogado;
+    this.veiculo.cor = this.corSelecionada;
+    this.veiculo.combustivel = this.combustivelSelecionado;
+    this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
+    this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
+    this.veiculo.statusVistoria = this.statusVistoriaSelecionada;
+    this.veiculo.idPermissionario = this.permissionarioSelecionado;
+    this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
+    this.veiculo.usuario = environment.usuarioLogado;
 
-      if(this.validarCamposObrigatoriosVeiculo() == false){
-        return;
+    if(this.validarCamposObrigatoriosVeiculo() == false){
+      return;
+    }
+
+    this.veiculoService.inserirVeiculo(this.veiculo, this.crlvSelecionado).subscribe({
+      next: (response) => {
+        this.veiculoService.showMessageSuccess('Veículo Criado com Sucesso!!!');
+        this.router.navigate(['/veiculo']);
+      },
+      error: (error) => {
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
       }
-
-      this.veiculoService.inserirVeiculo(this.veiculo, this.crlvSelecionado).subscribe({
-        next: (response) => {
-          this.veiculoService.showMessageSuccess('Veículo Criado com Sucesso!!!');
-          if(environment.moduloSelecionado == 1){
-            this.router.navigate(['/veiculo']);
-          }else{
-            this.router.navigate(['/veiculomoto']);
-          }
-        },
-        error: (error) => {
-          this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
-        }
-      });
+    });
   }
 
   validarCamposObrigatoriosVeiculo(): boolean{
@@ -305,11 +314,7 @@ export class VeiculoCreateComponent implements OnInit {
   }
 
   voltar(): void{
-    if(environment.moduloSelecionado == 1){
-      this.router.navigate(['/veiculo']);
-    }else{
-      this.router.navigate(['/veiculomoto']);
-    }
+    this.router.navigate(['/veiculo']);
   }
 
 }

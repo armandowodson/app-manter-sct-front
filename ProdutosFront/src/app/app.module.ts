@@ -87,11 +87,6 @@ import {AuditoriaCrudComponent} from "./views/auditoria-crud/auditoria-crud.comp
 import {AuditoriaReadComponent} from "./components/auditoria/auditoria-read/auditoria-read.component";
 import {RelatorioComponent} from "./components/template/relatorio/relatorio.component";
 import {RelatorioCrudComponent} from "./views/relatorio-crud/relatorio-crud.component";
-import {VistoriaCrudMotoComponent} from "./views/vistoria-crud-moto/vistoria-crud-moto.component";
-import {VistoriaModalComponent} from "./components/vistoria-modal-component/vistoria-modal.component";
-import {VistoriaReadComponent} from "./components/vistoria/vistoria-read/vistoria-read.component";
-import {VistoriaEditComponent} from "./components/vistoria/vistoria-edit/vistoria-edit.component";
-import {VistoriaCreateComponent} from "./components/vistoria/vistoria-create/vistoria-create.component";
 
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
@@ -179,12 +174,7 @@ export const DATE_FORMATS = {
     AuditoriaCrudComponent,
     AuditoriaReadComponent,
     RelatorioComponent,
-    RelatorioCrudComponent,
-    VistoriaCrudMotoComponent,
-    VistoriaModalComponent,
-    VistoriaReadComponent,
-    VistoriaEditComponent,
-    VistoriaCreateComponent
+    RelatorioCrudComponent
   ],
   imports: [
     BrowserModule,

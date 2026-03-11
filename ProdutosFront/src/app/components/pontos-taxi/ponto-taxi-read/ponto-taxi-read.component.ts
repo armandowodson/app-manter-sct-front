@@ -174,7 +174,7 @@ export class PontoTaxiReadComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id =
-      "Deseja excluir o Ponto de Estacionamento de Táxi: " + idPontoTaxi + " - " + descricaoPonto + " ?";
+      "Deseja excluir o Ponto de Estacionamento de Moto Táxi: " + idPontoTaxi + " - " + descricaoPonto + " ?";
     dialogConfig.panelClass = "dialogModal";
     environment.idSelecionado = idPontoTaxi;
     this.matDialog.open(PontoTaxiModalComponent, dialogConfig);

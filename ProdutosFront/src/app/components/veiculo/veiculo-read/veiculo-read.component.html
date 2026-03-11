@@ -1,130 +1,133 @@
 <mat-card>
-    <div style="width: 550px; margin-left: 950px; font-size: small">
-      <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
-    </div>
-    <div style="height: 50px; margin-left: 20px;">
-      <mat-card-title><b>Consulta de Veículos</b></mat-card-title>
-    </div>
-    <div>
-        <form>
+  <div style="width: 550px; margin-left: 950px; font-size: small">
+    <mat-card-title style="font-size: small"><b>Usuário: </b>{{ this.nomeLogado }}</mat-card-title>
+  </div>
+  <div style="height: 50px; margin-left: 20px;">
+    <mat-card-title><b>Consulta de Veículos</b></mat-card-title>
+  </div>
+  <div>
+    <form>
 
-            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-                <mat-label >Nº do Termo de Autorização</mat-label>
-                <input type="number" matInput placeholder="Nº do Termo de Autorização" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroPermissao" name="numeroPermissao">
-                <button mat-button *ngIf="veiculoFiltro.numeroPermissao" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroPermissao=''">
-                    <i class="material-icons black v-middle">
-                        close
-                    </i>
-                </button>
-            </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Nº da Permissão</mat-label>
+        <input type="number" matInput placeholder="Nº da Permissão" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroPermissao" name="numeroPermissao">
+        <button mat-button *ngIf="veiculoFiltro.numeroPermissao" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroPermissao=''">
+          <i class="material-icons black v-middle">
+            close
+          </i>
+        </button>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Placa</mat-label>
-              <input matInput placeholder="Placa" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.placa" name="placa">
-              <button mat-button *ngIf="veiculoFiltro.placa" matSuffix aria-label="Clear" (click)="veiculoFiltro.placa=''">
-                <i class="material-icons black v-middle">
-                  close
-                </i>
-              </button>
-            </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Placa</mat-label>
+        <input matInput placeholder="Placa" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.placa" name="placa">
+        <button mat-button *ngIf="veiculoFiltro.placa" matSuffix aria-label="Clear" (click)="veiculoFiltro.placa=''">
+          <i class="material-icons black v-middle">
+            close
+          </i>
+        </button>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Renavam</mat-label>
-              <input type="number" matInput placeholder="Renavam" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.renavam" name="renavam">
-              <button mat-button *ngIf="veiculoFiltro.renavam" matSuffix aria-label="Clear" (click)="veiculoFiltro.renavam=''">
-                <i class="material-icons black v-middle">
-                  close
-                </i>
-              </button>
-            </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Renavam</mat-label>
+        <input type="number" matInput placeholder="Renavam" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.renavam" name="renavam">
+        <button mat-button *ngIf="veiculoFiltro.renavam" matSuffix aria-label="Clear" (click)="veiculoFiltro.renavam=''">
+          <i class="material-icons black v-middle">
+            close
+          </i>
+        </button>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Nº Taxímetro</mat-label>
-              <input type="number" matInput placeholder="Nº Taxímetro" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroTaximetro" name="numeroTaximetro">
-              <button mat-button *ngIf="veiculoFiltro.numeroTaximetro" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroTaximetro=''">
-                <i class="material-icons black v-middle">
-                  close
-                </i>
-              </button>
-            </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Nº Taxímetro</mat-label>
+        <input type="number" matInput placeholder="Nº Taxímetro" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroTaximetro" name="numeroTaximetro">
+        <button mat-button *ngIf="veiculoFiltro.numeroTaximetro" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroTaximetro=''">
+          <i class="material-icons black v-middle">
+            close
+          </i>
+        </button>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-              <mat-label >Ano Fabricação</mat-label>
-              <input type="number" matInput placeholder="Ano Fabricação" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.anoFabricacao" name="anoFabricacao">
-              <button mat-button *ngIf="veiculoFiltro.anoFabricacao" matSuffix aria-label="Clear" (click)="veiculoFiltro.anoFabricacao=''">
-                <i class="material-icons black v-middle">
-                  close
-                </i>
-              </button>
-            </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+        <mat-label >Ano Fabricação</mat-label>
+        <input type="number" matInput placeholder="Ano Fabricação" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.anoFabricacao" name="anoFabricacao">
+        <button mat-button *ngIf="veiculoFiltro.anoFabricacao" matSuffix aria-label="Clear" (click)="veiculoFiltro.anoFabricacao=''">
+          <i class="material-icons black v-middle">
+            close
+          </i>
+        </button>
+      </mat-form-field>
 
-        </form>
-    </div>
+    </form>
+  </div>
 </mat-card>
 <br>
 <div class="btn-toolbar" style="float: right;">
-    <div class="btn-group">
-      <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarVeiculoComFiltros()">
-        Consultar
-      </button>
-    </div>
-    <div class="btn-group">
-        <button style="width: 200px; background-color: #04AA6D;"  class="buttonInserir" mat-raised-button (click) = "navegarInserirVeiculo()">
-            Novo Veículo
-        </button>
-    </div>
-    <div class="btn-group">
-      <button style="width: 200px; background-color: darkgray;"  class="buttonVoltar" mat-raised-button (click) = "voltarPaginaPrincipal()">
-        Voltar
-      </button>
-    </div>
+  <div class="btn-group">
+    <button color="primary" class="buttonConsultar" style="width: 200px; margin-left: 30px;" mat-raised-button (click) = "consultarVeiculoComFiltros()">
+      Consultar
+    </button>
+  </div>
+  <div class="btn-group">
+    <button style="width: 200px; background-color: #04AA6D;"  class="buttonInserir" mat-raised-button (click) = "navegarInserirVeiculo()">
+      Novo Veículo
+    </button>
+  </div>
+  <div class="btn-group">
+    <button style="width: 200px; background-color: darkgray;"  class="buttonVoltar" mat-raised-button (click) = "voltarPaginaPrincipal()">
+      Voltar
+    </button>
+  </div>
 </div>
 <br>
 <br>
 <br>
 <div class="mat-elevation-z4">
-    <table class="table table-striped table-hover" style="outline-color: black;">
-         <thead style="background-color: gray;">
-            <tr style="color: white;">
-              <th style="text-align: left;">Nº Termo de Autorização</th>
-              <th style="text-align: left;">Placa</th>
-              <th style="text-align: center;">Renavam</th>
-              <th style="text-align: center;">Marca</th>
-              <th style="text-align: center;">Modelo</th>
-              <th style="text-align: center;">Nº Taxímetro</th>
-              <th style="text-align: center;">Ano Fabricação</th>
-              <th style="text-align: center;">Status</th>
-              <th style="text-align: center;">Ações</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr *ngFor="let row of veiculos | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
-              <td style="text-align: left;">{{row.numeroPermissao}}</td>
-              <td style="text-align: left;">{{row.placa}}</td>
-              <td style="text-align: center;">{{row.renavam}}</td>
-              <td style="text-align: center;">{{row.marca}}</td>
-              <td style="text-align: center;">{{row.modelo}}</td>
-              <td style="text-align: center;">{{row.numeroTaximetro}}</td>
-              <td style="text-align: center;">{{row.anoFabricacao}}</td>
-              <td style="text-align: center;">{{row.status}}</td>
+  <table class="table table-striped table-hover" style="outline-color: black;">
+    <thead style="background-color: gray;">
+    <tr style="color: white;">
+      <th style="text-align: left;">Nº Permissão</th>
+      <th style="text-align: left;">Placa</th>
+      <th style="text-align: center;">Renavam</th>
+      <th style="text-align: center;">Marca</th>
+      <th style="text-align: center;">Modelo</th>
+      <th style="text-align: center;">Nº Taxímetro</th>
+      <th style="text-align: center;">Ano Fabricação</th>
+      <th style="text-align: center;">Status</th>
+      <th style="text-align: center;">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of veiculos | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
+      <td style="text-align: left;">{{row.numeroPermissao}}</td>
+      <td style="text-align: left;">{{row.placa}}</td>
+      <td style="text-align: center;">{{row.renavam}}</td>
+      <td style="text-align: center;">{{row.marca}}</td>
+      <td style="text-align: center;">{{row.modelo}}</td>
+      <td style="text-align: center;">{{row.numeroTaximetro}}</td>
+      <td style="text-align: center;">{{row.anoFabricacao}}</td>
+      <td style="text-align: center;">{{row.status}}</td>
 
-              <td style="text-align: center;">
-                <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarVeiculo(row)" aria-label="Editar Veículo">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharVeiculo(row)">
-                  <mat-icon>lists</mat-icon>
-                </button>
-                <button title="Emitir Autorização de Tráfego" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarAutorizacaoTrafego(row.numeroPermissao)" aria-label="Emitir Termo de Autorização">
-                  <mat-icon>article</mat-icon>
-                </button>
-                <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
-                    <mat-icon>delete</mat-icon>
-                </button>
-              </td>
-            </tr>
-         </tbody>
-    </table>
+      <td style="text-align: center;">
+        <button title="Editar" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "navegarEditarVeiculo(row)" aria-label="Editar Veículo">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharVeiculo(row)">
+          <mat-icon>lists</mat-icon>
+        </button>
+        <button title="Gerar Autorização de Tráfego" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarAutorizacaoTrafego(row.numeroPermissao)" aria-label="Gerar Autorização de Tráfego">
+          <mat-icon>article</mat-icon>
+        </button>
+        <button title="Gerar Laudo Vistoria" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarLaudoVistoria(row.numeroPermissao)" aria-label="Gerar Laudo Vistoria">
+          <mat-icon>assignment</mat-icon>
+        </button>
+        <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
   <mat-paginator
     #paginator
     (page)="onPageChange($event)"
@@ -136,4 +139,3 @@
   </mat-paginator>
 
 </div>
-

@@ -67,6 +67,11 @@ export class VeiculoService {
       ', "cilindrada": "' + veiculo.cilindrada + '"' +
       ', "numeroTaximetro": "' + veiculo.numeroTaximetro + '"' +
       ', "anoRenovacao": "' + veiculo.anoRenovacao + '"' +
+      ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
+      ', "dataRetorno": "' + veiculo.dataRetorno + '"' +
+      ', "statusVistoria": "' + veiculo.statusVistoria + '"' +
+      ', "ressalvas": "' + veiculo.ressalvas + '"' +
+      ', "matriculaVistoriador": "' + veiculo.matriculaVistoriador + '"' +
       ', "situacaoVeiculo": "' + veiculo.situacaoVeiculo + '"' +
       ', "numeroCrlv": "' + veiculo.numeroCrlv + '"' +
       ', "anoCrlv": "' + veiculo.anoCrlv + '"' +
@@ -101,6 +106,11 @@ export class VeiculoService {
       ', "cilindrada": "' + veiculo.cilindrada + '"' +
       ', "numeroTaximetro": "' + veiculo.numeroTaximetro + '"' +
       ', "anoRenovacao": "' + veiculo.anoRenovacao + '"' +
+      ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
+      ', "dataRetorno": "' + veiculo.dataRetorno + '"' +
+      ', "statusVistoria": "' + veiculo.statusVistoria + '"' +
+      ', "ressalvas": "' + veiculo.ressalvas + '"' +
+      ', "matriculaVistoriador": "' + veiculo.matriculaVistoriador + '"' +
       ', "situacaoVeiculo": "' + veiculo.situacaoVeiculo + '"' +
       ', "numeroCrlv": "' + veiculo.numeroCrlv + '"' +
       ', "anoCrlv": "' + veiculo.anoCrlv + '"' +
@@ -170,10 +180,10 @@ export class VeiculoService {
   errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Termo de Autorização para o ID informado!';
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Permissão para o ID informado!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Veículo associado ao Termo de Autorização!';
+      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Veículo associado à Permissão!';
     }
     if (error.status == 402){
       msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';

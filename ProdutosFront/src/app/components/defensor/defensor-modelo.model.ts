@@ -1,6 +1,6 @@
 export interface DefensorModelo {
   idDefensor: number
-  numeroPermissao: string
+  idPermissionario: number
   nomeDefensor: string
   cpfDefensor: string
   rgDefensor: string

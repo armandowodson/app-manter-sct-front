@@ -65,7 +65,7 @@ export class DefensorService {
       defensor.numeroQuitacaoMilitar = "";
     if(defensor.numeroQuitacaoEleitoral == null || defensor.numeroQuitacaoEleitoral == "null")
       defensor.numeroQuitacaoEleitoral = "";
-    const jsonString = '{"idDefensor": null, "numeroPermissao": "' + defensor.numeroPermissao + '"' +
+    const jsonString = '{"idDefensor": null, "idPermissionario": "' + defensor.idPermissionario + '"' +
       ', "nomeDefensor": "' + defensor.nomeDefensor + '"' +
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
@@ -122,7 +122,27 @@ export class DefensorService {
   editarDefensor(defensor: DefensorModelo, anexoRgFile: File | null, anexoCpfFile: File | null, anexoCnhFile: File | null,
                  comprovanteResidenciaFile: File | null, certidaoNegativaMunicipalFile: File | null, certidaoNegativaCriminalFile: File | null,
                  certificadoPropriedadeFile : File | null, certificadoCondutorFile: File | null, apoliceSeguroVidaFile : File | null,
-                 apoliceSeguroMotocicletaFile : File | null, fotoFile: File | null): Observable<DefensorModelo>{
+                 apoliceSeguroMotocicletaFile : File | null, fotoFile: File | null, eventDataNascimento: Date,
+                 eventDataValidadeCnh: Date): Observable<DefensorModelo>{
+
+    const selectedDataNascimento = eventDataNascimento;
+    var dataNascimento: string | null = '';
+    if(selectedDataNascimento != null){
+      dataNascimento = selectedDataNascimento ? selectedDataNascimento.toLocaleDateString('en-CA') : null;
+      if(dataNascimento != null){
+        defensor.dataNascimento = dataNascimento;
+      }
+    }
+
+    const selectedDataValidadeCnh = eventDataValidadeCnh;
+    var dataValidadeCnh: string | null = '';
+    if(selectedDataValidadeCnh != null){
+      dataValidadeCnh = selectedDataValidadeCnh ? selectedDataValidadeCnh.toLocaleDateString('en-CA') : null;
+      if(dataValidadeCnh != null){
+        defensor.dataValidadeCnh = dataValidadeCnh;
+      }
+    }
+
     const formDataDefensor = new FormData();
     if(defensor.filiacaoPai == null || defensor.filiacaoPai == "null")
       defensor.filiacaoPai = "";
@@ -137,7 +157,7 @@ export class DefensorService {
     if(defensor.numeroQuitacaoEleitoral == null || defensor.numeroQuitacaoEleitoral == "null")
       defensor.numeroQuitacaoEleitoral = "";
     const jsonString = '{"idDefensor": "' + defensor.idDefensor + '"' +
-      ', "numeroPermissao": "' + defensor.numeroPermissao + '"' +
+      ', "idPermissionario": "' + defensor.idPermissionario + '"' +
       ', "nomeDefensor": "' + defensor.nomeDefensor + '"' +
       ', "cpfDefensor": "' + defensor.cpfDefensor + '"' +
       ', "rgDefensor": "' + defensor.rgDefensor + '"' +
@@ -214,21 +234,12 @@ export class DefensorService {
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-todos', {params}).pipe(catchError(this.errorHandler));  // catch error
   }
 
-  consultarDefensorsDisponiveis(): Observable<DefensorModelo[]> {
-    return this.http.get<DefensorModelo[]>(this.baseUrl+'/buscar-disponiveis').pipe(catchError(this.errorHandler));  // catch error
-  }
-
-  consultarDefensorsDisponiveisAlteracao(idDefensor: number): Observable<DefensorModelo[]> {
-    return this.http.get<DefensorModelo[]>(this.baseUrl+'/buscar-disponiveis/'+idDefensor).pipe(catchError(this.errorHandler));  // catch error
-  }
-
   consultarDefensorNumeroPermissao(numeroPermissao: string): Observable<DefensorModelo> {
     return this.http.get<DefensorModelo>(this.baseUrl+'/buscar-permissao/'+numeroPermissao).pipe(catchError(this.errorHandler)); // catch error
   }
 
   consultarDefensoresComFiltros(defensor: DefensorFiltro, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
-    if (defensor.numeroPermissao)       {  params = params.set('numeroPermissao', defensor.numeroPermissao); }
     if (defensor.nomeDefensor)       {  params = params.set('nomeDefensor', defensor.nomeDefensor); }
     if (defensor.cpfDefensor)       {  params = params.set('cpfDefensor', defensor.cpfDefensor); }
     if (defensor.cnhDefensor)       {  params = params.set('cnhDefensor', defensor.cnhDefensor); }
@@ -239,31 +250,28 @@ export class DefensorService {
 
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
-  gerarRegistroCondutor(numeroPermissao: string, modulo: number): Observable<ArrayBuffer> {
+  gerarRegistroCondutor(idPermissionario: string, modulo: number): Observable<ArrayBuffer> {
     let params = new HttpParams();
-    params = params.set('numeroPermissao', numeroPermissao);
+    params = params.set('idPermissionario', idPermissionario);
     params = params.set('modulo', modulo);
 
-    return this.http.get(this.baseUrl+'/gerar-registro-condutor', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
+    return this.http.get(this.baseUrl+'/gerar-registro-condutor', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarRegistroCondutor)); // catch error
   }
 
   errorHandler(error: any) {
     return throwError(() => new Error(error.error.message));
   }
 
-  errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
+  errorHandlerGerarRegistroCondutor(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Termo de Autorização para o ID informado!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Termo de Autorização de Serviço!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Veículo associado ao Termo de Autorização!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Veículo associado ao Termo de Autorização de Serviço!';
     }
     if (error.status == 402){
-      msgErro = 'Não é possível emitir o Registro do Condutor! Não há PET associado ao Veículo!';
-    }
-    if (error.status == 403){
-      msgErro = 'Não é possível emitir o Registro do Condutor! Não há PET associado ao Veículo!';
+      msgErro = 'Não é possível emitir o Registro do Condutor! Não há Defensor associado ao Veículo!';
     }
     if (error.status == 500){
       msgErro = 'Ocorreu um erro! Não foi possível gerar o Registro do Condutor!';

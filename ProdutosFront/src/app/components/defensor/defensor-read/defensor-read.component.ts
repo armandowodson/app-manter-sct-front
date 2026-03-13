@@ -22,7 +22,6 @@ export class DefensorReadComponent implements OnInit {
 
   defensorFiltro: DefensorFiltro = {
     idDefensor: 0,
-    numeroPermissao: "",
     nomeDefensor: "",
     cpfDefensor: "",
     cnhDefensor: "",
@@ -76,7 +75,7 @@ export class DefensorReadComponent implements OnInit {
 
         this.defensores = (res.content || []).map((item: any) => ({
           idDefensor: item.idDefensor,
-          numeroPermissao: item.numeroPermissao,
+          idPermissionario: item.idPermissionario,
           nomeDefensor: item.nomeDefensor,
           cpfDefensor: item.cpfDefensor,
           rgDefensor: item.rgDefensor,
@@ -146,7 +145,7 @@ export class DefensorReadComponent implements OnInit {
 
         this.defensores = (res.content || []).map((item: any) => ({
           idDefensor: item.idDefensor,
-          numeroPermissao: item.numeroPermissao,
+          idPermissionario: item.idPermissionario,
           nomeDefensor: item.nomeDefensor,
           cpfDefensor: item.cpfDefensor,
           rgDefensor: item.rgDefensor,
@@ -189,8 +188,7 @@ export class DefensorReadComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    if((this.defensorFiltro.numeroPermissao != null && this.defensorFiltro.numeroPermissao != undefined && this.defensorFiltro.numeroPermissao != '') ||
-      (this.defensorFiltro.nomeDefensor != null && this.defensorFiltro.nomeDefensor != undefined && this.defensorFiltro.nomeDefensor != '') ||
+    if((this.defensorFiltro.nomeDefensor != null && this.defensorFiltro.nomeDefensor != undefined && this.defensorFiltro.nomeDefensor != '') ||
       (this.defensorFiltro.cpfDefensor != null && this.defensorFiltro.cpfDefensor != undefined && this.defensorFiltro.cpfDefensor != '') ||
       (this.defensorFiltro.cnhDefensor != null && this.defensorFiltro.cnhDefensor != undefined && this.defensorFiltro.cnhDefensor != '') ||
       (this.defensorFiltro.nomePermissionario != null && this.defensorFiltro.nomePermissionario != undefined && this.defensorFiltro.nomePermissionario != '') ||
@@ -215,8 +213,8 @@ export class DefensorReadComponent implements OnInit {
     this.matDialog.open(DefensorModalComponent, dialogConfig);
   }
 
-  gerarRegistroCondutor(numeroPermissao: string): void {
-    this.defensorService.gerarRegistroCondutor(numeroPermissao, environment.moduloSelecionado).subscribe({
+  gerarRegistroCondutor(idPermissionario: string): void {
+    this.defensorService.gerarRegistroCondutor(idPermissionario, environment.moduloSelecionado).subscribe({
       next: (defensores) => {
         if (defensores.byteLength == 0) {
           this.defensorService.showMessageAlert(

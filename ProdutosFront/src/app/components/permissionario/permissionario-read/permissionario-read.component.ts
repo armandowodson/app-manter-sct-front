@@ -151,7 +151,7 @@ export class PermissionarioReadComponent implements OnInit {
   consultarPermissionariosComFiltros() {
     this.loading = true;
 
-    const request: Observable<PageModelo> = this.permissionarioService.consultarPontosTaxiComFiltros(
+    const request: Observable<PageModelo> = this.permissionarioService.consultarPermissionariosComFiltros(
       this.permissionarioFiltro, this.pageIndex, this.pageSize);
     request.subscribe({
       next: (res) => {
@@ -216,8 +216,8 @@ export class PermissionarioReadComponent implements OnInit {
     this.matDialog.open(PermissionarioModalComponent, dialogConfig);
   }
 
-  gerarRegistroCondutor(numeroPermissao: string): void {
-    this.permissionarioService.gerarRegistroCondutor(numeroPermissao, environment.moduloSelecionado).subscribe({
+  gerarRegistroCondutor(cpfPermissionario: string): void {
+    this.permissionarioService.gerarRegistroCondutor(cpfPermissionario, environment.moduloSelecionado).subscribe({
       next: (permissionarios) => {
         if (permissionarios.byteLength == 0) {
           this.permissionarioService.showMessageAlert(
@@ -237,4 +237,5 @@ export class PermissionarioReadComponent implements OnInit {
       }
     });
   }
+
 }

@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
 import {DefensorModelo} from "../defensor-modelo.model";
 import {DefensorService} from "../../../service/defensor.service";
 import {environment} from "../../../../environments/environment";
-import {PermissaoService} from "../../../service/permissao.service";
+import {PermissionarioService} from "../../../service/permissionario.service";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {DefensorFiltro} from "../defensor-filtro.model";
+import {Observable} from "rxjs";
+import {PageModelo} from "../../comum/page-modelo.model";
 
 @Component({
   selector: 'app-defensor-edit',
@@ -17,12 +20,28 @@ import {PermissaoService} from "../../../service/permissao.service";
 })
 
 export class DefensorEditComponent implements OnInit {
+  public loading = false;
+
+  localDataNascimento: string | null;
+  localDataValidadeCnh: string | null;
+  eventDataNascimento: any;
+  eventDataValidadeCnh: any;
+
+  defensorFiltro: DefensorFiltro = {
+    idDefensor: 0,
+    nomeDefensor: "",
+    cpfDefensor: "",
+    cnhDefensor: "",
+    dataCriacao: "",
+    nomePermissionario: "",
+    cpfPermissionario: ""
+  };
 
   // @ts-ignore
   // @ts-ignore
   defensor: DefensorModelo = {
     idDefensor: 0,
-    numeroPermissao: "",
+    idPermissionario: 0,
     nomeDefensor: "",
     cpfDefensor: "",
     rgDefensor: "",
@@ -105,6 +124,14 @@ export class DefensorEditComponent implements OnInit {
     { id: '5', nome: 'VIÚVO' }
   ];
 
+  statusSelecionado = "";
+  statusOptions = [
+    { id: '1', nome: 'ATIVO' },
+    { id: '2', nome: 'INATIVO' },
+    { id: '3', nome: 'SUSPENSO' },
+    { id: '4', nome: 'CASSADO' }
+  ];
+
   anexoRgSelecionado: File | null = null;
   anexoCpfSelecionado: File | null = null;
   anexoCnhSelecionada: File | null = null;
@@ -121,40 +148,41 @@ export class DefensorEditComponent implements OnInit {
   id: string;
   nomeLogado: string;
 
-  permissaoSelecionada = "";
-  permissoesOptions: any[] = [];
+  permissionarioSelecionado = "";
+  permissionariosOptions: any[] = [];
 
   constructor(private defensorService: DefensorService,
-              private permissaoService: PermissaoService,
-              private router: Router,
-              private currencyPipe : CurrencyPipe) {
+              private permissionarioService: PermissionarioService,
+              private router: Router) {
     this.errors = '';
     this.id = '';
     this.nomeLogado = '';
+    this.localDataNascimento = '';
+    this.localDataValidadeCnh = '';
   }
 
   ngOnInit(): void {
     if (history.state.data) {
-      this.permissaoService.consultarPermissoesDisponiveisAlteracaoDefensor(history.state.data.numeroPermissao).subscribe(
-        (permissoes) => {
-          if (permissoes == null || permissoes.length == 0) {
-            this.permissaoService.showMessageAlert(
-              "Não há Termo de Autorização disponível para seleção!"
+      this.permissionarioService.consultarPermissionariosDisponiveisAlteracao(history.state.data.idPermissionario).subscribe(
+        (permissionarios) => {
+          if (permissionarios == null || permissionarios.length == 0) {
+            this.permissionarioService.showMessageAlert(
+              "Não há Autorizatário disponível para seleção!"
             );
           }
-          permissoes?.forEach(element => {
-            this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
+          permissionarios?.forEach(element => {
+            this.permissionariosOptions.push({ idPermissionario: element.idPermissionario, nomePermissionario: element.nomePermissionario });
           });
         },
         (error) => {
           this.errors = error;
-          this.permissaoService.showMessageError(this.errors);
+          this.permissionarioService.showMessageError(this.errors);
         }
       );
 
       this.defensor.idDefensor = history.state.data.idDefensor;
-      this.permissaoSelecionada = history.state.data.numeroPermissao;
-      this.defensor.numeroPermissao = history.state.data.numeroPermissao;
+      this.permissionarioSelecionado = history.state.data.idPermissionario;
+      this.defensor.idPermissionario = history.state.data.idPermissionario;
       this.defensor.nomeDefensor = history.state.data.nomeDefensor;
       this.defensor.cpfDefensor = history.state.data.cpfDefensor;
       this.defensor.rgDefensor = history.state.data.rgDefensor;
@@ -182,6 +210,8 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
       this.defensor.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
       this.defensor.dataValidadeCertificadoCondutor = history.state.data.dataValidadeCertificadoCondutor;
+      this.statusSelecionado = this.carregarStatus(history.state.data.status);
+      this.defensor.status = history.state.data.status;
       this.nomeLogado = environment.nomeLogado;
     }
   }
@@ -230,12 +260,42 @@ export class DefensorEditComponent implements OnInit {
     this.fotoSelecionada = event.target.files[0] || null;
   }
 
+  verificarCpf(){
+    if(this.defensor.cpfDefensor != ""){
+      this.defensor.cpfDefensor = this.defensor.cpfDefensor;
+    }else{
+      this.defensorFiltro.cpfDefensor = "11111111111";
+    }
+    const request: Observable<PageModelo> = this.defensorService.consultarDefensoresComFiltros(
+      this.defensorFiltro, 0, 10);
+    request.subscribe({
+      next: (res) => {
+        if (res != null && res.totalElements > 0) {
+          this.permissionarioService.showMessageAlert(
+            "Já existe Defensor para o CPF: " + this.defensorFiltro.cpfDefensor + " informado!"
+          );
+          this.defensor.cpfDefensor = "";
+        }
+      },
+      error: (error) => {
+        this.loading = false;
+        this.permissionarioService.showMessageError(error.message);
+      }
+    });
+  }
+
   editarDefensor(): void{
     this.defensor.ufDefensor = this.ufSelecionada;
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
-    this.defensor.numeroPermissao = this.permissaoSelecionada;
     this.defensor.sexo = this.sexoSelecionado;
     this.defensor.estadoCivil = this.estadoCivilSelecionado;
+
+    if (this.localDataNascimento != null && (this.defensor.dataNascimento == '' || this.defensor.dataNascimento == null)) {
+      this.defensor.dataNascimento = this.localDataNascimento;
+    }
+    if (this.localDataValidadeCnh != null && (this.defensor.dataValidadeCnh == '' || this.defensor.dataValidadeCnh == null)) {
+      this.defensor.dataValidadeCnh = this.localDataValidadeCnh;
+    }
 
     this.defensor.usuario = environment.usuarioLogado;
 
@@ -246,7 +306,8 @@ export class DefensorEditComponent implements OnInit {
     this.defensorService.editarDefensor(this.defensor, this.anexoRgSelecionado, this.anexoCpfSelecionado,
       this.anexoCnhSelecionada, this.comprovanteResidenciaSelecionada, this.certidaoNegativaMunicipalSelecionada,
       this.certidaoNegativaCriminalSelecionada, this.certificadoPropriedadeSelecionada, this.certificadoCondutorSelecionado,
-      this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada).subscribe({
+      this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada, this.eventDataNascimento,
+      this.eventDataValidadeCnh).subscribe({
       next: (response) => {
         this.defensorService.showMessageSuccess('Defensor Atualizado com Sucesso!!!');
         if(environment.moduloSelecionado == 1){
@@ -262,12 +323,16 @@ export class DefensorEditComponent implements OnInit {
   }
 
   validarCamposObrigatoriosDefensor(): boolean{
-    if(this.defensor.numeroPermissao == null || this.defensor.numeroPermissao == ''){
-      this.defensorService.showMessageError('O campo Nº do Termo de Autorização é obrigatório!');
+    if(this.defensor.idPermissionario == null || this.defensor.idPermissionario == 0){
+      this.defensorService.showMessageError('O campo Autorizatário é obrigatório!');
       return false;
     }
     if(this.defensor.nomeDefensor == null || this.defensor.nomeDefensor == ''){
-      this.defensorService.showMessageError('O campo Nome Autorizatário é obrigatório!');
+      this.defensorService.showMessageError('O campo Nome Defensor é obrigatório!');
+      return false;
+    }
+    if(this.defensor.status == null || this.defensor.status == ''){
+      this.permissionarioService.showMessageError('O campo Status é obrigatório!');
       return false;
     }
     if(this.defensor.cpfDefensor == null || this.defensor.cpfDefensor == ''){
@@ -320,6 +385,38 @@ export class DefensorEditComponent implements OnInit {
     }
 
     return true;
+  }
+
+  onChangeDataNascimento(event: MatDatepickerInputEvent<Date>) {
+    if(event.value != null){
+      this.eventDataNascimento = event.value;
+    }
+  }
+
+  onChangeDataValidadeCnh(event: MatDatepickerInputEvent<Date>) {
+    if(event.value != null){
+      this.eventDataValidadeCnh = event.value;
+    }
+  }
+
+  carregarStatus(status: string) {
+    var strStatus = "";
+    switch (status) {
+      case "ATIVO":
+        strStatus = "1";
+        break;
+      case "INATIVO":
+        strStatus = "2";
+        break;
+      case "SUSPENSO":
+        strStatus = "3";
+        break;
+      case "CASSADO":
+        strStatus = "4";
+        break;
+    }
+
+    return strStatus;
   }
 
   voltar(): void{

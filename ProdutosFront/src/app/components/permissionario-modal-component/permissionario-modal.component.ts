@@ -48,7 +48,7 @@ export class PermissionarioModalComponent implements OnInit {
       if(environment.moduloSelecionado == 1){
         currentUrl = '/permissionario';
       }else{
-        currentUrl = '/permissionariomoto';
+        currentUrl = '/autorizatariomoto';
       }
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';

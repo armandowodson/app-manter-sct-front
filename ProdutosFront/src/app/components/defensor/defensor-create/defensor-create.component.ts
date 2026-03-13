@@ -3,7 +3,11 @@ import { Router } from '@angular/router';
 import {DefensorService} from "../../../service/defensor.service";
 import {DefensorModelo} from "../defensor-modelo.model";
 import {environment} from "../../../../environments/environment";
-import {PermissaoService} from "../../../service/permissao.service";
+import {PermissionarioService} from "../../../service/permissionario.service";
+import {Observable} from "rxjs";
+import {PageModelo} from "../../comum/page-modelo.model";
+import {DefensorFiltro} from "../defensor-filtro.model";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +20,24 @@ import {PermissaoService} from "../../../service/permissao.service";
 
 export class DefensorCreateComponent implements OnInit {
 
-  NODE_TLS_REJECT_UNAUTHORIZED=0
+  public loading = false;
+
+  localDataNascimento: string | null;
+  localDataValidadeCnh: string | null;
+
+  defensorFiltro: DefensorFiltro = {
+    idDefensor: 0,
+    nomeDefensor: "",
+    cpfDefensor: "",
+    cnhDefensor: "",
+    dataCriacao: "",
+    nomePermissionario: "",
+    cpfPermissionario: ""
+  };
 
   defensor: DefensorModelo = {
     idDefensor: 0,
-    numeroPermissao: "",
+    idPermissionario: 0,
     nomeDefensor: "",
     cpfDefensor: "",
     rgDefensor: "",
@@ -103,6 +120,14 @@ export class DefensorCreateComponent implements OnInit {
     { id: 5, nome: 'VIÚVO' }
   ];
 
+  statusSelecionado = "";
+  statusOptions = [
+    { id: '1', nome: 'ATIVO' },
+    { id: '2', nome: 'INATIVO' },
+    { id: '3', nome: 'SUSPENSO' },
+    { id: '4', nome: 'CASSADO' }
+  ];
+
   anexoRgSelecionado: File | null = null;
   anexoCpfSelecionado: File | null = null;
   anexoCnhSelecionada: File | null = null;
@@ -118,33 +143,35 @@ export class DefensorCreateComponent implements OnInit {
   errors: string;
   nomeLogado: string;
 
-  permissaoSelecionada = "";
-  permissoesOptions: any[] = [];
+  permissionarioSelecionado = "";
+  permissionariosOptions: any[] = [];
 
   constructor(private defensorService: DefensorService,
-              private permissaoService: PermissaoService,
+              private permissionarioService: PermissionarioService,
               private router: Router) {
     this.errors = '';
     this.nomeLogado = '';
+    this.localDataNascimento = '';
+    this.localDataValidadeCnh = '';
   }
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
 
-    this.permissaoService.consultarPermissoesDisponiveisDefensor().subscribe(
-      (permissoes) => {
-        if (permissoes == null || permissoes.length == 0) {
-          this.permissaoService.showMessageAlert(
-            "Não há Termos de Autorização disponível para seleção!"
+    this.permissionarioService.consultarPermissionariosDisponiveisDefensor().subscribe(
+      (permissionarios) => {
+        if (permissionarios == null || permissionarios.length == 0) {
+          this.permissionarioService.showMessageAlert(
+            "Não há Autorizatário disponível para seleção!"
           );
         }
-        permissoes?.forEach(element => {
-          this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
+        permissionarios?.forEach(element => {
+          this.permissionariosOptions.push({ idPermissionario: element.idPermissionario, nomePermissionario: element.nomePermissionario });
         });
       },
       (error) => {
         this.errors = error;
-        this.permissaoService.showMessageError(this.errors);
+        this.permissionarioService.showMessageError(this.errors);
       }
     );
   }
@@ -193,12 +220,42 @@ export class DefensorCreateComponent implements OnInit {
     this.fotoSelecionada = event.target.files[0] || null;
   }
 
+  verificarCpf(){
+    if(this.defensor.cpfDefensor != ""){
+      this.defensor.cpfDefensor = this.defensor.cpfDefensor;
+    }else{
+      this.defensorFiltro.cpfDefensor = "11111111111";
+    }
+    const request: Observable<PageModelo> = this.defensorService.consultarDefensoresComFiltros(
+      this.defensorFiltro, 0, 10);
+    request.subscribe({
+      next: (res) => {
+        if (res != null && res.totalElements > 0) {
+          this.permissionarioService.showMessageAlert(
+            "Já existe Defensor para o CPF: " + this.defensorFiltro.cpfDefensor + " informado!"
+          );
+          this.defensor.cpfDefensor = "";
+        }
+      },
+      error: (error) => {
+        this.loading = false;
+        this.permissionarioService.showMessageError(error.message);
+      }
+    });
+  }
+
   inserirDefensor(): void{
     this.defensor.ufDefensor = this.ufSelecionada;
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
-    this.defensor.numeroPermissao = this.permissaoSelecionada;
     this.defensor.sexo = this.sexoSelecionado;
     this.defensor.estadoCivil = this.estadoCivilSelecionado;
+
+    if (this.localDataNascimento != null) {
+      this.defensor.dataNascimento = this.localDataNascimento;
+    }
+    if (this.localDataValidadeCnh != null) {
+      this.defensor.dataValidadeCnh = this.localDataValidadeCnh;
+    }
 
     this.defensor.usuario = environment.usuarioLogado;
 
@@ -225,16 +282,20 @@ export class DefensorCreateComponent implements OnInit {
   }
 
   validarCamposObrigatoriosDefensor(): boolean{
-    if(this.defensor.numeroPermissao == null || this.defensor.numeroPermissao == ''){
-      this.defensorService.showMessageError('O campo Nº do Termo de Autorização é obrigatório!');
+    if(this.defensor.idPermissionario == null || this.defensor.idPermissionario == 0){
+      this.defensorService.showMessageError('O campo Autorizatário é obrigatório!');
       return false;
     }
     if(this.defensor.nomeDefensor == null || this.defensor.nomeDefensor == ''){
-      this.defensorService.showMessageError('O campo Nome Autorizatário é obrigatório!');
+      this.defensorService.showMessageError('O campo Nome Defensor é obrigatório!');
       return false;
     }
     if(this.defensor.cpfDefensor == null || this.defensor.cpfDefensor == ''){
       this.defensorService.showMessageError('O campo CPF é obrigatório!');
+      return false;
+    }
+    if(this.defensor.status == null || this.defensor.status == ''){
+      this.permissionarioService.showMessageError('O campo Status é obrigatório!');
       return false;
     }
     if(this.defensor.rgDefensor == null || this.defensor.rgDefensor == ''){
@@ -279,6 +340,16 @@ export class DefensorCreateComponent implements OnInit {
     }
 
     return true;
+  }
+
+  onChangeDataNascimento(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    this.localDataNascimento = selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
+  }
+
+  onChangeDataValidadeCnh(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    this.localDataValidadeCnh = selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
   }
 
   voltar(): void{

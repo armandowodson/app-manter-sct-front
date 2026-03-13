@@ -5,6 +5,7 @@ import {DefensorModelo} from "../defensor-modelo.model";
 import {DefensorService} from "../../../service/defensor.service";
 import {environment} from "../../../../environments/environment";
 import {PermissaoService} from "../../../service/permissao.service";
+import {PermissionarioService} from "../../../service/permissionario.service";
 
 @Component({
   selector: 'app-defensor-detalhe',
@@ -21,7 +22,7 @@ export class DefensorDetalheComponent implements OnInit {
   // @ts-ignore
   defensor: DefensorModelo = {
     idDefensor: 0,
-    numeroPermissao: "",
+    idPermissionario: 0,
     nomeDefensor: "",
     cpfDefensor: "",
     rgDefensor: "",
@@ -103,6 +104,14 @@ export class DefensorDetalheComponent implements OnInit {
     { id: '5', nome: 'VIÚVO' }
   ];
 
+  statusSelecionado = "";
+  statusOptions = [
+    { id: '1', nome: 'ATIVO' },
+    { id: '2', nome: 'INATIVO' },
+    { id: '3', nome: 'SUSPENSO' },
+    { id: '4', nome: 'CASSADO' }
+  ];
+
   certificadoCondutorSelecionado: File | null = null;
   certidaoNegativaCriminalSelecionada: File | null = null;
   certidaoNegativaMunicipalSelecionada: File | null = null;
@@ -112,11 +121,11 @@ export class DefensorDetalheComponent implements OnInit {
   id: string;
   nomeLogado: string;
 
-  permissaoSelecionada = "";
-  permissoesOptions: any[] = [];
+  permissionarioSelecionado = "";
+  permissionariosOptions: any[] = [];
 
   constructor(private defensorService: DefensorService,
-              private permissaoService: PermissaoService,
+              private permissionarioService: PermissionarioService,
               private router: Router) {
     this.errors = '';
     this.id = '';
@@ -125,9 +134,26 @@ export class DefensorDetalheComponent implements OnInit {
 
   ngOnInit(): void {
     if (history.state.data) {
+      this.permissionarioService.consultarPermissionariosDisponiveisAlteracao(history.state.data.idPermissionario).subscribe(
+        (permissionarios) => {
+          if (permissionarios == null || permissionarios.length == 0) {
+            this.permissionarioService.showMessageAlert(
+              "Não há Autorizatário disponível para seleção!"
+            );
+          }
+          permissionarios?.forEach(element => {
+            this.permissionariosOptions.push({ idPermissionario: element.idPermissionario, nomePermissionario: element.nomePermissionario });
+          });
+        },
+        (error) => {
+          this.errors = error;
+          this.permissionarioService.showMessageError(this.errors);
+        }
+      );
+
       this.defensor.idDefensor = history.state.data.idDefensor;
-      this.permissaoSelecionada = history.state.data.numeroPermissao;
-      this.defensor.numeroPermissao = history.state.data.numeroPermissao;
+      this.permissionarioSelecionado = history.state.data.idPermissionario;
+      this.defensor.idPermissionario = history.state.data.idPermissionario;
       this.defensor.nomeDefensor = history.state.data.nomeDefensor;
       this.defensor.cpfDefensor = history.state.data.cpfDefensor;
       this.defensor.rgDefensor = history.state.data.rgDefensor;
@@ -154,6 +180,8 @@ export class DefensorDetalheComponent implements OnInit {
       this.defensor.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
       this.defensor.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
       this.defensor.dataValidadeCertificadoCondutor = history.state.data.dataValidadeCertificadoCondutor;
+      this.statusSelecionado = history.state.data.status;
+      this.defensor.status = history.state.data.status;
       this.nomeLogado = environment.nomeLogado;
     }
   }

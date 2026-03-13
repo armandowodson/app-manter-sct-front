@@ -157,42 +157,60 @@ export class VeiculoService {
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  gerarAutorizacaoTrafego(numeroPermissao: string, modulo : number): Observable<ArrayBuffer> {
+  gerarCertificadoAnualVistoria(idVeiculo: string, modulo : number): Observable<ArrayBuffer> {
     let params = new HttpParams();
-    params = params.set('numeroPermissao', numeroPermissao);
+    params = params.set('idVeiculo', idVeiculo);
     params = params.set('modulo', modulo);
 
-    return this.http.get(this.baseUrl+'/gerar-autorizacao-trafego', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
+    return this.http.get(this.baseUrl+'/gerar-certificado-anual-vistoria', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarCertificadoAnualVistoria)); // catch error
   }
 
-  gerarLaudoVistoria(numeroPermissao: string, modulo : number): Observable<ArrayBuffer> {
+  gerarLaudoVistoria(idVeiculo: string, modulo : number): Observable<ArrayBuffer> {
     let params = new HttpParams();
-    params = params.set('numeroPermissao', numeroPermissao);
+    params = params.set('idVeiculo', idVeiculo);
     params = params.set('modulo', modulo);
 
-    return this.http.get(this.baseUrl+'/gerar-laudo-vistoria', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarAutorizacaoTrafego)); // catch error
+    return this.http.get(this.baseUrl+'/gerar-laudo-vistoria', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarLaudoVistoria)); // catch error
   }
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(() => new Error(error.error.message));
   }
 
-  errorHandlerGerarAutorizacaoTrafego(error: HttpErrorResponse) {
+  errorHandlerGerarLaudoVistoria(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Permissão para o ID informado!';
+      msgErro = 'Não é possível emitir o Laudo de Vistoria! Não há Termo de Autorização de Serviço!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há Veículo associado à Permissão!';
+      msgErro = 'Não é possível emitir o Laudo de Vistoria! Não há Veículo associado ao Termo de Autorização de Serviço!';
     }
     if (error.status == 402){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';
-    }
-    if (error.status == 403){
-      msgErro = 'Não é possível emitir a Autoriação de Tráfego! Não há PET associado ao Veículo!';
+      msgErro = 'Não é possível emitir o Laudo de Vistoria! Não há Autorizatário associado ao Veículo!';
     }
     if (error.status == 500){
-      msgErro = 'Ocorreu um erro! Não foi possível gerar a Autorização de Tráfego!';
+      msgErro = 'Ocorreu um erro! Não foi possível emitir o Laudo de Vistoria!';
+    }
+
+    return throwError(() => new Error(msgErro));
+  }
+
+  errorHandlerGerarCertificadoAnualVistoria(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Termo de Autorização de Serviço!';
+    }
+    if (error.status == 401){
+      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Veículo associado ao Termo de Autorização de Serviço!';
+    }
+    if (error.status == 402){
+      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Laudo de Vistoria realizado!';
+    }
+    if (error.status == 403){
+      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Autorizatário associado ao Veículo!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível emitir o Certificado Anual de Vistoria!';
     }
 
     return throwError(() => new Error(msgErro));

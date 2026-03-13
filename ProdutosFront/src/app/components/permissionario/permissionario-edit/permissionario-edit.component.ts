@@ -5,6 +5,10 @@ import {PermissionarioModelo} from "../permissionario-modelo.model";
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {environment} from "../../../../environments/environment";
 import {PermissaoService} from "../../../service/permissao.service";
+import {Observable} from "rxjs";
+import {PageModelo} from "../../comum/page-modelo.model";
+import {PermissionarioFiltro} from "../permissionario-filtro.model";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 @Component({
   selector: 'app-permissinario-edit',
@@ -16,6 +20,21 @@ import {PermissaoService} from "../../../service/permissao.service";
 })
 
 export class PermissionarioEditComponent implements OnInit {
+  public loading = false;
+
+  localDataNascimento: string | null;
+  localDataValidadeCnh: string | null;
+  eventDataNascimento: any;
+  eventDataValidadeCnh: any;
+
+  permissionarioFiltro: PermissionarioFiltro = {
+    idPermissionario: 0,
+    numeroPermissao: "",
+    nomePermissionario: "",
+    cpfPermissionario: "",
+    cnhPermissionario: "",
+    dataCriacao: ""
+  };
 
   // @ts-ignore
   // @ts-ignore
@@ -112,6 +131,14 @@ export class PermissionarioEditComponent implements OnInit {
     { id: '5', nome: 'VIÚVO' }
   ];
 
+  statusSelecionado = "";
+  statusOptions = [
+    { id: '1', nome: 'ATIVO' },
+    { id: '2', nome: 'INATIVO' },
+    { id: '3', nome: 'SUSPENSO' },
+    { id: '4', nome: 'CASSADO' }
+  ];
+
   anexoRgSelecionado: File | null = null;
   anexoCpfSelecionado: File | null = null;
   anexoCnhSelecionada: File | null = null;
@@ -124,9 +151,6 @@ export class PermissionarioEditComponent implements OnInit {
   apoliceSeguroMotocicletaSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
-  permissaoSelecionada = "";
-  permissoesOptions: any[] = [];
-
   errors: string;
   id: string;
   nomeLogado: string;
@@ -137,29 +161,13 @@ export class PermissionarioEditComponent implements OnInit {
     this.errors = '';
     this.id = '';
     this.nomeLogado = '';
+    this.localDataNascimento = '';
+    this.localDataValidadeCnh = '';
   }
 
   ngOnInit(): void {
     if (history.state.data) {
-      this.permissaoService.consultarPermissoesDisponiveisAlteracao(history.state.data.numeroPermissao).subscribe(
-        (permissoes) => {
-          if (permissoes == null || permissoes.length == 0) {
-            this.permissaoService.showMessageAlert(
-              "Não há Termo de Autorização disponível para seleção!"
-            );
-          }
-          permissoes?.forEach(element => {
-            this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
-          });
-        },
-        (error) => {
-          this.errors = error;
-          this.permissaoService.showMessageError(this.errors);
-        }
-      );
-
       this.permissionario.idPermissionario = history.state.data.idPermissionario;
-      this.permissaoSelecionada = history.state.data.numeroPermissao;
       this.permissionario.numeroPermissao = history.state.data.numeroPermissao;
       this.permissionario.nomePermissionario = history.state.data.nomePermissionario;
       this.permissionario.cpfPermissionario = history.state.data.cpfPermissionario;
@@ -192,6 +200,8 @@ export class PermissionarioEditComponent implements OnInit {
       this.aplicativoAlternativoSelecionado = history.state.data.aplicativoAlternativo;
       this.permissionario.aplicativoAlternativo = history.state.data.aplicativoAlternativo;
       this.permissionario.observacao = history.state.data.observacao;
+      this.statusSelecionado = this.carregarStatus(history.state.data.status);
+      this.permissionario.status = history.state.data.status;
       this.nomeLogado = environment.nomeLogado;
     }
   }
@@ -240,13 +250,37 @@ export class PermissionarioEditComponent implements OnInit {
     this.fotoSelecionada = event.target.files[0] || null;
   }
 
+  verificarCpf(){
+    if(this.permissionario.cpfPermissionario != ""){
+      this.permissionarioFiltro.cpfPermissionario = this.permissionario.cpfPermissionario;
+    }else{
+      this.permissionarioFiltro.cpfPermissionario = "11111111111";
+    }
+    const request: Observable<PageModelo> = this.permissionarioService.consultarPermissionariosComFiltros(
+      this.permissionarioFiltro, 0, 10);
+    request.subscribe({
+      next: (res) => {
+        if (res != null && res.totalElements > 0) {
+          this.permissionarioService.showMessageAlert(
+            "Já existe Autorizatário para o CPF: " + this.permissionarioFiltro.cpfPermissionario + " informado!"
+          );
+          this.permissionario.cpfPermissionario = "";
+        }
+      },
+      error: (error) => {
+        this.loading = false;
+        this.permissionarioService.showMessageError(error.message);
+      }
+    });
+  }
+
   editarPermissionario(): void{
     this.permissionario.ufPermissionario = this.ufSelecionada;
     this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
-    this.permissionario.numeroPermissao = this.permissaoSelecionada;
     this.permissionario.aplicativoAlternativo = this.aplicativoAlternativoSelecionado;
     this.permissionario.sexo = this.sexoSelecionado;
     this.permissionario.estadoCivil = this.estadoCivilSelecionado;
+    this.permissionario.status = this.statusSelecionado;
 
     this.permissionario.usuario = environment.usuarioLogado;
 
@@ -257,13 +291,14 @@ export class PermissionarioEditComponent implements OnInit {
     this.permissionarioService.editarPermissionario(this.permissionario, this.anexoRgSelecionado, this.anexoCpfSelecionado,
       this.anexoCnhSelecionada, this.comprovanteResidenciaSelecionada, this.certidaoNegativaMunicipalSelecionada,
       this.certidaoNegativaCriminalSelecionada, this.certificadoPropriedadeSelecionada, this.certificadoCondutorSelecionado,
-      this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada).subscribe({
+      this.apoliceSeguroVidaSelecionada, this.apoliceSeguroMotocicletaSelecionada, this.fotoSelecionada, this.eventDataNascimento,
+      this.eventDataValidadeCnh).subscribe({
       next: (response) => {
         this.permissionarioService.showMessageSuccess('Autorizatário Atualizado com Sucesso!!!');
         if(environment.moduloSelecionado == 1){
           this.router.navigate(['/permissionario']);
         }else{
-          this.router.navigate(['/permissionariomoto']);
+          this.router.navigate(['/autorizatariomoto']);
         }
       },
       error: (error) => {
@@ -273,16 +308,16 @@ export class PermissionarioEditComponent implements OnInit {
   }
 
   validarCamposObrigatoriosPermissionario(): boolean{
-    if(this.permissionario.numeroPermissao == null || this.permissionario.numeroPermissao == ''){
-      this.permissionarioService.showMessageError('O campo Nº do Termo de Autorização é obrigatório!');
-      return false;
-    }
     if(this.permissionario.nomePermissionario == null || this.permissionario.nomePermissionario == ''){
       this.permissionarioService.showMessageError('O campo Nome Autorizatário é obrigatório!');
       return false;
     }
     if(this.permissionario.cpfPermissionario == null || this.permissionario.cpfPermissionario == ''){
       this.permissionarioService.showMessageError('O campo CPF é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.status == null || this.permissionario.status == ''){
+      this.permissionarioService.showMessageError('O campo Status é obrigatório!');
       return false;
     }
     if(this.permissionario.rgPermissionario == null || this.permissionario.rgPermissionario == ''){
@@ -349,11 +384,43 @@ export class PermissionarioEditComponent implements OnInit {
     return true;
   }
 
+  onChangeDataNascimento(event: MatDatepickerInputEvent<Date>) {
+    if(event.value != null){
+      this.eventDataNascimento = event.value;
+    }
+  }
+
+  onChangeDataValidadeCnh(event: MatDatepickerInputEvent<Date>) {
+    if(event.value != null){
+      this.eventDataValidadeCnh = event.value;
+    }
+  }
+
   voltar(): void{
     if(environment.moduloSelecionado == 1){
       this.router.navigate(['/permissionario']);
     }else{
-      this.router.navigate(['/permissionariomoto']);
+      this.router.navigate(['/autorizatariomoto']);
     }
+  }
+
+  carregarStatus(status: string) {
+    var strStatus = "";
+    switch (status) {
+      case "ATIVO":
+        strStatus = "1";
+        break;
+      case "INATIVO":
+        strStatus = "2";
+        break;
+      case "SUSPENSO":
+        strStatus = "3";
+        break;
+      case "CASSADO":
+        strStatus = "4";
+        break;
+    }
+
+    return strStatus;
   }
 }

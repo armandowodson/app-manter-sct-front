@@ -192,22 +192,6 @@ export class VeiculoEditComponent implements OnInit {
     this.crlvSelecionado = event.target.files[0] || null;
   }
 
-  carregarPermissao(permissionario: any){
-    this.permissionarioService.consultarPermissionarioId(permissionario.value).subscribe({
-      next: (response) => {
-        if (response == null) {
-          this.veiculoService.showMessageAlert(
-            "Não foram encontradas Permissões disponíveis para o cadastro do Veículo!"
-          );
-        }
-        this.veiculo.numeroPermissao = response.numeroPermissao;
-      },
-      error: (error) => {
-        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
-      }
-    });
-  }
-
   editarVeiculo(): void{
     this.veiculo.cor = this.corSelecionada;
     this.veiculo.combustivel = this.combustivelSelecionado;

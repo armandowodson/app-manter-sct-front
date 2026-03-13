@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import {CurrencyPipe, DatePipe} from '@angular/common';
 import {PermissaoModelo} from "../permissao.model";
 import {PermissaoService} from "../../../service/permissao.service";
 import {environment} from "../../../../environments/environment";
-import {Observable} from "rxjs";
-import {PageModelo} from "../../comum/page-modelo.model";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-permissao-create',
@@ -20,6 +19,8 @@ import {PageModelo} from "../../comum/page-modelo.model";
 export class PermissaoCreateComponent implements OnInit {
 
   minDate: Date;
+  dataPipe: DatePipe;
+  dataFormatada: string | null;
 
   permissao: PermissaoModelo = {
     idPermissao: 0,
@@ -51,7 +52,7 @@ export class PermissaoCreateComponent implements OnInit {
 
   statusPermissaoSelecionada = 0;
   statusPermissaoOptions = [
-    { id: 1, nome: 'GERADA' },
+    { id: 1, nome: 'ATIVO' },
     { id: 2, nome: 'EM USO' },
     { id: 3, nome: 'SUSPENSA' },
     { id: 4, nome: 'RENUNCIADA' },
@@ -87,11 +88,25 @@ export class PermissaoCreateComponent implements OnInit {
     this.id = '';
     this.nomeLogado = "";
     this.minDate = new Date();
+    this.dataPipe = new DatePipe('en-US');
+    this.dataFormatada = "";
   }
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
     this.statusPermissaoSelecionada = 1;
+    const dataFutura = new Date();
+    this.permissao.anoPermissao = dataFutura.getFullYear().toString();
+    dataFutura.setDate(dataFutura.getDate() + 1);
+    this.dataFormatada = this.dataPipe.transform(dataFutura, 'yyyy-MM-dd');
+    if (this.dataFormatada != null) {
+      this.permissao.periodoInicialStatus = this.dataFormatada;
+    }
+    dataFutura.setFullYear(dataFutura.getFullYear() + 3);
+    this.dataFormatada = this.dataPipe.transform(dataFutura, 'yyyy-MM-dd');
+    if (this.dataFormatada != null) {
+      this.permissao.dataValidadePermissao = this.dataFormatada;
+    }
   }
 
   inserirPermissao(): void {
@@ -133,11 +148,6 @@ export class PermissaoCreateComponent implements OnInit {
 
     if(this.permissao.periodoInicialStatus == null || this.permissao.periodoInicialStatus == ""){
       this.permissaoService.showMessageAlert("O campo Período Inicial da Situação é obrigatório!");
-      return false;
-    }
-
-    if(this.permissao.periodoFinalStatus == null || this.permissao.periodoFinalStatus == ""){
-      this.permissaoService.showMessageAlert("O campo Período Final da Situação é obrigatório!");
       return false;
     }
 

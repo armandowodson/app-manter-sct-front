@@ -41,7 +41,7 @@ export class PermissaoRelatorioComponent implements OnInit {
 
   statusPermissaoSelecionada = 0;
   statusPermissaoOptions = [
-    { id: 1, nome: 'GERADA' },
+    { id: 1, nome: 'ATIVO' },
     { id: 2, nome: 'EM USO' },
     { id: 3, nome: 'SUSPENSA' },
     { id: 4, nome: 'RENUNCIADA' },
@@ -245,7 +245,7 @@ export class PermissaoRelatorioComponent implements OnInit {
     var strStatus = "";
     switch (status) {
       case "1":
-        strStatus = "GERADA";
+        strStatus = "ATIVO";
         break;
       case "2":
         strStatus = "EM USO";

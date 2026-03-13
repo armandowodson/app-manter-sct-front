@@ -86,7 +86,6 @@
   <table class="table table-striped table-hover" style="outline-color: black;">
     <thead style="background-color: gray;">
     <tr style="color: white;">
-      <th style="text-align: left;">Nº Permissão</th>
       <th style="text-align: left;">Placa</th>
       <th style="text-align: center;">Renavam</th>
       <th style="text-align: center;">Marca</th>
@@ -99,7 +98,6 @@
     </thead>
     <tbody>
     <tr *ngFor="let row of veiculos | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }">
-      <td style="text-align: left;">{{row.numeroPermissao}}</td>
       <td style="text-align: left;">{{row.placa}}</td>
       <td style="text-align: center;">{{row.renavam}}</td>
       <td style="text-align: center;">{{row.marca}}</td>
@@ -115,11 +113,11 @@
         <button title="Detalhar" mat-icon-button color="primary" (click) = "navegarDetalharVeiculo(row)">
           <mat-icon>lists</mat-icon>
         </button>
-        <button title="Gerar Autorização de Tráfego" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarAutorizacaoTrafego(row.numeroPermissao)" aria-label="Gerar Autorização de Tráfego">
-          <mat-icon>article</mat-icon>
-        </button>
-        <button title="Gerar Laudo Vistoria" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarLaudoVistoria(row.numeroPermissao)" aria-label="Gerar Laudo Vistoria">
+        <button title="Gerar Laudo Vistoria" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarLaudoVistoria(row.idVeiculo)" aria-label="Gerar Laudo Vistoria">
           <mat-icon>assignment</mat-icon>
+        </button>
+        <button title="Gerar CAV" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarCertificadoAnualVistoria(row.idVeiculo)" aria-label="Gerar Certificado Anual de Vistoria">
+          <mat-icon>article</mat-icon>
         </button>
         <button title="Remover" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "openModal(row.idVeiculo, row.placa)" aria-label="Remover Veículo">
           <mat-icon>delete</mat-icon>

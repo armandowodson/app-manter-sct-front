@@ -4,6 +4,10 @@ import {PermissionarioService} from "../../../service/permissionario.service";
 import {PermissionarioModelo} from "../permissionario-modelo.model";
 import {environment} from "../../../../environments/environment";
 import {PermissaoService} from "../../../service/permissao.service";
+import {Observable} from "rxjs";
+import {PageModelo} from "../../comum/page-modelo.model";
+import {PermissionarioFiltro} from "../permissionario-filtro.model";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +19,20 @@ import {PermissaoService} from "../../../service/permissao.service";
 })
 
 export class PermissionarioCreateComponent implements OnInit {
+  public loading = false;
+
+  localDataNascimento: string | null;
+  localDataValidadeCnh: string | null;
+
+  permissionarioFiltro: PermissionarioFiltro = {
+    idPermissionario: 0,
+    numeroPermissao: "",
+    nomePermissionario: "",
+    cpfPermissionario: "",
+    cnhPermissionario: "",
+    dataCriacao: ""
+  };
+
   permissionario: PermissionarioModelo = {
     idPermissionario: 0,
     numeroPermissao: "",
@@ -108,6 +126,14 @@ export class PermissionarioCreateComponent implements OnInit {
     { id: 5, nome: 'VIÚVO' }
   ];
 
+  statusSelecionado = "";
+  statusOptions = [
+    { id: '1', nome: 'ATIVO' },
+    { id: '2', nome: 'INATIVO' },
+    { id: '3', nome: 'SUSPENSO' },
+    { id: '4', nome: 'CASSADO' }
+  ];
+
   anexoRgSelecionado: File | null = null;
   anexoCpfSelecionado: File | null = null;
   anexoCnhSelecionada: File | null = null;
@@ -120,9 +146,6 @@ export class PermissionarioCreateComponent implements OnInit {
   apoliceSeguroMotocicletaSelecionada: File | null = null;
   fotoSelecionada: File | null = null;
 
-  permissaoSelecionada = "";
-  permissoesOptions: any[] = [];
-
   errors: string;
   nomeLogado: string;
 
@@ -131,27 +154,13 @@ export class PermissionarioCreateComponent implements OnInit {
               private router: Router) {
     this.errors = '';
     this.nomeLogado = '';
+    this.localDataNascimento = '';
+    this.localDataValidadeCnh = '';
   }
 
   ngOnInit(): void {
     this.nomeLogado = environment.nomeLogado;
-
-    this.permissaoService.consultarPermissoesDisponiveis().subscribe(
-      (permissoes) => {
-        if (permissoes == null || permissoes.length == 0) {
-          this.permissaoService.showMessageAlert(
-            "Não há Termo de Autorização disponível para seleção!"
-          );
-        }
-        permissoes?.forEach(element => {
-          this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
-        });
-      },
-      (error) => {
-        this.errors = error;
-        this.permissaoService.showMessageError(this.errors);
-      }
-    );
+    this.statusSelecionado = '1';
   }
 
   getAnexoRgSelecionado (event: any): void {
@@ -198,13 +207,44 @@ export class PermissionarioCreateComponent implements OnInit {
     this.fotoSelecionada = event.target.files[0] || null;
   }
 
+  verificarCpf(){
+    if(this.permissionario.cpfPermissionario != ""){
+        this.permissionarioFiltro.cpfPermissionario = this.permissionario.cpfPermissionario;
+    }else{
+      this.permissionarioFiltro.cpfPermissionario = "11111111111";
+    }
+    const request: Observable<PageModelo> = this.permissionarioService.consultarPermissionariosComFiltros(
+      this.permissionarioFiltro, 0, 10);
+    request.subscribe({
+      next: (res) => {
+        if (res != null && res.totalElements > 0) {
+          this.permissionarioService.showMessageAlert(
+            "Já existe Autorizatário para o CPF: " + this.permissionarioFiltro.cpfPermissionario + " informado!"
+          );
+          this.permissionario.cpfPermissionario = "";
+        }
+      },
+      error: (error) => {
+        this.loading = false;
+        this.permissionarioService.showMessageError(error.message);
+      }
+    });
+  }
+
   inserirPermissionario(): void{
     this.permissionario.ufPermissionario = this.ufSelecionada;
     this.permissionario.categoriaCnhPermissionario = this.categoriaCnhSelecionada;
-    this.permissionario.numeroPermissao = this.permissaoSelecionada;
     this.permissionario.aplicativoAlternativo = this.aplicativoAlternativoSelecionado;
     this.permissionario.sexo = this.sexoSelecionado;
     this.permissionario.estadoCivil = this.estadoCivilSelecionado;
+    this.permissionario.status = this.statusSelecionado;
+
+    if (this.localDataNascimento != null) {
+      this.permissionario.dataNascimento = this.localDataNascimento;
+    }
+    if (this.localDataValidadeCnh != null) {
+      this.permissionario.dataValidadeCnh = this.localDataValidadeCnh;
+    }
 
     this.permissionario.usuario = environment.usuarioLogado;
 
@@ -221,7 +261,7 @@ export class PermissionarioCreateComponent implements OnInit {
         if(environment.moduloSelecionado == 1){
           this.router.navigate(['/permissionario']);
         }else{
-          this.router.navigate(['/permissionariomoto']);
+          this.router.navigate(['/autorizatariomoto']);
         }
       },
       error: (error) => {
@@ -231,16 +271,16 @@ export class PermissionarioCreateComponent implements OnInit {
   }
 
   validarCamposObrigatoriosPermissionario(): boolean{
-    if(this.permissionario.numeroPermissao == null || this.permissionario.numeroPermissao == ''){
-      this.permissionarioService.showMessageError('O campo Nº do Termo de Autorização é obrigatório!');
-      return false;
-    }
     if(this.permissionario.nomePermissionario == null || this.permissionario.nomePermissionario == ''){
       this.permissionarioService.showMessageError('O campo Nome Autorizatário é obrigatório!');
       return false;
     }
     if(this.permissionario.cpfPermissionario == null || this.permissionario.cpfPermissionario == ''){
       this.permissionarioService.showMessageError('O campo CPF é obrigatório!');
+      return false;
+    }
+    if(this.permissionario.status == null || this.permissionario.status == ''){
+      this.permissionarioService.showMessageError('O campo Status é obrigatório!');
       return false;
     }
     if(this.permissionario.rgPermissionario == null || this.permissionario.rgPermissionario == ''){
@@ -303,19 +343,69 @@ export class PermissionarioCreateComponent implements OnInit {
       this.permissionarioService.showMessageError('O campo Aplicativo Alternativo é obrigatório!');
       return false;
     }
-    if(this.permissionario.dataValidadeCertificadoCondutor == null || this.permissionario.dataValidadeCertificadoCondutor == ''){
-      this.permissionarioService.showMessageError('O campo Data Validade Certificado Condutor é obrigatório!');
+    if(this.anexoRgSelecionado == null){
+      this.permissionarioService.showMessageError('O campo Anexo RG é obrigatório!');
+      return false;
+    }
+    if(this.anexoCpfSelecionado == null){
+      this.permissionarioService.showMessageError('O campo Anexo CPF é obrigatório!');
+      return false;
+    }
+    if(this.anexoCnhSelecionada == null){
+      this.permissionarioService.showMessageError('O campo Anexo CNH é obrigatório!');
+      return false;
+    }
+    if(this.comprovanteResidenciaSelecionada == null){
+      this.permissionarioService.showMessageError('O campo Comprovante de Residência é obrigatório!');
+      return false;
+    }
+    if(this.certidaoNegativaMunicipalSelecionada == null){
+      this.permissionarioService.showMessageError('O campo Certidão Negativa de Multas e Ocorrências  DETRAN-MA é obrigatório!');
+      return false;
+    }
+    if(this.certidaoNegativaCriminalSelecionada == null){
+      this.permissionarioService.showMessageError('O campo Certidão Negativa de Antecedentes Criminais é obrigatório!');
+      return false;
+    }
+    if(this.certificadoPropriedadeSelecionada == null){
+      this.permissionarioService.showMessageError('O campo Certificado de Propriedade da Motocicleta é obrigatório!');
+      return false;
+    }
+    if(this.certificadoCondutorSelecionado == null){
+      this.permissionarioService.showMessageError('O campo Certificado de Curso Específico (emitido máx. 2 anos) é obrigatório!');
+      return false;
+    }
+    if(this.apoliceSeguroVidaSelecionada == null){
+      this.permissionarioService.showMessageError('O campo Apólice de Seguro de Vida é obrigatório!');
+      return false;
+    }
+    if(this.apoliceSeguroMotocicletaSelecionada == null){
+      this.permissionarioService.showMessageError('O campo Apólice de Seguro da Motocicleta (acidentes, furto, incêndio...) é obrigatório!');
+      return false;
+    }
+    if(this.fotoSelecionada == null){
+      this.permissionarioService.showMessageError('O campo Foto 3x4 é obrigatório!');
       return false;
     }
 
     return true;
   }
 
+  onChangeDataNascimento(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    this.localDataNascimento = selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
+  }
+
+  onChangeDataValidadeCnh(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    this.localDataValidadeCnh = selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
+  }
+
   voltar(): void{
     if(environment.moduloSelecionado == 1){
       this.router.navigate(['/permissionario']);
     }else{
-      this.router.navigate(['/permissionariomoto']);
+      this.router.navigate(['/autorizatariomoto']);
     }
   }
 

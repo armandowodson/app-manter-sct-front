@@ -28,10 +28,14 @@ export class PermissionarioDetalheComponent implements OnInit {
     orgaoEmissor: "",
     filiacaoMae: "",
     filiacaoPai: "",
+    sexo: "",
+    estadoCivil: "",
+    dataNascimento: "",
     ufPermissionario: "",
     cidadePermissionario: "",
     bairroPermissionario: "",
     enderecoPermissionario: "",
+    cep: "",
     celularPermissionario: "",
     emailPermissionario: "",
     cnhPermissionario: "",
@@ -93,21 +97,47 @@ export class PermissionarioDetalheComponent implements OnInit {
     { id: '2', nome: 'NÃO' }
   ];
 
-  certificadoCondutorSelecionado: File | null = null;
-  certidaoNegativaCriminalSelecionada: File | null = null;
-  certidaoNegativaMunicipalSelecionada: File | null = null;
-  fotoSelecionada: File | null = null;
+  sexoSelecionado = "";
+  sexoOptions = [
+    { id: '1', nome: 'MASCULINO' },
+    { id: '2', nome: 'FEMININO' }
+  ];
 
-  permissaoSelecionada = "";
-  permissoesOptions: any[] = [];
+  estadoCivilSelecionado = "";
+  estadoCivilOptions = [
+    { id: '1', nome: 'SOLTEIRO' },
+    { id: '2', nome: 'CASADO' },
+    { id: '3', nome: 'SEPARADO' },
+    { id: '4', nome: 'DIVORCIADO' },
+    { id: '5', nome: 'VIÚVO' }
+  ];
+
+  statusSelecionado = "";
+  statusOptions = [
+    { id: '1', nome: 'ATIVO' },
+    { id: '2', nome: 'INATIVO' },
+    { id: '3', nome: 'SUSPENSO' },
+    { id: '4', nome: 'CASSADO' }
+  ];
+
+  anexoRgSelecionado: File | null = null;
+  anexoCpfSelecionado: File | null = null;
+  anexoCnhSelecionada: File | null = null;
+  comprovanteResidenciaSelecionada: File | null = null;
+  certidaoNegativaMunicipalSelecionada: File | null = null;
+  certidaoNegativaCriminalSelecionada: File | null = null;
+  certificadoPropriedadeSelecionada: File | null = null;
+  certificadoCondutorSelecionado: File | null = null;
+  apoliceSeguroVidaSelecionada: File | null = null;
+  apoliceSeguroMotocicletaSelecionada: File | null = null;
+  fotoSelecionada: File | null = null;
 
   errors: string;
   id: string;
   nomeLogado: string;
 
   constructor(private permissionarioService: PermissionarioService,
-              private router: Router,
-              private permissaoService: PermissaoService) {
+              private router: Router) {
     this.errors = '';
     this.id = '';
     this.nomeLogado = '';
@@ -115,25 +145,7 @@ export class PermissionarioDetalheComponent implements OnInit {
 
   ngOnInit(): void {
     if (history.state.data) {
-      this.permissaoService.consultarPermissoesDisponiveisAlteracao(history.state.data.numeroPermissao).subscribe(
-        (permissoes) => {
-          if (permissoes == null || permissoes.length == 0) {
-            this.permissaoService.showMessageAlert(
-              "Não há Termo de Autorização disponível para seleção!"
-            );
-          }
-          permissoes?.forEach(element => {
-            this.permissoesOptions.push({ idPermissao: element.idPermissao, numeroPermissao: element.numeroPermissao });
-          });
-        },
-        (error) => {
-          this.errors = error;
-          this.permissaoService.showMessageError(this.errors);
-        }
-      );
-
       this.permissionario.idPermissionario = history.state.data.idPermissionario;
-      this.permissaoSelecionada = history.state.data.numeroPermissao;
       this.permissionario.numeroPermissao = history.state.data.numeroPermissao;
       this.permissionario.nomePermissionario = history.state.data.nomePermissionario;
       this.permissionario.cpfPermissionario = history.state.data.cpfPermissionario;
@@ -141,6 +153,11 @@ export class PermissionarioDetalheComponent implements OnInit {
       this.permissionario.orgaoEmissor = history.state.data.orgaoEmissor;
       this.permissionario.filiacaoMae = history.state.data.filiacaoMae;
       this.permissionario.filiacaoPai = history.state.data.filiacaoPai;
+      this.sexoSelecionado = history.state.data.sexo;
+      this.permissionario.sexo = history.state.data.sexo;
+      this.estadoCivilSelecionado = history.state.data.estadoCivil;
+      this.permissionario.estadoCivil = history.state.data.estadoCivil;
+      this.permissionario.dataNascimento = history.state.data.dataNascimento;
       this.permissionario.cnhPermissionario = history.state.data.cnhPermissionario;
       this.categoriaCnhSelecionada = history.state.data.categoriaCnhPermissionario;
       this.permissionario.categoriaCnhPermissionario = history.state.data.categoriaCnhPermissionario;
@@ -150,6 +167,7 @@ export class PermissionarioDetalheComponent implements OnInit {
       this.permissionario.cidadePermissionario = history.state.data.cidadePermissionario;
       this.permissionario.bairroPermissionario = history.state.data.bairroPermissionario;
       this.permissionario.enderecoPermissionario = history.state.data.enderecoPermissionario;
+      this.permissionario.cep = history.state.data.cep;
       this.permissionario.celularPermissionario = history.state.data.celularPermissionario;
       this.permissionario.emailPermissionario = history.state.data.emailPermissionario;
       this.permissionario.numeroQuitacaoMilitar = history.state.data.numeroQuitacaoMilitar;
@@ -160,20 +178,50 @@ export class PermissionarioDetalheComponent implements OnInit {
       this.aplicativoAlternativoSelecionado = history.state.data.aplicativoAlternativo;
       this.permissionario.aplicativoAlternativo = history.state.data.aplicativoAlternativo;
       this.permissionario.observacao = history.state.data.observacao;
+      this.statusSelecionado = history.state.data.status;
+      this.permissionario.status = history.state.data.status;
       this.nomeLogado = environment.nomeLogado;
     }
   }
 
-  getCertificadoCondutorSelecionado (event: any): void {
-    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  getAnexoRgSelecionado (event: any): void {
+    this.anexoRgSelecionado = event.target.files[0] || null;
+  }
+
+  getAnexoCpfSelecionado (event: any): void {
+    this.anexoCpfSelecionado = event.target.files[0] || null;
+  }
+
+  getAnexoCnhSelecionada (event: any): void {
+    this.anexoCnhSelecionada = event.target.files[0] || null;
+  }
+
+  getComprovanteResidenciaSelecionada (event: any): void {
+    this.comprovanteResidenciaSelecionada = event.target.files[0] || null;
+  }
+
+  getCertidaoNegativaMunicipalSelecionada (event: any): void {
+    this.certidaoNegativaMunicipalSelecionada = event.target.files[0] || null;
   }
 
   getCertidaoNegativaCriminalSelecionada (event: any): void {
     this.certidaoNegativaCriminalSelecionada = event.target.files[0] || null;
   }
 
-  getCertidaoNegativaMunicipalSelecionada (event: any): void {
-    this.certidaoNegativaMunicipalSelecionada = event.target.files[0] || null;
+  getCertificadoPropriedadeSelecionada(event: any): void {
+    this.certificadoPropriedadeSelecionada = event.target.files[0] || null;
+  }
+
+  getCertificadoCondutorSelecionado (event: any): void {
+    this.certificadoCondutorSelecionado = event.target.files[0] || null;
+  }
+
+  getApoliceSeguroVidaSelecionada(event: any): void {
+    this.apoliceSeguroVidaSelecionada = event.target.files[0] || null;
+  }
+
+  getApoliceSeguroMotocicletaSelecionada(event: any): void {
+    this.apoliceSeguroMotocicletaSelecionada = event.target.files[0] || null;
   }
 
   getFotoSelecionada (event: any): void {
@@ -184,7 +232,7 @@ export class PermissionarioDetalheComponent implements OnInit {
     if(environment.moduloSelecionado == 1){
       this.router.navigate(['/permissionario']);
     }else{
-      this.router.navigate(['/permissionariomoto']);
+      this.router.navigate(['/autorizatariomoto']);
     }
   }
 }

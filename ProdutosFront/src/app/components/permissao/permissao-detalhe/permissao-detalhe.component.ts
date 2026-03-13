@@ -71,7 +71,7 @@ export class PermissaoDetalheComponent implements OnInit {
 
   statusPermissaoSelecionada = 0;
   statusPermissaoOptions = [
-    { id: '1', nome: 'GERADA' },
+    { id: '1', nome: 'ATIVO' },
     { id: '2', nome: 'EM USO' },
     { id: '3', nome: 'SUSPENSA' },
     { id: '4', nome: 'RENUNCIADA' },

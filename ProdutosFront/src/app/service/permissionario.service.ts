@@ -273,6 +273,14 @@ export class PermissionarioService {
     return this.http.get(this.baseUrl+'/gerar-registro-condutor', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarRegistroCondutor)); // catch error
   }
 
+  gerarTermoAutorizacaoServico(cpfPermissionario: string, modulo: number): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    params = params.set('cpfPermissionario', cpfPermissionario);
+    params = params.set('modulo', modulo);
+
+    return this.http.get(this.baseUrl+'/gerar-termo-autorizacao-servico', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarRegistroCondutor)); // catch error
+  }
+
   errorHandler(error: any) {
     return throwError(() => new Error(error.error.message));
   }

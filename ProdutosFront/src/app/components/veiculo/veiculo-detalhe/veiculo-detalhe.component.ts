@@ -92,6 +92,14 @@ export class VeiculoDetalheComponent implements OnInit {
     { id: '3', nome: 'REPROVADO' }
   ];
 
+  tipoVistoriaSelecionada = "";
+  tipoVistoriaOptions = [
+    { id: '1', nome: 'ANUAL(CAV)' },
+    { id: '2', nome: 'EXTRAORDINÁRIA' },
+    { id: '3', nome: 'INICIAL (IMPLANTAÇÃO)' },
+    { id: '4', nome: 'PÓS ACIDENTE' }
+  ];
+
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
 
@@ -162,17 +170,25 @@ export class VeiculoDetalheComponent implements OnInit {
       this.veiculo.anoModelo = history.state.data.anoModelo;
       this.corSelecionada = history.state.data.cor;
       this.veiculo.cor = history.state.data.cor;
-      this.corSelecionada = history.state.data.cor;
       this.combustivelSelecionado = history.state.data.combustivel;
+      this.veiculo.combustivel = history.state.data.combustivel;
+      this.veiculo.capacidade = history.state.data.capacidade;
+      this.veiculo.quilometragem = history.state.data.quilometragem;
+      this.veiculo.cilindrada = history.state.data.cilindrada;
       this.veiculo.numeroTaximetro = history.state.data.numeroTaximetro;
       this.veiculo.anoRenovacao = history.state.data.anoRenovacao;
       this.veiculo.dataVistoria = history.state.data.dataVistoria;
+      this.veiculo.dataRetorno = history.state.data.dataRetorno;
+      this.statusVistoriaSelecionada = history.state.data.statusVistoria;
       this.veiculo.statusVistoria = history.state.data.statusVistoria;
+      this.tipoVistoriaSelecionada = history.state.data.tipoVistoria;
+      this.veiculo.tipoVistoria = history.state.data.tipoVistoria;
       this.veiculo.ressalvas = history.state.data.ressalvas;
       this.veiculo.matriculaVistoriador = history.state.data.matriculaVistoriador;
-      this.veiculo.dataRetorno = history.state.data.dataRetorno;
       this.situacaoVeiculoSelecionada = history.state.data.situacaoVeiculo;
+      this.veiculo.situacaoVeiculo = history.state.data.situacaoVeiculo;
       this.tipoVeiculoSelecionado = history.state.data.tipoVeiculo;
+      this.veiculo.tipoVeiculo = history.state.data.tipoVeiculo;
       this.veiculo.numeroCrlv = history.state.data.numeroCrlv;
       this.veiculo.anoCrlv = history.state.data.anoCrlv;
       this.veiculo.certificadoAfericao = history.state.data.certificadoAfericao;

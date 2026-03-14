@@ -7,18 +7,7 @@
   </div>
   <div>
     <form>
-
-      <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
-        <mat-label >Nº da Permissão</mat-label>
-        <input type="number" matInput placeholder="Nº da Permissão" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroPermissao" name="numeroPermissao">
-        <button mat-button *ngIf="veiculoFiltro.numeroPermissao" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroPermissao=''">
-          <i class="material-icons black v-middle">
-            close
-          </i>
-        </button>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
+      <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
         <mat-label >Placa</mat-label>
         <input matInput placeholder="Placa" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.placa" name="placa">
         <button mat-button *ngIf="veiculoFiltro.placa" matSuffix aria-label="Clear" (click)="veiculoFiltro.placa=''">
@@ -39,9 +28,9 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
-        <mat-label >Nº Taxímetro</mat-label>
-        <input type="number" matInput placeholder="Nº Taxímetro" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.numeroTaximetro" name="numeroTaximetro">
-        <button mat-button *ngIf="veiculoFiltro.numeroTaximetro" matSuffix aria-label="Clear" (click)="veiculoFiltro.numeroTaximetro=''">
+        <mat-label >Cilindrada</mat-label>
+        <input type="number" matInput placeholder="Cilindrada" style="margin-right: 20px;" [(ngModel)]="veiculoFiltro.cilindrada" name="cilindrada">
+        <button mat-button *ngIf="veiculoFiltro.cilindrada" matSuffix aria-label="Clear" (click)="veiculoFiltro.cilindrada=''">
           <i class="material-icons black v-middle">
             close
           </i>
@@ -90,7 +79,7 @@
       <th style="text-align: center;">Renavam</th>
       <th style="text-align: center;">Marca</th>
       <th style="text-align: center;">Modelo</th>
-      <th style="text-align: center;">Nº Taxímetro</th>
+      <th style="text-align: center;">Cilindrada</th>
       <th style="text-align: center;">Ano Fabricação</th>
       <th style="text-align: center;">Status</th>
       <th style="text-align: center;">Ações</th>
@@ -102,7 +91,7 @@
       <td style="text-align: center;">{{row.renavam}}</td>
       <td style="text-align: center;">{{row.marca}}</td>
       <td style="text-align: center;">{{row.modelo}}</td>
-      <td style="text-align: center;">{{row.numeroTaximetro}}</td>
+      <td style="text-align: center;">{{row.cilindrada}}</td>
       <td style="text-align: center;">{{row.anoFabricacao}}</td>
       <td style="text-align: center;">{{row.status}}</td>
 
@@ -114,7 +103,7 @@
           <mat-icon>lists</mat-icon>
         </button>
         <button title="Gerar Laudo Vistoria" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarLaudoVistoria(row.idVeiculo)" aria-label="Gerar Laudo Vistoria">
-          <mat-icon>assignment</mat-icon>
+          <mat-icon>fact_check</mat-icon>
         </button>
         <button title="Gerar CAV" [disabled]="row.status == 'INATIVO'" mat-icon-button color="primary" (click) = "gerarCertificadoAnualVistoria(row.idVeiculo)" aria-label="Gerar Certificado Anual de Vistoria">
           <mat-icon>article</mat-icon>

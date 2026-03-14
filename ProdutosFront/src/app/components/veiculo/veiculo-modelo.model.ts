@@ -20,6 +20,7 @@ export interface VeiculoModelo {
   dataVistoria: string
   dataRetorno: string
   statusVistoria: string
+  tipoVistoria: string
   ressalvas: string
   matriculaVistoriador: string
   situacaoVeiculo: string

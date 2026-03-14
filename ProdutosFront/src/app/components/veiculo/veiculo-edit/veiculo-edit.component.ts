@@ -6,6 +6,8 @@ import {VeiculoService} from "../../../service/veiculo.service";
 import {environment} from "../../../../environments/environment";
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {LoadingService} from "../../../service/loading.service";
 
 @Component({
   selector: 'app-permissinario-edit',
@@ -17,6 +19,9 @@ import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 })
 
 export class VeiculoEditComponent implements OnInit {
+
+  eventDataVistoria: any;
+  eventDataRetorno: any;
 
   // @ts-ignore
   // @ts-ignore
@@ -42,6 +47,7 @@ export class VeiculoEditComponent implements OnInit {
     dataVistoria: "",
     dataRetorno: "",
     statusVistoria: "",
+    tipoVistoria: "",
     ressalvas: "",
     matriculaVistoriador: "",
     situacaoVeiculo: "",
@@ -95,6 +101,14 @@ export class VeiculoEditComponent implements OnInit {
     { id: '3', nome: 'REPROVADO' }
   ];
 
+  tipoVistoriaSelecionada = "";
+  tipoVistoriaOptions = [
+    { id: '1', nome: 'ANUAL(CAV)' },
+    { id: '2', nome: 'EXTRAORDINÁRIA' },
+    { id: '3', nome: 'INICIAL (IMPLANTAÇÃO)' },
+    { id: '4', nome: 'PÓS ACIDENTE' }
+  ];
+
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
 
@@ -109,6 +123,7 @@ export class VeiculoEditComponent implements OnInit {
   constructor(private veiculoService: VeiculoService,
               private permissionarioService: PermissionarioService,
               private pontoTaxiService: PontoTaxiService,
+              private loadingService: LoadingService,
               private router: Router) {
     this.errors = '';
     this.id = 0;
@@ -176,6 +191,8 @@ export class VeiculoEditComponent implements OnInit {
       this.veiculo.dataRetorno = history.state.data.dataRetorno;
       this.statusVistoriaSelecionada = history.state.data.statusVistoria;
       this.veiculo.statusVistoria = history.state.data.statusVistoria;
+      this.tipoVistoriaSelecionada = history.state.data.tipoVistoria;
+      this.veiculo.tipoVistoria = history.state.data.tipoVistoria;
       this.veiculo.ressalvas = history.state.data.ressalvas;
       this.veiculo.matriculaVistoriador = history.state.data.matriculaVistoriador;
       this.situacaoVeiculoSelecionada = history.state.data.situacaoVeiculo;
@@ -198,6 +215,7 @@ export class VeiculoEditComponent implements OnInit {
     this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
     this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
     this.veiculo.statusVistoria = this.statusVistoriaSelecionada;
+    this.veiculo.tipoVistoria = this.tipoVistoriaSelecionada;
     this.veiculo.idPermissionario = this.permissionarioSelecionado;
     this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
     this.veiculo.usuario = environment.usuarioLogado;
@@ -206,7 +224,7 @@ export class VeiculoEditComponent implements OnInit {
       return;
     }
 
-    this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado).subscribe({
+    this.veiculoService.editarVeiculo(this.veiculo, this.crlvSelecionado, this.eventDataVistoria, this.eventDataRetorno).subscribe({
       next: (response) => {
         this.veiculoService.showMessageSuccess('Veículo Atualizado com Sucesso!!!');
         this.router.navigate(['/veiculo']);
@@ -304,6 +322,40 @@ export class VeiculoEditComponent implements OnInit {
     }
 
     return true;
+  }
+
+  onChangeDataVistoria(event: MatDatepickerInputEvent<Date>) {
+    if(event.value != null){
+      this.eventDataVistoria = event.value;
+    }
+  }
+
+  onChangeDataRetorno(event: MatDatepickerInputEvent<Date>) {
+    if(event.value != null){
+      this.eventDataRetorno = event.value;
+    }
+  }
+
+  imprimirAnexoCrlv(idVeiculo: number): void {
+    this.veiculoService.imprimirAnexoCrlv(idVeiculo, environment.moduloSelecionado).subscribe({
+      next: (veiculos) => {
+        if (veiculos.byteLength == 0) {
+          this.veiculoService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([veiculos], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.veiculoService.showMessageSuccess("Anexo CRLV carregado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   voltar(): void{

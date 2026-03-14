@@ -70,6 +70,7 @@ export class VeiculoService {
       ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
       ', "dataRetorno": "' + veiculo.dataRetorno + '"' +
       ', "statusVistoria": "' + veiculo.statusVistoria + '"' +
+      ', "tipoVistoria": "' + veiculo.tipoVistoria + '"' +
       ', "ressalvas": "' + veiculo.ressalvas + '"' +
       ', "matriculaVistoriador": "' + veiculo.matriculaVistoriador + '"' +
       ', "situacaoVeiculo": "' + veiculo.situacaoVeiculo + '"' +
@@ -86,7 +87,25 @@ export class VeiculoService {
     return this.http.post<VeiculoModelo>(this.baseUrl+'/inserir', formDataVeiculo).pipe(catchError(this.errorHandler));
   }
 
-  editarVeiculo(veiculo: VeiculoModelo, crlv: File | null): Observable<VeiculoModelo>{
+  editarVeiculo(veiculo: VeiculoModelo, crlv: File | null, eventDataVistoria: Date, eventDataRetorno: Date): Observable<VeiculoModelo>{
+    const selectedDataVistoria = eventDataVistoria;
+    var dataVistoria: string | null = '';
+    if(selectedDataVistoria != null){
+      dataVistoria = selectedDataVistoria ? selectedDataVistoria.toLocaleDateString('en-CA') : null;
+      if(dataVistoria != null){
+        veiculo.dataVistoria = dataVistoria;
+      }
+    }
+
+    const selectedDataRetordo = eventDataRetorno;
+    var dataRetorno: string | null = '';
+    if(selectedDataRetordo != null){
+      dataRetorno = selectedDataRetordo ? selectedDataRetordo.toLocaleDateString('en-CA') : null;
+      if(dataRetorno != null){
+        veiculo.dataRetorno = dataRetorno;
+      }
+    }
+
     const formDataVeiculo = new FormData();
     const jsonString = '{"idVeiculo": "' + veiculo.idVeiculo + '"' +
       ', "idPermissionario": "' + veiculo.idPermissionario + '"' +
@@ -109,6 +128,7 @@ export class VeiculoService {
       ', "dataVistoria": "' + veiculo.dataVistoria + '"' +
       ', "dataRetorno": "' + veiculo.dataRetorno + '"' +
       ', "statusVistoria": "' + veiculo.statusVistoria + '"' +
+      ', "tipoVistoria": "' + veiculo.tipoVistoria + '"' +
       ', "ressalvas": "' + veiculo.ressalvas + '"' +
       ', "matriculaVistoriador": "' + veiculo.matriculaVistoriador + '"' +
       ', "situacaoVeiculo": "' + veiculo.situacaoVeiculo + '"' +
@@ -146,10 +166,9 @@ export class VeiculoService {
 
   consultarVeiculosComFiltros(veiculo: VeiculoFiltro, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
-    if (veiculo.numeroPermissao)       {  params = params.set('numeroPermissao', veiculo.numeroPermissao); }
     if (veiculo.placa)       {  params = params.set('placa', veiculo.placa); }
     if (veiculo.renavam)       {  params = params.set('renavam', veiculo.renavam); }
-    if (veiculo.numeroTaximetro)       {  params = params.set('numeroTaximetro', veiculo.numeroTaximetro); }
+    if (veiculo.cilindrada)       {  params = params.set('cilindrada', veiculo.cilindrada); }
     if (veiculo.anoFabricacao)       {  params = params.set('anoFabricacao', veiculo.anoFabricacao); }
     params = params.set('pageIndex', pageIndex);
     params = params.set('pageSize', pageSize);
@@ -173,6 +192,14 @@ export class VeiculoService {
     return this.http.get(this.baseUrl+'/gerar-laudo-vistoria', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarLaudoVistoria)); // catch error
   }
 
+  imprimirAnexoCrlv(idVeiculo: number, modulo : number): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    params = params.set('idVeiculo', idVeiculo);
+    params = params.set('modulo', modulo);
+
+    return this.http.get(this.baseUrl+'/imprimir-anexo-crlv', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarCertificadoAnualVistoria)); // catch error
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(() => new Error(error.error.message));
   }
@@ -180,10 +207,10 @@ export class VeiculoService {
   errorHandlerGerarLaudoVistoria(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir o Laudo de Vistoria! Não há Termo de Autorização de Serviço!';
+      msgErro = 'Não é possível emitir o Laudo de Vistoria! Os dados do Veículo estão incompletos!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir o Laudo de Vistoria! Não há Veículo associado ao Termo de Autorização de Serviço!';
+      msgErro = 'Não é possível emitir o Laudo de Vistoria! Não há Vistoria realizada para o Veículo!';
     }
     if (error.status == 402){
       msgErro = 'Não é possível emitir o Laudo de Vistoria! Não há Autorizatário associado ao Veículo!';
@@ -198,15 +225,12 @@ export class VeiculoService {
   errorHandlerGerarCertificadoAnualVistoria(error: HttpErrorResponse) {
     var msgErro = '';
     if (error.status == 400){
-      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Termo de Autorização de Serviço!';
+      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Os dados do Veículo estão incompletos!';
     }
     if (error.status == 401){
-      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Veículo associado ao Termo de Autorização de Serviço!';
+      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Vistoria realizada para o Veículo!';
     }
     if (error.status == 402){
-      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Laudo de Vistoria realizado!';
-    }
-    if (error.status == 403){
       msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Autorizatário associado ao Veículo!';
     }
     if (error.status == 500){

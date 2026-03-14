@@ -24,10 +24,9 @@ export class VeiculoReadComponent implements OnInit {
 
   veiculoFiltro: VeiculoFiltro = {
     idVeiculo: 0,
-    numeroPermissao: "",
     placa: "",
     renavam: "",
-    numeroTaximetro: "",
+    cilindrada: "",
     anoFabricacao: ""
   };
 
@@ -96,6 +95,7 @@ export class VeiculoReadComponent implements OnInit {
           dataVistoria: item.dataVistoria,
           dataRetorno: item.dataRetorno,
           statusVistoria: item.statusVistoria,
+          tipoVistoria: item.tipoVistoria,
           ressalvas: item.ressalvas,
           matriculaVistoriador: item.matriculaVistoriador,
           situacaoVeiculo: item.situacaoVeiculo,
@@ -168,6 +168,7 @@ export class VeiculoReadComponent implements OnInit {
           dataVistoria: item.dataVistoria,
           dataRetorno: item.dataRetorno,
           statusVistoria: item.statusVistoria,
+          tipoVistoria: item.tipoVistoria,
           ressalvas: item.ressalvas,
           matriculaVistoriador: item.matriculaVistoriador,
           situacaoVeiculo: item.situacaoVeiculo,
@@ -194,10 +195,9 @@ export class VeiculoReadComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    if((this.veiculoFiltro.numeroPermissao != null && this.veiculoFiltro.numeroPermissao != undefined && this.veiculoFiltro.numeroPermissao != '') ||
-      (this.veiculoFiltro.placa != null && this.veiculoFiltro.placa != undefined && this.veiculoFiltro.placa != '') ||
+    if((this.veiculoFiltro.placa != null && this.veiculoFiltro.placa != undefined && this.veiculoFiltro.placa != '') ||
       (this.veiculoFiltro.renavam != null && this.veiculoFiltro.renavam != undefined && this.veiculoFiltro.renavam != '') ||
-      (this.veiculoFiltro.numeroTaximetro != null && this.veiculoFiltro.numeroTaximetro != undefined && this.veiculoFiltro.numeroTaximetro != '') ||
+      (this.veiculoFiltro.cilindrada != null && this.veiculoFiltro.cilindrada != undefined && this.veiculoFiltro.cilindrada != '') ||
       (this.veiculoFiltro.anoFabricacao != null && this.veiculoFiltro.anoFabricacao != undefined && this.veiculoFiltro.anoFabricacao != '')){
       if(this.buscouTodos)
         this.pageIndex = 0;

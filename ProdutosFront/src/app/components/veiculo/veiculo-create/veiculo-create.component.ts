@@ -6,6 +6,7 @@ import {environment} from "../../../../environments/environment";
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {PermissionarioModelo} from "../../permissionario/permissionario-modelo.model";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,9 @@ import {PontoTaxiService} from "../../../service/ponto-taxi.service";
 })
 
 export class VeiculoCreateComponent implements OnInit {
+  localDataVistoria: string | null;
+  localDataRetorno: string | null;
+
   veiculo: VeiculoModelo = {
     idVeiculo: 0,
     idPermissionario: "",
@@ -39,6 +43,7 @@ export class VeiculoCreateComponent implements OnInit {
     dataVistoria: "",
     dataRetorno: "",
     statusVistoria: "",
+    tipoVistoria: "",
     ressalvas: "",
     matriculaVistoriador: "",
     situacaoVeiculo: "",
@@ -92,6 +97,14 @@ export class VeiculoCreateComponent implements OnInit {
     { id: '3', nome: 'REPROVADO' }
   ];
 
+  tipoVistoriaSelecionada = "";
+  tipoVistoriaOptions = [
+    { id: '1', nome: 'ANUAL(CAV)' },
+    { id: '2', nome: 'EXTRAORDINÁRIA' },
+    { id: '3', nome: 'INICIAL (IMPLANTAÇÃO)' },
+    { id: '4', nome: 'PÓS ACIDENTE' }
+  ];
+
   permissionario: PermissionarioModelo = {
     idPermissionario: 0,
     numeroPermissao: "",
@@ -142,6 +155,8 @@ export class VeiculoCreateComponent implements OnInit {
               private router: Router) {
     this.errors = '';
     this.nomeLogado = '';
+    this.localDataVistoria = '';
+    this.localDataRetorno = '';
   }
 
   ngOnInit(): void {
@@ -189,9 +204,17 @@ export class VeiculoCreateComponent implements OnInit {
     this.veiculo.situacaoVeiculo = this.situacaoVeiculoSelecionada;
     this.veiculo.tipoVeiculo = this.tipoVeiculoSelecionado;
     this.veiculo.statusVistoria = this.statusVistoriaSelecionada;
+    this.veiculo.tipoVistoria = this.tipoVistoriaSelecionada;
     this.veiculo.idPermissionario = this.permissionarioSelecionado;
     this.veiculo.idPontoTaxi = this.pontoTaxiSelecionado;
     this.veiculo.usuario = environment.usuarioLogado;
+
+    if (this.localDataVistoria != null) {
+      this.veiculo.dataVistoria = this.localDataVistoria;
+    }
+    if (this.localDataRetorno != null) {
+      this.veiculo.dataRetorno = this.localDataRetorno;
+    }
 
     if(this.validarCamposObrigatoriosVeiculo() == false){
       return;
@@ -295,6 +318,16 @@ export class VeiculoCreateComponent implements OnInit {
     }
 
     return true;
+  }
+
+  onChangeDataVistoria(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    this.localDataVistoria = selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
+  }
+
+  onChangeDataRetorno(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    this.localDataRetorno = selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
   }
 
   voltar(): void{

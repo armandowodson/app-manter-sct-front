@@ -238,4 +238,26 @@ export class PermissionarioReadComponent implements OnInit {
     });
   }
 
+  gerarTermoAutorizacaoServico(cpfPermissionario: string): void {
+    this.permissionarioService.gerarTermoAutorizacaoServico(cpfPermissionario, environment.moduloSelecionado).subscribe({
+      next: (permissionarios) => {
+        if (permissionarios.byteLength == 0) {
+          this.permissionarioService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([permissionarios], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.permissionarioService.showMessageSuccess("Termo de Autorização de Serviço gerado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.permissionarioService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
+  }
+
 }

@@ -105,7 +105,7 @@ export class DefensorReadComponent implements OnInit {
           status: item.status
         }));
         this.totalDefensores = res.totalElements;
-        this.pageIndex = res.number;
+        this.paginator.pageIndex = this.pageIndex;
         this.loading = false;
       },
       error: (error) => {
@@ -175,7 +175,7 @@ export class DefensorReadComponent implements OnInit {
           status: item.status
         }));
         this.totalDefensores = res.totalElements;
-        this.pageIndex = res.number;
+        this.paginator.pageIndex = this.pageIndex;
         this.loading = false;
       },
       error: (error) => {

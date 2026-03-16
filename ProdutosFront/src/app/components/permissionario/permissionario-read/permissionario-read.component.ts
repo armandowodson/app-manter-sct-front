@@ -106,7 +106,7 @@ export class PermissionarioReadComponent implements OnInit {
           observacao: item.observacao
         }));
         this.totalPermissionarios = res.totalElements;
-        this.pageIndex = res.number;
+        this.paginator.pageIndex = this.pageIndex;
         this.loading = false;
       },
       error: (error) => {
@@ -195,7 +195,7 @@ export class PermissionarioReadComponent implements OnInit {
           observacao: item.observacao
         }));
         this.totalPermissionarios = res.totalElements;
-        this.pageIndex = res.number;
+        this.paginator.pageIndex = this.pageIndex;
         this.loading = false;
       },
       error: (error) => {

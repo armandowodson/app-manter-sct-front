@@ -137,7 +137,7 @@ export class FiscalizacaoReadComponent implements OnInit {
             status: item.status
           }));
           this.totalFiscalizacoes = res.totalElements;
-          this.pageIndex = res.number;
+          this.paginator.pageIndex = this.pageIndex;
           this.loading = false;
         },
         error: (error) => {
@@ -223,7 +223,7 @@ export class FiscalizacaoReadComponent implements OnInit {
             );
           }
           this.totalFiscalizacoes = res.totalElements;
-          this.pageIndex = res.number;
+          this.paginator.pageIndex = this.pageIndex;
           this.loading = false;
         },
         error: (error) => {

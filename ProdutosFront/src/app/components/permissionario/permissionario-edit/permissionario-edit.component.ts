@@ -9,6 +9,7 @@ import {Observable} from "rxjs";
 import {PageModelo} from "../../comum/page-modelo.model";
 import {PermissionarioFiltro} from "../permissionario-filtro.model";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {LoadingService} from "../../../service/loading.service";
 
 @Component({
   selector: 'app-permissinario-edit',
@@ -157,7 +158,7 @@ export class PermissionarioEditComponent implements OnInit {
 
   constructor(private permissionarioService: PermissionarioService,
               private router: Router,
-              private permissaoService: PermissaoService) {
+              private loadingService: LoadingService) {
     this.errors = '';
     this.id = '';
     this.nomeLogado = '';
@@ -394,6 +395,28 @@ export class PermissionarioEditComponent implements OnInit {
     if(event.value != null){
       this.eventDataValidadeCnh = event.value;
     }
+  }
+
+  imprimirAnexo(idPermissionario: number, aplicacao: string, anexo: string): void {
+    this.permissionarioService.imprimirAnexo(idPermissionario, aplicacao, anexo, environment.moduloSelecionado).subscribe({
+      next: (permissionarios) => {
+        if (permissionarios.byteLength == 0) {
+          this.permissionarioService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([permissionarios], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.permissionarioService.showMessageSuccess("Anexo carregado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.permissionarioService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   voltar(): void{

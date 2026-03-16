@@ -92,7 +92,7 @@ export class PontoTaxiReadComponent implements OnInit {
             status: item.status
           }));
           this.totalPontos = res.totalElements;
-          this.pageIndex = res.number;
+          this.paginator.pageIndex = this.pageIndex;
           this.loading = false;
         },
         error: (error) => {
@@ -160,7 +160,7 @@ export class PontoTaxiReadComponent implements OnInit {
             );
           }
           this.totalPontos = res.totalElements;
-          this.pageIndex = res.number;
+          this.paginator.pageIndex = this.pageIndex;
           this.loading = false;
         },
         error: (error) => {

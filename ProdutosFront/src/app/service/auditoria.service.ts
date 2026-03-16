@@ -65,13 +65,15 @@ export class AuditoriaService {
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  imprimirAuditoria(auditoria: AuditoriaFiltro): Observable<ArrayBuffer> {
+  imprimirAuditoria(auditoria: AuditoriaFiltro, pageIndex: number, pageSize: number): Observable<ArrayBuffer> {
     let params = new HttpParams();
     if (auditoria.nomeModulo)       {  params = params.set('nomeModulo', auditoria.nomeModulo); }
     if (auditoria.usuarioOperacao)       {  params = params.set('usuarioOperacao', auditoria.usuarioOperacao); }
     if (auditoria.operacao)       {  params = params.set('operacao', auditoria.operacao); }
     if (auditoria.dataInicioOperacao)       {  params = params.set('dataInicioOperacao', auditoria.dataInicioOperacao); }
     if (auditoria.dataFimOperacao)       {  params = params.set('dataFimOperacao', auditoria.dataFimOperacao); }
+    params = params.set('pageIndex', pageIndex);
+    params = params.set('pageSize', pageSize);
 
     return this.http.get(this.baseUrl+'/imprimir', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandler));
   }

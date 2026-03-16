@@ -192,12 +192,14 @@ export class VeiculoService {
     return this.http.get(this.baseUrl+'/gerar-laudo-vistoria', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarLaudoVistoria)); // catch error
   }
 
-  imprimirAnexoCrlv(idVeiculo: number, modulo : number): Observable<ArrayBuffer> {
+  imprimirAnexo(idAplicacao: number, aplicacao: string, anexo: string, modulo : number): Observable<ArrayBuffer> {
     let params = new HttpParams();
-    params = params.set('idVeiculo', idVeiculo);
+    params = params.set('idAplicacao', idAplicacao);
+    params = params.set('aplicacao', aplicacao);
+    params = params.set('anexo', anexo);
     params = params.set('modulo', modulo);
 
-    return this.http.get(this.baseUrl+'/imprimir-anexo-crlv', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarCertificadoAnualVistoria)); // catch error
+    return this.http.get(this.baseUrl+'/imprimir-anexo', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerImprimirAnexo)); // catch error
   }
 
   errorHandler(error: HttpErrorResponse) {
@@ -235,6 +237,18 @@ export class VeiculoService {
     }
     if (error.status == 500){
       msgErro = 'Ocorreu um erro! Não foi possível emitir o Certificado Anual de Vistoria!';
+    }
+
+    return throwError(() => new Error(msgErro));
+  }
+
+  errorHandlerImprimirAnexo(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível Imprimir o Anexo! Não foram encontrados anexos!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível Imprimir o Anexo!';
     }
 
     return throwError(() => new Error(msgErro));

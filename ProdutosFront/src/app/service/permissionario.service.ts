@@ -281,6 +281,16 @@ export class PermissionarioService {
     return this.http.get(this.baseUrl+'/gerar-termo-autorizacao-servico', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarRegistroCondutor)); // catch error
   }
 
+  imprimirAnexo(idAplicacao: number, aplicacao: string, anexo: string, modulo : number): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    params = params.set('idAplicacao', idAplicacao);
+    params = params.set('aplicacao', aplicacao);
+    params = params.set('anexo', anexo);
+    params = params.set('modulo', modulo);
+
+    return this.http.get(this.baseUrl+'/imprimir-anexo', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerImprimirAnexo)); // catch error
+  }
+
   errorHandler(error: any) {
     return throwError(() => new Error(error.error.message));
   }
@@ -295,6 +305,18 @@ export class PermissionarioService {
     }
     if (error.status == 500){
       msgErro = 'Ocorreu um erro! Não foi possível gerar o Registro do Condutor!';
+    }
+
+    return throwError(() => new Error(msgErro));
+  }
+
+  errorHandlerImprimirAnexo(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível Imprimir o Anexo! O documento não está registrado na Base de Dados!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível Imprimir o Anexo!';
     }
 
     return throwError(() => new Error(msgErro));

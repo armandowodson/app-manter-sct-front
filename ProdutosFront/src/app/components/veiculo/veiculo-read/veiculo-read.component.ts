@@ -109,7 +109,7 @@ export class VeiculoReadComponent implements OnInit {
           status: item.status
         }));
         this.totalVeiculos = res.totalElements;
-        this.pageIndex = res.number;
+        this.paginator.pageIndex = this.pageIndex;
         this.loading = false;
       },
       error: (error) => {
@@ -182,7 +182,7 @@ export class VeiculoReadComponent implements OnInit {
           status: item.status
         }));
         this.totalVeiculos = res.totalElements;
-        this.pageIndex = res.number;
+        this.paginator.pageIndex = this.pageIndex;
         this.loading = false;
       },
       error: (error) => {

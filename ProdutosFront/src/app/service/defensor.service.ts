@@ -250,12 +250,23 @@ export class DefensorService {
 
     return this.http.get<PageModelo>(this.baseUrl+'/buscar-filtros', {params}).pipe(catchError(this.errorHandler)); // catch error
   }
+
   gerarRegistroCondutor(idPermissionario: string, modulo: number): Observable<ArrayBuffer> {
     let params = new HttpParams();
     params = params.set('idPermissionario', idPermissionario);
     params = params.set('modulo', modulo);
 
     return this.http.get(this.baseUrl+'/gerar-registro-condutor', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarRegistroCondutor)); // catch error
+  }
+
+  imprimirAnexo(idAplicacao: number, aplicacao: string, anexo: string, modulo : number): Observable<ArrayBuffer> {
+    let params = new HttpParams();
+    params = params.set('idAplicacao', idAplicacao);
+    params = params.set('aplicacao', aplicacao);
+    params = params.set('anexo', anexo);
+    params = params.set('modulo', modulo);
+
+    return this.http.get(this.baseUrl+'/imprimir-anexo', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerImprimirAnexo)); // catch error
   }
 
   errorHandler(error: any) {
@@ -275,6 +286,18 @@ export class DefensorService {
     }
     if (error.status == 500){
       msgErro = 'Ocorreu um erro! Não foi possível gerar o Registro do Condutor!';
+    }
+
+    return throwError(() => new Error(msgErro));
+  }
+
+  errorHandlerImprimirAnexo(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível Imprimir o Anexo! Não foram encontrados anexos!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível Imprimir o Anexo!';
     }
 
     return throwError(() => new Error(msgErro));

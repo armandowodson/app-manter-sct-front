@@ -113,7 +113,7 @@ export class PermissaoReadComponent implements OnInit {
             status: item.status
           }));
           this.totalPontos = res.totalElements;
-          this.pageIndex = res.number;
+          this.paginator.pageIndex = this.pageIndex;
           this.loading = false;
         },
         error: (err) => {
@@ -191,7 +191,7 @@ export class PermissaoReadComponent implements OnInit {
             status: item.status
           }));
           this.totalPontos = res.totalElements;
-          this.pageIndex = res.number;
+          this.paginator.pageIndex = this.pageIndex;
           this.loading = false;
         },
         error: (err) => {

@@ -110,7 +110,7 @@ export class PermissaoRelatorioComponent implements OnInit {
             status: item.status
           }));
           this.totalPontos = res.totalElements;
-          this.pageIndex = res.number;
+          this.paginator.pageIndex = this.pageIndex;
           this.loadingService.hide();
         },
         error: (err) => {
@@ -176,7 +176,7 @@ export class PermissaoRelatorioComponent implements OnInit {
             status: item.status
           }));
           this.totalPontos = res.totalElements;
-          this.pageIndex = res.number;
+          this.paginator.pageIndex = this.pageIndex;
           this.loadingService.hide();
         },
         error: (err) => {

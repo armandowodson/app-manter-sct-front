@@ -6,6 +6,7 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import {environment} from "../../../../environments/environment";
 import {Observable, of} from "rxjs";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 @Injectable({
   providedIn: "root",
@@ -16,7 +17,11 @@ import {Observable, of} from "rxjs";
 })
 export class AuditoriaReadComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   public loading = false;
+
+  localDataInicial: string | null;
+  localDataFinal: string | null;
 
   auditoriaFiltro: AuditoriaFiltro = {
     idAuditoria: 0,
@@ -53,8 +58,10 @@ export class AuditoriaReadComponent implements OnInit {
     this.nomeLogado = "";
     this.totalAuditorias = 0;
     this.pageIndex = 0;
-    this.pageSize = 10;
+    this.pageSize = 50;
     this.buscouTodos = 0;
+    this.localDataInicial = '';
+    this.localDataFinal = '';
   }
 
   ngOnInit(): void {
@@ -74,8 +81,9 @@ export class AuditoriaReadComponent implements OnInit {
           operacao: item.operacao,
           dataOperacao: item.dataOperacao
         }));
+        this.paginator.pageIndex = this.pageIndex;
         this.totalAuditorias = res.totalElements;
-        this.pageIndex = res.number;
+        console.log(this.auditorias);
         this.loading = false;
       },
       error: (err) => {
@@ -87,6 +95,7 @@ export class AuditoriaReadComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
+      this.auditorias = [];
       this.pageIndex = event.pageIndex;
       this.pageSize = event.pageSize;
       if((this.auditoriaFiltro.operacao != null && this.auditoriaFiltro.operacao != undefined && this.auditoriaFiltro.operacao != '') ||
@@ -111,6 +120,14 @@ export class AuditoriaReadComponent implements OnInit {
     this.loading = true;
 
     this.auditoriaFiltro.operacao = this.operacaoSelecionada;
+
+    if (this.localDataInicial != null) {
+      this.auditoriaFiltro.dataInicioOperacao = this.localDataInicial;
+    }
+    if (this.localDataFinal != null) {
+      this.auditoriaFiltro.dataFimOperacao = this.localDataFinal;
+    }
+
     const request: Observable<PageModelo> = this.auditoriaService.consultarAuditoriaComFiltros(this.auditoriaFiltro, this.pageIndex, this.pageSize);
     request.subscribe({
       next: (res) => {
@@ -126,8 +143,9 @@ export class AuditoriaReadComponent implements OnInit {
             "A consulta não retornou resultado!"
           );
         }
+        this.paginator.pageIndex = this.pageIndex;
         this.totalAuditorias = res.totalElements;
-        this.pageIndex = res.number;
+        console.log(this.auditorias);
         this.loading = false;
       },
       error: (err) => {
@@ -142,7 +160,7 @@ export class AuditoriaReadComponent implements OnInit {
     this.loading = true;
     this.auditoriaFiltro.operacao = this.operacaoSelecionada;
 
-    this.auditoriaService.imprimirAuditoria(this.auditoriaFiltro).subscribe({
+    this.auditoriaService.imprimirAuditoria(this.auditoriaFiltro, this.pageIndex, this.pageSize).subscribe({
       next: (auditorias) => {
         if (auditorias.byteLength == 0) {
           this.auditoriaService.showMessageAlert(
@@ -160,5 +178,15 @@ export class AuditoriaReadComponent implements OnInit {
         this.auditoriaService.showMessageError(error.message.replace("Error: ", ""));
       }
     });
+  }
+
+  onChangeDataInicial(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    this.localDataInicial = selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
+  }
+
+  onChangeDataFinal(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    this.localDataFinal = selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
   }
 }

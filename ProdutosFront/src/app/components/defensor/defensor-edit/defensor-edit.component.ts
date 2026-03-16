@@ -9,6 +9,7 @@ import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 import {DefensorFiltro} from "../defensor-filtro.model";
 import {Observable} from "rxjs";
 import {PageModelo} from "../../comum/page-modelo.model";
+import {LoadingService} from "../../../service/loading.service";
 
 @Component({
   selector: 'app-defensor-edit',
@@ -153,6 +154,7 @@ export class DefensorEditComponent implements OnInit {
 
   constructor(private defensorService: DefensorService,
               private permissionarioService: PermissionarioService,
+              private loadingService: LoadingService,
               private router: Router) {
     this.errors = '';
     this.id = '';
@@ -203,6 +205,7 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.cidadeDefensor = history.state.data.cidadeDefensor;
       this.defensor.bairroDefensor = history.state.data.bairroDefensor;
       this.defensor.enderecoDefensor = history.state.data.enderecoDefensor;
+      this.defensor.cep = history.state.data.cep;
       this.defensor.celularDefensor = history.state.data.celularDefensor;
       this.defensor.emailDefensor = history.state.data.emailDefensor;
       this.defensor.numeroQuitacaoMilitar = history.state.data.numeroQuitacaoMilitar;
@@ -397,6 +400,28 @@ export class DefensorEditComponent implements OnInit {
     if(event.value != null){
       this.eventDataValidadeCnh = event.value;
     }
+  }
+
+  imprimirAnexo(idDefensor: number, aplicacao: string, anexo: string): void {
+    this.defensorService.imprimirAnexo(idDefensor, aplicacao, anexo, environment.moduloSelecionado).subscribe({
+      next: (defensores) => {
+        if (defensores.byteLength == 0) {
+          this.defensorService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([defensores], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.defensorService.showMessageSuccess("Anexo carregado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.defensorService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   carregarStatus(status: string) {

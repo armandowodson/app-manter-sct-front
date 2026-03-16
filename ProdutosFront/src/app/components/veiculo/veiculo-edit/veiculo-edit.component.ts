@@ -336,8 +336,8 @@ export class VeiculoEditComponent implements OnInit {
     }
   }
 
-  imprimirAnexoCrlv(idVeiculo: number): void {
-    this.veiculoService.imprimirAnexoCrlv(idVeiculo, environment.moduloSelecionado).subscribe({
+  imprimirAnexo(idVeiculo: number, aplicacao: string, anexo: string): void {
+    this.veiculoService.imprimirAnexo(idVeiculo, aplicacao, anexo, environment.moduloSelecionado).subscribe({
       next: (veiculos) => {
         if (veiculos.byteLength == 0) {
           this.veiculoService.showMessageAlert(
@@ -349,7 +349,7 @@ export class VeiculoEditComponent implements OnInit {
         window.open(url, '_blank');
 
         this.loadingService.hide();
-        this.veiculoService.showMessageSuccess("Anexo CRLV carregado com sucesso!");
+        this.veiculoService.showMessageSuccess("Anexo carregado com sucesso!");
       },
       error: (error) => {
         this.loadingService.hide();

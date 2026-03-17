@@ -249,6 +249,8 @@ export class DefensorCreateComponent implements OnInit {
     this.defensor.categoriaCnhDefensor = this.categoriaCnhSelecionada;
     this.defensor.sexo = this.sexoSelecionado;
     this.defensor.estadoCivil = this.estadoCivilSelecionado;
+    this.defensor.idPermissionario = Number(this.permissionarioSelecionado);
+    this.defensor.status = this.statusSelecionado;
 
     if (this.localDataNascimento != null) {
       this.defensor.dataNascimento = this.localDataNascimento;

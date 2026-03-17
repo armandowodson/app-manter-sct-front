@@ -180,7 +180,7 @@ export class DefensorDetalheComponent implements OnInit {
       this.defensor.numeroInscricaoInss = history.state.data.numeroInscricaoInss;
       this.defensor.numeroCertificadoCondutor = history.state.data.numeroCertificadoCondutor;
       this.defensor.dataValidadeCertificadoCondutor = history.state.data.dataValidadeCertificadoCondutor;
-      this.statusSelecionado = history.state.data.status;
+      this.statusSelecionado = this.carregarStatus(history.state.data.status);
       this.defensor.status = history.state.data.status;
       this.nomeLogado = environment.nomeLogado;
     }
@@ -200,6 +200,26 @@ export class DefensorDetalheComponent implements OnInit {
 
   getFotoSelecionada (event: any): void {
     this.fotoSelecionada = event.target.files[0] || null;
+  }
+
+  carregarStatus(status: string) {
+    var strStatus = "";
+    switch (status) {
+      case "ATIVO":
+        strStatus = "1";
+        break;
+      case "INATIVO":
+        strStatus = "2";
+        break;
+      case "SUSPENSO":
+        strStatus = "3";
+        break;
+      case "CASSADO":
+        strStatus = "4";
+        break;
+    }
+
+    return strStatus;
   }
 
   voltar(): void{

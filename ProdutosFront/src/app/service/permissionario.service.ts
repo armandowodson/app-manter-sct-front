@@ -278,7 +278,7 @@ export class PermissionarioService {
     params = params.set('cpfPermissionario', cpfPermissionario);
     params = params.set('modulo', modulo);
 
-    return this.http.get(this.baseUrl+'/gerar-termo-autorizacao-servico', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarRegistroCondutor)); // catch error
+    return this.http.get(this.baseUrl+'/gerar-termo-autorizacao-servico', {responseType: 'arraybuffer', params}).pipe(catchError(this.errorHandlerGerarTermoAutorizacaoServico)); // catch error
   }
 
   imprimirAnexo(idAplicacao: number, aplicacao: string, anexo: string, modulo : number): Observable<ArrayBuffer> {
@@ -305,6 +305,21 @@ export class PermissionarioService {
     }
     if (error.status == 500){
       msgErro = 'Ocorreu um erro! Não foi possível gerar o Registro do Condutor!';
+    }
+
+    return throwError(() => new Error(msgErro));
+  }
+
+  errorHandlerGerarTermoAutorizacaoServico(error: HttpErrorResponse) {
+    var msgErro = '';
+    if (error.status == 400){
+      msgErro = 'Não é possível emitir o Termo de Autorização do Serviço! Autorizatário não encontrado!';
+    }
+    if (error.status == 401){
+      msgErro = 'Não é possível emitir o Termo de Autorização do Serviço! Não há Veículo associado ao Autorizatário!';
+    }
+    if (error.status == 500){
+      msgErro = 'Ocorreu um erro! Não foi possível gerar o Termo de Autorização do Serviço!';
     }
 
     return throwError(() => new Error(msgErro));

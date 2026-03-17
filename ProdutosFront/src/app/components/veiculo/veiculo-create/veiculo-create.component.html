@@ -40,7 +40,7 @@
 
         <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº Taxímetro</mat-label>
-          <input maxlength="12" type="number" matInput placeholder="Nº Taxímetro" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroTaximetro" name="cnhPermissionario">
+          <input maxlength="12" type="tel" matInput placeholder="Nº Taxímetro" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroTaximetro" name="cnhPermissionario">
           <button mat-button *ngIf="veiculo.numeroTaximetro" matSuffix aria-label="Clear" (click)="veiculo.numeroTaximetro=''">
             <i class="material-icons black v-middle">
               close
@@ -94,7 +94,7 @@
 
         <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Ano Modelo*</mat-label>
-          <input maxlength="4" type="number" matInput placeholder="Ano Modelo" style="margin-right: 20px;" [(ngModel)]="veiculo.anoModelo" name="anoModelo">
+          <input maxlength="4" type="tel" matInput placeholder="Ano Modelo" style="margin-right: 20px;" [(ngModel)]="veiculo.anoModelo" name="anoModelo">
           <button mat-button *ngIf="veiculo.anoModelo" matSuffix aria-label="Clear" (click)="veiculo.anoModelo=''">
             <i class="material-icons black v-middle">
               close
@@ -104,7 +104,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Renavam*</mat-label>
-          <input maxlength="11" type="number" matInput placeholder="Renavam" style="margin-right: 20px;" [(ngModel)]="veiculo.renavam" name="renavam">
+          <input maxlength="11" type="tel" matInput placeholder="Renavam" style="margin-right: 20px;" [(ngModel)]="veiculo.renavam" name="renavam">
           <button mat-button *ngIf="veiculo.renavam" matSuffix aria-label="Clear" (click)="veiculo.renavam=''">
             <i class="material-icons black v-middle">
               close
@@ -152,7 +152,7 @@
 
         <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 20px;">
           <mat-label >Ano Fabricação*</mat-label>
-          <input maxlength="4" type="number" matInput placeholder="Ano Fabricação" style="margin-right: 20px;" [(ngModel)]="veiculo.anoFabricacao" name="anoFabricacao">
+          <input maxlength="4" type="tel" matInput placeholder="Ano Fabricação" style="margin-right: 20px;" [(ngModel)]="veiculo.anoFabricacao" name="anoFabricacao">
           <button mat-button *ngIf="veiculo.anoFabricacao" matSuffix aria-label="Clear" (click)="veiculo.anoFabricacao=''">
             <i class="material-icons black v-middle">
               close
@@ -176,7 +176,7 @@
 
         <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Capacidade</mat-label>
-          <input maxlength="20" type="number" matInput placeholder="Capacidade" style="margin-right: 20px;" [(ngModel)]="veiculo.capacidade" name="capacidade">
+          <input maxlength="20" type="tel" matInput placeholder="Capacidade" style="margin-right: 20px;" [(ngModel)]="veiculo.capacidade" name="capacidade">
           <button mat-button *ngIf="veiculo.capacidade" matSuffix aria-label="Clear" (click)="veiculo.capacidade=''">
             <i class="material-icons black v-middle">
               close
@@ -186,7 +186,7 @@
 
         <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Quilometragem</mat-label>
-          <input maxlength="20" type="number" matInput placeholder="Quilometragem" style="margin-right: 20px;" [(ngModel)]="veiculo.quilometragem" name="quilometragem">
+          <input maxlength="20" type="tel" matInput placeholder="Quilometragem" style="margin-right: 20px;" [(ngModel)]="veiculo.quilometragem" name="quilometragem">
           <button mat-button *ngIf="veiculo.quilometragem" matSuffix aria-label="Clear" (click)="veiculo.quilometragem=''">
             <i class="material-icons black v-middle">
               close
@@ -196,7 +196,7 @@
 
         <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Cilindrada(cc)*</mat-label>
-          <input maxlength="20" type="number" matInput placeholder="Cilindrada(cc)" style="margin-right: 20px;" [(ngModel)]="veiculo.cilindrada" name="cilindrada">
+          <input maxlength="20" type="tel" matInput placeholder="Cilindrada(cc)" style="margin-right: 20px;" [(ngModel)]="veiculo.cilindrada" name="cilindrada">
           <button mat-button *ngIf="veiculo.cilindrada" matSuffix aria-label="Clear" (click)="veiculo.cilindrada=''">
             <i class="material-icons black v-middle">
               close
@@ -205,7 +205,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº CRLV*</mat-label>
-          <input maxlength="15" type="number" matInput placeholder="Nº CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroCrlv" name="numeroCrlv">
+          <input maxlength="15" type="tel" matInput placeholder="Nº CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.numeroCrlv" name="numeroCrlv">
           <button mat-button *ngIf="veiculo.numeroCrlv" matSuffix aria-label="Clear" (click)="veiculo.numeroCrlv=''">
             <i class="material-icons black v-middle">
               close
@@ -215,7 +215,7 @@
 
         <mat-form-field appearance="outline" style="width: 150px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Ano CRLV*</mat-label>
-          <input maxlength="4" type="number" matInput placeholder="Ano CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.anoCrlv" name="anoCrlv">
+          <input maxlength="4" type="tel" matInput placeholder="Ano CRLV" style="margin-right: 20px;" [(ngModel)]="veiculo.anoCrlv" name="anoCrlv">
           <button mat-button *ngIf="veiculo.anoCrlv" matSuffix aria-label="Clear" (click)="veiculo.anoCrlv=''">
             <i class="material-icons black v-middle">
               close
@@ -225,7 +225,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Nº Certificado de Aferição</mat-label>
-          <input maxlength="15" type="number" matInput placeholder="Certificado de Aferição" style="margin-right: 20px;" [(ngModel)]="veiculo.certificadoAfericao" name="certificadoAfericao">
+          <input maxlength="15" type="tel" matInput placeholder="Certificado de Aferição" style="margin-right: 20px;" [(ngModel)]="veiculo.certificadoAfericao" name="certificadoAfericao">
           <button mat-button *ngIf="veiculo.certificadoAfericao" matSuffix aria-label="Clear" (click)="veiculo.certificadoAfericao=''">
             <i class="material-icons black v-middle">
               close
@@ -235,7 +235,7 @@
 
         <mat-form-field appearance="outline" style="width: 200px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Ano Renovação</mat-label>
-          <input maxlength="4" type="number" matInput placeholder="Ano Renovação" style="margin-right: 20px;" [(ngModel)]="veiculo.anoRenovacao" name="anoRenovacao">
+          <input maxlength="4" type="tel" matInput placeholder="Ano Renovação" style="margin-right: 20px;" [(ngModel)]="veiculo.anoRenovacao" name="anoRenovacao">
           <button mat-button *ngIf="veiculo.anoRenovacao" matSuffix aria-label="Clear" (click)="veiculo.anoRenovacao=''">
             <i class="material-icons black v-middle">
               close

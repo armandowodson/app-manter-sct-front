@@ -178,7 +178,7 @@ export class PermissionarioDetalheComponent implements OnInit {
       this.aplicativoAlternativoSelecionado = history.state.data.aplicativoAlternativo;
       this.permissionario.aplicativoAlternativo = history.state.data.aplicativoAlternativo;
       this.permissionario.observacao = history.state.data.observacao;
-      this.statusSelecionado = history.state.data.status;
+      this.statusSelecionado = this.carregarStatus(history.state.data.status);
       this.permissionario.status = history.state.data.status;
       this.nomeLogado = environment.nomeLogado;
     }
@@ -226,6 +226,26 @@ export class PermissionarioDetalheComponent implements OnInit {
 
   getFotoSelecionada (event: any): void {
     this.fotoSelecionada = event.target.files[0] || null;
+  }
+
+  carregarStatus(status: string) {
+    var strStatus = "";
+    switch (status) {
+      case "ATIVO":
+        strStatus = "1";
+        break;
+      case "INATIVO":
+        strStatus = "2";
+        break;
+      case "SUSPENSO":
+        strStatus = "3";
+        break;
+      case "CASSADO":
+        strStatus = "4";
+        break;
+    }
+
+    return strStatus;
   }
 
   voltar(): void{

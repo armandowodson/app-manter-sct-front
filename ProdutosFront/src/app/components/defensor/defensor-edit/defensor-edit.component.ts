@@ -104,10 +104,11 @@ export class DefensorEditComponent implements OnInit {
 
   categoriaCnhSelecionada = "";
   categoriaOptions = [
-    { id: '1', nome: 'B' },
-    { id: '2', nome: 'C' },
-    { id: '3', nome: 'D' },
-    { id: '4', nome: 'E' }
+    { id: '1', nome: 'A' },
+    { id: '2', nome: 'AB' },
+    { id: '3', nome: 'B' },
+    { id: '4', nome: 'C' },
+    { id: '5', nome: 'D' }
   ];
 
   sexoSelecionado = "";
@@ -261,30 +262,6 @@ export class DefensorEditComponent implements OnInit {
 
   getFotoSelecionada (event: any): void {
     this.fotoSelecionada = event.target.files[0] || null;
-  }
-
-  verificarCpf(){
-    if(this.defensor.cpfDefensor != ""){
-      this.defensor.cpfDefensor = this.defensor.cpfDefensor;
-    }else{
-      this.defensorFiltro.cpfDefensor = "11111111111";
-    }
-    const request: Observable<PageModelo> = this.defensorService.consultarDefensoresComFiltros(
-      this.defensorFiltro, 0, 10);
-    request.subscribe({
-      next: (res) => {
-        if (res != null && res.totalElements > 0) {
-          this.permissionarioService.showMessageAlert(
-            "Já existe Defensor para o CPF: " + this.defensorFiltro.cpfDefensor + " informado!"
-          );
-          this.defensor.cpfDefensor = "";
-        }
-      },
-      error: (error) => {
-        this.loading = false;
-        this.permissionarioService.showMessageError(error.message);
-      }
-    });
   }
 
   editarDefensor(): void{
@@ -452,5 +429,40 @@ export class DefensorEditComponent implements OnInit {
     }else{
       this.router.navigate(['/defensormoto']);
     }
+  }
+
+  formatarCep(){
+    var value = this.defensor.cep;
+    var cepPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{2})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona ponto após o sexto dígito
+    this.defensor.cep = cepPattern;
+  }
+
+  formatarCpf(){
+    var value = this.defensor.cpfDefensor;
+    var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2') // Adiciona traço após o nono
+    this.defensor.cpfDefensor = cpfPattern;
+  }
+
+  formatarRg(){
+    var value = this.defensor.rgDefensor;
+    if(this.defensor.rgDefensor.length == 8){
+      var rgPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+        .replace(/(\d{1})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
+      this.defensor.rgDefensor = rgPattern;
+    }else{
+      var rgPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+        .replace(/(\d{2})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
+      this.defensor.rgDefensor = rgPattern;
+    }
+
   }
 }

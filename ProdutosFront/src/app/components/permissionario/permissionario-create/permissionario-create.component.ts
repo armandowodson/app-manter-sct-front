@@ -99,10 +99,11 @@ export class PermissionarioCreateComponent implements OnInit {
 
   categoriaCnhSelecionada = "";
   categoriaOptions = [
-    { id: 1, nome: 'B' },
-    { id: 2, nome: 'C' },
-    { id: 3, nome: 'D' },
-    { id: 4, nome: 'E' }
+    { id: '1', nome: 'A' },
+    { id: '2', nome: 'AB' },
+    { id: '3', nome: 'B' },
+    { id: '4', nome: 'C' },
+    { id: '5', nome: 'D' }
   ];
 
   aplicativoAlternativoSelecionado = "";
@@ -222,6 +223,8 @@ export class PermissionarioCreateComponent implements OnInit {
             "Já existe Autorizatário para o CPF: " + this.permissionarioFiltro.cpfPermissionario + " informado!"
           );
           this.permissionario.cpfPermissionario = "";
+        }else{
+          this.formatarCpf();
         }
       },
       error: (error) => {
@@ -239,10 +242,10 @@ export class PermissionarioCreateComponent implements OnInit {
     this.permissionario.estadoCivil = this.estadoCivilSelecionado;
     this.permissionario.status = this.statusSelecionado;
 
-    if (this.localDataNascimento != null) {
+    if (this.localDataNascimento != null && this.localDataNascimento != '') {
       this.permissionario.dataNascimento = this.localDataNascimento;
     }
-    if (this.localDataValidadeCnh != null) {
+    if (this.localDataValidadeCnh != null && this.localDataValidadeCnh != '') {
       this.permissionario.dataValidadeCnh = this.localDataValidadeCnh;
     }
 
@@ -409,4 +412,38 @@ export class PermissionarioCreateComponent implements OnInit {
     }
   }
 
+  formatarCep(){
+    var value = this.permissionario.cep;
+    var cepPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{2})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona ponto após o sexto dígito
+    this.permissionario.cep = cepPattern;
+  }
+
+  formatarCpf(){
+    var value = this.permissionario.cpfPermissionario;
+    var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2') // Adiciona traço após o nono
+    this.permissionario.cpfPermissionario = cpfPattern;
+  }
+
+  formatarRg(){
+    var value = this.permissionario.rgPermissionario;
+    if(this.permissionario.rgPermissionario.length == 8){
+      var rgPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+        .replace(/(\d{1})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
+      this.permissionario.rgPermissionario = rgPattern;
+    }else{
+      var rgPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+        .replace(/(\d{2})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
+      this.permissionario.rgPermissionario = rgPattern;
+    }
+
+  }
 }

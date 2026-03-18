@@ -105,10 +105,11 @@ export class PermissionarioEditComponent implements OnInit {
 
   categoriaCnhSelecionada = "";
   categoriaOptions = [
-    { id: '1', nome: 'B' },
-    { id: '2', nome: 'C' },
-    { id: '3', nome: 'D' },
-    { id: '4', nome: 'E' }
+    { id: '1', nome: 'A' },
+    { id: '2', nome: 'AB' },
+    { id: '3', nome: 'B' },
+    { id: '4', nome: 'C' },
+    { id: '5', nome: 'D' }
   ];
 
   aplicativoAlternativoSelecionado = "";
@@ -249,30 +250,6 @@ export class PermissionarioEditComponent implements OnInit {
 
   getFotoSelecionada (event: any): void {
     this.fotoSelecionada = event.target.files[0] || null;
-  }
-
-  verificarCpf(){
-    if(this.permissionario.cpfPermissionario != ""){
-      this.permissionarioFiltro.cpfPermissionario = this.permissionario.cpfPermissionario;
-    }else{
-      this.permissionarioFiltro.cpfPermissionario = "11111111111";
-    }
-    const request: Observable<PageModelo> = this.permissionarioService.consultarPermissionariosComFiltros(
-      this.permissionarioFiltro, 0, 10);
-    request.subscribe({
-      next: (res) => {
-        if (res != null && res.totalElements > 0) {
-          this.permissionarioService.showMessageAlert(
-            "Já existe Autorizatário para o CPF: " + this.permissionarioFiltro.cpfPermissionario + " informado!"
-          );
-          this.permissionario.cpfPermissionario = "";
-        }
-      },
-      error: (error) => {
-        this.loading = false;
-        this.permissionarioService.showMessageError(error.message);
-      }
-    });
   }
 
   editarPermissionario(): void{
@@ -445,5 +422,40 @@ export class PermissionarioEditComponent implements OnInit {
     }
 
     return strStatus;
+  }
+
+  formatarCep(){
+    var value = this.permissionario.cep;
+    var cepPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{2})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona ponto após o sexto dígito
+    this.permissionario.cep = cepPattern;
+  }
+
+  formatarCpf(){
+    var value = this.permissionario.cpfPermissionario;
+    var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2') // Adiciona traço após o nono
+    this.permissionario.cpfPermissionario = cpfPattern;
+  }
+
+  formatarRg(){
+    var value = this.permissionario.rgPermissionario;
+    if(this.permissionario.rgPermissionario.length == 8){
+      var rgPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+        .replace(/(\d{1})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
+      this.permissionario.rgPermissionario = rgPattern;
+    }else{
+      var rgPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+        .replace(/(\d{2})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
+      this.permissionario.rgPermissionario = rgPattern;
+    }
+
   }
 }

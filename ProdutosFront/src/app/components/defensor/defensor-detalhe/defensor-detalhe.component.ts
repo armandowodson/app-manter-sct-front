@@ -83,10 +83,11 @@ export class DefensorDetalheComponent implements OnInit {
 
   categoriaCnhSelecionada = "";
   categoriaOptions = [
-    { id: '1', nome: 'B' },
-    { id: '2', nome: 'C' },
-    { id: '3', nome: 'D' },
-    { id: '4', nome: 'E' }
+    { id: '1', nome: 'A' },
+    { id: '2', nome: 'AB' },
+    { id: '3', nome: 'B' },
+    { id: '4', nome: 'C' },
+    { id: '5', nome: 'D' }
   ];
 
   sexoSelecionado = "";

@@ -99,10 +99,11 @@ export class DefensorCreateComponent implements OnInit {
 
   categoriaCnhSelecionada = "";
   categoriaOptions = [
-    { id: 1, nome: 'B' },
-    { id: 2, nome: 'C' },
-    { id: 3, nome: 'D' },
-    { id: 4, nome: 'E' }
+    { id: '1', nome: 'A' },
+    { id: '2', nome: 'AB' },
+    { id: '3', nome: 'B' },
+    { id: '4', nome: 'C' },
+    { id: '5', nome: 'D' }
   ];
 
   sexoSelecionado = "";
@@ -235,6 +236,8 @@ export class DefensorCreateComponent implements OnInit {
             "Já existe Defensor para o CPF: " + this.defensorFiltro.cpfDefensor + " informado!"
           );
           this.defensor.cpfDefensor = "";
+        }else{
+          this.formatarCpf();
         }
       },
       error: (error) => {
@@ -252,10 +255,10 @@ export class DefensorCreateComponent implements OnInit {
     this.defensor.idPermissionario = Number(this.permissionarioSelecionado);
     this.defensor.status = this.statusSelecionado;
 
-    if (this.localDataNascimento != null) {
+    if (this.localDataNascimento != null && this.localDataNascimento != '') {
       this.defensor.dataNascimento = this.localDataNascimento;
     }
-    if (this.localDataValidadeCnh != null) {
+    if (this.localDataValidadeCnh != null && this.localDataValidadeCnh != '') {
       this.defensor.dataValidadeCnh = this.localDataValidadeCnh;
     }
 
@@ -340,6 +343,50 @@ export class DefensorCreateComponent implements OnInit {
       this.defensorService.showMessageError('O campo Categoria CNH é obrigatório!');
       return false;
     }
+    if(this.anexoRgSelecionado == null){
+      this.defensorService.showMessageError('O campo Anexo RG é obrigatório!');
+      return false;
+    }
+    if(this.anexoCpfSelecionado == null){
+      this.defensorService.showMessageError('O campo Anexo CPF é obrigatório!');
+      return false;
+    }
+    if(this.anexoCnhSelecionada == null){
+      this.defensorService.showMessageError('O campo Anexo CNH é obrigatório!');
+      return false;
+    }
+    if(this.comprovanteResidenciaSelecionada == null){
+      this.defensorService.showMessageError('O campo Comprovante de Residência é obrigatório!');
+      return false;
+    }
+    if(this.certidaoNegativaMunicipalSelecionada == null){
+      this.defensorService.showMessageError('O campo Certidão Negativa de Multas e Ocorrências  DETRAN-MA é obrigatório!');
+      return false;
+    }
+    if(this.certidaoNegativaCriminalSelecionada == null){
+      this.defensorService.showMessageError('O campo Certidão Negativa de Antecedentes Criminais é obrigatório!');
+      return false;
+    }
+    if(this.certificadoPropriedadeSelecionada == null){
+      this.defensorService.showMessageError('O campo Certificado de Propriedade da Motocicleta é obrigatório!');
+      return false;
+    }
+    if(this.certificadoCondutorSelecionado == null){
+      this.defensorService.showMessageError('O campo Certificado de Curso Específico (emitido máx. 2 anos) é obrigatório!');
+      return false;
+    }
+    if(this.apoliceSeguroVidaSelecionada == null){
+      this.defensorService.showMessageError('O campo Apólice de Seguro de Vida é obrigatório!');
+      return false;
+    }
+    if(this.apoliceSeguroMotocicletaSelecionada == null){
+      this.defensorService.showMessageError('O campo Apólice de Seguro da Motocicleta (acidentes, furto, incêndio...) é obrigatório!');
+      return false;
+    }
+    if(this.fotoSelecionada == null){
+      this.defensorService.showMessageError('O campo Foto 3x4 é obrigatório!');
+      return false;
+    }
 
     return true;
   }
@@ -360,6 +407,41 @@ export class DefensorCreateComponent implements OnInit {
     }else{
       this.router.navigate(['/defensormoto']);
     }
+  }
+
+  formatarCep(){
+    var value = this.defensor.cep;
+    var cepPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{2})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona ponto após o sexto dígito
+    this.defensor.cep = cepPattern;
+  }
+
+  formatarCpf(){
+    var value = this.defensor.cpfDefensor;
+    var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2') // Adiciona traço após o nono
+    this.defensor.cpfDefensor = cpfPattern;
+  }
+
+  formatarRg(){
+    var value = this.defensor.rgDefensor;
+    if(this.defensor.rgDefensor.length == 8){
+      var rgPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+        .replace(/(\d{1})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
+      this.defensor.rgDefensor = rgPattern;
+    }else{
+      var rgPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+        .replace(/(\d{2})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+        .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+        .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
+      this.defensor.rgDefensor = rgPattern;
+    }
+
   }
 
 }

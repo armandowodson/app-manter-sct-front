@@ -19,7 +19,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PontoTaxiCrudComponent } from './views/ponto-taxi-crud/ponto-taxi-crud.component';
@@ -100,6 +99,9 @@ import { LoadingInterceptor} from "./loading.interceptor";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatRadioModule} from "@angular/material/radio";
 
+import {UppercaseDirective} from "./service/uppercase.directive";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 registerLocaleData(localePt);
 
 export const DATE_FORMATS = {
@@ -174,7 +176,8 @@ export const DATE_FORMATS = {
     AuditoriaCrudComponent,
     AuditoriaReadComponent,
     RelatorioComponent,
-    RelatorioCrudComponent
+    RelatorioCrudComponent,
+    UppercaseDirective
   ],
   imports: [
     BrowserModule,
@@ -204,7 +207,8 @@ export const DATE_FORMATS = {
     MatMenuModule,
     MatCheckboxModule,
     MatTabsModule,
-    MatRadioModule
+    MatRadioModule,
+    ReactiveFormsModule
   ],
 
   providers: [

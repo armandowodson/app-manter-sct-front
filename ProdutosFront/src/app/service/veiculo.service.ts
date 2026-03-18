@@ -233,7 +233,7 @@ export class VeiculoService {
       msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Vistoria realizada para o Veículo!';
     }
     if (error.status == 402){
-      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! Não há Autorizatário associado ao Veículo!';
+      msgErro = 'Não é possível emitir o Certificado Anual de Vistoria! A Vistoria não está com Status Aprovada!';
     }
     if (error.status == 500){
       msgErro = 'Ocorreu um erro! Não foi possível emitir o Certificado Anual de Vistoria!';

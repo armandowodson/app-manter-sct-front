@@ -16,16 +16,18 @@ export class LoginService {
   snackBar = inject(MatSnackBar);
 
   constructor(private http: HttpClient, handler: HttpBackend) { }
-  efetuarLogin(login: Login): Observable<Login> {
-    return this.http.get<Login>(this.baseUrl+'/conectar?usuario='+login.usuario+'&senha='+login.senha).pipe(catchError(this.errorHandler)); // catch error
+  efetuarLogin(usuario: string, senha: string): Observable<Login> {
+    return this.http.get<Login>(this.baseUrl+'/conectar?usuario='+usuario+'&senha='+senha).pipe(catchError(this.errorHandler)); // catch error
   }
 
-  registrarLogin(registro: Registro): Observable<Registro> {
+  registrarLogin(registro: Registro, senha: string): Observable<Registro> {
+    registro.senha = senha;
     return this.http.post<Registro>(this.baseUrl+'/gravar', registro).pipe(catchError(this.errorHandler));
   }
 
-  alterarSenha(registro: Registro): Observable<Registro> {
-    return this.http.post<Registro>(this.baseUrl+'/alterar', registro).pipe(catchError(this.errorHandler));
+  alterarSenha(registro: Registro, senha: string, novaSenha: string): Observable<Registro> {
+    registro.senha = senha;
+    return this.http.post<Registro>(this.baseUrl+'/alterar?novaSenha='+novaSenha, registro).pipe(catchError(this.errorHandler));
   }
 
   public showMessageSuccess(message: string) {

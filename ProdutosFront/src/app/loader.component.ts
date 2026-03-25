@@ -1,16 +1,17 @@
-import {Injectable} from '@angular/core';
-import {finalize, Observable} from "rxjs";
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {LoadingService} from "./service/loading.service";
+import { Component } from '@angular/core';
+import { LoadingService } from './service/loading.service';
+import { CommonModule } from '@angular/common';
 
-@Injectable()
-export class LoadingInterceptor implements HttpInterceptor {
-  constructor(private loadingService: LoadingService) {}
+@Component({
+  selector: 'app-loader',
+  standalone: true,
+  imports: [CommonModule],
+  template: `<div style="display: flex; justify-content: center; align-items: center; font-size: large; color: blue" *ngIf="loading$ | async" class="spinner"><b>Processando a Solicitação. Aguarde!</b></div>`
+})
+export class LoaderComponent {
+  // O pipe async gerencia a inscrição e desinscrição automaticamente
+  loading$ = this.loaderService.loading$;
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.loadingService.show(); // Mostra o loader
-    return next.handle(request).pipe(
-      finalize(() => this.loadingService.hide()) // Esconde o loader quando a request termina
-    );
+  constructor(private loaderService: LoadingService) {
   }
 }

@@ -15,7 +15,9 @@ import {Md5} from "ts-md5";
 export class AlteraSenhaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   public loading = false;
+  public senha = "";
   public novaSenha = "";
+  public senhaConfirmacao = "";
 
   registro: Registro = {
     usuario: "",
@@ -54,21 +56,23 @@ export class AlteraSenhaComponent implements OnInit {
         return;
       }
 
-      this.registro.nome = this.registro.senha;
-      this.registro.senha = this.novaSenha;
-      let hash = Md5.hashStr(this.registro.senha);
-      this.registro.senha = hash;
-      hash = Md5.hashStr(this.registro.nome);
-      this.registro.nome = hash;
-
-      if (this.registro.senha.length < 8) {
-          this.loginService.showMessageAlert('A senha do usuário deve conter 8 caracteres!');
-          return;
-      }
       if (this.registro.usuario.length < 11) {
         this.loginService.showMessageAlert('O Usuário/CPF deve ter 11 caracteres !');
         return;
       }
+      if (this.registro.senha.length < 8) {
+        this.loginService.showMessageAlert('A senha do usuário deve conter 8 caracteres!');
+        return;
+      }
+      if (this.novaSenha != this.senhaConfirmacao) {
+        this.loginService.showMessageAlert('A Nova Senha não é igual a Senha de Confirmação!');
+        return;
+      }
+
+      let hash = Md5.hashStr(this.registro.senha);
+      this.senha = hash;
+      hash = Md5.hashStr(this.novaSenha);
+      this.novaSenha = hash;
 
       if(this.isCheckedTaxi){
         this.registro.modulos = "1#"
@@ -78,12 +82,15 @@ export class AlteraSenhaComponent implements OnInit {
         this.registro.modulos = this.registro.modulos + "2#"
       }
 
-      this.loginService.alterarSenha(this.registro).subscribe({
+      this.loginService.alterarSenha(this.registro, this.senha, this.novaSenha).subscribe({
         next: (response) => {
           this.loginService.showMessageSuccess('Senha do Usuário alterada com Sucesso!');
           this.router.navigate(['/logar']);
         },
         error: (error) => {
+          this.registro.senha = "";
+          this.novaSenha = "";
+          this.senhaConfirmacao = "";
           this.loginService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
@@ -101,12 +108,17 @@ export class AlteraSenhaComponent implements OnInit {
       }
 
       if (this.novaSenha == null || this.novaSenha == "") {
-        this.loginService.showMessageAlert('A nova senha deve ser informada!');
+        this.loginService.showMessageAlert('A Nova Senha deve ser informada!');
+        return false;
+      }
+
+      if (this.senhaConfirmacao == null || this.senhaConfirmacao == "") {
+        this.loginService.showMessageAlert('A Senha de Confirmação deve ser informada!');
         return false;
       }
 
       if(this.isCheckedTaxi == false && this.isCheckedMotoTaxi == false){
-        this.loginService.showMessageAlert('É necessário selecionar ao menos um dos Módulos!');
+        this.loginService.showMessageAlert('É necessário selecionar um Módulo!');
         return false;
       }
 

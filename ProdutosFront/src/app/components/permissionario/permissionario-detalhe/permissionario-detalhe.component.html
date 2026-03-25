@@ -105,7 +105,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >Celular/WhatsApp*</mat-label>
-          <input [disabled]="true" maxlength="12" matInput placeholder="Celular/Telefone" style="margin-right: 20px;" [(ngModel)]="permissionario.celularPermissionario" name="celularPermissionario">
+          <input [disabled]="true" maxlength="14" matInput placeholder="Celular/Telefone" style="margin-right: 20px;" [(ngModel)]="permissionario.celularPermissionario" name="celularPermissionario">
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 400px; margin-left: 20px; margin-right: 30px;">
@@ -124,7 +124,7 @@
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
           <mat-label >CNH*</mat-label>
-          <input [disabled]="true" maxlength="10" type="number" matInput placeholder="CNH" style="margin-right: 20px;" [(ngModel)]="permissionario.cnhPermissionario" name="cnhPermissionario">
+          <input [disabled]="true" maxlength="12" type="text" matInput placeholder="CNH" style="margin-right: 20px;" [(ngModel)]="permissionario.cnhPermissionario" name="cnhPermissionario">
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 250px; margin-left: 20px; margin-right: 30px;">
@@ -147,145 +147,210 @@
         <br>
         <br>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >RG (Carteira de Identidade)*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputRg (change)="getAnexoRgSelecionado($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputRg.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="anexoRgSelecionado">{{ anexoRgSelecionado.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+        <div style="display: flex; gap: 10px;">
+          <mat-card>
+            <mat-card-content style="margin-right: 152px;">
+              <mat-label >RG (Carteira de Identidade)*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputRg (change)="getAnexoRgSelecionado($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputRg.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="anexoRgSelecionado">{{ anexoRgSelecionado.name }}</span>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >CPF*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputCpf (change)="getAnexoCpfSelecionado($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCpf.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="anexoCpfSelecionado">{{ anexoCpfSelecionado.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+                <button style="align-items: center; bottom: -10px;" title="Visualizar RG" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'rg')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <mat-card>
+            <mat-card-content>
+              <mat-label >CPF*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputCpf (change)="getAnexoCpfSelecionado($event)" style="display: none;"
+                       name="cpfPermissionario">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCpf.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="anexoCpfSelecionado">{{ anexoCpfSelecionado.name }}</span>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >CNH Categoria 'A' (mín. 2 anos de experiência)*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputCnh (change)="getAnexoCnhSelecionada($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCnh.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="anexoCnhSelecionada">{{ anexoCnhSelecionada.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+                <button style="align-items: center; bottom: -10px;" title="Visualizar CPF" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'cpf')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >Comprovante Residência em Barreirinhas (mín. 3 anos)*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputResidencia (change)="getComprovanteResidenciaSelecionada($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputResidencia.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="comprovanteResidenciaSelecionada">{{ comprovanteResidenciaSelecionada.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+        <div style="display: flex; gap: 10px;">
+          <mat-card>
+            <mat-card-content style="margin-right: 85px;">
+              <mat-label >CNH Categoria 'A' (mín. 2 anos de experiência)*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputCnh (change)="getAnexoCnhSelecionada($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCnh.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="anexoCnhSelecionada">{{ anexoCnhSelecionada.name }}</span>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >Certidão Negativa de Multas e Ocorrências DETRAN-MA*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputMunicipal (change)="getCertidaoNegativaMunicipalSelecionada($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputMunicipal.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="certidaoNegativaMunicipalSelecionada">{{ certidaoNegativaMunicipalSelecionada.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+                <button style="align-items: center; bottom: -10px;" title="Visualizar CNH" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'cnh')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >Certidão Negativa de Antecedentes Criminais*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputCriminal (change)="getCertidaoNegativaCriminalSelecionada($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCriminal.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="certidaoNegativaCriminalSelecionada">{{ certidaoNegativaCriminalSelecionada.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+          <mat-card>
+            <mat-card-content>
+              <mat-label >Comprovante Residência em Barreirinhas (mín. 3 anos)*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputResidencia (change)="getComprovanteResidenciaSelecionada($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputResidencia.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="comprovanteResidenciaSelecionada">{{ comprovanteResidenciaSelecionada.name }}</span>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >Certificado de Propriedade da Motocicleta*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputPropriedade (change)="getCertificadoPropriedadeSelecionada($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputPropriedade.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="certificadoPropriedadeSelecionada">{{ certificadoPropriedadeSelecionada.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+                <button style="align-items: center; bottom: -10px;" title="Visualizar Comprovante Residência" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'residencia')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >Certificado de Curso Específico (Emitido máx. 2 anos)*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputCertificado (change)="getCertificadoCondutorSelecionado($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCertificado.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="certificadoCondutorSelecionado">{{ certificadoCondutorSelecionado.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+        <div style="display: flex; gap: 10px;">
+          <mat-card>
+            <mat-card-content style="margin-right: 25px;">
+              <mat-label >Certidão Negativa de Multas e Ocorrências DETRAN-MA*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputMunicipal (change)="getCertidaoNegativaMunicipalSelecionada($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputMunicipal.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="certidaoNegativaMunicipalSelecionada">{{ certidaoNegativaMunicipalSelecionada.name }}</span>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >Apólice de Seguro de Vida*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputVida (change)="getApoliceSeguroVidaSelecionada($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputVida.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="apoliceSeguroVidaSelecionada">{{ apoliceSeguroVidaSelecionada.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+                <button style="align-items: center; bottom: -10px;" title="Visualizar Certidão Negativa Multas" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'multas')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
 
-        <mat-card>
-          <mat-card-content>
-            <mat-label >Apólice de Seguro da Motocicleta (acidentes, furto, incêndio, terceiros)*</mat-label>
-            <div class="file-upload-container">
-              <input type="file" #fileInputMotocicleta (change)="getApoliceSeguroMotocicletaSelecionada($event)" style="display: none;">
-              <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputMotocicleta.click()">
-                <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
-              </button>
-              <span *ngIf="apoliceSeguroMotocicletaSelecionada">{{ apoliceSeguroMotocicletaSelecionada.name }}</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+          <mat-card>
+            <mat-card-content>
+              <mat-label >Certidão Negativa de Antecedentes Criminais*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputCriminal (change)="getCertidaoNegativaCriminalSelecionada($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCriminal.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="certidaoNegativaCriminalSelecionada">{{ certidaoNegativaCriminalSelecionada.name }}</span>
+
+                <button style="align-items: center; bottom: -10px;" title="Visualizar Certidão Negativa Antecedentes" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'criminal')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <mat-card>
+            <mat-card-content style="margin-right: 120px;">
+              <mat-label >Certificado de Propriedade da Motocicleta*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputPropriedade (change)="getCertificadoPropriedadeSelecionada($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputPropriedade.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="certificadoPropriedadeSelecionada">{{ certificadoPropriedadeSelecionada.name }}</span>
+
+                <button style="align-items: center; bottom: -10px;" title="Visualizar Certificado de Propriedade" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'propriedade')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card>
+            <mat-card-content>
+              <mat-label >Certificado de Curso Específico (Emitido máx. 2 anos)*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputCertificado (change)="getCertificadoCondutorSelecionado($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputCertificado.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="certificadoCondutorSelecionado">{{ certificadoCondutorSelecionado.name }}</span>
+
+                <button style="align-items: center; bottom: -10px;" title="Visualizar Certificado de Curso" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'certificado')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <mat-card>
+            <mat-card-content style="margin-right: 152px;">
+              <mat-label >Apólice de Seguro de Vida*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputVida (change)="getApoliceSeguroVidaSelecionada($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputVida.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="apoliceSeguroVidaSelecionada">{{ apoliceSeguroVidaSelecionada.name }}</span>
+
+                <button style="align-items: center; bottom: -10px;" title="Visualizar Apólice de Seguro de Vida" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'vida')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card>
+            <mat-card-content>
+              <mat-label >Apólice de Seguro da Motocicleta (acidentes, furto, incêndio, terceiros)*</mat-label>
+              <div class="file-upload-container">
+                <input [disabled]="true" type="file" #fileInputMotocicleta (change)="getApoliceSeguroMotocicletaSelecionada($event)" style="display: none;">
+                <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputMotocicleta.click()">
+                  <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
+                </button>
+                <span *ngIf="apoliceSeguroMotocicletaSelecionada">{{ apoliceSeguroMotocicletaSelecionada.name }}</span>
+
+                <button style="align-items: center; bottom: -10px;" title="Visualizar Apólice de Seguro da Motocicleta" mat-icon-button matSuffix
+                        (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'motocicleta')">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
 
         <mat-card>
           <mat-card-content>
             <mat-label >Foto 3x4 Autorizatário*</mat-label>
             <div class="file-upload-container">
-              <input type="file" #fileInputFoto (change)="getFotoSelecionada($event)" style="display: none;">
+              <input [disabled]="true" type="file" #fileInputFoto (change)="getFotoSelecionada($event)" style="display: none;">
               <button [disabled]="true" mat-raised-button color="primary" (click)="fileInputFoto.click()">
                 <mat-icon>cloud_upload</mat-icon> Selecionar Arquivo
               </button>
               <span *ngIf="fotoSelecionada">{{ fotoSelecionada.name }}</span>
+
+              <button style="align-items: center; bottom: -10px;" title="Visualizar Foto" mat-icon-button matSuffix
+                      (click) = "imprimirAnexo(permissionario.idPermissionario, 'permissionario', 'foto')">
+                <mat-icon>print</mat-icon>
+              </button>
             </div>
           </mat-card-content>
         </mat-card>

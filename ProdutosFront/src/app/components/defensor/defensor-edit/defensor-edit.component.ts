@@ -7,8 +7,6 @@ import {environment} from "../../../../environments/environment";
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 import {DefensorFiltro} from "../defensor-filtro.model";
-import {Observable} from "rxjs";
-import {PageModelo} from "../../comum/page-modelo.model";
 import {LoadingService} from "../../../service/loading.service";
 
 @Component({
@@ -464,5 +462,20 @@ export class DefensorEditComponent implements OnInit {
       this.defensor.rgDefensor = rgPattern;
     }
 
+  }
+
+  formatarCelular() {
+    let valor = this.defensor.celularDefensor.replace(/\D/g, '');
+    valor = valor.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1)$2-$3');
+    this.defensor.celularDefensor = valor;
+  }
+
+  formatarCnh(){
+    var value = this.defensor.cnhDefensor;
+    var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+    this.defensor.cnhDefensor = cpfPattern;
   }
 }

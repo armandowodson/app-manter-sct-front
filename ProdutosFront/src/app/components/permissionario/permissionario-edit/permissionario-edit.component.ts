@@ -456,6 +456,20 @@ export class PermissionarioEditComponent implements OnInit {
         .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono
       this.permissionario.rgPermissionario = rgPattern;
     }
+  }
 
+  formatarCelular() {
+    let valor = this.permissionario.celularPermissionario.replace(/\D/g, '');
+    valor = valor.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1)$2-$3');
+    this.permissionario.celularPermissionario = valor;
+  }
+
+  formatarCnh(){
+    var value = this.permissionario.cnhPermissionario;
+    var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+    this.permissionario.cnhPermissionario = cpfPattern;
   }
 }

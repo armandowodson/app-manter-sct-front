@@ -444,4 +444,19 @@ export class DefensorCreateComponent implements OnInit {
 
   }
 
+  formatarCelular() {
+    let valor = this.defensor.celularDefensor.replace(/\D/g, '');
+    valor = valor.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1)$2-$3');
+    this.defensor.celularDefensor = valor;
+  }
+
+  formatarCnh(){
+    var value = this.defensor.cnhDefensor;
+    var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+      .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+    this.defensor.cnhDefensor = cpfPattern;
+  }
+
 }

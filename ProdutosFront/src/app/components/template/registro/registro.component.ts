@@ -14,6 +14,7 @@ import {Md5} from "ts-md5";
 })
 export class RegistroComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   public loading = false;
   public senhaConfirmacao = "";
 
@@ -27,6 +28,7 @@ export class RegistroComponent implements OnInit {
   errors: string;
   isCheckedTaxi: boolean;
   isCheckedMotoTaxi: boolean;
+  senha: string;
 
   constructor(
     private loginService: LoginService,
@@ -35,6 +37,7 @@ export class RegistroComponent implements OnInit {
     this.errors = "";
     this.isCheckedTaxi = false;
     this.isCheckedMotoTaxi = false;
+    this.senha = "";
   }
 
   ngOnInit(): void {
@@ -58,10 +61,6 @@ export class RegistroComponent implements OnInit {
         this.loginService.showMessageAlert('Senhas não conferem!');
         return;
       }
-
-      const hash = Md5.hashStr(this.registro.senha);
-      this.registro.senha = hash;
-
       if (this.registro.nome.length < 10) {
         this.loginService.showMessageAlert('O Nome Completo deve conter ao menos 10 caracteres!');
         return;
@@ -75,6 +74,9 @@ export class RegistroComponent implements OnInit {
         return;
       }
 
+      const hash = Md5.hashStr(this.registro.senha);
+      this.senha = hash;
+
       if(this.isCheckedTaxi){
         this.registro.modulos = "1#"
       }
@@ -83,12 +85,14 @@ export class RegistroComponent implements OnInit {
         this.registro.modulos = this.registro.modulos + "2#"
       }
 
-      this.loginService.registrarLogin(this.registro).subscribe({
+      this.loginService.registrarLogin(this.registro, this.senha).subscribe({
         next: (response) => {
           this.loginService.showMessageSuccess('Usuário registrado com Sucesso!');
           this.router.navigate(['/logar']);
         },
         error: (error) => {
+          this.registro.senha = "";
+          this.senhaConfirmacao = "";
           this.loginService.showMessageError(error.message.replace("Error: ", ""));
         }
       });
@@ -111,7 +115,7 @@ export class RegistroComponent implements OnInit {
       }
 
     if(this.isCheckedTaxi == false && this.isCheckedMotoTaxi == false){
-      this.loginService.showMessageAlert('É necessário selecionar ao menos um dos Módulos!');
+      this.loginService.showMessageAlert('É necessário selecionar um Módulo!');
       return false;
     }
 

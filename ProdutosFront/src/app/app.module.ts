@@ -101,6 +101,7 @@ import {MatRadioModule} from "@angular/material/radio";
 
 import {UppercaseDirective} from "./service/uppercase.directive";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {LoaderComponent} from "./loader.component";
 
 registerLocaleData(localePt);
 
@@ -208,7 +209,8 @@ export const DATE_FORMATS = {
     MatCheckboxModule,
     MatTabsModule,
     MatRadioModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoaderComponent
   ],
 
   providers: [

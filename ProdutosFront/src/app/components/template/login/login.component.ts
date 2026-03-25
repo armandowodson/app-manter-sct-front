@@ -18,7 +18,6 @@ import {Md5} from "ts-md5";
 export class LoginComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  NODE_TLS_REJECT_UNAUTHORIZED = 0;
   public loading = false;
 
   login: Login = {
@@ -28,6 +27,8 @@ export class LoginComponent implements OnInit {
     modulos: ""
   };
 
+  usuario: string;
+  senha: string;
   errors: string;
   logou = 1;
 
@@ -38,6 +39,8 @@ export class LoginComponent implements OnInit {
     public matDialog: MatDialog
   ) {
     this.errors = "";
+    this.usuario = "";
+    this.senha = "";
   }
 
   ngOnInit(): void {
@@ -50,9 +53,10 @@ export class LoginComponent implements OnInit {
     }
 
     const hash = Md5.hashStr(this.login.senha);
-    this.login.senha = hash;
+    this.usuario = this.login.usuario;
+    this.senha = hash;
 
-    this.loginService.efetuarLogin(this.login).subscribe({
+    this.loginService.efetuarLogin(this.usuario, this.senha).subscribe({
       next: (response) => {
         this.loginService.showMessageSuccess('Login Efetuado com Sucesso!');
         environment.loginGlobal = '1';

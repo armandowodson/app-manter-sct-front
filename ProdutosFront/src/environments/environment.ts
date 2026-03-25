@@ -6,6 +6,6 @@ export const environment = {
   modulosUsuario: '',
   idSelecionado: 0,
   moduloSelecionado: 0,
-  urlAplicacao: "http://localhost:8081/sgsc"
+  urlAplicacao: "http://192.168.1.73:8081/sgsc"
 };
 

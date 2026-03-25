@@ -5,6 +5,7 @@ import {PermissionarioModelo} from "../permissionario-modelo.model";
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {environment} from "../../../../environments/environment";
 import {PermissaoService} from "../../../service/permissao.service";
+import {LoadingService} from "../../../service/loading.service";
 
 @Component({
   selector: 'app-permissinario-detalhe',
@@ -138,6 +139,7 @@ export class PermissionarioDetalheComponent implements OnInit {
   nomeLogado: string;
 
   constructor(private permissionarioService: PermissionarioService,
+              private loadingService: LoadingService,
               private router: Router) {
     this.errors = '';
     this.id = '';
@@ -247,6 +249,28 @@ export class PermissionarioDetalheComponent implements OnInit {
     }
 
     return strStatus;
+  }
+
+  imprimirAnexo(idPermissionario: number, aplicacao: string, anexo: string): void {
+    this.permissionarioService.imprimirAnexo(idPermissionario, aplicacao, anexo, environment.moduloSelecionado).subscribe({
+      next: (permissionarios) => {
+        if (permissionarios.byteLength == 0) {
+          this.permissionarioService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([permissionarios], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.permissionarioService.showMessageSuccess("Anexo carregado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.permissionarioService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   voltar(): void{

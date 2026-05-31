@@ -68,10 +68,7 @@ export class VeiculoCreateComponent implements OnInit {
   combustivelSelecionado = "";
   combustivelOptions = [
     { id: 1, nome: 'GASOLINA' },
-    { id: 2, nome: 'ÁLCOOL/ETANOL' },
-    { id: 3, nome: 'DIESEL' },
-    { id: 4, nome: 'GÁS NATURAL' },
-    { id: 5, nome: 'ELETRICIDADE' }
+    { id: 2, nome: 'ELÉTRICO' }
   ];
 
   situacaoVeiculoSelecionada = "";
@@ -83,11 +80,10 @@ export class VeiculoCreateComponent implements OnInit {
     { id: 5, nome: 'PNEUS CARECAS' }
   ];
 
-  tipoVeiculoSelecionado = "";
+  tipoVeiculoSelecionado = "1";
   tipoVeiculoOptions = [
-    { id: '1', nome: 'CONVENCIONAL' },
-    { id: '2', nome: 'EXECUTIVO' },
-    { id: '3', nome: 'ESPECIAL' }
+    { id: '1', nome: 'MOTO' },
+    { id: '2', nome: 'OUTRO' }
   ];
 
   statusVistoriaSelecionada = "";
@@ -141,6 +137,7 @@ export class VeiculoCreateComponent implements OnInit {
 
   permissionarioSelecionado = "";
   permissionariosOptions: any[] = [];
+  idPermissionario = "";
 
   pontoTaxiSelecionado = "";
   pontosTaxiOptions: any[] = [];
@@ -262,11 +259,6 @@ export class VeiculoCreateComponent implements OnInit {
       return false;
     }
 
-    if(this.veiculo.anoModelo == null || this.veiculo.anoModelo == ''){
-      this.veiculoService.showMessageError('O campo Ano Modelo é obrigatório!');
-      return false;
-    }
-
     if(this.veiculo.renavam == null || this.veiculo.renavam == ''){
       this.veiculoService.showMessageError('O campo Renavam é obrigatório!');
       return false;
@@ -294,11 +286,6 @@ export class VeiculoCreateComponent implements OnInit {
 
     if(this.veiculo.anoFabricacao == null || this.veiculo.anoFabricacao == ''){
       this.veiculoService.showMessageError('O campo Ano Fabricação é obrigatório!');
-      return false;
-    }
-
-    if(this.veiculo.situacaoVeiculo == null || this.veiculo.situacaoVeiculo == ''){
-      this.veiculoService.showMessageError('O campo Situação do Veículo é obrigatório!');
       return false;
     }
 
@@ -334,4 +321,5 @@ export class VeiculoCreateComponent implements OnInit {
     this.router.navigate(['/veiculo']);
   }
 
+  protected readonly event = event;
 }

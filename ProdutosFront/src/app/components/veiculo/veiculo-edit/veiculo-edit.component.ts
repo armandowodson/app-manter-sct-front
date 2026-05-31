@@ -72,10 +72,7 @@ export class VeiculoEditComponent implements OnInit {
   combustivelSelecionado = "";
   combustivelOptions = [
     { id: '1', nome: 'GASOLINA' },
-    { id: '2', nome: 'ÁLCOOL/ETANOL' },
-    { id: '3', nome: 'DIESEL' },
-    { id: '4', nome: 'GÁS NATURAL' },
-    { id: '5', nome: 'ELETRICIDADE' }
+    { id: '2', nome: 'ELÉTRICO' }
   ];
 
   situacaoVeiculoSelecionada = "";
@@ -89,9 +86,8 @@ export class VeiculoEditComponent implements OnInit {
 
   tipoVeiculoSelecionado = "";
   tipoVeiculoOptions = [
-    { id: '1', nome: 'CONVENCIONAL' },
-    { id: '2', nome: 'EXECUTIVO' },
-    { id: '3', nome: 'ESPECIAL' }
+    { id: '1', nome: 'MOTO' },
+    { id: '2', nome: 'OUTRO' }
   ];
 
   statusVistoriaSelecionada = "";
@@ -246,11 +242,6 @@ export class VeiculoEditComponent implements OnInit {
       return false;
     }
 
-    if(this.veiculo.idPontoTaxi == null || this.veiculo.idPontoTaxi == ''){
-      this.veiculoService.showMessageError('O campo Ponto de Estacionamento de Táxi é obrigatório!');
-      return false;
-    }
-
     if(this.veiculo.placa == null || this.veiculo.placa == ''){
       this.veiculoService.showMessageError('O campo Placa é obrigatório!');
       return false;
@@ -268,11 +259,6 @@ export class VeiculoEditComponent implements OnInit {
 
     if(this.veiculo.modelo == null || this.veiculo.modelo == ''){
       this.veiculoService.showMessageError('O campo Modelo é obrigatório!');
-      return false;
-    }
-
-    if(this.veiculo.anoModelo == null || this.veiculo.anoModelo == ''){
-      this.veiculoService.showMessageError('O campo Ano Modelo é obrigatório!');
       return false;
     }
 
@@ -306,18 +292,8 @@ export class VeiculoEditComponent implements OnInit {
       return false;
     }
 
-    if(this.veiculo.situacaoVeiculo == null || this.veiculo.situacaoVeiculo == ''){
-      this.veiculoService.showMessageError('O campo Situação do Veículo é obrigatório!');
-      return false;
-    }
-
     if(this.veiculo.numeroCrlv == null || this.veiculo.numeroCrlv == ''){
       this.veiculoService.showMessageError('O campo Nº do CRLV é obrigatório!');
-      return false;
-    }
-
-    if(this.veiculo.anoCrlv == null || this.veiculo.anoCrlv == ''){
-      this.veiculoService.showMessageError('O campo Ano do CRLV é obrigatório!');
       return false;
     }
 

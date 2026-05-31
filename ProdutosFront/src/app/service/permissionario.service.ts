@@ -252,6 +252,7 @@ export class PermissionarioService {
 
   consultarPermissionariosComFiltros(permissionario: PermissionarioFiltro, pageIndex: number, pageSize: number): Observable<PageModelo> {
     let params = new HttpParams();
+    if (permissionario.idPermissionario)       {  params = params.set('idPermissionario', permissionario.idPermissionario); }
     if (permissionario.nomePermissionario)       {  params = params.set('nomePermissionario', permissionario.nomePermissionario); }
     if (permissionario.cpfPermissionario)       {  params = params.set('cpfPermissionario', permissionario.cpfPermissionario); }
     if (permissionario.cnhPermissionario)       {  params = params.set('cnhPermissionario', permissionario.cnhPermissionario); }

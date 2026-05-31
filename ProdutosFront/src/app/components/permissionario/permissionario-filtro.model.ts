@@ -1,5 +1,5 @@
 export interface PermissionarioFiltro {
-  idPermissionario: number
+  idPermissionario: string
   numeroPermissao: string
   nomePermissionario: string
   cpfPermissionario: string

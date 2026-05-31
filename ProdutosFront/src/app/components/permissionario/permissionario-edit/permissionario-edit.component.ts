@@ -29,7 +29,7 @@ export class PermissionarioEditComponent implements OnInit {
   eventDataValidadeCnh: any;
 
   permissionarioFiltro: PermissionarioFiltro = {
-    idPermissionario: 0,
+    idPermissionario: "",
     numeroPermissao: "",
     nomePermissionario: "",
     cpfPermissionario: "",

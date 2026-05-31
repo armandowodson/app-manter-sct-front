@@ -173,7 +173,7 @@ export class DefensorDetalheComponent implements OnInit {
             );
           }
           permissionarios?.forEach(element => {
-            this.permissionariosOptions.push({ idPermissionario: element.idPermissionario, nomePermissionario: element.nomePermissionario });
+            this.permissionariosOptions.push({ idPermissionario: element.idPermissionario, nomePermissionario: "CCMT Nº" + element.idPermissionario + " - " + element.nomePermissionario });
           });
         },
         (error) => {

@@ -6,6 +6,7 @@ import {VeiculoService} from "../../../service/veiculo.service";
 import {environment} from "../../../../environments/environment";
 import {PermissionarioService} from "../../../service/permissionario.service";
 import {PontoTaxiService} from "../../../service/ponto-taxi.service";
+import {LoadingService} from "../../../service/loading.service";
 
 @Component({
   selector: 'app-permissinario-detalhe',
@@ -63,10 +64,7 @@ export class VeiculoDetalheComponent implements OnInit {
   combustivelSelecionado = "";
   combustivelOptions = [
     { id: '1', nome: 'GASOLINA' },
-    { id: '2', nome: 'ÁLCOOL/ETANOL' },
-    { id: '3', nome: 'DIESEL' },
-    { id: '4', nome: 'GÁS NATURAL' },
-    { id: '5', nome: 'ELETRICIDADE' }
+    { id: '2', nome: 'ELÉTRICO' }
   ];
 
   situacaoVeiculoSelecionada = "";
@@ -80,9 +78,8 @@ export class VeiculoDetalheComponent implements OnInit {
 
   tipoVeiculoSelecionado = "";
   tipoVeiculoOptions = [
-    { id: '1', nome: 'CONVENCIONAL' },
-    { id: '2', nome: 'EXECUTIVO' },
-    { id: '3', nome: 'ESPECIAL' }
+    { id: '1', nome: 'MOTO' },
+    { id: '2', nome: 'OUTRO' }
   ];
 
   statusVistoriaSelecionada = "";
@@ -114,6 +111,7 @@ export class VeiculoDetalheComponent implements OnInit {
   constructor(private veiculoService: VeiculoService,
               private permissionarioService: PermissionarioService,
               private pontoTaxiService: PontoTaxiService,
+              private loadingService: LoadingService,
               private router: Router) {
     this.errors = '';
     this.id = 0;
@@ -198,6 +196,28 @@ export class VeiculoDetalheComponent implements OnInit {
 
   getCrlvSelecionado (event: any): void {
     this.crlvSelecionado = event.target.files[0] || null;
+  }
+
+  imprimirAnexo(idVeiculo: number, aplicacao: string, anexo: string): void {
+    this.veiculoService.imprimirAnexo(idVeiculo, aplicacao, anexo, environment.moduloSelecionado).subscribe({
+      next: (veiculos) => {
+        if (veiculos.byteLength == 0) {
+          this.veiculoService.showMessageAlert(
+            "Não há dados para imprimir!"
+          );
+        }
+        const blob = new Blob([veiculos], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+        this.loadingService.hide();
+        this.veiculoService.showMessageSuccess("Anexo carregado com sucesso!");
+      },
+      error: (error) => {
+        this.loadingService.hide();
+        this.veiculoService.showMessageError(error.message.replace("Error: ", ""));
+      }
+    });
   }
 
   voltar(): void{

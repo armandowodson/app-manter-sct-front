@@ -25,7 +25,7 @@ export class PermissionarioCreateComponent implements OnInit {
   localDataValidadeCnh: string | null;
 
   permissionarioFiltro: PermissionarioFiltro = {
-    idPermissionario: 0,
+    idPermissionario: "",
     numeroPermissao: "",
     nomePermissionario: "",
     cpfPermissionario: "",

@@ -22,7 +22,7 @@ export class PermissionarioReadComponent implements OnInit {
   public loading = false;
 
   permissionarioFiltro: PermissionarioFiltro = {
-    idPermissionario: 0,
+    idPermissionario: "",
     numeroPermissao: "",
     nomePermissionario: "",
     cpfPermissionario: "",
@@ -119,7 +119,8 @@ export class PermissionarioReadComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    if((this.permissionarioFiltro.numeroPermissao != null && this.permissionarioFiltro.numeroPermissao != undefined && this.permissionarioFiltro.numeroPermissao != '') ||
+    if((this.permissionarioFiltro.idPermissionario != null && this.permissionarioFiltro.idPermissionario != undefined && this.permissionarioFiltro.idPermissionario != '') ||
+      (this.permissionarioFiltro.numeroPermissao != null && this.permissionarioFiltro.numeroPermissao != undefined && this.permissionarioFiltro.numeroPermissao != '') ||
       (this.permissionarioFiltro.nomePermissionario != null && this.permissionarioFiltro.nomePermissionario != undefined && this.permissionarioFiltro.nomePermissionario != '') ||
       (this.permissionarioFiltro.cpfPermissionario != null && this.permissionarioFiltro.cpfPermissionario != undefined && this.permissionarioFiltro.cpfPermissionario != '') ||
       (this.permissionarioFiltro.cnhPermissionario != null && this.permissionarioFiltro.cnhPermissionario != undefined && this.permissionarioFiltro.cnhPermissionario != '')){

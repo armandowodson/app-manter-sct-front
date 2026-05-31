@@ -36,7 +36,7 @@ export class PontoTaxiEditComponent implements OnInit {
   modalidadeOptions = [
     { id: '1', nome: 'FIXO' },
     { id: '2', nome: 'ROTATIVO' },
-    { id: '3', nome: 'FIX-ROTATIVO' }
+    { id: '3', nome: 'FIXO-ROTATIVO' }
   ];
 
   errors: string;
